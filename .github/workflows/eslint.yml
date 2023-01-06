@@ -16,7 +16,7 @@ jobs:
       - name: Install modules
         run: npm i
       - name: Run ESLint
-        run: npx eslint --ext js,vue "/home/runner/work/joint-viewing-app/joint-viewing-app/resources/js/**" --fix
+        run: npx eslint --ext js,vue "/home/runner/work/periphery-store-diploma/periphery-store-diploma/resources/js/**" --fix
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
