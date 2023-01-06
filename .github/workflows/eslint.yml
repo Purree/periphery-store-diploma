@@ -1,0 +1,25 @@
+name: eslint
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'dependabot/npm_and_yarn/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Install modules
+        run: npm i
+      - name: Run ESLint
+        run: npx eslint --ext js,vue "/home/runner/work/joint-viewing-app/joint-viewing-app/resources/js/**" --fix
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: EsLinting
+          skip_fetch: true
