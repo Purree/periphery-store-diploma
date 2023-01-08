@@ -1,25 +1,20 @@
 <template>
-    <div class="home-icon">
-        <router-link :to="{ 'name': 'Home' }">
-            <font-awesome-icon icon="home"></font-awesome-icon>
-        </router-link>
-    </div>
-    <slot></slot>
+    <el-main>
+        <el-affix :offset="10">
+            <styled-router-link style="font-size: var(--el-font-size-extra-large)" type="primary" :to="{ 'name': 'Home' }">
+                <font-awesome-icon icon="home"></font-awesome-icon>
+            </styled-router-link>
+        </el-affix>
+        <slot></slot>
+    </el-main>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import StyledRouterLink from '@/components/styled-router-link.vue'
 
 export default {
     name: 'ErrorLayout',
-    components: { FontAwesomeIcon }
+    components: { StyledRouterLink, FontAwesomeIcon }
 }
 </script>
-
-<style scoped>
-.home-icon {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-</style>

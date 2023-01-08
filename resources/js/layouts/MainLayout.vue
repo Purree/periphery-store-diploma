@@ -1,5 +1,5 @@
 <template>
-    <el-main class="container main-content box is-under-header">
+    <el-main class="container">
         <slot></slot>
     </el-main>
 </template>
@@ -13,6 +13,5 @@ export default {
 <style scoped>
     .container {
         display: flex;
-        height: 100vh;
     }
 </style>

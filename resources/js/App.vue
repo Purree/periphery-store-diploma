@@ -1,5 +1,5 @@
 <template>
-    <AppLayout>
+    <AppLayout class="app-content">
         <router-view></router-view>
     </AppLayout>
 </template>
@@ -11,3 +11,9 @@ export default {
     components: { AppLayout }
 }
 </script>
+
+<style scoped>
+.app-content {
+    height: 100vh;
+}
+</style>

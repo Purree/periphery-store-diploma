@@ -1,7 +1,5 @@
 import './bootstrap'
 
-import '@@/app.scss'
-
 /* Font awesome */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -12,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ElementPlus from 'element-plus'
 import '~/element-plus/dist/index.css'
 /* ElementPlus */
+import '@@/app.scss'
 
 import { createApp } from 'vue'
 
