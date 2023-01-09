@@ -1,0 +1,7 @@
+$screen_resolutions : (
+    'mobile'    : screen and (max-width: 575.67px),
+    'tablet'    : screen and (min-width: 575.98px),
+    'big-tablet'    : screen and (min-width: 767.98px),
+    'small-desktop'    : screen and (min-width: 991.98px),
+    'desktop'   : screen and (min-width: 1199.98px),
+);

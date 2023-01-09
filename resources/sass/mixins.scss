@@ -1,0 +1,15 @@
+@mixin screen-size($breakpoints) {
+    $conditions : ();
+    @each $breakpoint in $breakpoints {
+        // If the key exists in the map
+        $conditions: append(
+                $conditions,
+                #{inspect(map-get($screen_resolutions, $breakpoint))},
+                comma
+        );
+    }
+
+    @media #{$conditions} {
+        @content;
+    }
+}

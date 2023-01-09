@@ -1,3 +1,37 @@
-.el-main {
+.main {
     height: 100%;
+}
+
+.container {
+    padding: 0 15px;
+}
+
+@include screen-size('mobile') {
+    .container {
+        padding: 0;
+    }
+}
+
+@include screen-size('tablet') {
+    .container {
+        padding: 0 calc(50% - 270px);
+    }
+}
+
+@include screen-size('big-tablet') {
+    .container {
+        padding: 0 calc(50% - 360px);
+    }
+}
+
+@include screen-size('small-desktop') {
+    .container {
+        padding: 0 calc(50% - 480px);
+    }
+}
+
+@include screen-size('desktop') {
+    .container {
+        padding: 0 calc(50% - 590px);
+    }
 }
