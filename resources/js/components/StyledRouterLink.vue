@@ -1,14 +1,19 @@
 <template>
     <router-link custom :to="this.to" v-slot="{ navigate, href }">
         <el-link v-bind="$attrs" :href="href" @click="navigate">
-            <slot></slot>
+            <template v-slot:icon>
+                <slot name="icon"></slot>
+            </template>
+            <template v-slot:default>
+                <slot></slot>
+            </template>
         </el-link>
     </router-link>
 </template>
 
 <script>
 export default {
-    name: 'styled-router-link',
+    name: 'StyledRouterLink',
     props: {
         to: {
             required: true

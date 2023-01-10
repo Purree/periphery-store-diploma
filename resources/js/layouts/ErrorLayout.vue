@@ -11,7 +11,7 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import StyledRouterLink from '@/components/styled-router-link.vue'
+import StyledRouterLink from '@/components/StyledRouterLink.vue'
 
 export default {
     name: 'ErrorLayout',

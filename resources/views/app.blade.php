@@ -10,6 +10,9 @@
     @vite('resources/css/app.css')
 </head>
 <body>
+    <script>
+        window._asset = '{{ asset('') }}';
+    </script>
     <div id="app"></div>
 
     @vite('resources/js/app.js')

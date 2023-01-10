@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import MainHeader from '@/components/MainHeader.vue'
+import MainHeader from '@/components/header/MainHeader.vue'
 
 export default {
     name: 'MainLayout',
