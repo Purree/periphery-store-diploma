@@ -5,10 +5,17 @@
 </template>
 <script>
 import AppLayout from '@/layouts/AppLayout.vue'
+import changeTheme from '@/mixins/changeTheme'
 
 export default {
     name: 'app',
-    components: { AppLayout }
+    components: { AppLayout },
+    mixins: [changeTheme],
+    mounted() {
+        if (localStorage.getItem('theme') === 'dark' || (localStorage.getItem('theme') !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            this.changeTheme()
+        }
+    }
 }
 </script>
 
