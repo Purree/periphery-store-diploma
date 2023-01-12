@@ -3,9 +3,11 @@
         <el-menu
             :ellipsis="true"
             class="header-menu container"
-            default-active="0"
+            :default-active="activeIndex"
             mode="horizontal"
         >
+            <root-menu-injector ref="rootMenu" :active-index="activeIndex"
+                                :restricted-tab-indexes="restrictedTabIndexes"/>
             <el-menu-item class="header-logo-container" index="0">
                 <styled-router-link :underline="false" class="header-logo header-logo-box" :to="{ 'name': 'Home' }">
                     <template v-slot:icon>
@@ -17,7 +19,7 @@
             </el-menu-item>
 
             <div class="header-blocks-divider"/>
-            <el-menu-item class="header-search-container" index="1">
+            <el-menu-item class="header-search-container inactive-header-element" index="1">
                 <el-input
                     class="header-search"
                     placeholder="Type something"
@@ -32,9 +34,12 @@
             <header-menu-rounded-button-item text="Profile" icon="user" index="2"/>
             <header-menu-rounded-button-item text="Orders" icon="box" index="3"/>
             <header-menu-rounded-button-item text="Cart" icon="cart-shopping" index="4"/>
-            <div class="header-additional-actions">
-                <change-theme-button/>
-            </div>
+
+            <el-menu-item-group class="header-additional-actions" title="Additional actions">
+                <el-menu-item class="change-theme-switch">
+                    <change-theme-button/>
+                </el-menu-item>
+            </el-menu-item-group>
         </el-menu>
     </el-header>
 </template>
@@ -45,17 +50,24 @@ import StoreIcon from '@/components/header/StoreIcon.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import HeaderMenuRoundedButtonItem from '@/components/header/HeaderMenuRoundedButtonItem.vue'
 import ChangeThemeButton from '@/components/header/ChangeThemeButton.vue'
+import RootMenuInjector from '@/components/header/RootMenuInjector.vue'
 
 export default {
     name: 'MainHeader',
     components: {
+        RootMenuInjector,
         ChangeThemeButton,
         HeaderMenuRoundedButtonItem,
         FontAwesomeIcon,
         StoreIcon,
         StyledRouterLink
+    },
+    data() {
+        return {
+            activeIndex: '0',
+            restrictedTabIndexes: [null, '1']
+        }
     }
-
 }
 </script>
 
@@ -97,7 +109,7 @@ export default {
     width: calc(initial + (var(--el-menu-base-level-padding) * 2)) px;
 }
 
-:deep(.header-search-container.is-active), :deep(.header-logo-container.is-active) {
+:deep(.inactive-header-element.is-active), :deep(.header-logo-container.is-active) {
     border-bottom-color: transparent !important;
 }
 
@@ -105,12 +117,18 @@ export default {
     background-color: var(--el-color-primary) !important;
 }
 
-:deep(.header-search-container:focus), :deep(.header-search-container:hover) {
+:deep(.inactive-header-element:focus), :deep(.inactive-header-element:hover) {
     cursor: default;
-    background-color: var(--el-bg-color) !important;
+    background-color: initial !important;
 }
 
 :deep(.header-icon img) {
     width: initial;
+}
+
+:deep(.change-theme-switch) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
