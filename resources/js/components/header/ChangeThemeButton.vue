@@ -10,7 +10,7 @@ export default {
     name: 'ChangeThemeButton',
     mixins: [changeTheme],
     computed: {
-        ...mapState(['theme']),
+        ...mapState('theme', ['theme']),
         themeBooleanColor: {
             get() {
                 return this.theme === 'dark'
@@ -22,7 +22,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

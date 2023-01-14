@@ -4,7 +4,7 @@
             <el-avatar>
                 <font-awesome-icon :icon="icon"></font-awesome-icon>
             </el-avatar>
-            <div>
+            <div class="header-rounded-button-text">
                 {{ text }}
             </div>
         </div>
@@ -31,7 +31,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.el-menu--popup {
+    & .header-rounded-button {
+        width: 100%;
+        justify-content: start;
+        margin-left: 50%;
+        translate: -50%;
+        flex-direction: row;
+    }
+    & .header-rounded-button-text {
+        margin-left: 5px;
+    }
+}
 .header-rounded-button {
     line-height: initial;
     display: flex;

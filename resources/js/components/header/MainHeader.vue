@@ -35,11 +35,7 @@
             <header-menu-rounded-button-item text="Orders" icon="box" index="3"/>
             <header-menu-rounded-button-item text="Cart" icon="cart-shopping" index="4"/>
 
-            <el-menu-item-group class="header-additional-actions" title="Additional actions">
-                <el-menu-item class="change-theme-switch">
-                    <change-theme-button/>
-                </el-menu-item>
-            </el-menu-item-group>
+            <additional-actions />
         </el-menu>
     </el-header>
 </template>
@@ -49,14 +45,14 @@ import StyledRouterLink from '@/components/StyledRouterLink.vue'
 import StoreIcon from '@/components/header/StoreIcon.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import HeaderMenuRoundedButtonItem from '@/components/header/HeaderMenuRoundedButtonItem.vue'
-import ChangeThemeButton from '@/components/header/ChangeThemeButton.vue'
 import RootMenuInjector from '@/components/header/RootMenuInjector.vue'
+import AdditionalActions from '@/components/header/AdditionalActions.vue'
 
 export default {
     name: 'MainHeader',
     components: {
+        AdditionalActions,
         RootMenuInjector,
-        ChangeThemeButton,
         HeaderMenuRoundedButtonItem,
         FontAwesomeIcon,
         StoreIcon,
@@ -79,12 +75,12 @@ export default {
     width: 100%;
 }
 
-.header-additional-actions {
-    min-width: 66px;
-}
-
 .header-blocks-divider {
     flex-grow: 1;
+}
+
+.el-menu--popup .el-menu-item {
+    margin-bottom: 10px;
 }
 
 :deep(.header-menu) {
