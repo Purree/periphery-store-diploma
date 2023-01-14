@@ -75,6 +75,8 @@ export default {
 .header {
     height: var(--el-header-height);
     padding: 0;
+    position: fixed;
+    width: 100%;
 }
 
 .header-additional-actions {

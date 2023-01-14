@@ -1,4 +1,23 @@
+$header-height: 60px;
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $header: (
+    'height': $header-height,
+  )
+);
+@use "element-plus/theme-chalk/src/index.scss" as *;
+@use '../node_modules/element-plus/theme-chalk/src/mixins/_var.scss' as *;
+
+
+html {
+    @include set-component-css-var('menu', (
+        'bg-color': (
+            var(--el-bg-color-overlay)!important
+        )
+    ));
+}
+
 .main {
+    margin-top: $header-height;
     height: 100%;
 }
 

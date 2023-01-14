@@ -1,5 +1,5 @@
 <template>
-        <el-container direction="vertical" style="min-height: 100vh">
+        <el-container direction="vertical" class="app-container">
             <main-header></main-header>
             <el-main class="main container">
                 <slot></slot>
@@ -15,3 +15,10 @@ export default {
     components: { MainHeader }
 }
 </script>
+
+<style scoped>
+.app-container {
+    min-height: 100vh;
+    position: relative;
+}
+</style>
