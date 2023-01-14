@@ -123,10 +123,4 @@ export default {
 :deep(.header-icon img) {
     width: initial;
 }
-
-:deep(.change-theme-switch) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 </style>
