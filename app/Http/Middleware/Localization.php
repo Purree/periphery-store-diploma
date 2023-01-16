@@ -18,7 +18,6 @@ class Localization
      */
     public function handle(Request $request, Closure $next)
     {
-        Session::put('locale', 'en');
         if (Session::has('locale')) {
             $locale = Session::get('locale');
             App::setLocale(is_array($locale) ? $locale[0] : $locale);
