@@ -22,7 +22,7 @@
             <el-menu-item class="header-search-container inactive-header-element" index="1">
                 <el-input
                     class="header-search"
-                    placeholder="Type something"
+                    :placeholder="$t('nav.search')"
                 >
                     <template v-slot:prefix>
                         <font-awesome-icon icon="search"></font-awesome-icon>
@@ -31,9 +31,9 @@
             </el-menu-item>
 
             <div class="header-blocks-divider"/>
-            <header-menu-rounded-button-item text="Profile" icon="user" index="2"/>
-            <header-menu-rounded-button-item text="Orders" icon="box" index="3"/>
-            <header-menu-rounded-button-item text="Cart" icon="cart-shopping" index="4"/>
+            <header-menu-rounded-button-item :text="$t('nav.buttons.profile')" icon="user" index="2"/>
+            <header-menu-rounded-button-item :text="$t('nav.buttons.orders')" icon="box" index="3"/>
+            <header-menu-rounded-button-item :text="$t('nav.buttons.cart')" icon="cart-shopping" index="4"/>
 
             <additional-actions />
         </el-menu>

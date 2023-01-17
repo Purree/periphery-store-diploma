@@ -1,5 +1,5 @@
 <template>
-    <el-button v-bind="$attrs" @click="changeLanguage">Change language</el-button>
+    <el-button v-bind="$attrs" @click="changeLanguage">{{ $t('nav.buttons.additional_actions.change_language') }}</el-button>
 </template>
 
 <script>

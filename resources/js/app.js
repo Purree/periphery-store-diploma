@@ -11,6 +11,10 @@ import '@@/app.scss'
 
 import { createApp } from 'vue'
 
+/* Translation */
+import i18n from '@/lang/index.js'
+/* Translation */
+
 import store from '@/store/index.js'
 import router from '@/routes/index.js'
 
@@ -22,6 +26,7 @@ const app = createApp(App)
     .use(store)
     .use(router)
     .use(ElementPlus)
+    .use(i18n)
 
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')

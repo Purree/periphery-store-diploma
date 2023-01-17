@@ -1,7 +1,6 @@
 <template>
     <el-config-provider :locale="locale">
         <AppLayout class="app-content">
-            <el-table mb-1 :data="[]"/>
             <router-view></router-view>
         </AppLayout>
     </el-config-provider>

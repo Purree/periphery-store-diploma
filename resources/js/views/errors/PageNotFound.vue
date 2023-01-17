@@ -1,5 +1,5 @@
 <template>
-    <div class="error-text">404 | Page not found</div>
+    <div class="error-text">404 | {{ $t('errors.page_not_found') }}</div>
 </template>
 
 <script>
