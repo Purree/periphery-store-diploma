@@ -1,6 +1,8 @@
 import LanguagesEnum from '@/helpers/enums/LanguagesEnum'
 import 'dayjs/locale/ru.js'
 import i18n from '@/lang'
+import apiRequest from '@/helpers/apiRequest'
+import { API_CHANGE_LANGUAGE_URL } from '@/api/language'
 
 export default {
     state: {
@@ -19,13 +21,14 @@ export default {
         }
     },
     actions: {
-        changeLanguage({ commit }, language) {
+        async changeLanguage({ commit }, language) {
             if (!LanguagesEnum[language]) {
                 language = 'ru'
             }
             i18n.global.locale = language
 
             localStorage.setItem('language', language)
+            apiRequest(API_CHANGE_LANGUAGE_URL, { locale: language })
             commit('setLanguage', language)
         }
     },
