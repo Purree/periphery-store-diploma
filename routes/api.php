@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,8 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::post('/language/{locale}', [LanguageController::class, 'changeLanguage'])->name('set-locale');
+
+Route::post('/session', [AuthorizationController::class, 'login'])->name('login');
+Route::post('/users', [AuthorizationController::class, 'registration'])->name('register');
+
+Route::middleware('auth:sanctum')->group(static function () {
+    Route::post('/session', [AuthorizationController::class, 'logout'])->name('logout');
+});
