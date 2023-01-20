@@ -50,6 +50,6 @@ class ResponseResult implements ResultInterface
 
     protected static function castAllErrorValuesToArray(array $errors): array
     {
-        return array_map(static fn($error) => is_array($error) ? $error : [$error], [...$errors]);
+        return array_map(static fn ($error) => is_array($error) ? $error : [$error], [...$errors]);
     }
 }

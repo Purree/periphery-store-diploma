@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\LanguageController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
