@@ -9,8 +9,7 @@
                 :sub-title="$t('authorization.error.unableToDetermineUserDescription')"
             >
                 <template #extra>
-                    <!--            @TODO: Add real logout button-->
-                    <el-button type="primary">{{ $t('authorization.logout') }}</el-button>
+                    <logout-button @logout="$emit('logout')"/>
                 </template>
             </el-result>
         </template>
@@ -18,8 +17,12 @@
 </template>
 
 <script>
+import LogoutButton from '@/components/authentication/LogoutButton.vue'
+
 export default {
     name: 'UnableToAuthenticateDialog',
+    emits: ['logout'],
+    components: { LogoutButton },
     computed: {
         isActive: {
             get() {

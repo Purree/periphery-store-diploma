@@ -1,6 +1,7 @@
 <template>
     <el-config-provider :locale="locale">
-        <unable-to-authenticate-dialog v-if="failedToLogin"></unable-to-authenticate-dialog>
+        <unable-to-authenticate-dialog @logout="failedToLogin = !failedToLogin"
+                                       v-if="failedToLogin"></unable-to-authenticate-dialog>
         <AppLayout class="app-content" v-if="isLoaded">
             <router-view></router-view>
         </AppLayout>
@@ -19,7 +20,10 @@ import UnableToAuthenticateDialog from '@/components/authentication/UnableToAuth
 
 export default {
     name: 'app',
-    components: { UnableToAuthenticateDialog, AppLayout },
+    components: {
+        UnableToAuthenticateDialog,
+        AppLayout
+    },
     mixins: [changeTheme, changeLanguage],
     data() {
         return {

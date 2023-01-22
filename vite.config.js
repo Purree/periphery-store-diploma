@@ -22,7 +22,8 @@ export default defineConfig({
         alias: {
             '@': '/resources/js',
             '@@': '/resources/sass',
-            '~': '/node_modules/'
+            '~': '/node_modules/',
+            'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
         }
     }
-});
+})
