@@ -22,7 +22,13 @@ export default {
             },
             login: 'Login',
             register: 'Register',
-            logout: 'Logout'
+            logout: 'Logout',
+            email: 'Email',
+            nickname: 'Nickname',
+            password: 'Password',
+            confirmPassword: 'Confirm password',
+            rememberMe: 'Remember me',
+            successfullyRegistered: 'You have successfully registered!'
         }
     },
     ru: {
@@ -48,7 +54,13 @@ export default {
             },
             login: 'Войти',
             register: 'Зарегистрироваться',
-            logout: 'Выйти'
+            logout: 'Выйти',
+            email: 'Электронная почта',
+            password: 'Пароль',
+            nickname: 'Никнейм',
+            confirmPassword: 'Подтвердите пароль',
+            rememberMe: 'Запомнить меня',
+            successfullyRegistered: 'Вы успешно зарегистрировались!'
         }
     }
 }
