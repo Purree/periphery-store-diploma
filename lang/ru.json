@@ -37,5 +37,6 @@
     "Verify Email Address": "Подтвердить адрес электронной почты",
     "Whoops!": "Упс!",
     "You are receiving this email because we received a password reset request for your account.": "Вы получили это письмо, потому что мы получили запрос на сброс пароля для Вашей учётной записи.",
-    "Invalid locale": "Неверная локаль"
+    "Invalid locale": "Неверная локаль",
+    "Incorrect user or password.": "Неверный пользователь или пароль."
 }

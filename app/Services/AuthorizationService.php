@@ -19,7 +19,7 @@ class AuthorizationService
         $attemptUser = User::where('email', $loginUserDTO->email)->first();
 
         if (! ($attemptUser && Hash::check($loginUserDTO->password, $attemptUser->password))) {
-            return throw new InvalidArgumentException('Incorrect user or password.');
+            return throw new InvalidArgumentException(__('Incorrect user or password.'));
         }
 
         Auth::login($attemptUser, $loginUserDTO->remember);

@@ -28,7 +28,8 @@ export default {
             password: 'Password',
             confirmPassword: 'Confirm password',
             rememberMe: 'Remember me',
-            successfullyRegistered: 'You have successfully registered!'
+            successfullyRegistered: 'You have successfully registered!',
+            successfullyLoggedIn: 'You have successfully logged in!'
         }
     },
     ru: {
@@ -60,7 +61,8 @@ export default {
             nickname: 'Никнейм',
             confirmPassword: 'Подтвердите пароль',
             rememberMe: 'Запомнить меня',
-            successfullyRegistered: 'Вы успешно зарегистрировались!'
+            successfullyRegistered: 'Вы успешно зарегистрировались!',
+            successfullyLoggedIn: 'Вы успешно вошли в систему!'
         }
     }
 }

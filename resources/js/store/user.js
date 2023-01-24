@@ -31,12 +31,13 @@ export default {
             apiRequest(API_CURRENT_USER_URL).then((response) => {
                 commit('setUser', response.data)
 
-                if (router.currentRoute.params.redirect) {
+                if (router.currentRoute.params?.redirect) {
                     router.push(router.currentRoute.params.redirect)
                 } else {
                     router.push('/')
                 }
             }).catch(errors => {
+                console.log(errors)
                 console.log(errors.response)
             })
         },

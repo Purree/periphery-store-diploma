@@ -31,6 +31,7 @@ import apiRequest from '@/helpers/apiRequest'
 import { API_REGISTRATION_URL } from '@/api/auth'
 import ErrorsAlert from '@/components/errors/ErrorsAlert.vue'
 import { ElMessage } from 'element-plus'
+import getErrorsFromResponse from '@/helpers/errors'
 
 export default {
     name: 'Register',
@@ -59,7 +60,7 @@ export default {
                 ElMessage.success(this.$t('authorization.successfullyRegistered'))
                 this.$router.push({ name: 'Login' })
             } catch (error) {
-                this.errors = error.response.data.errors
+                this.errors = getErrorsFromResponse(error)
             }
         }
     }
