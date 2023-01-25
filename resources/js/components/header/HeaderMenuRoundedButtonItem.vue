@@ -1,5 +1,5 @@
 <template>
-    <el-menu-item :index="index">
+    <el-menu-item v-bind="$attrs" :index="index">
         <div class="header-rounded-button">
             <el-avatar>
                 <font-awesome-icon :icon="icon"></font-awesome-icon>

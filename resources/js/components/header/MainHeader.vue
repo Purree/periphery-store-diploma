@@ -1,6 +1,7 @@
 <template>
     <el-header class="header">
         <el-menu
+            :router="true"
             :ellipsis="true"
             class="header-menu container"
             :default-active="activeIndex"
@@ -8,14 +9,10 @@
         >
             <root-menu-injector ref="rootMenu" :active-index="activeIndex"
                                 :restricted-tab-indexes="restrictedTabIndexes"/>
-            <el-menu-item class="header-logo-container" index="0">
-                <styled-router-link :underline="false" class="header-logo header-logo-box" :to="{ 'name': 'Home' }">
-                    <template v-slot:icon>
-                        <store-icon
-                            class="header-logo header-icon"
-                        />
-                    </template>
-                </styled-router-link>
+            <el-menu-item class="header-logo-container" :index="this.getRoutePathByName('Home')">
+                    <store-icon
+                        class="header-logo header-icon"
+                    />
             </el-menu-item>
 
             <div class="header-blocks-divider"/>
@@ -31,38 +28,44 @@
             </el-menu-item>
 
             <div class="header-blocks-divider"/>
-            <header-menu-rounded-button-item :text="$t('nav.buttons.profile')" icon="user" index="2"/>
-            <header-menu-rounded-button-item :text="$t('nav.buttons.orders')" icon="box" index="3"/>
-            <header-menu-rounded-button-item :text="$t('nav.buttons.cart')" icon="cart-shopping" index="4"/>
+            <header-menu-rounded-button-item :text="$t('nav.buttons.profile')" icon="user"
+                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Profile')"/>
+            <header-menu-rounded-button-item :text="$t('nav.buttons.orders')" icon="box"
+                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
+            <header-menu-rounded-button-item :text="$t('nav.buttons.cart')" icon="cart-shopping"
+                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
 
-            <additional-actions />
+            <additional-actions/>
         </el-menu>
     </el-header>
 </template>
 
 <script>
-import StyledRouterLink from '@/components/StyledRouterLink.vue'
 import StoreIcon from '@/components/header/StoreIcon.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import HeaderMenuRoundedButtonItem from '@/components/header/HeaderMenuRoundedButtonItem.vue'
 import RootMenuInjector from '@/components/header/RootMenuInjector.vue'
 import AdditionalActions from '@/components/header/AdditionalActions.vue'
+import route from '@/mixins/route'
 
 export default {
     name: 'MainHeader',
+    mixins: [route],
     components: {
         AdditionalActions,
         RootMenuInjector,
         HeaderMenuRoundedButtonItem,
         FontAwesomeIcon,
-        StoreIcon,
-        StyledRouterLink
+        StoreIcon
     },
     data() {
         return {
-            activeIndex: '0',
+            activeIndex: '/',
             restrictedTabIndexes: [null, '1']
         }
+    },
+    mounted() {
+        this.activeIndex = this.$route.path
     }
 }
 </script>

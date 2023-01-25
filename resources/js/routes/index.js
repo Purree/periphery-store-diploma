@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { loadLayoutMiddleware } from '@/routes/middleware/loadLayout.js'
 import auth from '@/routes/auth'
 import { redirectFromAuthRoutes } from '@/routes/middleware/redirectFromAuthRoutes'
+import { redirectFromLoggedInRoutes } from '@/routes/middleware/redirectFromLoggedInRoutes'
+import user from '@/routes/user'
 
 const routes = [
     {
@@ -9,7 +11,8 @@ const routes = [
         name: 'Home',
         component: () => import('@/views/Home.vue'),
         meta: {
-            layout: 'MainLayout'
+            layout: 'MainLayout',
+            transition: 'none'
         }
     },
     {
@@ -24,7 +27,8 @@ const routes = [
         path: '/:catchAll(.*)', // Unrecognized path automatically matches 404
         redirect: { name: 'PageNotExist' }
     },
-    ...auth
+    ...auth,
+    ...user
 ]
 
 const router = createRouter({
@@ -34,5 +38,6 @@ const router = createRouter({
 
 router.beforeEach(loadLayoutMiddleware)
 router.beforeEach(redirectFromAuthRoutes)
+router.beforeEach(redirectFromLoggedInRoutes)
 
 export default router
