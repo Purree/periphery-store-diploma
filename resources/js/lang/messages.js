@@ -29,7 +29,8 @@ export default {
             confirmPassword: 'Confirm password',
             rememberMe: 'Remember me',
             successfullyRegistered: 'You have successfully registered!',
-            successfullyLoggedIn: 'You have successfully logged in!'
+            successfullyLoggedIn: 'You have successfully logged in!',
+            successfullyLoggedOut: 'You have successfully logged out!'
         }
     },
     ru: {
@@ -62,7 +63,8 @@ export default {
             confirmPassword: 'Подтвердите пароль',
             rememberMe: 'Запомнить меня',
             successfullyRegistered: 'Вы успешно зарегистрировались!',
-            successfullyLoggedIn: 'Вы успешно вошли в систему!'
+            successfullyLoggedIn: 'Вы успешно вошли в систему!',
+            successfullyLoggedOut: 'Вы успешно вышли из системы!'
         }
     }
 }

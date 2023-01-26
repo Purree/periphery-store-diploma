@@ -1,14 +1,16 @@
 <template>
-    <el-button type="primary" :disabled="pending" :class="{'is-loading' : pending}" @click="usePending(logout)">
+    <full-width-button v-bind="$attrs" :disabled="pending" :class="{'is-loading' : pending}" @click="usePending(logout)">
         {{ $t('authorization.logout') }}
-    </el-button>
+    </full-width-button>
 </template>
 
 <script>
 import usePending from '@/mixins/usePending'
+import FullWidthButton from '@/components/FullWidthButton.vue'
 
 export default {
     name: 'LogoutButton',
+    components: { FullWidthButton },
     emits: ['logout'],
     mixins: [usePending],
     data() {

@@ -9,7 +9,7 @@
                 :sub-title="$t('authorization.error.unableToDetermineUserDescription')"
             >
                 <template #extra>
-                    <logout-button @logout="$emit('logout')"/>
+                    <logout-button type="primary" @logout="$emit('logout')"/>
                 </template>
             </el-result>
         </template>
