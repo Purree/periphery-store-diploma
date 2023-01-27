@@ -8,6 +8,7 @@
                :placeholder="$t('authorization.password')">
         {{ $t('authorization.password') }}
     </input-row>
+    <el-checkbox v-model="loginData.remember">{{ $t('authorization.rememberMe') }}</el-checkbox>
 
     <full-width-button :pending="loginPending" type="primary"
                        @click="usePending(login, 'loginPending')" class="fullwidth-button">
