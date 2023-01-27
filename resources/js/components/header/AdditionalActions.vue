@@ -6,7 +6,7 @@
         <el-menu-item class="inactive-header-element">
             <change-language-button/>
         </el-menu-item>
-        <el-menu-item v-show="isLoggedIn()" class="inactive-header-element">
+        <el-menu-item v-show="checkIsLoggedIn()" class="inactive-header-element">
             <logout-button @logout="openLogoutMessage" type="danger"/>
         </el-menu-item>
     </el-menu-item-group>

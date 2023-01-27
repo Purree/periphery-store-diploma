@@ -28,11 +28,14 @@
             </el-menu-item>
 
             <div class="header-blocks-divider"/>
-            <header-menu-rounded-button-item :text="$t('nav.buttons.profile')" icon="user"
+            <header-menu-rounded-button-item :text="checkIsLoggedIn() ? $t('nav.buttons.profile') : $t('authorization.login')"
+                                             icon="user"
                                              :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Profile')"/>
-            <header-menu-rounded-button-item :text="$t('nav.buttons.orders')" icon="box"
+            <header-menu-rounded-button-item v-if="checkIsLoggedIn()"
+                                             :text="$t('nav.buttons.orders')" icon="box"
                                              :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
-            <header-menu-rounded-button-item :text="$t('nav.buttons.cart')" icon="cart-shopping"
+            <header-menu-rounded-button-item v-if="checkIsLoggedIn()"
+                                             :text="$t('nav.buttons.cart')" icon="cart-shopping"
                                              :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
 
             <additional-actions/>
@@ -47,10 +50,11 @@ import HeaderMenuRoundedButtonItem from '@/components/header/HeaderMenuRoundedBu
 import RootMenuInjector from '@/components/header/RootMenuInjector.vue'
 import AdditionalActions from '@/components/header/AdditionalActions.vue'
 import route from '@/mixins/route'
+import auth from '@/mixins/auth'
 
 export default {
     name: 'MainHeader',
-    mixins: [route],
+    mixins: [route, auth],
     components: {
         AdditionalActions,
         RootMenuInjector,

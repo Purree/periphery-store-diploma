@@ -1,6 +1,6 @@
 export default {
     methods: {
-        isLoggedIn() {
+        checkIsLoggedIn() {
             return this.$store.getters['auth/isLoggedIn']
         }
     }
