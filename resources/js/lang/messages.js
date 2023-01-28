@@ -31,6 +31,17 @@ export default {
             successfullyRegistered: 'You have successfully registered!',
             successfullyLoggedIn: 'You have successfully logged in!',
             successfullyLoggedOut: 'You have successfully logged out!'
+        },
+        updateUser: {
+            mainInformation: {
+                errors: {
+                    validationMessage: 'The data entered in the form is incorrect, try to double-check its correctness.',
+                    nickname: {
+                        required: 'Please input your name',
+                        length: 'Length should be 3 to 30'
+                    }
+                }
+            }
         }
     },
     ru: {
@@ -65,6 +76,17 @@ export default {
             successfullyRegistered: 'Вы успешно зарегистрировались!',
             successfullyLoggedIn: 'Вы успешно вошли в систему!',
             successfullyLoggedOut: 'Вы успешно вышли из системы!'
+        },
+        updateUser: {
+            mainInformation: {
+                errors: {
+                    validationMessage: 'Введенные в форму данные некорректны, попробуйте еще раз проверить их корректность.',
+                    nickname: {
+                        required: 'Пожалуйста, введите ваше имя',
+                        length: 'Длина должна быть от 3 до 30'
+                    }
+                }
+            }
         }
     }
 }
