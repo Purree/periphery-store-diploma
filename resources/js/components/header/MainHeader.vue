@@ -29,8 +29,11 @@
 
             <div class="header-blocks-divider"/>
             <header-menu-rounded-button-item :text="checkIsLoggedIn() ? $t('nav.buttons.profile') : $t('authorization.login')"
-                                             icon="user"
-                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Profile')"/>
+                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Profile')">
+                <template v-slot:icon>
+                    <user-avatar></user-avatar>
+                </template>
+            </header-menu-rounded-button-item>
             <header-menu-rounded-button-item v-if="checkIsLoggedIn()"
                                              :text="$t('nav.buttons.orders')" icon="box"
                                              :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
@@ -51,11 +54,13 @@ import RootMenuInjector from '@/components/header/RootMenuInjector.vue'
 import AdditionalActions from '@/components/header/AdditionalActions.vue'
 import route from '@/mixins/route'
 import auth from '@/mixins/auth'
+import UserAvatar from '@/components/profile/UserAvatar.vue'
 
 export default {
     name: 'MainHeader',
     mixins: [route, auth],
     components: {
+        UserAvatar,
         AdditionalActions,
         RootMenuInjector,
         HeaderMenuRoundedButtonItem,

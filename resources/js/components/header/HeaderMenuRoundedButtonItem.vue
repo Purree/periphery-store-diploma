@@ -1,9 +1,11 @@
 <template>
     <el-menu-item v-bind="$attrs" :index="index">
         <div class="header-rounded-button">
-            <el-avatar>
-                <font-awesome-icon :icon="icon"></font-awesome-icon>
-            </el-avatar>
+            <slot name="icon">
+                <el-avatar>
+                    <font-awesome-icon :icon="icon"></font-awesome-icon>
+                </el-avatar>
+            </slot>
             <div class="header-rounded-button-text">
                 {{ text }}
             </div>
@@ -21,7 +23,7 @@ export default {
         },
         icon: {
             type: String,
-            required: true
+            required: false
         },
         text: {
             type: String,
