@@ -33,7 +33,12 @@ export default {
             successfullyLoggedOut: 'You have successfully logged out!'
         },
         updateUser: {
+            successfullyUpdated: 'You have successfully updated your profile!',
             mainInformation: {
+                buttons: {
+                    update: 'Update',
+                    cancel: 'Cancel'
+                },
                 errors: {
                     validationMessage: 'The data entered in the form is incorrect, try to double-check its correctness.',
                     nickname: {
@@ -79,6 +84,11 @@ export default {
         },
         updateUser: {
             mainInformation: {
+                successfullyUpdated: 'Вы успешно обновили свой профиль!',
+                buttons: {
+                    update: 'Обновить',
+                    cancel: 'Отменить'
+                },
                 errors: {
                     validationMessage: 'Введенные в форму данные некорректны, попробуйте еще раз проверить их корректность.',
                     nickname: {

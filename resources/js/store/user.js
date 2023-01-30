@@ -25,29 +25,27 @@ export default {
         }
     },
     actions: {
-        login({ commit }) {
-            commit('setIsLoggedIn', true)
+        async login({ commit }) {
+            try {
+                const currentUserResponse = await apiRequest(API_CURRENT_USER_URL)
+                commit('setIsLoggedIn', true)
+                commit('setUser', currentUserResponse.data)
 
-            apiRequest(API_CURRENT_USER_URL).then((response) => {
-                commit('setUser', response.data)
-
-                if (router.currentRoute.params?.redirect) {
-                    router.push(router.currentRoute.params.redirect)
-                } else {
-                    router.push('/')
-                }
-            }).catch(errors => {
-                console.log(errors)
-                console.log(errors.response)
-            })
+                router.push(router.currentRoute.params?.redirect ?? '/')
+            } catch (error) {
+                console.log(error)
+                console.log(error.response)
+            }
         },
-        logout({ commit }) {
-            return apiRequest(API_LOGOUT_URL)
-                .catch((error) => {
-                    console.log(error.response.data)
-                }).then(() => {
-                    commit('setIsLoggedIn', false)
-                })
+        async logout({ commit }) {
+            try {
+                await apiRequest(API_LOGOUT_URL)
+                commit('setIsLoggedIn', false)
+                commit('setUser', {})
+            } catch (error) {
+                console.log(error)
+                console.log(error.response.data)
+            }
         }
     },
     namespaced: true

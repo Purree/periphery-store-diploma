@@ -25,5 +25,11 @@ Route::post('/users', [AuthorizationController::class, 'registration'])->name('r
 Route::middleware('auth:sanctum')->group(static function () {
     Route::delete('/session', [AuthorizationController::class, 'logout'])->name('logout');
 
-    Route::get('/users/me', [UserController::class, 'showAuthenticated'])->name('me');
+    Route::name('users.')->prefix('users')->group(static function () {
+        Route::get('/me', [UserController::class, 'showAuthenticated'])->name('me');
+
+        Route::middleware('can:manipulate-user,user')->prefix('/{user}')->group(static function () {
+            Route::put('/', [UserController::class, 'update'])->name('update-main-user-data');
+        });
+    });
 });

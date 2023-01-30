@@ -1,16 +1,23 @@
 <template>
     <div>
         <errors-alert :errors="errors"></errors-alert>
+        <el-alert v-if="userSuccessfullyUpdated" type="success" class="userSuccessfullyUpdatedAlert"
+                  :title="$t('updateUser.mainInformation.successfullyUpdated')"></el-alert>
+
         <el-form :rules="rules" :model="userInformation" ref="mainUserInformationForm">
             <el-form-item :label="$t('authorization.nickname')" prop="name">
                 <el-input v-model="userInformation.name"/>
             </el-form-item>
 
             <el-form-item class="mainUserInformationFormButtons">
-                <full-width-button type="primary" @click="submitForm(this.$refs.mainUserInformationForm)">
-                    Create
+                <full-width-button :disabled="this.userInformation.name === this.user.name"
+                                   :pending="updateUserPending" type="primary"
+                                   @click="usePending(updateUser, 'updateUserPending')">
+                    {{ $t('updateUser.mainInformation.buttons.update') }}
                 </full-width-button>
-                <full-width-button @click="resetForm(this.$refs.mainUserInformationForm)">Reset</full-width-button>
+                <full-width-button @click="resetForm">
+                    {{ $t('updateUser.mainInformation.buttons.cancel') }}
+                </full-width-button>
             </el-form-item>
         </el-form>
     </div>
@@ -20,6 +27,10 @@
 import { mapState } from 'vuex'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import ErrorsAlert from '@/components/errors/ErrorsAlert.vue'
+import usePending from '@/mixins/usePending'
+import apiRequest from '@/helpers/apiRequest'
+import { API_UPDATE_USER_URL } from '@/api/users'
+import getErrorsFromResponse from '@/helpers/errors'
 
 export default {
     name: 'MainUserInformationChange',
@@ -27,9 +38,12 @@ export default {
         ErrorsAlert,
         FullWidthButton
     },
+    mixins: [usePending],
     data() {
         return {
             errors: {},
+            updateUserPending: false,
+            userSuccessfullyUpdated: false,
             userInformation: {
                 name: ''
             },
@@ -51,17 +65,37 @@ export default {
         }
     },
     methods: {
-        submitForm(form) {
-            form.validate((valid) => {
-                if (valid) {
-                    alert('update user')
-                } else {
-                    this.errors = {
-                        ...this.errors,
-                        ...{ validation: [this.$t('updateUser.mainInformation.errors.validationMessage')] }
-                    }
+        async updateUser() {
+            const isUserInformationValid = await this.$refs.mainUserInformationForm.validate((isValid) => isValid)
+
+            if (!isUserInformationValid) {
+                this.userSuccessfullyUpdated = false
+                this.errors = {
+                    ...this.errors,
+                    ...{ validation: [this.$t('updateUser.mainInformation.errors.validationMessage')] }
                 }
-            })
+                return
+            }
+
+            try {
+                const response = await apiRequest(API_UPDATE_USER_URL, { id: this.user.id }, this.userInformation)
+                await this.$store.commit('auth/setUser', response.data)
+
+                this.errors = {}
+                this.showAlertAboutSuccessfulUpdate()
+                this.resetForm()
+
+                return response
+            } catch (errors) {
+                this.errors = getErrorsFromResponse(errors)
+            }
+        },
+        showAlertAboutSuccessfulUpdate() {
+            this.userSuccessfullyUpdated = true
+
+            setTimeout(() => {
+                this.userSuccessfullyUpdated = false
+            }, 3000)
         },
         resetForm() {
             this.$refs.mainUserInformationForm.resetFields()
@@ -86,5 +120,9 @@ export default {
 :deep(.mainUserInformationFormButtons > *) {
     display: flex;
     flex-wrap: nowrap;
+}
+
+.userSuccessfullyUpdatedAlert {
+    margin-bottom: 10px;
 }
 </style>

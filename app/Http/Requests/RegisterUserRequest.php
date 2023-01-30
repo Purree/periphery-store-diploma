@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\DataTransferObjects\RegisterUserDTO;
+use App\Enums\UserValidationRules;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterUserRequest extends FormRequest
@@ -25,7 +26,7 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:3|max:30',
+            'name' => UserValidationRules::name->value,
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
         ];
