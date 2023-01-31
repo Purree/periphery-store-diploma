@@ -36,10 +36,8 @@ export default {
             this.changeLanguage()
         }
 
-        this.$store.commit('auth/setIsLoggedIn', localStorage.getItem('isLoggedIn') === 'true')
-
         try {
-            if (this.$store.getters['auth/isLoggedIn']) {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
                 await this.$store.dispatch('auth/changeStatusToLoggedIn')
             }
         } catch (error) {

@@ -14,7 +14,7 @@ class LoginUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth('sanctum')->guest();
+        return true;
     }
 
     /**
