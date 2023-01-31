@@ -5,7 +5,7 @@ export default [
         component: () => import('@/views/user/Profile.vue'),
         meta: {
             layout: 'MainLayout',
-            loggedInRoute: true,
+            requiresAuth: true,
             transition: 'none'
         }
     }

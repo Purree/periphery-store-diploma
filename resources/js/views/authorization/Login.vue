@@ -49,9 +49,9 @@ export default {
         async login() {
             try {
                 await apiRequest(API_LOGIN_URL, {}, this.loginData)
-                await this.$store.dispatch('auth/login', this.loginData)
+                await this.$store.dispatch('auth/changeStatusToLoggedIn')
                 ElMessage.success(this.$t('authorization.successfullyLoggedIn'))
-                this.$router.push({ name: 'Home' })
+                this.$router.push(this.$route.query?.redirect ?? { name: 'Home' })
             } catch (error) {
                 this.errors = getErrorsFromResponse(error)
             }

@@ -1,5 +1,6 @@
 <template>
-    <full-width-button v-bind="$attrs" :disabled="pending" :class="{'is-loading' : pending}" @click="usePending(logout)">
+    <full-width-button v-bind="$attrs" :disabled="pending" :class="{'is-loading' : pending}"
+                       @click="usePending(logout)">
         {{ $t('authorization.logout') }}
     </full-width-button>
 </template>
@@ -20,7 +21,12 @@ export default {
     },
     methods: {
         async logout() {
-            await this.$store.dispatch('auth/logout')
+            try {
+                await this.$store.dispatch('auth/logout')
+            } catch (error) {
+                console.log(error)
+                console.log(error.response.data)
+            }
             this.$emit('logout')
         }
     }

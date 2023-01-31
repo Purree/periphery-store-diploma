@@ -13,9 +13,6 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import changeTheme from '@/mixins/changeTheme'
 import changeLanguage from '@/mixins/changeLanguage'
 import { mapState } from 'vuex'
-import apiRequest from '@/helpers/apiRequest'
-import { API_CURRENT_USER_URL } from '@/api/users'
-import AuthenticationError from '@/errors/AuthenticationError'
 import UnableToAuthenticateDialog from '@/components/authentication/UnableToAuthenticateDialog.vue'
 
 export default {
@@ -31,26 +28,6 @@ export default {
             failedToLogin: false
         }
     },
-    methods: {
-        async checkIsLoggedIn() {
-            if (!this.isLoggedIn) {
-                return false
-            }
-
-            try {
-                const response = await apiRequest(API_CURRENT_USER_URL)
-                this.$store.commit('auth/setUser', response.data)
-                return true
-            } catch (error) {
-                console.log(error.response)
-
-                if (error.response.status === 401) {
-                    return false
-                }
-                throw new AuthenticationError('Failed to authenticate user')
-            }
-        }
-    },
     async mounted() {
         if (localStorage.getItem('theme') === 'dark' || (localStorage.getItem('theme') !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             this.changeTheme()
@@ -62,15 +39,15 @@ export default {
         this.$store.commit('auth/setIsLoggedIn', localStorage.getItem('isLoggedIn') === 'true')
 
         try {
-            if (!await this.checkIsLoggedIn()) {
-                this.$store.commit('auth/setIsLoggedIn', false)
+            if (this.$store.getters['auth/isLoggedIn']) {
+                await this.$store.dispatch('auth/changeStatusToLoggedIn')
             }
         } catch (error) {
-            if (!(error instanceof AuthenticationError)) {
-                throw error
-            }
+            console.log(error.response)
 
-            this.failedToLogin = true
+            if (error.response.status !== 401) {
+                this.failedToLogin = true
+            }
         } finally {
             this.isLoaded = true
         }

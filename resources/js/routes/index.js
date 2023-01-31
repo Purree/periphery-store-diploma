@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { loadLayoutMiddleware } from '@/routes/middleware/loadLayout.js'
 import auth from '@/routes/auth'
 import { redirectFromAuthRoutes } from '@/routes/middleware/redirectFromAuthRoutes'
-import { redirectFromLoggedInRoutes } from '@/routes/middleware/redirectFromLoggedInRoutes'
+import { redirectFromRoutesRequiredAuth } from '@/routes/middleware/redirectFromRoutesRequiredAuth'
 import user from '@/routes/user'
 
 const routes = [
@@ -38,6 +38,6 @@ const router = createRouter({
 
 router.beforeEach(loadLayoutMiddleware)
 router.beforeEach(redirectFromAuthRoutes)
-router.beforeEach(redirectFromLoggedInRoutes)
+router.beforeEach(redirectFromRoutesRequiredAuth)
 
 export default router
