@@ -4,6 +4,7 @@ import auth from '@/routes/auth'
 import { redirectFromAuthRoutes } from '@/routes/middleware/redirectFromAuthRoutes'
 import { redirectFromRoutesRequiredAuth } from '@/routes/middleware/redirectFromRoutesRequiredAuth'
 import user from '@/routes/user'
+import { saveQueryParametersBetweenAuthRoutes } from '@/routes/middleware/saveQueryParametersBetweenAuthRoutes'
 
 const routes = [
     {
@@ -38,6 +39,7 @@ const router = createRouter({
 
 router.beforeEach(loadLayoutMiddleware)
 router.beforeEach(redirectFromAuthRoutes)
+router.beforeEach(saveQueryParametersBetweenAuthRoutes)
 router.beforeEach(redirectFromRoutesRequiredAuth)
 
 export default router
