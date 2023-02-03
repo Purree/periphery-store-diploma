@@ -46,6 +46,12 @@ export default {
                         length: 'Length should be 3 to 30'
                     }
                 }
+            },
+            avatar: {
+                errors: {
+                    incorrectExtension: 'Avatar must be JPG/PNG file!',
+                    incorrectSize: 'Avatar size must be less than 2MB!'
+                }
             }
         }
     },
@@ -95,6 +101,12 @@ export default {
                         required: 'Пожалуйста, введите ваше имя',
                         length: 'Длина должна быть от 3 до 30'
                     }
+                }
+            },
+            avatar: {
+                errors: {
+                    incorrectExtension: 'Аватар должен быть JPG/PNG файлом!',
+                    incorrectSize: 'Размер аватара должен быть меньше 2MB!'
                 }
             }
         }

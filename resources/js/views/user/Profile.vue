@@ -1,27 +1,19 @@
 <template>
-    <div class="userAvatarEditingContainer">
-        <user-avatar :size="200"></user-avatar>
-    </div>
+    <user-avatar-change></user-avatar-change>
     <div>
         <main-user-information-change></main-user-information-change>
     </div>
 </template>
 
 <script>
-import UserAvatar from '@/components/profile/UserAvatar.vue'
 import MainUserInformationChange from '@/components/profile/MainUserInformationChange.vue'
+import UserAvatarChange from '@/components/profile/UserAvatarChange.vue'
 
 export default {
     name: 'Profile',
-    components: { MainUserInformationChange, UserAvatar }
+    components: {
+        UserAvatarChange,
+        MainUserInformationChange
+    }
 }
 </script>
-
-<style scoped>
-.userAvatarEditingContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-</style>
