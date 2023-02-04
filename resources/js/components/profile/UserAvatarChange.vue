@@ -1,16 +1,16 @@
 <template>
     <div class="user-avatar-editing-container"
          :class="{'avatar-uploading': avatarUploadingStatus !== AvatarUploadStatusesEnum.LOADED}">
-        <!-- @TODO Update action -->
+
         <el-upload
             class="avatar-uploader"
-            name="avatar"
-            action="/api/users////avatar"
+            name="photo"
             :show-file-list="false"
-            :with-credentials="true"
+            :http-request="onAvatarUpload"
             accept="image/jpeg"
             :on-change="onAvatarChange"
             :on-success="onAvatarSuccessfulUpload"
+            :on-error="onAvatarUploadError"
             :before-upload="beforeAvatarUpload"
         >
             <user-avatar :src="uploadedAvatarUrl" :size="200"></user-avatar>
@@ -34,13 +34,18 @@
 import { AvatarUploadStatusesEnum } from '@/helpers/enums/AvatarUploadStatusesEnum'
 import UserAvatar from '@/components/profile/UserAvatar.vue'
 import { ElLoading, ElMessage } from 'element-plus'
+import { mapState } from 'vuex'
+import apiRequest from '@/helpers/apiRequest'
+import { API_UPDATE_USER_AVATAR_URL } from '@/api/users'
+import getErrorsFromResponse from '@/helpers/errors'
 
 export default {
     name: 'UserAvatarChange',
     computed: {
         AvatarUploadStatusesEnum() {
             return AvatarUploadStatusesEnum
-        }
+        },
+        ...mapState('auth', ['user'])
     },
     components: {
         UserAvatar
@@ -55,8 +60,22 @@ export default {
         }
     },
     methods: {
+        async onAvatarUpload(request) {
+            const formData = new FormData()
+            formData.append('photo', request.file)
+
+            try {
+                const response = await apiRequest(API_UPDATE_USER_AVATAR_URL, { id: this.user.id }, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                request.onSuccess(response.data, request.file)
+            } catch (error) {
+                request.onError(error)
+            }
+        },
         onAvatarChange(event) {
-            console.log(event)
             this.avatarUploadingStatus =
                 Object.values(AvatarUploadStatusesEnum).find((status) => status === event.status) || AvatarUploadStatusesEnum.LOADED
 
@@ -79,6 +98,17 @@ export default {
         },
         onAvatarSuccessfulUpload(response, uploadFile) {
             this.uploadedAvatarUrl = URL.createObjectURL(uploadFile.raw)
+
+            this.user.avatar = response.avatarPath
+        },
+        onAvatarUploadError(errors) {
+            const errorsGroup = getErrorsFromResponse(errors)
+
+            Object.values(errorsGroup).forEach((errors) => {
+                errors.forEach((error) => {
+                    ElMessage.error(error)
+                })
+            })
         },
         beforeAvatarUpload(rawFile) {
             const isJPG = rawFile.type === 'image/jpeg'
@@ -104,7 +134,7 @@ export default {
     margin-top: 20px;
 }
 
-.user-avatar-editing-container:hover:not(.avatar-uploading) {
+.user-avatar-editing-container:not(.avatar-uploading) .avatar-uploader:hover {
     opacity: 0.8;
 }
 

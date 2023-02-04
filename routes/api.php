@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,12 @@ Route::middleware('auth:sanctum')->group(static function () {
 
         Route::middleware('can:manipulate-user,user')->prefix('/{user}')->group(static function () {
             Route::put('/', [UserController::class, 'update'])->name('update-main-user-data');
+
+            Route::name('avatar.')->prefix('/avatar')->group(static function () {
+                Route::post('/', [UserAvatarController::class, 'store'])->name('change');
+
+                Route::delete('/', [UserAvatarController::class, 'destroy'])->name('delete');
+            });
         });
     });
 });
