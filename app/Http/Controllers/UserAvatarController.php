@@ -15,6 +15,8 @@ class UserAvatarController extends Controller
 {
     public function store(ChangeAvatarRequest $request, User $user): JsonResponse
     {
+        $this->destroy($request, $user);
+
         $image = ImageFacade::make($request->photo)
             ->encode('jpg')
             ->resize(1024, 1024, true);
