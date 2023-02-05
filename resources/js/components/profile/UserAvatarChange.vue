@@ -28,6 +28,13 @@
             </div>
         </el-upload>
     </div>
+    <errors-alert :errors="avatarDeletionErrors"></errors-alert>
+    <full-width-button :pending="avatarDeletionPending" class="avatar-delete-button" type="danger"
+                       @click="usePending(deleteAvatar, 'avatarDeletionPending')">
+        {{
+            $t('updateUser.avatar.buttons.delete')
+        }}
+    </full-width-button>
 </template>
 
 <script>
@@ -36,11 +43,15 @@ import UserAvatar from '@/components/profile/UserAvatar.vue'
 import { ElLoading, ElMessage } from 'element-plus'
 import { mapState } from 'vuex'
 import apiRequest from '@/helpers/apiRequest'
-import { API_UPDATE_USER_AVATAR_URL } from '@/api/users'
+import { API_DELETE_USER_AVATAR_URL, API_UPDATE_USER_AVATAR_URL } from '@/api/users'
 import getErrorsFromResponse from '@/helpers/errors'
+import FullWidthButton from '@/components/FullWidthButton.vue'
+import usePending from '@/mixins/usePending'
+import ErrorsAlert from '@/components/errors/ErrorsAlert.vue'
 
 export default {
     name: 'UserAvatarChange',
+    mixins: [usePending],
     computed: {
         AvatarUploadStatusesEnum() {
             return AvatarUploadStatusesEnum
@@ -48,6 +59,8 @@ export default {
         ...mapState('auth', ['user'])
     },
     components: {
+        ErrorsAlert,
+        FullWidthButton,
         UserAvatar
     },
     data() {
@@ -56,10 +69,22 @@ export default {
             avatarUploadingPending: false,
             avatarUploadingStatus: AvatarUploadStatusesEnum.LOADED,
             avatarUploadingTimeout: null,
-            uploadingLoading: null
+            uploadingLoading: null,
+            avatarDeletionPending: false,
+            avatarDeletionErrors: []
         }
     },
     methods: {
+        async deleteAvatar() {
+            try {
+                await apiRequest(API_DELETE_USER_AVATAR_URL, { id: this.user.id })
+                this.uploadedAvatarUrl = ''
+                this.avatarDeletionErrors = []
+                this.user.avatar = null
+            } catch (error) {
+                this.avatarDeletionErrors = getErrorsFromResponse(error)
+            }
+        },
         async onAvatarUpload(request) {
             const formData = new FormData()
             formData.append('photo', request.file)
@@ -132,6 +157,10 @@ export default {
     justify-content: center;
     margin-bottom: 20px;
     margin-top: 20px;
+}
+
+.avatar-delete-button {
+    margin-bottom: 20px;
 }
 
 .user-avatar-editing-container:not(.avatar-uploading) .avatar-uploader:hover {

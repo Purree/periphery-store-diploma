@@ -48,6 +48,9 @@ export default {
                 }
             },
             avatar: {
+                buttons: {
+                    delete: 'Delete avatar'
+                },
                 errors: {
                     incorrectExtension: 'Avatar must be JPG/PNG file!',
                     incorrectSize: 'Avatar size must be less than 2MB!'
@@ -104,6 +107,9 @@ export default {
                 }
             },
             avatar: {
+                buttons: {
+                    delete: 'Удалить аватар'
+                },
                 errors: {
                     incorrectExtension: 'Аватар должен быть JPG/PNG файлом!',
                     incorrectSize: 'Размер аватара должен быть меньше 2MB!'
