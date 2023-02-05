@@ -70,12 +70,12 @@ class ImageFacade
     public static function generateRandomFileName(string $extension): string
     {
         return str_replace(
-                ['.', '/', '\\'],
-                '',
-                Hash::make(
-                    uniqid(time(), true)
-                )
-            ).'.'.$extension;
+            ['.', '/', '\\'],
+            '',
+            Hash::make(
+                uniqid(time(), true)
+            )
+        ).'.'.$extension;
     }
 
     public function getExtension(): string
