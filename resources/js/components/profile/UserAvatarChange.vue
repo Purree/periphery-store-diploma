@@ -145,6 +145,12 @@ export default {
             if (!isLargeThan2Megabit) {
                 ElMessage.error(this.$t('updateUser.avatar.errors.incorrectSize'))
             }
+
+            if (!isJPG || !isLargeThan2Megabit) {
+                this.uploadingLoading.close()
+                this.avatarUploadingStatus = AvatarUploadStatusesEnum.LOADED
+            }
+
             return isJPG && isLargeThan2Megabit
         }
     }
