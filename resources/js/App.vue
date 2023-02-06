@@ -36,8 +36,11 @@ export default {
             this.changeLanguage()
         }
 
+        const isLocallyAuthorized = localStorage.getItem('isLoggedIn') === 'true'
+        this.$store.commit('auth/setIsLoggedIn', isLocallyAuthorized)
+
         try {
-            if (localStorage.getItem('isLoggedIn') === 'true') {
+            if (isLocallyAuthorized) {
                 await this.$store.dispatch('auth/changeStatusToLoggedIn')
             }
         } catch (error) {
@@ -45,6 +48,8 @@ export default {
 
             if (error.response.status !== 401) {
                 this.failedToLogin = true
+            } else {
+                this.$store.commit('auth/setIsLoggedIn', false)
             }
         } finally {
             this.isLoaded = true

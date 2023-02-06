@@ -39,7 +39,7 @@ const router = createRouter({
 
 router.beforeEach(loadLayoutMiddleware)
 router.beforeEach(redirectFromAuthRoutes)
-router.beforeEach(saveQueryParametersBetweenAuthRoutes)
 router.beforeEach(redirectFromRoutesRequiredAuth)
+router.beforeEach(saveQueryParametersBetweenAuthRoutes)
 
 export default router
