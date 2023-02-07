@@ -62,4 +62,11 @@ class AuthorizationController extends Controller
 
         return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
+
+    public function changePassword(Request $request): JsonResponse
+    {
+        // @TODO: Implement changePassword() method.
+
+        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+    }
 }

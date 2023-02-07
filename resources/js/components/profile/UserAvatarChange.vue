@@ -14,40 +14,42 @@
             :before-upload="beforeAvatarUpload"
         >
             <user-avatar :src="uploadedAvatarUrl" :size="200"></user-avatar>
-            <div class="avatar-uploader-icon" ref="avatarUploaderIcon"
-                 :class="{
-                    'avatar-uploaded-success': this.avatarUploadingStatus === AvatarUploadStatusesEnum.SUCCESS,
-                    'avatar-uploading-failed': this.avatarUploadingStatus === AvatarUploadStatusesEnum.FAIL
-                }">
+            <avatar-uploading-rounded-button :status="avatarUploadingStatus"
+                                             :pending="this.avatarUploadingStatus === AvatarUploadStatusesEnum.UPLOADING"
+                                             class="avatar-uploader-button">
                 <font-awesome-icon v-if="avatarUploadingStatus === AvatarUploadStatusesEnum.LOADED"
                                    icon="plus"></font-awesome-icon>
                 <font-awesome-icon v-if="avatarUploadingStatus === AvatarUploadStatusesEnum.SUCCESS"
                                    icon="check"></font-awesome-icon>
                 <font-awesome-icon v-if="avatarUploadingStatus === AvatarUploadStatusesEnum.FAIL"
                                    icon="xmark"></font-awesome-icon>
-            </div>
+            </avatar-uploading-rounded-button>
+            <avatar-uploading-rounded-button @click.stop="usePending(deleteAvatar, 'avatarDeletionPending')"
+                                             :status="AvatarUploadStatusesEnum.FAIL" class="avatar-delete-button"
+                                             :pending="avatarDeletionPending">
+                <font-awesome-icon type="danger"
+                                   icon="trash">
+                    {{
+                        $t('updateUser.avatar.buttons.delete')
+                    }}
+                </font-awesome-icon>
+            </avatar-uploading-rounded-button>
         </el-upload>
     </div>
     <errors-alert :errors="avatarDeletionErrors"></errors-alert>
-    <full-width-button :pending="avatarDeletionPending" class="avatar-delete-button" type="danger"
-                       @click="usePending(deleteAvatar, 'avatarDeletionPending')">
-        {{
-            $t('updateUser.avatar.buttons.delete')
-        }}
-    </full-width-button>
 </template>
 
 <script>
 import { AvatarUploadStatusesEnum } from '@/helpers/enums/AvatarUploadStatusesEnum'
 import UserAvatar from '@/components/profile/UserAvatar.vue'
-import { ElLoading, ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { mapState } from 'vuex'
 import apiRequest from '@/helpers/apiRequest'
 import { API_DELETE_USER_AVATAR_URL, API_UPDATE_USER_AVATAR_URL } from '@/api/users'
 import getErrorsFromResponse from '@/helpers/errors'
-import FullWidthButton from '@/components/FullWidthButton.vue'
 import usePending from '@/mixins/usePending'
 import ErrorsAlert from '@/components/errors/ErrorsAlert.vue'
+import AvatarUploadingRoundedButton from '@/components/profile/AvatarUploadingRoundedButton.vue'
 
 export default {
     name: 'UserAvatarChange',
@@ -59,17 +61,15 @@ export default {
         ...mapState('auth', ['user'])
     },
     components: {
+        AvatarUploadingRoundedButton,
         ErrorsAlert,
-        FullWidthButton,
         UserAvatar
     },
     data() {
         return {
             uploadedAvatarUrl: '',
-            avatarUploadingPending: false,
             avatarUploadingStatus: AvatarUploadStatusesEnum.LOADED,
             avatarUploadingTimeout: null,
-            uploadingLoading: null,
             avatarDeletionPending: false,
             avatarDeletionErrors: []
         }
@@ -104,16 +104,6 @@ export default {
             this.avatarUploadingStatus =
                 Object.values(AvatarUploadStatusesEnum).find((status) => status === event.status) || AvatarUploadStatusesEnum.LOADED
 
-            if (this.avatarUploadingStatus === AvatarUploadStatusesEnum.UPLOADING) {
-                this.uploadingLoading = ElLoading.service({
-                    target: this.$refs.avatarUploaderIcon,
-                    customClass: 'avatar-uploader-loading',
-                    background: 'transparent'
-                })
-            } else {
-                this.uploadingLoading.close()
-            }
-
             if (this.avatarUploadingStatus === AvatarUploadStatusesEnum.SUCCESS || this.avatarUploadingStatus === AvatarUploadStatusesEnum.FAIL) {
                 clearTimeout(this.avatarUploadingTimeout)
                 this.avatarUploadingTimeout = setTimeout(() => {
@@ -122,6 +112,10 @@ export default {
             }
         },
         onAvatarSuccessfulUpload(response, uploadFile) {
+            if (!response) {
+                return
+            }
+
             this.uploadedAvatarUrl = URL.createObjectURL(uploadFile.raw)
 
             this.user.avatar = response.avatarPath
@@ -147,7 +141,6 @@ export default {
             }
 
             if (!isJPG || !isLargeThan2Megabit) {
-                this.uploadingLoading.close()
                 this.avatarUploadingStatus = AvatarUploadStatusesEnum.LOADED
             }
 
@@ -163,14 +156,15 @@ export default {
     justify-content: center;
     margin-bottom: 20px;
     margin-top: 20px;
+
+    &:not(:has(.avatar-delete-button:hover)):not(.avatar-uploading) .avatar-uploader:hover *:not(.avatar-delete-button *) {
+        opacity: 0.8;
+    }
 }
 
-.avatar-delete-button {
-    margin-bottom: 20px;
-}
-
-.user-avatar-editing-container:not(.avatar-uploading) .avatar-uploader:hover {
-    opacity: 0.8;
+.avatar-delete-button:hover {
+    opacity: 0.8 !important;
+    cursor: pointer;
 }
 
 .avatar-uploading {
@@ -183,36 +177,16 @@ export default {
     position: relative;
 }
 
-:deep(.avatar-uploader-loading) {
-    border-radius: 100px;
-}
-
-:deep(.avatar-uploader-loading .path) {
-    stroke: var(--el-color-white);
-    stroke-width: 4px;
-}
-
-.avatar-uploader-icon {
+.avatar-uploader-button {
     position: absolute;
-    width: 55px;
-    height: 55px;
     bottom: 0;
     right: 0;
-    background-color: var(--el-color-primary);
-    color: var(--el-color-white);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    border-radius: 100px;
-    border: 5px solid var(--el-bg-color);
 }
 
-.avatar-uploaded-success {
-    background-color: var(--el-color-success);
-}
-
-.avatar-uploading-failed {
-    background-color: var(--el-color-danger);
+.avatar-delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 1 !important;
 }
 </style>
