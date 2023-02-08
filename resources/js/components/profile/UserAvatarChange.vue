@@ -26,7 +26,7 @@
             </avatar-uploading-rounded-button>
             <avatar-uploading-rounded-button @click.stop="usePending(deleteAvatar, 'avatarDeletionPending')"
                                              :status="AvatarUploadStatusesEnum.FAIL" class="avatar-delete-button"
-                                             :pending="avatarDeletionPending">
+                                             :pending="avatarDeletionPending" v-if="user.avatar">
                 <font-awesome-icon type="danger"
                                    icon="trash">
                     {{
