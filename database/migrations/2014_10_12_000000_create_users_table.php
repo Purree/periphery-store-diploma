@@ -19,6 +19,7 @@ return new class () extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar', 2048)->nullable();
+            $table->boolean('is_organization')->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
