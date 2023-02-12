@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'available_locales' => \App\Enums\AvailableLanguages::toArray(),
+    'available_locales' => \App\Enums\AvailableLanguage::toArray(),
 
 
     /*

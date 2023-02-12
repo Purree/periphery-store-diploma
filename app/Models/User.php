@@ -52,8 +52,8 @@ class User extends Authenticatable
         return $this->hasMany(Session::class);
     }
 
-    public function permissions(): HasMany
+    public function roles(): HasMany
     {
-        return $this->hasMany(Permission::class);
+        return $this->hasMany(Role::class);
     }
 }

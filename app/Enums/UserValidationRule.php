@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum UserValidationRules: string
+enum UserValidationRule: string
 {
     case name = 'required|min:3|max:30';
 }

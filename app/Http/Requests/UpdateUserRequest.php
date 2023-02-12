@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\UserValidationRules;
+use App\Enums\UserValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -20,7 +20,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => UserValidationRules::name->value,
+            'name' => UserValidationRule::name->value,
         ];
     }
 }

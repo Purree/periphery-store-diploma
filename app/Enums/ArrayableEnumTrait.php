@@ -2,12 +2,9 @@
 
 namespace App\Enums;
 
-enum AvailableLanguages: string
+trait ArrayableEnumTrait
 {
-    case English = 'en';
-    case Russian = 'ru';
-
-    public static function getAllKeys(): array
+    public static function getAllNames(): array
     {
         return array_column(self::cases(), 'name');
     }
@@ -19,6 +16,9 @@ enum AvailableLanguages: string
 
     public static function toArray(): array
     {
-        return array_combine(self::getAllKeys(), self::getAllValues());
+        $values = self::getAllValues();
+        $keys = self::getAllNames();
+
+        return $values ? array_combine($keys, $values) : $keys;
     }
 }

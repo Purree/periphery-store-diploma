@@ -13,6 +13,11 @@ class Role extends Model
         'name',
     ];
 
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_permission');
+    }
+
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class);
