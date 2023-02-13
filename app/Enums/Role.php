@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum Role
+enum Role implements ArrayableEnumInterface
 {
     use ArrayableEnumTrait;
 

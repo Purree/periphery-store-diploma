@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum AvailableLanguage: string
+enum AvailableLanguage: string implements ArrayableEnumInterface
 {
     use ArrayableEnumTrait;
 

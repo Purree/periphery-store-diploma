@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Enums\Permission as PermissionEnum;
+use App\Helpers\TableColumnUtils;
 use App\Models\Permission as PermissionModel;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class PermissionSeeder extends Seeder
 {
@@ -16,16 +16,10 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $allPermissions = PermissionEnum::getAllNames();
-        $currentPermissions = PermissionModel::all()->pluck('name')->toArray();
-        $newPermissions = array_diff($allPermissions, $currentPermissions);
+        $permissionTableUtils = new TableColumnUtils(new PermissionModel(), 'name');
 
-        foreach ($newPermissions as $permission) {
-            DB::table('permissions')->insert(
-                [
-                    'name' => $permission
-                ]
-            );
-        }
+        $allPermissions = PermissionEnum::getAllNames();
+        $permissionTableUtils->fillWithUniqueValues($allPermissions);
+        $permissionTableUtils->removeUnusedFields($allPermissions);
     }
 }

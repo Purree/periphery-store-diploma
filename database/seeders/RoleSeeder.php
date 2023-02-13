@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\Role as RoleEnum;
+use App\Helpers\TableColumnUtils;
 use App\Models\Role as RoleModel;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,16 +17,10 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $allRoles = RoleEnum::getAllNames();
-        $currentRoles = RoleModel::all()->pluck('name')->toArray();
-        $newRoles = array_diff($allRoles, $currentRoles);
+        $roleTableUtils = new TableColumnUtils(new RoleModel(), 'name');
 
-        foreach ($newRoles as $role) {
-            DB::table('roles')->insert(
-                [
-                    'name' => $role
-                ]
-            );
-        }
+        $allRoles = RoleEnum::getAllNames();
+        $roleTableUtils->fillWithUniqueValues($allRoles);
+        $roleTableUtils->removeUnusedFields($allRoles);
     }
 }

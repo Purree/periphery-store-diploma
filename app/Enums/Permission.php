@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum Permission
+enum Permission implements ArrayableEnumInterface
 {
     use ArrayableEnumTrait;
 
@@ -11,5 +11,5 @@ enum Permission
      * php artisan db:seed --class=PermissionSeeder
      */
     case view_products;
-    case change_self_data;
+    case change_own_data;
 }
