@@ -6,7 +6,6 @@ use App\Enums\Role as RoleEnum;
 use App\Helpers\TableColumnUtils;
 use App\Models\Role as RoleModel;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {

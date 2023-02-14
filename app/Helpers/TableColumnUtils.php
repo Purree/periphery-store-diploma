@@ -30,7 +30,7 @@ class TableColumnUtils
     protected function prepareValuesForInsert(array $values): array
     {
         return array_map(
-            fn($value) => [$this->columnName => $value],
+            fn ($value) => [$this->columnName => $value],
             $values
         );
     }
