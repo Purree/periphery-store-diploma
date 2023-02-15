@@ -12,23 +12,22 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function show(Request $request, int $id): JsonResponse
+    public function show(Request $request, User $user): JsonResponse
     {
         return ResponseResult::success(
-            new UserResource(User::where('id', $id)->first())
+            new UserResource($user)
         );
     }
 
     public function showAuthenticated(Request $request): JsonResponse
     {
-        return $this->show($request, Auth::user()->id);
+        return $this->show($request, Auth::user());
     }
 
     public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
-        $user->name = $request->name;
-        $user->save();
+        $user->update($request->validated());
 
-        return $this->show($request, $user->id);
+        return $this->show($request, $user);
     }
 }
