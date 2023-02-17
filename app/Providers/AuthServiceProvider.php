@@ -27,7 +27,5 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manipulate-user', static function (User $currentUser, User $attemptedUser) {
             return Auth('sanctum')->check() && $attemptedUser->id === $currentUser->id;
         });
-
-        $this->registerPolicies();
     }
 }
