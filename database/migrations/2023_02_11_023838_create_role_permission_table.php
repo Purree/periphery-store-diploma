@@ -1,5 +1,6 @@
 <?php
 
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +24,9 @@ return new class () extends Migration {
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
+
+        $seeder = new RolePermissionSeeder();
+        $seeder->run();
     }
 
     /**
