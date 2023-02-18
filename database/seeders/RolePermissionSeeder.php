@@ -19,7 +19,7 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $rolePermissionRelations = (new RolePermissionsRelation)->getRelations();
+        $rolePermissionRelations = (new RolePermissionsRelation())->getRelations();
         $relatedRoles = array_keys($rolePermissionRelations);
         $relatedPermissions = array_merge(...array_values($rolePermissionRelations));
 
