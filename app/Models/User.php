@@ -56,4 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Role::class);
     }
+
+    public function addRole(\App\Enums\Role $role): void
+    {
+        $roleUsers = Role::firstWhere('name', $role->name)->users();
+        $roleUsers->attach($this->id);
+    }
 }

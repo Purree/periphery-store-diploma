@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DataTransferObjects\LoginUserDTO;
 use App\DataTransferObjects\RegisterUserDTO;
+use App\Enums\Role;
 use App\Exceptions\InvalidArgumentException;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -29,11 +30,13 @@ class AuthorizationService
 
     public function registration(RegisterUserDTO $registerUserDTO): void
     {
-        User::create([
+        $user = User::create([
             'name' => $registerUserDTO->name,
             'email' => $registerUserDTO->email,
             'password' => Hash::make($registerUserDTO->password),
         ]);
+
+        $user->addRole(Role::customer);
     }
 
     public function logout(): void
