@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(static function () {
     Route::name('users.')->prefix('users')->group(static function () {
         Route::get('/me', [UserController::class, 'showAuthenticated'])->name('me');
 
-        Route::middleware('can:manipulate-user,user')->prefix('/{user}')->group(static function () {
+        Route::middleware('can:update,user')->prefix('/{user}')->group(static function () {
             Route::put('/', [UserController::class, 'update'])->name('update_main_user_data');
 
             Route::name('avatar.')->prefix('/avatar')->group(static function () {

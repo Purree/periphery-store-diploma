@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        User::class => UserPolicy::class
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -25,8 +25,5 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('manipulate-user', static function (User $currentUser, User $attemptedUser) {
-            return Auth('sanctum')->check() && $attemptedUser->id === $currentUser->id;
-        });
     }
 }
