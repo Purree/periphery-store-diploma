@@ -4,7 +4,8 @@
         <el-alert v-if="userSuccessfullyUpdated" type="success" class="userSuccessfullyUpdatedAlert"
                   :title="$t('updateUser.mainInformation.successfullyUpdated')"></el-alert>
 
-        <el-form :rules="rules" :model="userInformation" ref="mainUserInformationForm">
+        <el-form @submit.prevent="usePending(updateUser, 'updateUserPending')" :rules="rules" :model="userInformation"
+                 ref="mainUserInformationForm">
             <el-form-item :label="$t('authorization.nickname')" prop="name">
                 <el-input v-model="userInformation.name"/>
             </el-form-item>
@@ -66,6 +67,10 @@ export default {
     },
     methods: {
         async updateUser() {
+            if (this.userInformation.name === this.user.name) {
+                return
+            }
+
             const isUserInformationValid = await this.$refs.mainUserInformationForm.validate((isValid) => isValid)
 
             if (!isUserInformationValid) {
