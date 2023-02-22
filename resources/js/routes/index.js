@@ -5,6 +5,8 @@ import { redirectFromAuthRoutes } from '@/routes/middleware/redirectFromAuthRout
 import { redirectFromRoutesRequiredAuth } from '@/routes/middleware/redirectFromRoutesRequiredAuth'
 import user from '@/routes/user'
 import { saveQueryParametersBetweenAuthRoutes } from '@/routes/middleware/saveQueryParametersBetweenAuthRoutes'
+import { restrictOpeningOfProtectedRoutes } from '@/routes/middleware/restrictOpeningOfProtectedRoutes'
+import errors from '@/routes/middleware/errors'
 
 const routes = [
     {
@@ -16,20 +18,13 @@ const routes = [
             transition: 'none'
         }
     },
-    {
-        path: '/404',
-        name: 'PageNotExist',
-        component: () => import('@/views/Errors/PageNotFound.vue'),
-        meta: {
-            layout: 'ErrorLayout'
-        }
-    },
+    ...errors,
+    ...auth,
+    ...user,
     {
         path: '/:catchAll(.*)', // Unrecognized path automatically matches 404
         redirect: { name: 'PageNotExist' }
-    },
-    ...auth,
-    ...user
+    }
 ]
 
 const router = createRouter({
@@ -41,5 +36,6 @@ router.beforeEach(loadLayoutMiddleware)
 router.beforeEach(redirectFromAuthRoutes)
 router.beforeEach(redirectFromRoutesRequiredAuth)
 router.beforeEach(saveQueryParametersBetweenAuthRoutes)
+router.beforeEach(restrictOpeningOfProtectedRoutes)
 
 export default router

@@ -20,6 +20,9 @@ export default {
         }
     },
     getters: {
+        getUser(state) {
+            return state.user
+        },
         isLoggedIn(state) {
             return state.isLoggedIn
         }

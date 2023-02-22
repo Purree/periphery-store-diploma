@@ -1,7 +1,8 @@
 export default {
     en: {
         errors: {
-            page_not_found: 'Page not found'
+            page_not_found: 'Page not found',
+            forbidden: 'Access deny'
         },
         nav: {
             search: 'Type something',
@@ -60,7 +61,8 @@ export default {
     },
     ru: {
         errors: {
-            page_not_found: 'Страница не найдена'
+            page_not_found: 'Страница не найдена',
+            forbidden: 'Доступ запрещён'
         },
         nav: {
             search: 'Введите что-нибудь',
