@@ -1,6 +1,6 @@
 import { themesEnum } from '@/helpers/enums/ThemesEnum'
 
-export const themedElement = document.documentElement;
+export const themedElement = document.documentElement
 
 export default {
     methods: {
