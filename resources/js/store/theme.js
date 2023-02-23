@@ -1,15 +1,9 @@
 import { themesEnum } from '@/helpers/Enums/ThemesEnum'
-
-const themedElement = document.documentElement
+import theme, { themedElement } from '@/mixins/theme'
 
 export default {
     state: {
         theme: 'light'
-    },
-    getters: {
-        getTurnedOnThemeStyle: (state) => {
-            return Object.values(themesEnum).find(el => themedElement.classList.contains(el))
-        }
     },
     mutations: {
         setTheme: (state, theme) => {
@@ -18,18 +12,18 @@ export default {
     },
     actions: {
         changeTheme: ({
-            commit,
-            getters
-        }, theme) => {
-            localStorage.setItem('theme', themesEnum[theme])
-            commit('setTheme', theme)
+            commit
+        }, newTheme) => {
+            localStorage.setItem('theme', themesEnum[newTheme])
+            commit('setTheme', newTheme)
 
-            const turnedOnThemeStyle = getters.getTurnedOnThemeStyle
+            const turnedOnThemeStyle = theme.methods.getCurrentThemeClass()
             if (turnedOnThemeStyle) {
                 themedElement.classList.remove(turnedOnThemeStyle)
             }
-            themedElement.classList.add(themesEnum[theme])
+            themedElement.classList.add(themesEnum[newTheme])
         }
     },
-    namespaced: true
+    namespaced: true,
+    mixins: [theme]
 }

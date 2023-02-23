@@ -10,7 +10,7 @@
 </template>
 <script>
 import AppLayout from '@/layouts/AppLayout.vue'
-import changeTheme from '@/mixins/changeTheme'
+import changeTheme from '@/mixins/theme'
 import changeLanguage from '@/mixins/changeLanguage'
 import { mapState } from 'vuex'
 import UnableToAuthenticateDialog from '@/components/authentication/UnableToAuthenticateDialog.vue'

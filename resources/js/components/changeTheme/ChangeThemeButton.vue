@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import changeTheme from '@/mixins/changeTheme'
+import changeTheme from '@/mixins/theme'
 import { mapState } from 'vuex'
 import { markRaw } from 'vue'
 import DarkThemeIcon from '@/components/changeTheme/DarkThemeIcon.vue'
