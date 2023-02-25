@@ -1,7 +1,7 @@
 <template>
     <el-container direction="vertical" class="app-container">
         <main-header></main-header>
-        <el-main class="main container">
+        <el-main class="main">
             <slot></slot>
         </el-main>
     </el-container>
@@ -11,7 +11,7 @@
 import MainHeader from '@/components/header/MainHeader.vue'
 
 export default {
-    name: 'AppLayoutDefault',
+    name: 'HomeLayout',
     components: { MainHeader }
 }
 </script>

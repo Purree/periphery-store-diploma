@@ -15,7 +15,7 @@ return new class () extends Migration {
             $table->foreignId('seller_id')->constrained('users');
             $table->string('title', 75);
             $table->string('meta_title', 100)->nullable();
-            $table->string('slug', 100);
+            $table->string('slug', 100)->unique();
             $table->text('description');
             $table->string('preview_image', 2048)->nullable();
             $table->string('SKU', 100)->unique();

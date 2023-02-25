@@ -15,7 +15,7 @@ return new class () extends Migration {
             $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->string('title', 75);
             $table->string('meta_title', 100)->nullable();
-            $table->string('slug', 100);
+            $table->string('slug', 100)->unique();
             $table->text('description')->nullable();
         });
     }
