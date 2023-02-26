@@ -11,7 +11,6 @@ class UserResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  Request  $request
-     * @return array
      */
     public function toArray($request): array
     {
@@ -19,9 +18,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'avatar' => $this->avatar ? asset('storage/' . $this->avatar) : null,
+            'avatar' => $this->avatar ? asset('storage/'.$this->avatar) : null,
             'roles' => $this->roles()->pluck('name'),
-            'permissions' => $this->permissions()->pluck('name')
+            'permissions' => $this->getPermissions()->pluck('name'),
         ];
     }
 }

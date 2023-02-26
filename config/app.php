@@ -108,7 +108,6 @@ return [
 
     'available_locales' => \App\Enums\AvailableLanguage::toArray(),
 
-
     /*
     |--------------------------------------------------------------------------
     | Faker Locale

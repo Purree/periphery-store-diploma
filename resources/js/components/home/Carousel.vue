@@ -1,8 +1,8 @@
 <template>
     <el-carousel class="carousel" trigger="click" :interval="4000" height="280px">
+<!--        TODO: Redirect to item.url on click -->
         <el-carousel-item v-for="item in items" :key="item" :name="items.name">
             <div class="carousel-image" :style="'background-image: url(' + item.image + ')'"></div>
-            <h3>{{ item }}</h3>
         </el-carousel-item>
     </el-carousel>
 </template>

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Role as RoleEnum;
+use App\Models\Role as RoleModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -56,33 +58,43 @@ class User extends Authenticatable
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'user_role');
+        return $this->belongsToMany(RoleModel::class, 'user_role');
     }
 
-    public function permissions(): Collection
+    public function getPermissions(): Collection
     {
         return $this->roles()->with('permissions')->get()
             ->pluck('permissions')->flatten()
             ->map(static function ($item) {
                 unset($item->pivot);
+
                 return $item;
             })
             ->unique('id');
     }
 
-    public function addRole(\App\Enums\Role $role): void
+    public function addRole(RoleEnum $role): void
     {
-        $roleUsers = Role::firstWhere('name', $role->name)->users();
+        $roleUsers = RoleEnum::firstWhere('name', $role->name)->users();
         $roleUsers->attach($this->id);
     }
 
-    public function hasRole(\App\Enums\Role $role): bool
+    public function hasRole(RoleEnum|string $role): bool
     {
-        return (bool)$this->roles()->firstWhere('name', $role->name);
+        $roleName = is_string($role) ? $role : $role->name;
+
+        return (bool) $this->roles()->firstWhere('name', $roleName);
     }
 
-    public function hasPermission(\App\Enums\Permission $permission): bool
+    public function hasPermission(\App\Enums\Permission|string $permission): bool
     {
-        return (bool)$this->permissions()->firstWhere('name', $permission->name);
+        $permissionName = is_string($permission) ? $permission : $permission->name;
+
+        return (bool) $this->getPermissions()->firstWhere('name', $permissionName);
+    }
+
+    public function isAdministrator(): bool
+    {
+        return $this->hasRole(RoleEnum::administrator);
     }
 }

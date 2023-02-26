@@ -20,9 +20,9 @@ return new class () extends Migration {
             $table->string('preview_image', 2048)->nullable();
             $table->string('SKU', 100)->unique();
             $table->decimal('price');
-            $table->tinyInteger('discount')->default("0");
+            $table->tinyInteger('discount')->default('0');
             $table->integer('quantity');
-            $table->boolean('is_available')->default("1");
+            $table->boolean('is_available')->default('1');
             $table->timestamps();
         });
     }

@@ -21,6 +21,9 @@ class ResponseResult implements ResultInterface
         string|array $errors = ['Some problems. Try again later.'],
         int $errorCode = Response::HTTP_BAD_REQUEST
     ): JsonResponse {
+        if (is_string($errors)) {
+            $errors = [$errors];
+        }
         $errors = self::pushAllKeylessErrorsToServerArray($errors);
         $errors = self::castAllErrorValuesToArray($errors);
 
@@ -36,7 +39,7 @@ class ResponseResult implements ResultInterface
     {
         $result = [];
         foreach ($errors as $key => $error) {
-            if (!is_int($key)) {
+            if (! is_int($key)) {
                 $result[$key] = $error;
 
                 continue;
