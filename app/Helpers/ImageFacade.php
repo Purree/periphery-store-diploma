@@ -22,7 +22,7 @@ class ImageFacade
     {
         $imgBytes = file_get_contents($file);
 
-        return ! ($imgBytes && str_contains(substr($imgBytes, 0, strpos($imgBytes, 'IDAT')), 'acTL'));
+        return ! ($imgBytes && str_contains(mb_substr($imgBytes, 0, mb_strpos($imgBytes, 'IDAT')), 'acTL'));
     }
 
     public static function make(string $file): self
