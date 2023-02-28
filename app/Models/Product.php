@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
+    // @TODO: Add reviews and rating
     public function seller(): BelongsTo
     {
         return $this->belongsTo(User::class, 'seller_id');

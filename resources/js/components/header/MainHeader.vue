@@ -3,7 +3,7 @@
         <el-menu
             :router="true"
             :ellipsis="true"
-            class="header-menu container"
+            :class="'header-menu ' + containerClass"
             :default-active="activeIndex"
             mode="horizontal"
         >
@@ -75,6 +75,13 @@ export default {
     },
     mounted() {
         this.activeIndex = this.$route.path
+    },
+    props: {
+        containerClass: {
+            required: false,
+            type: String,
+            default: 'container'
+        }
     }
 }
 </script>

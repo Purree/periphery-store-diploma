@@ -16,6 +16,17 @@ html {
     ));
 }
 
+.carousel-with-bottom-indentation {
+    --carousel-height: 300px;
+    --carousel-indicators-height: calc(var(--el-carousel-indicator-padding-vertical) * 2 + var(--el-carousel-indicator-height));
+
+    height: var(--carousel-height) !important;
+
+    & .el-carousel__container {
+        height: calc(var(--carousel-height) - var(--carousel-indicators-height)) !important;
+    }
+}
+
 .main {
     margin-top: $header-height;
     height: 100%;
@@ -32,12 +43,18 @@ html {
 }
 
 @include screen-size('tablet') {
+    .home-container {
+        padding: 0
+    }
     .container {
         padding: 0 calc(50% - 270px);
     }
 }
 
 @include screen-size('big-tablet') {
+    .home-container {
+        padding: 0 max((100% - 1500px) / 2,30px)
+    }
     .container {
         padding: 0 calc(50% - 360px);
     }
@@ -50,6 +67,9 @@ html {
 }
 
 @include screen-size('desktop') {
+    .home-container {
+        padding: 0 max((100% - 1500px) / 2,50px)
+    }
     .container {
         padding: 0 calc(50% - 590px);
     }

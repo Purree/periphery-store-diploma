@@ -1,6 +1,6 @@
 <template>
     <el-container direction="vertical" class="app-container">
-        <main-header></main-header>
+        <main-header container-class="home-container"></main-header>
         <el-main class="main">
             <slot></slot>
         </el-main>
@@ -20,5 +20,11 @@ export default {
 .app-container {
     min-height: 100vh;
     position: relative;
+}
+.main {
+    background: var(--el-bg-color-page);
+    padding: 0 !important;
+    display: flex;
+    flex-flow: column;
 }
 </style>
