@@ -1,7 +1,7 @@
 <template>
     <el-carousel class="carousel carousel-with-bottom-indentation" trigger="click" :interval="10000">
-<!--        TODO: Redirect to item.url on click -->
-        <el-carousel-item v-for="banner in banners" :key="banner.name" :name="banner.name">
+        <el-carousel-item v-for="banner in banners" :key="banner.name" @click="onBannerClick(banner)"
+                          :name="banner.name">
             <div class="carousel-image" :style="'background-image: url(' + banner.image + ')'"></div>
         </el-carousel-item>
     </el-carousel>
@@ -15,6 +15,11 @@ export default {
             type: Array,
             required: true
         }
+    },
+    methods: {
+        onBannerClick(banner) {
+            this.$router.push(banner.url)
+        }
     }
 }
 </script>
@@ -24,6 +29,7 @@ export default {
     width: 100%;
     height: 100%;
 }
+
 .carousel-image {
     width: 100%;
     height: 100%;
@@ -31,6 +37,12 @@ export default {
     background-repeat: no-repeat;
     object-fit: cover;
 }
+
+:deep(.el-carousel__container):hover:not(:has(.el-carousel__arrow:hover)) {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 :deep(.el-carousel__container), .carousel-image {
     border-radius: var(--el-border-radius-round);
 }
