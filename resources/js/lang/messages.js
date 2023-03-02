@@ -57,6 +57,21 @@ export default {
                     incorrectSize: 'Avatar size must be less than 2MB!'
                 }
             }
+        },
+        home: {
+            headerDiscounts: {
+                products: {
+                    productsWithDiscount: 'Products with discount'
+                }
+            }
+        },
+        general: {
+            discount: 'Discount',
+            reviews: {
+                noReviews: 'No reviews',
+                reviewsCount: 'No reviews | {count} review | {count} reviews'
+            },
+            addToCart: 'To cart'
         }
     },
     ru: {
@@ -117,6 +132,21 @@ export default {
                     incorrectSize: 'Размер аватара должен быть меньше 2MB!'
                 }
             }
+        },
+        home: {
+            headerDiscounts: {
+                products: {
+                    productsWithDiscount: 'Товары со скидкой'
+                }
+            }
+        },
+        general: {
+            discount: 'Скидка',
+            reviews: {
+                noReviews: 'Нет отзывов',
+                reviewsCount: 'Нет отзывов | {count} отзыв | {count} отзыва | {count} отзывов'
+            },
+            addToCart: 'В корзину'
         }
     }
 }

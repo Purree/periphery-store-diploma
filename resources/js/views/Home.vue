@@ -1,4 +1,5 @@
 <template>
+<!--    TODO: Адаптировать к мобилкам-->
     <div class="home-container top-discounts">
         <promotion-banners :banners="banners"></promotion-banners>
         <products-with-discount :products="randomProductsWithDiscount"></products-with-discount>
@@ -9,8 +10,8 @@
 </template>
 
 <script>
-import PromotionBanners from '@/components/home/PromotionBanners.vue'
-import ProductsWithDiscount from '@/components/home/ProductsWithDiscount.vue'
+import PromotionBanners from '@/components/home/TopPromotions/PromotionBanners.vue'
+import ProductsWithDiscount from '@/components/home/TopPromotions/ProductsWithDiscount.vue'
 
 export default {
     name: 'Home',
@@ -37,32 +38,30 @@ export default {
             ],
             // @TODO: Replace this.
             randomProductsWithDiscount: [{
-                title: 'test',
-                description: 'test',
-                reviewsCount: 10,
-                rating: 0,
-                slug: '404',
-                previewImage: 'http://diploma.com/storage/banners/banner.jpg',
-                price: 10.0,
-                discount: 10
-            }, {
-                title: 'test2',
-                description: 'test',
-                reviewsCount: 10,
+                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+                reviewsCount: 6,
                 rating: 2.5,
                 slug: '404',
                 previewImage: 'http://diploma.com/storage/banners/banner.jpg',
+                price: 10.0,
+                discount: 10,
+                priceWithDiscount: 9.0
+            }, {
+                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+                slug: '404',
+                previewImage: 'http://diploma.com/storage/banners/banner.jpg',
                 price: 100000000000000.0,
-                discount: 50
+                discount: 50,
+                priceWithDiscount: 50000000000000.0
             }, {
                 title: 'test3',
-                description: 'test',
-                reviewsCount: 10,
+                reviewsCount: 21,
                 rating: 5,
                 slug: '404',
                 previewImage: 'http://diploma.com/storage/banners/banner.jpg',
                 price: 10.0,
-                discount: 100
+                discount: 100,
+                priceWithDiscount: 0
             }]
         }
     }
