@@ -25,6 +25,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@@/_variables.scss";
+@import "@@/mixins.scss";
+@include max-screen-size('big-tablet') {
+    .price {
+        font-size: var(--el-font-size-base);
+    }
+    .old-price {
+        font-size: var(--el-font-size-extra-small);
+    }
+}
+@include screen-size('big-tablet') {
+    .price {
+        font-size: var(--el-font-size-extra-large);
+    }
+    .old-price {
+        font-size: var(--el-font-size-base);
+    }
+}
 .price-container {
     display: flex;
     flex-wrap: wrap;
@@ -41,7 +59,6 @@ export default {
 }
 
 .price {
-    font-size: var(--el-font-size-extra-large);
     word-break: break-all;
 }
 </style>

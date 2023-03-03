@@ -1,6 +1,6 @@
 <template>
-    <el-carousel class="products-carousel carousel-with-bottom-indentation" trigger="click"
-                 :interval="25000">
+    <carousel class="products-carousel carousel-with-bottom-indentation" trigger="click"
+                 height="inherit" :interval="25000">
         <!--        TODO: Redirect to product.slug on click -->
         <div class="products-header">{{ $t('home.headerDiscounts.products.productsWithDiscount') }}</div>
         <div class="products">
@@ -10,15 +10,16 @@
                 </el-carousel-item>
             </div>
         </div>
-    </el-carousel>
+    </carousel>
 </template>
 
 <script>
 import DiscountedProduct from '@/components/home/TopPromotions/DiscountedProduct.vue'
+import Carousel from '@/components/home/TopPromotions/Carousel.vue'
 
 export default {
     name: 'ProductsWithDiscount',
-    components: { DiscountedProduct },
+    components: { Carousel, DiscountedProduct },
     props: {
         products: {
             type: Array,
@@ -32,8 +33,7 @@ export default {
 .products-carousel {
     --header-height: 1.5em;
     --product-top-margin: 20px;
-
-    width: 677px;
+    --carousel__item-padding: 22px;
 
     &:deep(.el-carousel__container) {
         display: flex;
@@ -42,7 +42,7 @@ export default {
         border-radius: var(--el-border-radius-round);
 
         &, .el-carousel__item {
-            padding: 5%;
+            padding: var(--carousel__item-padding);
         }
     }
 }
@@ -54,7 +54,8 @@ export default {
 }
 
 .el-carousel__item {
+    --carousel__item-height: calc(var(--carousel-height) - var(--header-height) - var(--carousel-indicators-height) - var(--product-top-margin));
     top: calc(var(--header-height) + var(--product-top-margin));
-    height: calc(var(--carousel-height) - var(--header-height) - var(--carousel-indicators-height) - var(--product-top-margin));
+    height: var(--carousel__item-height);
 }
 </style>

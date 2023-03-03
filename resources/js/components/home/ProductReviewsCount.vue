@@ -15,7 +15,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@@/_variables.scss";
+@import "@@/mixins.scss";
+@include max-screen-size('big-tablet') {
+    .reviews-count {
+        font-size: var(--el-font-size-extra-small);
+    }
+}
 .reviews-count {
     color: var(--el-color-info-light-5);
 }

@@ -1,8 +1,7 @@
 <template>
-<!--    TODO: Адаптировать к мобилкам-->
     <div class="home-container top-discounts">
-        <promotion-banners :banners="banners"></promotion-banners>
-        <products-with-discount :products="randomProductsWithDiscount"></products-with-discount>
+        <promotion-banners class="promotion-banners" :banners="banners"></promotion-banners>
+        <products-with-discount class="products-with-discount" :products="randomProductsWithDiscount"></products-with-discount>
     </div>
     <div class="products">
 
@@ -39,26 +38,26 @@ export default {
             // @TODO: Replace this.
             randomProductsWithDiscount: [{
                 title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-                reviewsCount: 6,
-                rating: 2.5,
                 slug: '404',
-                previewImage: 'http://diploma.com/storage/banners/banner.jpg',
-                price: 10.0,
-                discount: 10,
-                priceWithDiscount: 9.0
-            }, {
-                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-                slug: '404',
-                previewImage: 'http://diploma.com/storage/banners/banner.jpg',
+                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
                 price: 100000000000000.0,
                 discount: 50,
                 priceWithDiscount: 50000000000000.0
+            }, {
+                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+                reviewsCount: 6,
+                rating: 2.5,
+                slug: '404',
+                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
+                price: 10000000.0,
+                discount: 1,
+                priceWithDiscount: 10000000.0
             }, {
                 title: 'test3',
                 reviewsCount: 21,
                 rating: 5,
                 slug: '404',
-                previewImage: 'http://diploma.com/storage/banners/banner.jpg',
+                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
                 price: 10.0,
                 discount: 100,
                 priceWithDiscount: 0
@@ -69,6 +68,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@@/_variables.scss";
+@import "@@/mixins.scss";
+
+@include max-screen-size('small-desktop') {
+    .top-discounts {
+        flex-direction: column;
+    }
+    .products-with-discount {
+        --carousel__item-padding: 15px;
+        --carousel-height: min(40vh, 260px);
+
+        margin-top: 20px;
+        height: var(--carousel-height) !important;
+        width: 100% !important;
+    }
+}
+@include max-screen-size('big-tablet') {
+    .promotion-banners {
+        min-height: 126px;
+        height: 20vh !important;
+    }
+}
+
 .top-discounts {
     display: flex;
     width: 100%;
@@ -80,6 +102,10 @@ export default {
     }
 
     flex: 0 1 auto;
+}
+
+.products-with-discount {
+    width: 677px;
 }
 
 .products {

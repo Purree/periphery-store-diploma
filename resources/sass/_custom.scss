@@ -37,6 +37,9 @@ html {
 }
 
 @include screen-size('mobile') {
+    .home-container {
+        padding: 0 10px;
+    }
     .container {
         padding: 0;
     }
@@ -44,7 +47,7 @@ html {
 
 @include screen-size('tablet') {
     .home-container {
-        padding: 0
+        padding: 0 10px;
     }
     .container {
         padding: 0 calc(50% - 270px);
