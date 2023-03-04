@@ -16,8 +16,8 @@ class BannerResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'url' => $this->email,
-            'image' => $this->avatar ? asset('storage/'.$this->avatar) : null
+            'url' => $this->url,
+            'image' => asset('storage/'.$this->image),
         ];
     }
 }
