@@ -2,12 +2,13 @@
     <div class="top-discounts">
         <el-skeleton v-if="bannerPending" animated>
             <template #template>
-                <el-skeleton-item variant="rect" class="skeleton-item" />
+                <el-skeleton-item variant="rect" class="skeleton-item"/>
             </template>
         </el-skeleton>
-        <promotion-banners v-else class="promotion-banners" :banners="banners"></promotion-banners>
+        <promotion-banners v-else-if="banners.length > 0" class="promotion-banners" :banners="banners" />
         <products-with-discount class="products-with-discount"
-                                :products="randomProductsWithDiscount"></products-with-discount>
+                                :products="randomProductsWithDiscount"
+                                :class="{'full-width': banners.length < 1 && !bannerPending}" />
     </div>
 </template>
 
@@ -114,7 +115,12 @@ export default {
 }
 
 .products-with-discount {
-    width: 677px;
+    &:not(.full-width) {
+        width: 677px;
+    }
+    &.full-width {
+        width: 100%;
+    }
 }
 
 .skeleton-item {

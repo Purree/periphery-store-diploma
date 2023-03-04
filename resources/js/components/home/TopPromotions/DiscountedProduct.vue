@@ -71,6 +71,7 @@ export default {
 
 .product-image {
     display: block;
+    justify-self: center;
     max-height: var(--product-data-height);
     max-width: 90%;
     object-fit: cover;
