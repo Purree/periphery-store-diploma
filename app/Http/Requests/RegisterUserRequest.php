@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\DataTransferObjects\RegisterUserDTO;
-use App\Enums\UserValidationRule;
+use App\Enums\ValidationRules\UserValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterUserRequest extends FormRequest

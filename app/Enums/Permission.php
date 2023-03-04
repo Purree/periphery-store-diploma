@@ -14,4 +14,5 @@ enum Permission implements ArrayableEnumInterface
      */
     case view_products;
     case change_own_data;
+    case manipulate_banners;
 }

@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class);
+    }
+
     public function show(Request $request, User $user): JsonResponse
     {
         return ResponseResult::success(

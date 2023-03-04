@@ -2,50 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Results\ResponseResult;
+use App\Http\Requests\CreateBannerRequest;
+use App\Http\Requests\UpdateBannerRequest;
+use App\Http\Resources\BannerResource;
+use App\Models\Banner;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class BannerController extends Controller
 {
-    // @TODO: Доделать класс
+    public function __construct()
+    {
+        $this->authorizeResource(Banner::class);
+    }
 
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
-        //
+        return ResponseResult::success(BannerResource::collection(Banner::all()));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): Response
+    public function store(CreateBannerRequest $request): JsonResponse
     {
-        //
-    }
+        Log::info('User'.$request->user().'add new banner');
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id): Response
-    {
-        //
+        $banner = new Banner();
+        $banner->updateImage($request->image);
+        $banner->name = $request->name;
+        $banner->url = $request->url;
+        $banner->save();
+
+        return ResponseResult::success();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): Response
+    public function update(UpdateBannerRequest $request, Banner $banner): JsonResponse
     {
-        //
+        Log::info("User {$request->user()} update {$banner->id} banner");
+        if ($request->has('image')) {
+            $banner->deleteImage();
+            $banner->updateImage($request->image);
+        }
+
+        $banner->update($request->safe()->only(['name', 'url']));
+
+        return ResponseResult::success();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): Response
+    public function destroy(Request $request, Banner $banner): JsonResponse
     {
-        //
+        Log::info("User {$request->user()} delete {$banner->id} banner");
+        $banner->delete();
+
+        return ResponseResult::success();
     }
 }
