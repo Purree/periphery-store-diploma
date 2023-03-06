@@ -1,7 +1,9 @@
 <template>
     <div class="product">
         <div class="product-data">
-            <img class="product-image" :src="product.previewImage" :alt="product.title"/>
+            <div class="product-image">
+                <product-image :image-url="product.previewImage" :image-alt="product.title" />
+            </div>
             <div class="product-characteristics">
                 <div class="main-product-data">
                     <product-discount v-if="product.discount" :discount="product.discount" class="product-discount"/>
@@ -28,10 +30,12 @@ import ProductRating from '@/components/home/ProductRating.vue'
 import ProductReviewsCount from '@/components/home/ProductReviewsCount.vue'
 import ProductTitle from '@/components/home/ProductTitle.vue'
 import AddToCartButton from '@/components/home/AddToCartButton.vue'
+import ProductImage from '@/components/home/ProductImage.vue'
 
 export default {
     name: 'DiscountedProduct',
     components: {
+        ProductImage,
         AddToCartButton,
         ProductTitle,
         ProductReviewsCount,
