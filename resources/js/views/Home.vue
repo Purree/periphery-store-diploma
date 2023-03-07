@@ -9,7 +9,7 @@
 
 <script>
 import TopPromotions from '@/components/home/TopPromotions/TopPromotions.vue'
-import ProductsCollection from '@/components/home/ProductsCollection.vue'
+import ProductsCollection from '@/components/collections/ProductsCollection.vue'
 
 export default {
     name: 'Home',

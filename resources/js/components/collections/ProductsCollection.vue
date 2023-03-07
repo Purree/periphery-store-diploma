@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ElementsCollection from '@/components/ElementsCollection.vue'
+import ElementsCollection from '@/components/collections/ElementsCollection.vue'
 
 export default {
     name: 'ProductsCollection',
