@@ -91,6 +91,7 @@ export default {
     height: var(--el-header-height);
     padding: 0;
     position: fixed;
+    z-index: 999;
     width: 100%;
 }
 
