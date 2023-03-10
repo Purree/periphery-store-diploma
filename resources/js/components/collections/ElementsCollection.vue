@@ -30,6 +30,7 @@
 
 <script>
 import CollectionControlButton from '@/components/collections/CollectionControlButton.vue'
+import CollectionWhenScrollIsVisibleEnum from '@/helpers/enums/CollectionWhenScrollIsVisibleEnum'
 
 export default {
     name: 'ElementsCollection',
@@ -37,7 +38,8 @@ export default {
     data() {
         return {
             collectionScrollPosition: 0,
-            collectionScrollWidth: 0
+            collectionScrollWidth: 0,
+            isScrollVisible: true
         }
     },
     props: {
@@ -50,10 +52,11 @@ export default {
             type: String,
             default: '340px'
         },
-        isScrollVisible: {
+        whenScrollIsVisible: {
             required: false,
-            type: Boolean,
-            default: true
+            // Instance of CollectionWhenScrollIsVisibleEnum
+            type: String,
+            default: CollectionWhenScrollIsVisibleEnum.onComputer
         },
         isControlsVisible: {
             required: false,
@@ -71,14 +74,32 @@ export default {
                 behavior: 'smooth'
             })
         },
-        scrollCollection(scrollLength) {
-            this.$refs.collectionElements.scrollLeft += scrollLength
+        updateCollectionScrollWidth() {
+            const collectionElements = this.$refs.collectionElements
+
+            this.collectionScrollWidth = collectionElements.scrollWidth - collectionElements.clientWidth
+        },
+        updateIsScrollVisible() {
+            const mobileWindowWidth = 800
+
+            if (this.whenScrollIsVisible === CollectionWhenScrollIsVisibleEnum.onPhone) {
+                this.isScrollVisible = window.innerWidth <= mobileWindowWidth
+            } else if (this.whenScrollIsVisible === CollectionWhenScrollIsVisibleEnum.onComputer) {
+                this.isScrollVisible = window.innerWidth > mobileWindowWidth
+            } else {
+                this.isScrollVisible = this.whenScrollIsVisible === CollectionWhenScrollIsVisibleEnum.always
+            }
         }
     },
     mounted() {
         const collectionElements = this.$refs.collectionElements
 
-        this.collectionScrollWidth = this.$refs.collectionElements.scrollWidth - collectionElements.clientWidth
+        this.updateCollectionScrollWidth()
+        this.updateIsScrollVisible()
+        window.addEventListener('resize', () => {
+            this.updateCollectionScrollWidth()
+            this.updateIsScrollVisible()
+        })
         collectionElements.addEventListener('scroll', () => {
             this.collectionScrollPosition = collectionElements.scrollLeft
         })
