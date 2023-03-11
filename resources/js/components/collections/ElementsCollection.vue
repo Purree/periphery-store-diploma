@@ -20,9 +20,11 @@
                     </slot>
                 </div>
             </div>
-            <div ref="collectionElements" class="elements"
-                 :style="`height: ${height}; ${isScrollVisible ? 'overflow-x: scroll' : ''}`">
-                <slot></slot>
+            <div>
+                <div ref="collectionElements" class="elements"
+                     :style="`max-height: ${maxHeight}; ${isScrollVisible ? 'overflow-x: scroll' : ''}`">
+                    <slot></slot>
+                </div>
             </div>
         </div>
     </div>
@@ -47,7 +49,7 @@ export default {
             required: false,
             type: [String, undefined]
         },
-        height: {
+        maxHeight: {
             required: false,
             type: String,
             default: '340px'
@@ -56,7 +58,7 @@ export default {
             required: false,
             // Instance of CollectionWhenScrollIsVisibleEnum
             type: String,
-            default: CollectionWhenScrollIsVisibleEnum.onComputer
+            default: CollectionWhenScrollIsVisibleEnum.onPhone
         },
         isControlsVisible: {
             required: false,
@@ -113,6 +115,7 @@ export default {
 }
 
 .collection-title {
+    margin-bottom: 20px;
     font-size: 1.6rem;
     font-weight: bold;
 }

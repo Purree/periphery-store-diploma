@@ -1,18 +1,19 @@
 <template>
-    <el-button type="primary" v-bind="$attrs">
+    <full-width-button type="primary" v-bind="$attrs">
         <font-awesome-icon icon="cart-shopping" class="cart-icon" />
         <div>
             {{ $t('general.addToCart') }}
         </div>
-    </el-button>
+    </full-width-button>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import FullWidthButton from '@/components/FullWidthButton.vue'
 
 export default {
     name: 'AddToCartButton',
-    components: { FontAwesomeIcon }
+    components: { FullWidthButton, FontAwesomeIcon }
 }
 </script>
 

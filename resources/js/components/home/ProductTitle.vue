@@ -1,12 +1,12 @@
 <template>
-    <div class="product-title">{{ productName }}</div>
+    <div class="product-title">{{ title }}</div>
 </template>
 
 <script>
 export default {
     name: 'ProductTitle',
     props: {
-        productName: {
+        title: {
             required: true,
             type: String
         }

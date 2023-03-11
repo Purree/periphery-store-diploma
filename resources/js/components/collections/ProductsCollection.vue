@@ -1,24 +1,36 @@
 <template>
     <elements-collection :collection-title="collectionTitle">
-        <div :key="i" v-for="i in 10" style="width: 400px; height: 100%;" :style="'background-color: #' + Math.floor(100000 + Math.random() * 900000)"></div>
+        <product-card :key="product.slug" v-for="product in products" :image-url="product.previewImage"
+                      :title="product.title" :price="product.price" :slug="product.slug" :discount="product.discount"
+                      :price-with-discount="product.priceWithDiscount" :rating="product.rating" class="product-card"/>
     </elements-collection>
 </template>
 
 <script>
 import ElementsCollection from '@/components/collections/ElementsCollection.vue'
+import ProductCard from '@/components/home/ProductCard.vue'
 
 export default {
     name: 'ProductsCollection',
-    components: { ElementsCollection },
+    components: {
+        ProductCard,
+        ElementsCollection
+    },
     props: {
         collectionTitle: {
             required: false,
             type: [String, undefined]
+        },
+        products: {
+            required: true,
+            type: Array
         }
     }
 }
 </script>
 
 <style scoped>
-
+.product-card:not(:last-child) {
+    margin-right: 30px;
+}
 </style>

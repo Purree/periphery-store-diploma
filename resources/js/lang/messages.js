@@ -61,7 +61,8 @@ export default {
         home: {
             headerDiscounts: {
                 products: {
-                    productsWithDiscount: 'Products with discount'
+                    productsWithDiscount: 'Products with discount',
+                    salesHits: 'Sales hits'
                 }
             }
         },
@@ -136,7 +137,8 @@ export default {
         home: {
             headerDiscounts: {
                 products: {
-                    productsWithDiscount: 'Товары со скидкой'
+                    productsWithDiscount: 'Товары со скидкой',
+                    salesHits: 'Хиты продаж'
                 }
             }
         },

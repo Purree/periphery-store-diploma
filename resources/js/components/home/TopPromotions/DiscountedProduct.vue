@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="product-title-container">
-                    <product-title class="product-title" :product-name="product.title"/>
+                    <product-title class="product-title" :title="product.title"/>
                     <!--                TODO: Реализовать добавление в корзину-->
                 </div>
             </div>
@@ -122,7 +122,6 @@ export default {
 }
 
 .cart-button {
-    width: 100%;
     height: var(--cart-button-height);
 }
 </style>
