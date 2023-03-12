@@ -18,6 +18,7 @@ export default {
 .product-title {
     width: 100%;
     word-break: break-all;
+    white-space: normal;
     max-height: 40px;
     overflow: hidden;
     font-size: var(--el-font-size-base);
