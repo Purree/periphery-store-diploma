@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'ProductImage',
+    name: 'ItemImage',
     props: {
         imageUrl: {
             required: true,
@@ -13,7 +13,7 @@ export default {
         imageAlt: {
             required: false,
             type: String,
-            default: 'Product image'
+            default: 'Item image'
         }
     }
 }

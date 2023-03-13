@@ -2,7 +2,8 @@
     <elements-collection :collection-title="collectionTitle">
         <product-card :key="product.slug" v-for="product in products" :image-url="product.previewImage"
                       :title="product.title" :price="product.price" :slug="product.slug" :discount="product.discount"
-                      :price-with-discount="product.priceWithDiscount" :rating="product.rating" class="product-card"/>
+                      :price-with-discount="product.priceWithDiscount" :rating="product.rating"
+                      :reviews-count="product.reviewsCount" class="product-card"/>
     </elements-collection>
 </template>
 

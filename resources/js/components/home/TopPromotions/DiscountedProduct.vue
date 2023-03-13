@@ -2,19 +2,16 @@
     <div class="product">
         <div class="product-data">
             <div class="product-image">
-                <product-image :image-url="product.previewImage" :image-alt="product.title" />
+                <item-image :image-url="product.previewImage" :image-alt="product.title" />
             </div>
             <div class="product-characteristics">
                 <div class="main-product-data">
                     <product-discount v-if="product.discount" :discount="product.discount" class="product-discount"/>
                     <product-price :price="product.price" :discounted-price="product.priceWithDiscount"/>
-                    <div class="product-clients-block">
-                        <product-rating v-if="product.rating" :rating="product.rating"/>
-                        <product-reviews-count :reviews-count="product.reviewsCount"/>
-                    </div>
+                    <product-feedback :rating="product.rating" :reviews-count="product.reviewsCount"/>
                 </div>
                 <div class="product-title-container">
-                    <product-title class="product-title" :title="product.title"/>
+                    <item-title class="product-title" :title="product.title"/>
                     <!--                TODO: Реализовать добавление в корзину-->
                 </div>
             </div>
@@ -26,20 +23,18 @@
 <script>
 import ProductDiscount from '@/components/home/TopPromotions/ProductDiscount.vue'
 import ProductPrice from '@/components/home/ProductPrice.vue'
-import ProductRating from '@/components/home/ProductRating.vue'
-import ProductReviewsCount from '@/components/home/ProductReviewsCount.vue'
-import ProductTitle from '@/components/home/ProductTitle.vue'
+import ItemTitle from '@/components/home/ItemTitle.vue'
 import AddToCartButton from '@/components/home/AddToCartButton.vue'
-import ProductImage from '@/components/home/ProductImage.vue'
+import ItemImage from '@/components/home/ItemImage.vue'
+import ProductFeedback from '@/components/home/ProductFeedback.vue'
 
 export default {
     name: 'DiscountedProduct',
     components: {
-        ProductImage,
+        ProductFeedback,
+        ItemImage,
         AddToCartButton,
-        ProductTitle,
-        ProductReviewsCount,
-        ProductRating,
+        ItemTitle,
         ProductPrice,
         ProductDiscount
     },
@@ -99,17 +94,6 @@ export default {
 
 .product-discount {
     margin-bottom: 10px;
-}
-
-.product-clients-block {
-    margin: 5px 0;
-    font-size: var(--el-font-size-base);
-    display: flex;
-    align-items: flex-end;
-
-    & > *:not(:last-child) {
-        margin-right: 10px;
-    }
 }
 
 .product-title-container {

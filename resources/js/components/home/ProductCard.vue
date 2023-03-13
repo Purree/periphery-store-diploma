@@ -3,14 +3,14 @@
     <div class="product-card">
         <div class="product-image-container">
             <div class="product-image">
-                <product-image :image-url="imageUrl"/>
+                <item-image :image-url="imageUrl"/>
             </div>
         </div>
         <div class="product-title">
-            <product-title :title="title"/>
+            <item-title :title="title"/>
         </div>
-        <div class="product-rating">
-            <product-rating v-if="rating" :rating="rating"/>
+        <div class="product-feedback-container">
+            <product-feedback class="product-feedback" :reviews-count="reviewsCount" :rating="rating"/>
         </div>
         <div class="product-price">
             <product-price :is-price-size-overwritten="true" :price="price" :discounted-price="priceWithDiscount"/>
@@ -22,20 +22,20 @@
 </template>
 
 <script>
-import ProductImage from '@/components/home/ProductImage.vue'
-import ProductTitle from '@/components/home/ProductTitle.vue'
-import ProductRating from '@/components/home/ProductRating.vue'
+import ItemImage from '@/components/home/ItemImage.vue'
+import ItemTitle from '@/components/home/ItemTitle.vue'
 import ProductPrice from '@/components/home/ProductPrice.vue'
 import AddToCartButton from '@/components/home/AddToCartButton.vue'
+import ProductFeedback from '@/components/home/ProductFeedback.vue'
 
 export default {
     name: 'ProductCard',
     components: {
+        ProductFeedback,
         AddToCartButton,
         ProductPrice,
-        ProductRating,
-        ProductTitle,
-        ProductImage
+        ItemTitle,
+        ItemImage
     },
     props: {
         title: {
@@ -60,6 +60,10 @@ export default {
             default: 0
         },
         rating: {
+            required: false,
+            type: [Number, undefined]
+        },
+        reviewsCount: {
             required: false,
             type: [Number, undefined]
         },
@@ -94,9 +98,13 @@ export default {
     height: 44px;
 }
 
-.product-rating {
+.product-feedback-container {
     width: 100%;
     height: 23px;
+}
+
+.product-feedback {
+    align-items: center;
 }
 
 .product-price {
