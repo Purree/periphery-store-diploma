@@ -93,7 +93,7 @@ export default {
 }
 
 .product-title {
-    word-break: break-all;
+    word-break: break-word;
     width: 100%;
     height: 44px;
 }

@@ -17,7 +17,7 @@ export default {
 <style scoped>
 .product-title {
     width: 100%;
-    word-break: break-all;
+    word-break: break-word;
     white-space: normal;
     max-height: 40px;
     overflow: hidden;

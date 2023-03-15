@@ -70,10 +70,10 @@ export default {
 .old-price {
     text-decoration: line-through;
     color: var(--el-color-info-light-5);
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .price {
-    word-break: break-all;
+    word-break: break-word;
 }
 </style>

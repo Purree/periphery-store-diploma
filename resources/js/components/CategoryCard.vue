@@ -50,6 +50,7 @@ export default {
 .category-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .category-image-container {
@@ -57,6 +58,7 @@ export default {
     justify-content: center;
     align-items: center;
     background: var(--el-bg-color-page);
+    border-radius: var(--el-border-radius-round);
     width: 160px;
     height: 160px;
 }
@@ -64,5 +66,11 @@ export default {
 .category-image {
     width: 120px;
     height: 120px;
+}
+
+.category-title {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
 }
 </style>
