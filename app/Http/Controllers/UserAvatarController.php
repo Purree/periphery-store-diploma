@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StoredImagesFolderEnum;
 use App\Helpers\ImageFacade;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Requests\ChangeAvatarRequest;
@@ -21,7 +22,7 @@ class UserAvatarController extends Controller
             ->encode('jpg')
             ->resize(1024, 1024, true);
 
-        $user->avatar = $image->save('profile-photos/');
+        $user->avatar = $image->save(StoredImagesFolderEnum::profilePhotos->value);
         $user->save();
 
         return ResponseResult::success(['avatarPath' => (new UserResource($user))->toArray($request)['avatar']]);

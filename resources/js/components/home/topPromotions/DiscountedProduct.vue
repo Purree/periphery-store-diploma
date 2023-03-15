@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import ProductDiscount from '@/components/home/TopPromotions/ProductDiscount.vue'
-import ProductPrice from '@/components/home/ProductPrice.vue'
+import ProductDiscount from '@/components/home/topPromotions/ProductDiscount.vue'
+import ProductPrice from '@/components/home/product/ProductPrice.vue'
 import ItemTitle from '@/components/home/ItemTitle.vue'
 import AddToCartButton from '@/components/home/AddToCartButton.vue'
 import ItemImage from '@/components/home/ItemImage.vue'
-import ProductFeedback from '@/components/home/ProductFeedback.vue'
+import ProductFeedback from '@/components/home/product/ProductFeedback.vue'
 
 export default {
     name: 'DiscountedProduct',

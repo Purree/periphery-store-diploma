@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StoredImagesFolderEnum;
 use App\Helpers\ImageFacade;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -32,6 +33,6 @@ class Banner extends Model
 
     public function updateImage(string $image): void
     {
-        $this->image = ImageFacade::make($image)->save('banners/');
+        $this->image = ImageFacade::make($image)->save(StoredImagesFolderEnum::banners->value);
     }
 }

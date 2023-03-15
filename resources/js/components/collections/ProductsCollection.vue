@@ -9,7 +9,7 @@
 
 <script>
 import ElementsCollection from '@/components/collections/ElementsCollection.vue'
-import ProductCard from '@/components/home/ProductCard.vue'
+import ProductCard from '@/components/home/product/ProductCard.vue'
 
 export default {
     name: 'ProductsCollection',

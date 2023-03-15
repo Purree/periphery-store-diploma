@@ -3,17 +3,22 @@
         <top-promotions/>
     </div>
     <div class="products home-container">
-        <products-collection :collection-title="$t('home.headerDiscounts.products.salesHits')" :products="products"/>
+        <products-collection v-if="products" :collection-title="$t('home.products.salesHits')" :products="products"
+                             class="sales-hits"/>
+        <categories-collection v-if="categories" :collection-title="$t('home.categories.popularCategories')"
+                               :categories="categories"/>
     </div>
 </template>
 
 <script>
-import TopPromotions from '@/components/home/TopPromotions/TopPromotions.vue'
+import TopPromotions from '@/components/home/topPromotions/TopPromotions.vue'
 import ProductsCollection from '@/components/collections/ProductsCollection.vue'
+import CategoriesCollection from '@/components/collections/CategoriesCollection.vue'
 
 export default {
     name: 'Home',
     components: {
+        CategoriesCollection,
         ProductsCollection,
         TopPromotions
     },
@@ -22,7 +27,7 @@ export default {
             products: [{
                 title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
                 slug: 'test',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
+                previewImage: 'http://diploma.com/storage/default.png',
                 price: 100000000000000.0,
                 discount: 50,
                 priceWithDiscount: 50000000000000.0
@@ -69,6 +74,31 @@ export default {
                 price: 100000.0,
                 discount: 1,
                 priceWithDiscount: 10000000.0
+            }],
+            categories: [{
+                image: 'http://diploma.com/storage/default.png',
+                slug: 'test',
+                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest'
+            }, {
+                image: 'http://diploma.com/storage/default.png',
+                slug: 'test2',
+                title: 'tost'
+            }, {
+                image: 'http://diploma.com/storage/default.png',
+                slug: 'test3',
+                title: 'ещые'
+            }, {
+                image: 'http://diploma.com/storage/default.png',
+                slug: 'test4',
+                title: 'ААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААА'
+            }, {
+                image: 'http://diploma.com/storage/default.png',
+                slug: 'test5',
+                title: 'ББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББББ'
+            }, {
+                image: 'http://diploma.com/storage/banners/banner.jpg',
+                slug: 'test6',
+                title: 'ВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВ'
             }]
         }
     }
@@ -84,5 +114,9 @@ export default {
     border-top-right-radius: var(--el-border-radius-round);
 
     flex: 1 1 auto;
+}
+
+.sales-hits {
+    margin-bottom: 50px;
 }
 </style>

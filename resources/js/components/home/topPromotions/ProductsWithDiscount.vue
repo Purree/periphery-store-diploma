@@ -2,7 +2,7 @@
     <carousel class="products-carousel carousel-with-bottom-indentation" trigger="click"
                  height="inherit" :interval="25000">
         <!--        TODO: Redirect to product.slug on click -->
-        <div class="products-header">{{ $t('home.headerDiscounts.products.productsWithDiscount') }}</div>
+        <div class="products-header">{{ $t('home.products.productsWithDiscount') }}</div>
         <div class="products">
             <div v-for="product in products" :key="product.slug" class="product-container">
                 <el-carousel-item :name="product.title">
@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import DiscountedProduct from '@/components/home/TopPromotions/DiscountedProduct.vue'
-import Carousel from '@/components/home/TopPromotions/Carousel.vue'
+import DiscountedProduct from '@/components/home/topPromotions/DiscountedProduct.vue'
+import Carousel from '@/components/home/topPromotions/Carousel.vue'
 
 export default {
     name: 'ProductsWithDiscount',

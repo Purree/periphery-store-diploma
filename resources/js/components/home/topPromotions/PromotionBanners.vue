@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Carousel from '@/components/home/TopPromotions/Carousel.vue'
+import Carousel from '@/components/home/topPromotions/Carousel.vue'
 
 export default {
     name: 'PromotionBanners',

@@ -59,11 +59,12 @@ export default {
             }
         },
         home: {
-            headerDiscounts: {
-                products: {
-                    productsWithDiscount: 'Products with discount',
-                    salesHits: 'Sales hits'
-                }
+            products: {
+                productsWithDiscount: 'Products with discount',
+                salesHits: 'Sales hits'
+            },
+            categories: {
+                popularCategories: 'Popular categories'
             }
         },
         general: {
@@ -135,11 +136,12 @@ export default {
             }
         },
         home: {
-            headerDiscounts: {
-                products: {
-                    productsWithDiscount: 'Товары со скидкой',
-                    salesHits: 'Хиты продаж'
-                }
+            products: {
+                productsWithDiscount: 'Товары со скидкой',
+                salesHits: 'Хиты продаж'
+            },
+            categories: {
+                popularCategories: 'Популярные категории'
             }
         },
         general: {

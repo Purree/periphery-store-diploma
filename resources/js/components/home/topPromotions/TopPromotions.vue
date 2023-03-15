@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import PromotionBanners from '@/components/home/TopPromotions/PromotionBanners.vue'
-import ProductsWithDiscount from '@/components/home/TopPromotions/ProductsWithDiscount.vue'
+import PromotionBanners from '@/components/home/topPromotions/PromotionBanners.vue'
+import ProductsWithDiscount from '@/components/home/topPromotions/ProductsWithDiscount.vue'
 import apiRequest from '@/helpers/apiRequest'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import { API_GET_BANNERS_URL } from '@/api/banners'
