@@ -1,9 +1,7 @@
 <template>
     <div class="collection-container">
         <slot name="title">
-            <div v-if="collectionTitle" class="collection-title">
-                {{ collectionTitle }}
-            </div>
+            <list-title class="title" :title="collectionTitle" />
         </slot>
 
         <div class="elements-container">
@@ -33,10 +31,11 @@
 <script>
 import CollectionControlButton from '@/components/collections/CollectionControlButton.vue'
 import CollectionWhenScrollIsVisibleEnum from '@/helpers/enums/CollectionWhenScrollIsVisibleEnum'
+import ListTitle from '@/components/ListTitle.vue'
 
 export default {
     name: 'ElementsCollection',
-    components: { CollectionControlButton },
+    components: { ListTitle, CollectionControlButton },
     data() {
         return {
             collectionScrollPosition: 0,
@@ -114,18 +113,16 @@ export default {
     overflow: hidden;
 }
 
-.collection-title {
-    margin-bottom: 20px;
-    font-size: 1.6rem;
-    font-weight: bold;
-}
-
 .elements-container {
     position: relative;
 }
 
 .collection-controls > * {
     z-index: 1;
+}
+
+.title {
+    margin-bottom: 20px;
 }
 
 .elements {

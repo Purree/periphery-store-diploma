@@ -61,7 +61,8 @@ export default {
         home: {
             products: {
                 productsWithDiscount: 'Products with discount',
-                salesHits: 'Sales hits'
+                salesHits: 'Sales hits',
+                otherProducts: 'Other products'
             },
             categories: {
                 popularCategories: 'Popular categories'
@@ -138,7 +139,8 @@ export default {
         home: {
             products: {
                 productsWithDiscount: 'Товары со скидкой',
-                salesHits: 'Хиты продаж'
+                salesHits: 'Хиты продаж',
+                otherProducts: 'Прочие продукты'
             },
             categories: {
                 popularCategories: 'Популярные категории'
