@@ -12,11 +12,17 @@ class RolePermissionsRelation
     public function __construct()
     {
         /**
-         * After adding a new role here, run the following command:
-         * php artisan db:seed --class=RolePermissionSeeder
+         * @after editing that relations, run the following
+         * @command php artisan db:seed --class=RolePermissionSeeder
          */
         $this->createRelation(Role::administrator, ...Permission::cases());
-        $this->createRelation(Role::customer, Permission::view_products, Permission::change_own_data);
+        $this->createRelation(Role::customer, Permission::change_own_data);
+        $this->createRelation(
+            Role::seller,
+            Permission::create_products,
+            Permission::delete_own_products,
+            Permission::update_own_products
+        );
     }
 
     public function getRelations(): array
