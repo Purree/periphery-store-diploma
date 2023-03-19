@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->belongsToMany(RoleModel::class, 'user_role');
     }
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function getPermissions(): Collection
     {
         return $this->roles()->with('permissions')->get()
@@ -75,7 +80,7 @@ class User extends Authenticatable
 
     public function addRole(RoleEnum $role): void
     {
-        $roleUsers = RoleEnum::firstWhere('name', $role->name)->users();
+        $roleUsers = RoleModel::firstWhere('name', $role->name)->users();
         $roleUsers->attach($this->id);
     }
 

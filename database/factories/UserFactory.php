@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\Role as RoleEnum;
+use App\Models\Role as RoleModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -9,7 +11,7 @@ use Illuminate\Support\Str;
 /**
  * @extends Factory<User>
  */
-class UserFactory extends Factory
+final class UserFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -27,15 +29,11 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return static
-     */
-    public function unverified()
+    public function associateWithRoles(?RoleEnum $role = null): UserFactory
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        $roles = $role === null ? RoleModel::all() : [RoleModel::firstWhere('name', $role->name)];
+
+        return $this->hasAttached($roles);
+        dd($roles);
     }
 }
