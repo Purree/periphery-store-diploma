@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Results\ResponseResult;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
@@ -20,7 +22,9 @@ class ProductController extends Controller
      */
     public function index(): JsonResponse
     {
-        //
+        return ResponseResult::success(
+            ProductResource::collection(Product::with('seller', 'categories')->inRandomOrder()->paginate(100))
+        );
     }
 
     /**
@@ -28,7 +32,7 @@ class ProductController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        //
+        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
 
     /**
@@ -36,7 +40,7 @@ class ProductController extends Controller
      */
     public function show(Product $product): JsonResponse
     {
-        //
+        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
 
     /**
@@ -44,7 +48,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product): JsonResponse
     {
-        //
+        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
 
     /**

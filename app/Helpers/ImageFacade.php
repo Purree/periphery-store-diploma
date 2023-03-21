@@ -2,10 +2,12 @@
 
 namespace App\Helpers;
 
+use App\Enums\StoredImagesFolderEnum;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\Image as InterventionImage;
+use Log;
 
 class ImageFacade
 {
@@ -18,11 +20,39 @@ class ImageFacade
     {
     }
 
+    public const DEFAULT_IMAGE_NAME = 'default.png';
+
+    public static function getPassedOrDefaultImageUrl(
+        ?string $imageName,
+        ?StoredImagesFolderEnum $imageFolderEnum = null,
+        bool $useFolderEnumForDefaultImage = false
+    ): string {
+        if ($imageName) {
+            return self::getImageUrl($imageName, $imageFolderEnum);
+        }
+
+        return self::getImageUrl(
+            self::DEFAULT_IMAGE_NAME,
+            $useFolderEnumForDefaultImage ? $imageFolderEnum : null
+        );
+    }
+
+    public static function getImageUrl(string $imageName, ?StoredImagesFolderEnum $imageFolderEnum = null): string
+    {
+        $imagePath = $imageFolderEnum?->value.$imageName;
+
+        if (Storage::missing($imagePath)) {
+            Log::error('File '.$imagePath.' not found.');
+        }
+
+        return Storage::url($imagePath);
+    }
+
     public static function checkIsAPNG(string $file): bool
     {
         $imgBytes = file_get_contents($file);
 
-        return ! ($imgBytes && str_contains(mb_substr($imgBytes, 0, mb_strpos($imgBytes, 'IDAT')), 'acTL'));
+        return !($imgBytes && str_contains(mb_substr($imgBytes, 0, mb_strpos($imgBytes, 'IDAT')), 'acTL'));
     }
 
     public static function make(string $file): self

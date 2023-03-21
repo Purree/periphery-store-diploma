@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\ImageFacade;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,10 +18,14 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
-            'avatar' => $this->avatar ? asset('storage/'.$this->avatar) : null,
-            'roles' => $this->roles()->pluck('name'),
-            'permissions' => $this->getPermissions()->pluck('name'),
+            'avatar' => $this->avatar ? ImageFacade::getImageUrl($this->avatar) : null,
+            $this->mergeWhen($request->user()?->id === $this->id, [
+                'email' => $this->email,
+                ...$this->whenLoaded('roles', [
+                    'roles' => $this->roles->pluck('name'),
+                    'permissions' => $this->getPermissions()->pluck('name'),
+                ]),
+            ]),
         ];
     }
 }

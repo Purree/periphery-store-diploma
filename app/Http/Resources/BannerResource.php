@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\ImageFacade;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +18,7 @@ class BannerResource extends JsonResource
         return [
             'name' => $this->name,
             'url' => $this->url,
-            'image' => asset('storage/'.$this->image),
+            'image' => ImageFacade::getImageUrl($this->image),
         ];
     }
 }
