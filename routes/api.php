@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::post('/session', [AuthorizationController::class, 'login'])->name('login'
 Route::post('/users', [AuthorizationController::class, 'registration'])->name('register');
 
 Route::apiResource('/banners', BannerController::class)->except('show');
+Route::apiResource('/products', ProductController::class);
 
 Route::middleware('auth:sanctum')->group(static function () {
     Route::delete('/session', [AuthorizationController::class, 'logout'])->name('logout');

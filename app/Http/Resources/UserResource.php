@@ -19,13 +19,13 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'avatar' => $this->avatar ? ImageFacade::getImageUrl($this->avatar) : null,
-            $this->mergeWhen($request->user()?->id === $this->id, [
+            $request->user()?->id === $this->id ? [
                 'email' => $this->email,
                 ...$this->whenLoaded('roles', [
                     'roles' => $this->roles->pluck('name'),
                     'permissions' => $this->getPermissions()->pluck('name'),
                 ]),
-            ]),
+            ] : [],
         ];
     }
 }
