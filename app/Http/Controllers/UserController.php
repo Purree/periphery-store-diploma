@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function showAuthenticated(Request $request): JsonResponse
     {
-        return $this->show($request, Auth::user());
+        return $this->show($request, Auth::user()?->with('roles')->first());
     }
 
     public function update(UpdateUserRequest $request, User $user): JsonResponse

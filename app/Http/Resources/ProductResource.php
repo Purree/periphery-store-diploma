@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Helpers\ImageFacade;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Gate;
 
 class ProductResource extends JsonResource
 {
@@ -33,7 +34,7 @@ class ProductResource extends JsonResource
                 'seller',
                 [
                     'seller' => new UserResource($this->seller),
-                    ...$this->when($request->user()?->id === $this->seller->id, [
+                    ...$this->when(Gate::allows('update', $this->resource), [
                         'create_at' => $this->created_at,
                         'updated_at' => $this->updated_at,
                         'deleted_at' => $this->deleted_at,
