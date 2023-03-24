@@ -34,6 +34,5 @@ final class UserFactory extends Factory
         $roles = $role === null ? RoleModel::all() : [RoleModel::firstWhere('name', $role->name)];
 
         return $this->hasAttached($roles);
-        dd($roles);
     }
 }

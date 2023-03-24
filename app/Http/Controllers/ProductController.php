@@ -40,7 +40,9 @@ class ProductController extends Controller
      */
     public function show(Product $product): JsonResponse
     {
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+        return ResponseResult::success(
+            new ProductResource($product->with('seller', 'categories')->first())
+        );
     }
 
     /**
