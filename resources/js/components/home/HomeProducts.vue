@@ -1,6 +1,6 @@
 <template>
     <div>
-        <products-collection v-if="products" :collection-title="$t('home.products.salesHits')" :products="salesHits"
+        <products-collection v-if="salesHits" :collection-title="$t('home.products.salesHits')" :products="salesHits"
                              class="sales-hits"/>
         <categories-collection v-if="categories" :collection-title="$t('home.categories.popularCategories')"
                                :categories="categories" class="popular-categories"/>
@@ -14,6 +14,7 @@ import CategoriesCollection from '@/components/collections/CategoriesCollection.
 import ProductsCollection from '@/components/collections/ProductsCollection.vue'
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_PRODUCTS_URL } from '@/api/products'
+import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 
 export default {
     name: 'HomeProducts',
@@ -105,7 +106,13 @@ export default {
     },
     methods: {
         async getAllProducts(page = 1) {
-            return await apiRequest(API_GET_PRODUCTS_URL, {}, { page })
+            try {
+                const productsResponse = await apiRequest(API_GET_PRODUCTS_URL, {}, { page })
+                return productsResponse.data
+            } catch (error) {
+                openErrorNotification(getErrorsFromResponse(error))
+                return []
+            }
         }
     },
     async mounted() {

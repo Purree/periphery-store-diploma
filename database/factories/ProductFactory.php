@@ -25,7 +25,6 @@ final class ProductFactory extends Factory
             'meta_title' => $this->faker->word(),
             'slug' => $this->faker->unique()->slug(),
             'description' => $this->faker->realText(),
-            'preview_image' => $this->faker->imageUrl(),
             'SKU' => $this->faker->unique()->asciify('********************'),
             'price' => $this->faker->numberBetween(0, 9999999),
             'discount' => $this->faker->numberBetween(0, 100),

@@ -47,7 +47,8 @@ export default {
     justify-content: center;
     flex: 1 0 250px;
     border-bottom: 1px solid var(--el-border-color);
-    padding: 40px 0;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 .title {
