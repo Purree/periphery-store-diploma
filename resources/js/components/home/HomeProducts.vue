@@ -1,6 +1,6 @@
 <template>
     <div>
-        <products-collection v-if="products" :collection-title="$t('home.products.salesHits')" :products="products"
+        <products-collection v-if="products" :collection-title="$t('home.products.salesHits')" :products="salesHits"
                              class="sales-hits"/>
         <categories-collection v-if="categories" :collection-title="$t('home.categories.popularCategories')"
                                :categories="categories" class="popular-categories"/>
@@ -12,6 +12,8 @@
 import ProductsList from '@/components/home/product/ProductsList.vue'
 import CategoriesCollection from '@/components/collections/CategoriesCollection.vue'
 import ProductsCollection from '@/components/collections/ProductsCollection.vue'
+import apiRequest from '@/helpers/apiRequest'
+import { API_GET_PRODUCTS_URL } from '@/api/products'
 
 export default {
     name: 'HomeProducts',
@@ -22,7 +24,7 @@ export default {
     },
     data() {
         return {
-            products: [{
+            salesHits: [{
                 title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
                 slug: 'test',
                 previewImage: 'http://diploma.com/storage/default.png',
@@ -73,75 +75,7 @@ export default {
                 discount: 1,
                 priceWithDiscount: 10000000.0
             }],
-            otherProducts: [{
-                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-                slug: 'test',
-                previewImage: 'http://diploma.com/storage/default.png',
-                price: 100000000000000.0,
-                discount: 50,
-                priceWithDiscount: 50000000000000.0
-            }, {
-                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-                reviewsCount: 6,
-                rating: 2.5,
-                slug: 'tost',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 10000000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'text',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'texts',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 10.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'toxt',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'detox',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'detox',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'detox',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }],
+            otherProducts: [],
             categories: [{
                 image: 'http://diploma.com/storage/default.png',
                 slug: 'test',
@@ -168,6 +102,14 @@ export default {
                 title: 'ВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВВ'
             }]
         }
+    },
+    methods: {
+        async getAllProducts(page = 1) {
+            return await apiRequest(API_GET_PRODUCTS_URL, {}, { page })
+        }
+    },
+    async mounted() {
+        this.otherProducts = await this.getAllProducts()
     }
 }
 </script>

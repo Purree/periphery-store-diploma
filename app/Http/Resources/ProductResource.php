@@ -17,15 +17,18 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         // TODO: Добавить количество продаж, множество фотографий в карточку и рейтинг
+        // TODO: Fix n+1 permissions
+        // TODO: Add pagination
         return [
             'title' => $this->title,
             'metaTitle' => $this->meta_title,
             'slug' => $this->slug,
             'description' => $this->description,
-            'preview_image' => ImageFacade::getPassedOrDefaultImageUrl($this->preview_image),
+            'previewImage' => ImageFacade::getPassedOrDefaultImageUrl($this->preview_image),
             'SKU' => $this->SKU,
             'price' => $this->price,
             'discount' => $this->discount,
+            'priceWithDiscount' => $this->priceWithDiscount,
             'quantity' => $this->quantity,
             'is_available' => $this->is_available,
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
