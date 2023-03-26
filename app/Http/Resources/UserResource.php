@@ -20,13 +20,22 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'avatar' => $this->avatar ? ImageFacade::getImageUrl($this->avatar) : null,
-            ...(Gate::allows('view', $this->resource) ? [
+            ...(Gate::allows('viewAdditionalResourceData', $this->resource) ? [
                 'email' => $this->email,
-                ...$this->whenLoaded('roles', [
-                    'roles' => $this->roles->pluck('name'),
-                    'permissions' => $this->getPermissions()->pluck('name'),
-                ]),
+                ...$this->getRolesIfItsLoaded()
             ] : []),
         ];
+    }
+
+    protected function getRolesIfItsLoaded(): array
+    {
+        if (!$this->whenLoaded('roles', null)?->isMissing()) {
+            return [
+                'roles' => $this->roles->pluck('name'),
+                'permissions' => $this->getPermissions()->pluck('name'),
+            ];
+        }
+
+        return [];
     }
 }

@@ -10,6 +10,10 @@ class ProductPolicy
 {
     public function before(?User $user, string $ability): bool|null
     {
+        if ($ability === 'viewAdditionalResourceData') {
+            return null;
+        }
+
         if ($user?->isAdministrator() || $this->canUserManipulateAllProducts($user)) {
             return true;
         }
@@ -31,6 +35,15 @@ class ProductPolicy
     public function view(?User $user, Product $product): bool
     {
         return true;
+    }
+
+    /**
+     * Determine whether the user can view additional information in api resource its need to avoid n+1 problem.
+     * Additionally, add check for viewAdditionalResourceData ability to before method and return null if it's true.
+     */
+    public function viewAdditionalResourceData(User $user, Product $product): bool
+    {
+        return $product->seller->id === $user->id;
     }
 
     /**

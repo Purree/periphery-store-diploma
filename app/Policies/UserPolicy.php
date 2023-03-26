@@ -12,6 +12,10 @@ class UserPolicy
      */
     public function before(User $user, string $ability): bool|null
     {
+        if ($ability === 'viewAdditionalResourceData') {
+            return null;
+        }
+
         if ($user->isAdministrator()) {
             return true;
         }
@@ -31,6 +35,15 @@ class UserPolicy
      * Determine whether the user can view the model.
      */
     public function view(User $user, User $model): bool
+    {
+        return $model->id === $user->id;
+    }
+
+    /**
+     * Determine whether the user can view additional information in api resource its need to avoid n+1 problem.
+     * Additionally, add check for viewAdditionalResourceData ability to before method and return null if it's true.
+     */
+    public function viewAdditionalResourceData(User $user, User $model): bool
     {
         return $model->id === $user->id;
     }
