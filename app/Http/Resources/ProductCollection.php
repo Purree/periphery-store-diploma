@@ -16,13 +16,14 @@ class ProductCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection,
-            'pagination' => [
-                'size' => $this->perPage(),
-                'total' => $this->total(),
-                'onEachSide' => $this->onEachSide(),
-                'currentPage' => $this->currentPage(),
-                'lastPage' => $this->lastPage(),
-            ],
+            ...(method_exists($this, 'perPage') ? [
+                'pagination' => [
+                    'size' => $this->perPage(),
+                    'total' => $this->total(),
+                    'currentPage' => $this->currentPage(),
+                    'lastPage' => $this->lastPage(),
+                ],
+            ] : []),
         ];
     }
 }
