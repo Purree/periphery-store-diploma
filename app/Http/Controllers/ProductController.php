@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Results\ResponseResult;
-use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
@@ -25,7 +24,7 @@ class ProductController extends Controller
     public function index(): JsonResponse
     {
         return ResponseResult::success(
-            new ProductCollection(Product::with('seller', 'categories')->inRandomOrder()->paginate(100))
+            ProductResource::collection(Product::with('seller', 'categories')->paginate(100))
         );
     }
 

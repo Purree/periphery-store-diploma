@@ -3,6 +3,7 @@
 namespace App\Helpers\Results;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 
 class ResponseResult implements ResultInterface
@@ -14,6 +15,10 @@ class ResponseResult implements ResultInterface
 
     public static function success(mixed $returnValue = [], int $responseCode = Response::HTTP_OK): JsonResponse
     {
+        if ($returnValue instanceof JsonResource) {
+            $returnValue = $returnValue->response()->getData(true);
+        }
+
         return response()->json($returnValue, $responseCode);
     }
 

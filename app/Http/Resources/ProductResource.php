@@ -17,7 +17,6 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         // TODO: Добавить количество продаж, множество фотографий в карточку и рейтинг
-        // TODO: Add pagination
         return [
             'title' => $this->title,
             'metaTitle' => $this->meta_title,

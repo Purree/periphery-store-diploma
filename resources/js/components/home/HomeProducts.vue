@@ -77,6 +77,7 @@ export default {
                 priceWithDiscount: 10000000.0
             }],
             otherProducts: [],
+            otherProductsPagination: [],
             categories: [{
                 image: 'http://diploma.com/storage/default.png',
                 slug: 'test',
@@ -116,7 +117,9 @@ export default {
         }
     },
     async mounted() {
-        this.otherProducts = await this.getAllProducts()
+        const allProductsResponse = await this.getAllProducts()
+        this.otherProducts = allProductsResponse.data
+        this.otherProductsPagination = allProductsResponse.meta
     }
 }
 </script>
