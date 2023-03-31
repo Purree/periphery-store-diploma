@@ -106,9 +106,9 @@ export default {
         }
     },
     methods: {
-        async getAllProducts(page = 1) {
+        async getAllProducts(cursor = undefined) {
             try {
-                const productsResponse = await apiRequest(API_GET_PRODUCTS_URL, {}, { page })
+                const productsResponse = await apiRequest(API_GET_PRODUCTS_URL, {}, { params: { cursor } })
                 return productsResponse.data
             } catch (error) {
                 openErrorNotification(getErrorsFromResponse(error))

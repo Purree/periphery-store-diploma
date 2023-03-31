@@ -24,7 +24,9 @@ class ProductController extends Controller
     public function index(): JsonResponse
     {
         return ResponseResult::success(
-            ProductResource::collection(Product::with('seller', 'categories')->paginate(100))
+            ProductResource::collection(
+                Product::with('seller', 'categories')->orderBy('created_at', 'desc')->cursorPaginate(100)
+            )
         );
     }
 
