@@ -1,7 +1,7 @@
 <template>
     <div>
         <slot name="title">
-            <list-title class="title" :title="title" />
+            <list-title class="title" :title="title"/>
         </slot>
         <div class="products-list">
             <div class="product-container" :key="product.slug" v-for="product in products">
@@ -11,6 +11,12 @@
                               :price-with-discount="product.priceWithDiscount" :rating="product.rating"
                               :reviews-count="product.reviewsCount" class="product-card"/>
             </div>
+            <el-skeleton v-if="pending" :key="skeletonId" v-for="skeletonId in 24" animated
+                         class="product-container-skeleton">
+                <template #template>
+                    <el-skeleton-item variant="rect" class="product-card-skeleton"/>
+                </template>
+            </el-skeleton>
         </div>
     </div>
 </template>
@@ -21,7 +27,10 @@ import ListTitle from '@/components/ListTitle.vue'
 
 export default {
     name: 'ProductsList',
-    components: { ListTitle, ProductCard },
+    components: {
+        ListTitle,
+        ProductCard
+    },
     props: {
         products: {
             required: true,
@@ -30,6 +39,11 @@ export default {
         title: {
             required: false,
             type: String
+        },
+        pending: {
+            required: false,
+            type: Boolean,
+            default: false
         }
     }
 }
@@ -42,7 +56,7 @@ export default {
 
 }
 
-.product-container {
+.product-container, .product-container-skeleton {
     display: flex;
     justify-content: center;
     flex: 1 0 250px;
@@ -53,5 +67,10 @@ export default {
 
 .title {
     margin-bottom: 20px;
+}
+
+.product-card-skeleton {
+    width: 200px;
+    height: 311px;
 }
 </style>

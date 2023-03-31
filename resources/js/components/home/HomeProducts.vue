@@ -4,7 +4,8 @@
                              class="sales-hits"/>
         <categories-collection v-if="categories" :collection-title="$t('home.categories.popularCategories')"
                                :categories="categories" class="popular-categories"/>
-        <products-list :title="$t('home.products.otherProducts')" :products="otherProducts"/>
+        <products-list :title="$t('home.products.otherProducts')" :products="otherProducts"
+                       :pending="otherProductsPending"/>
     </div>
 </template>
 
@@ -78,6 +79,7 @@ export default {
             }],
             otherProducts: [],
             otherProductsPagination: [],
+            otherProductsPending: true,
             categories: [{
                 image: 'http://diploma.com/storage/default.png',
                 slug: 'test',
@@ -120,6 +122,7 @@ export default {
         const allProductsResponse = await this.getAllProducts()
         this.otherProducts = allProductsResponse.data
         this.otherProductsPagination = allProductsResponse.meta
+        this.otherProductsPending = false
     }
 }
 </script>
