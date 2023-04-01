@@ -11,12 +11,13 @@
                               :price-with-discount="product.priceWithDiscount" :rating="product.rating"
                               :reviews-count="product.reviewsCount" class="product-card"/>
             </div>
-            <el-skeleton v-if="pending" :key="skeletonId" v-for="skeletonId in 24" animated
-                         class="product-container-skeleton">
-                <template #template>
-                    <el-skeleton-item variant="rect" class="product-card-skeleton"/>
-                </template>
-            </el-skeleton>
+            <div v-if="pending" class="product-container-skeleton">
+                <el-skeleton :key="skeletonId" v-for="skeletonId in 24" animated class="product-container">
+                    <template #template>
+                        <el-skeleton-item variant="rect" class="product-card-skeleton"/>
+                    </template>
+                </el-skeleton>
+            </div>
         </div>
     </div>
 </template>
@@ -58,8 +59,12 @@ export default {
 
 .product-container, .product-container-skeleton {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     flex: 1 0 250px;
+}
+
+.product-container {
     border-bottom: 1px solid var(--el-border-color);
     padding-bottom: 40px;
     margin-bottom: 40px;
