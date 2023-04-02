@@ -19,7 +19,6 @@ class ProductController extends Controller
 
     /**
      * Display a listing of the resource.
-     * TODO: Move random products to additional controller and make pagination based on id.
      */
     public function index(): JsonResponse
     {
