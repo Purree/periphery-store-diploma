@@ -1,11 +1,12 @@
 <template>
     <div>
-        <products-collection v-if="salesHits" :collection-title="$t('home.products.salesHits')" :products="salesHits"
+        <products-collection v-if="salesHits.length > 0" :collection-title="$t('home.products.salesHits')" :products="salesHits"
                              class="sales-hits"/>
-        <categories-collection v-if="categories" :collection-title="$t('home.categories.popularCategories')"
+        <categories-collection v-if="categories.length > 0" :collection-title="$t('home.categories.popularCategories')"
                                :categories="categories" class="popular-categories"/>
         <products-list :title="$t('home.products.otherProducts')" :products="otherProducts"
-                       :pending="otherProductsPending"/>
+                       :pending="otherProductsPending" v-if="otherProducts.length > 0 || otherProductsPending"/>
+        <div class="no-products-message" v-else>{{ $t('home.products.noProducts') }}</div>
     </div>
 </template>
 
@@ -152,5 +153,11 @@ export default {
 <style scoped>
 .sales-hits, .popular-categories {
     margin-bottom: 50px;
+}
+.no-products-message {
+    font-size: var(--el-font-size-extra-large);
+    color: var(--el-color-error);
+    font-weight: bold;
+    text-align: center;
 }
 </style>

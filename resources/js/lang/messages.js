@@ -62,7 +62,8 @@ export default {
             products: {
                 productsWithDiscount: 'Products with discount',
                 salesHits: 'Sales hits',
-                otherProducts: 'Other products'
+                otherProducts: 'Other products',
+                noProducts: 'There are no products here yet. Try again later.'
             },
             categories: {
                 popularCategories: 'Popular categories'
@@ -140,7 +141,8 @@ export default {
             products: {
                 productsWithDiscount: 'Товары со скидкой',
                 salesHits: 'Хиты продаж',
-                otherProducts: 'Прочие продукты'
+                otherProducts: 'Прочие продукты',
+                noProducts: 'Здесь пока нет продуктов. Попробуйте зайти позже.'
             },
             categories: {
                 popularCategories: 'Популярные категории'
