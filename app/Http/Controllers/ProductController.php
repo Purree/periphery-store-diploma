@@ -25,7 +25,8 @@ class ProductController extends Controller
     {
         return ResponseResult::success(
             ProductResource::collection(
-                Product::with('seller', 'categories')->orderBy('created_at', 'desc')->cursorPaginate(100)
+                Product::with('seller', 'categories')->orderBy('created_at', 'desc')
+                    ->cursorPaginate(100)
             )
         );
     }

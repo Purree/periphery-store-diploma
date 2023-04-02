@@ -114,15 +114,37 @@ export default {
                 return productsResponse.data
             } catch (error) {
                 openErrorNotification(getErrorsFromResponse(error))
-                return []
+                throw new Error('Server return error ' + error)
+            }
+        },
+        async pushProductsToArray(cursor = undefined) {
+            try {
+                const allProductsResponse = await this.getAllProducts(cursor)
+
+                this.otherProducts.push(...allProductsResponse.data)
+                this.otherProductsPagination = allProductsResponse.meta
+            } catch (error) {
+                console.error(error)
             }
         }
     },
     async mounted() {
-        const allProductsResponse = await this.getAllProducts()
-        this.otherProducts = allProductsResponse.data
-        this.otherProductsPagination = allProductsResponse.meta
+        await this.pushProductsToArray()
         this.otherProductsPending = false
+
+        document.addEventListener('pageEndReached', async() => {
+            if (Object.values(this.otherProductsPagination).length === 0 || this.otherProductsPending) {
+                return
+            }
+
+            const nextCursor = this.otherProductsPagination.next_cursor
+
+            if (nextCursor !== null) {
+                this.otherProductsPending = true
+                await this.pushProductsToArray(nextCursor)
+                this.otherProductsPending = false
+            }
+        })
     }
 }
 </script>
