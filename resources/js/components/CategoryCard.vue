@@ -43,11 +43,13 @@ export default {
 
 <style scoped>
 .category-card {
+    position: relative;
     width: 160px;
     height: 210px;
 }
 
 .category-container {
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;

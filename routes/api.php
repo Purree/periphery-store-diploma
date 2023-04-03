@@ -3,9 +3,11 @@
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +29,10 @@ Route::post('/users', [AuthorizationController::class, 'registration'])->name('r
 
 Route::apiResource('/banners', BannerController::class)->except('show');
 Route::apiResource('/products', ProductController::class);
+Route::name('categories.')->middleware('can:viewAny,'.Category::class)
+    ->prefix('categories')->group(static function () {
+        Route::get('/popular', PopularCategoriesController::class);
+    });
 
 Route::middleware('auth:sanctum')->group(static function () {
     Route::delete('/session', [AuthorizationController::class, 'logout'])->name('logout');

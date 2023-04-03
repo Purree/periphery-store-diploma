@@ -11,6 +11,7 @@ enum Permission implements ArrayableEnumInterface
      * @after deleting a permission from here,
      * run the following
      * @command php artisan db:seed --class=PermissionSeeder
+     * @command php artisan db:seed --class=RolePermissionSeeder
      * and, if a permission isn't secure, add it into
      * @see /resources/js/helpers/enums/PermissionsEnum.js
      */
@@ -25,6 +26,7 @@ enum Permission implements ArrayableEnumInterface
      */
     case change_own_data;
     case manipulate_banners;
+    case manipulate_categories;
     case manipulate_all_products;
 
     /**
