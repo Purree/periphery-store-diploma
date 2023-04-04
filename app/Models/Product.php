@@ -19,6 +19,8 @@ class Product extends Model
         'price' => 'float',
     ];
 
+    protected $hidden = ['id'];
+
     // @TODO: Add reviews and rating
     public function seller(): BelongsTo
     {

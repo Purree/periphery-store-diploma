@@ -17,7 +17,7 @@ class PopularCategoriesController extends Controller
     {
         return ResponseResult::success(
             CategoryResource::collection(
-                Category::withCount('products')->orderBy('products_count', 'desc')->limit(10)->get()
+                Category::query()->withCount('products')->orderBy('products_count', 'desc')->limit(10)->get()
             )
         );
     }

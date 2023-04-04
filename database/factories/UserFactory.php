@@ -31,7 +31,7 @@ final class UserFactory extends Factory
 
     public function associateWithRoles(?RoleEnum $role = null): UserFactory
     {
-        $roles = $role === null ? RoleModel::all() : [RoleModel::firstWhere('name', $role->name)];
+        $roles = $role === null ? RoleModel::all() : [RoleModel::query()->firstWhere('name', $role->name)];
 
         return $this->hasAttached($roles);
     }

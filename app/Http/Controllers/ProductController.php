@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         return ResponseResult::success(
             ProductResource::collection(
-                Product::with('seller', 'categories')->orderBy('created_at', 'desc')
+                Product::query()->with('seller', 'categories')->orderBy('created_at', 'desc')
                     ->cursorPaginate(100)
             )
         );
@@ -44,7 +44,7 @@ class ProductController extends Controller
     public function show(Product $product): JsonResponse
     {
         return ResponseResult::success(
-            new ProductResource($product->with('seller', 'categories')->first())
+            new ProductResource($product->query()->with('seller', 'categories')->first())
         );
     }
 

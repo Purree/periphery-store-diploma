@@ -80,7 +80,7 @@ class User extends Authenticatable
 
     public function addRole(RoleEnum $role): void
     {
-        $roleUsers = RoleModel::firstWhere('name', $role->name)->users();
+        $roleUsers = RoleModel::query()->firstWhere('name', $role->name)->users();
         $roleUsers->attach($this->id);
     }
 

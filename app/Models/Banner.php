@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Banner extends Model
 {
     public $timestamps = false;
+    protected $hidden = ['id'];
     public $fillable = [
         'name',
         'image',

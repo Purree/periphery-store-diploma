@@ -35,7 +35,7 @@ final class ProductFactory extends Factory
 
     private function getRandomSellerOrCreate(): User
     {
-        $seller = User::whereHas(
+        $seller = User::query()->whereHas(
             'roles',
             static fn ($query) => $query->where('name', Role::seller->name)
         )->inRandomOrder()->first();

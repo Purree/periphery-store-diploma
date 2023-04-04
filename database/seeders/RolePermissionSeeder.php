@@ -23,8 +23,8 @@ class RolePermissionSeeder extends Seeder
         $relatedRoles = array_keys($rolePermissionRelations);
         $relatedPermissions = array_merge(...array_values($rolePermissionRelations));
 
-        $storedRoles = Role::whereIn('name', $relatedRoles)->get();
-        $storedPermissions = Permission::whereIn('name', $relatedPermissions)->get();
+        $storedRoles = Role::query()->whereIn('name', $relatedRoles)->get();
+        $storedPermissions = Permission::query()->whereIn('name', $relatedPermissions)->get();
 
         if ($this->hasDifference($relatedPermissions, $storedPermissions, 'name')) {
             throw new InvalidArgumentException(__('Some of the related permissions doesn\'t exists in database'));
