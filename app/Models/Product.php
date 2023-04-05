@@ -21,6 +21,11 @@ class Product extends Model
 
     protected $hidden = ['id'];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     // @TODO: Add reviews and rating
     public function seller(): BelongsTo
     {
