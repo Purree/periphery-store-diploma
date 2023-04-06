@@ -12,7 +12,6 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // TODO: Add categories
         Product::factory()
             ->count(100)
             ->create();
