@@ -4,11 +4,14 @@ namespace App\Models;
 
 use App\Enums\StoredImagesFolderEnum;
 use App\Helpers\ImageFacade;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Banner extends Model
 {
+    use HasFactory;
+
     public $timestamps = false;
     protected $hidden = ['id'];
     public $fillable = [
