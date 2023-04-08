@@ -32,4 +32,19 @@ export default {
         max-height: inherit !important;
     }
 }
+
+:deep(.el-carousel__button) {
+    @include screen-size('mobile') {
+        width: 4px!important;
+    }
+    @include screen-size('tablet') {
+        width: 8px!important;
+    }
+    @include screen-size('big-tablet') {
+        width: 12px!important;
+    }
+    @include screen-size('small-desktop') {
+        width: 16px!important;
+    }
+}
 </style>
