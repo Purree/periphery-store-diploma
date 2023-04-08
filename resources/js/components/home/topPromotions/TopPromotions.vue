@@ -1,14 +1,21 @@
 <template>
     <div class="top-discounts">
-        <el-skeleton v-if="bannerPending" animated>
+        <el-skeleton v-if="bannerPending" animated class="promotion-banners-skeleton">
             <template #template>
                 <el-skeleton-item variant="rect" class="skeleton-item"/>
             </template>
         </el-skeleton>
-        <promotion-banners v-else-if="banners.length > 0" class="promotion-banners" :banners="banners" />
-        <products-with-discount class="products-with-discount"
-                                :products="randomProductsWithDiscount"
-                                :class="{'full-width': banners.length < 1 && !bannerPending}" />
+        <promotion-banners v-else-if="banners.length > 0" class="promotion-banners" :banners="banners"/>
+
+        <el-skeleton v-if="productsWithDiscountPending" animated class="products-with-discount-skeleton">
+            <template #template>
+                <el-skeleton-item variant="rect" class="skeleton-item"/>
+            </template>
+        </el-skeleton>
+        <products-with-discount v-else-if="productsWithDiscount.length > 0"
+                                class="products-with-discount"
+                                :products="productsWithDiscount"
+                                :class="{'full-width': banners.length < 1 && !bannerPending}"/>
     </div>
 </template>
 
@@ -18,6 +25,7 @@ import ProductsWithDiscount from '@/components/home/topPromotions/ProductsWithDi
 import apiRequest from '@/helpers/apiRequest'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import { API_GET_BANNERS_URL } from '@/api/banners'
+import { API_GET_DISCOUNTED_PRODUCTS_URL } from '@/api/products'
 
 export default {
     name: 'TopPromotions',
@@ -29,33 +37,8 @@ export default {
         return {
             bannerPending: true,
             banners: [],
-            // @TODO: Replace this.
-            randomProductsWithDiscount: [{
-                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-                slug: '404',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000000000000.0,
-                discount: 50,
-                priceWithDiscount: 50000000000000.0
-            }, {
-                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-                reviewsCount: 6,
-                rating: 2.5,
-                slug: '404',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 10000000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: '404',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 10.0,
-                discount: 100,
-                priceWithDiscount: 0
-            }]
+            productsWithDiscountPending: true,
+            productsWithDiscount: []
         }
     },
     methods: {
@@ -68,10 +51,21 @@ export default {
             } finally {
                 this.bannerPending = false
             }
+        },
+        async loadProductWithDiscount() {
+            try {
+                const getProductsResponse = await apiRequest(API_GET_DISCOUNTED_PRODUCTS_URL)
+                this.productsWithDiscount = getProductsResponse.data
+            } catch (errors) {
+                openErrorNotification(getErrorsFromResponse(errors))
+            } finally {
+                this.productsWithDiscountPending = false
+            }
         }
     },
     mounted() {
         this.loadBanners()
+        this.loadProductWithDiscount()
     }
 }
 </script>
@@ -94,8 +88,13 @@ export default {
     }
 }
 
+.promotion-banners-skeleton, .products-with-discount-skeleton {
+    height: 260px;
+    padding-bottom: 15px;
+}
+
 @include max-screen-size('big-tablet') {
-    .promotion-banners {
+    .promotion-banners, .promotion-banners-skeleton {
         min-height: 126px;
         height: 20vh !important;
     }
@@ -118,6 +117,7 @@ export default {
     &:not(.full-width) {
         width: 677px;
     }
+
     &.full-width {
         width: 100%;
     }
