@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -20,6 +21,14 @@ class Product extends Model
     ];
 
     protected $hidden = ['id'];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(
+            'unavailable',
+            static fn (Builder $builder) => $builder->where('is_available', true)
+        );
+    }
 
     public function getRouteKeyName(): string
     {
