@@ -1,5 +1,5 @@
 <template>
-    <el-menu-item v-bind="$attrs" :index="index">
+    <header-menu-item v-bind="$attrs">
         <div class="header-rounded-button">
             <slot name="icon">
                 <el-avatar>
@@ -10,17 +10,16 @@
                 {{ text }}
             </div>
         </div>
-    </el-menu-item>
+    </header-menu-item>
 </template>
 
 <script>
+import HeaderMenuItem from '@/components/header/HeaderMenuItem.vue'
+
 export default {
     name: 'HeaderMenuRoundedButtonItem',
+    components: { HeaderMenuItem },
     props: {
-        index: {
-            type: String,
-            required: true
-        },
         icon: {
             type: String,
             required: false

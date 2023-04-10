@@ -9,11 +9,11 @@
         >
             <root-menu-injector ref="rootMenu" :active-index="activeIndex"
                                 :restricted-tab-indexes="restrictedTabIndexes"/>
-            <el-menu-item class="header-logo-container" :index="this.getRoutePathByName('Home')">
+            <header-menu-item class="header-logo-container" :index="this.getRoutePathByName('Home')">
                     <store-icon
                         class="header-logo header-icon"
                     />
-            </el-menu-item>
+            </header-menu-item>
 
             <div class="header-blocks-divider"/>
             <el-menu-item class="header-search-container inactive-header-element" index="1">
@@ -55,11 +55,13 @@ import AdditionalActions from '@/components/header/AdditionalActions.vue'
 import route from '@/mixins/route'
 import auth from '@/mixins/auth'
 import UserAvatar from '@/components/profile/UserAvatar.vue'
+import HeaderMenuItem from '@/components/header/HeaderMenuItem.vue'
 
 export default {
     name: 'MainHeader',
     mixins: [route, auth],
     components: {
+        HeaderMenuItem,
         UserAvatar,
         AdditionalActions,
         RootMenuInjector,
