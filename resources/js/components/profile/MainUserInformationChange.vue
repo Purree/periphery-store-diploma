@@ -2,7 +2,7 @@
     <div>
         <errors-alert :errors="errors"></errors-alert>
         <el-alert v-if="userSuccessfullyUpdated" type="success" class="userSuccessfullyUpdatedAlert"
-                  :title="$t('updateUser.mainInformation.successfullyUpdated')"></el-alert>
+                  :title="$t('profile.successfullyUpdated')"></el-alert>
 
         <el-form @submit.prevent="usePending(updateUser, 'updateUserPending')" :rules="rules" :model="userInformation"
                  ref="mainUserInformationForm">
@@ -14,10 +14,10 @@
                 <full-width-button :disabled="this.userInformation.name === this.user.name"
                                    :pending="updateUserPending" type="primary"
                                    @click="usePending(updateUser, 'updateUserPending')">
-                    {{ $t('updateUser.mainInformation.buttons.update') }}
+                    {{ $t('profile.mainInformation.buttons.update') }}
                 </full-width-button>
                 <full-width-button @click="resetForm">
-                    {{ $t('updateUser.mainInformation.buttons.cancel') }}
+                    {{ $t('profile.mainInformation.buttons.cancel') }}
                 </full-width-button>
             </el-form-item>
         </el-form>
@@ -52,13 +52,13 @@ export default {
                 name: [
                     {
                         required: true,
-                        message: this.$t('updateUser.mainInformation.errors.nickname.required'),
+                        message: this.$t('profile.mainInformation.errors.nickname.required'),
                         trigger: 'blur'
                     },
                     {
                         min: 3,
                         max: 30,
-                        message: this.$t('updateUser.mainInformation.errors.nickname.length'),
+                        message: this.$t('profile.mainInformation.errors.nickname.length'),
                         trigger: 'blur'
                     }
                 ]
@@ -77,7 +77,7 @@ export default {
                 this.userSuccessfullyUpdated = false
                 this.errors = {
                     ...this.errors,
-                    ...{ validation: [this.$t('updateUser.mainInformation.errors.validationMessage')] }
+                    ...{ validation: [this.$t('profile.mainInformation.errors.validationMessage')] }
                 }
                 return
             }

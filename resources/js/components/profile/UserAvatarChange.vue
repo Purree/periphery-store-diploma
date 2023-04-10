@@ -30,7 +30,7 @@
                 <font-awesome-icon type="danger"
                                    icon="trash">
                     {{
-                        $t('updateUser.avatar.buttons.delete')
+                        $t('profile.avatar.buttons.delete')
                     }}
                 </font-awesome-icon>
             </avatar-uploading-rounded-button>
@@ -134,10 +134,10 @@ export default {
             const isLargeThan2Megabit = rawFile.size / 1024 / 1024 < 2
 
             if (!isJPG) {
-                ElMessage.error(this.$t('updateUser.avatar.errors.incorrectExtension'))
+                ElMessage.error(this.$t('profile.avatar.errors.incorrectExtension'))
             }
             if (!isLargeThan2Megabit) {
-                ElMessage.error(this.$t('updateUser.avatar.errors.incorrectSize'))
+                ElMessage.error(this.$t('profile.avatar.errors.incorrectSize'))
             }
 
             if (!isJPG || !isLargeThan2Megabit) {

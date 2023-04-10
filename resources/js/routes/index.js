@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { loadLayoutMiddleware } from '@/routes/middleware/loadLayout.js'
-import auth from '@/routes/auth'
 import { redirectFromAuthRoutes } from '@/routes/middleware/redirectFromAuthRoutes'
 import { redirectFromRoutesRequiredAuth } from '@/routes/middleware/redirectFromRoutesRequiredAuth'
-import user from '@/routes/user'
 import { saveQueryParametersBetweenAuthRoutes } from '@/routes/middleware/saveQueryParametersBetweenAuthRoutes'
 import { restrictOpeningOfProtectedRoutes } from '@/routes/middleware/restrictOpeningOfProtectedRoutes'
-import errors from '@/routes/middleware/errors'
+
+import user from '@/routes/user'
+import auth from '@/routes/auth'
+import errors from '@/routes/errors'
 
 const routes = [
     {
@@ -17,6 +18,10 @@ const routes = [
             layout: 'HomeLayout',
             transition: 'none'
         }
+    },
+    {
+        path: '/product/:slug',
+        component: () => import('@/views/products/Product.vue')
     },
     ...errors,
     ...auth,

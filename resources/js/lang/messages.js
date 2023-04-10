@@ -33,7 +33,10 @@ export default {
             successfullyLoggedIn: 'You have successfully logged in!',
             successfullyLoggedOut: 'You have successfully logged out!'
         },
-        updateUser: {
+        profile: {
+            titles: {
+                personalInformation: 'Personal information'
+            },
             successfullyUpdated: 'You have successfully updated your profile!',
             mainInformation: {
                 buttons: {
@@ -112,9 +115,12 @@ export default {
             successfullyLoggedIn: 'Вы успешно вошли в систему!',
             successfullyLoggedOut: 'Вы успешно вышли из системы!'
         },
-        updateUser: {
+        profile: {
+            titles: {
+                personalInformation: 'Личные данные'
+            },
+            successfullyUpdated: 'Вы успешно обновили свой профиль!',
             mainInformation: {
-                successfullyUpdated: 'Вы успешно обновили свой профиль!',
                 buttons: {
                     update: 'Обновить',
                     cancel: 'Отменить'

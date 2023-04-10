@@ -112,7 +112,7 @@ export default {
 }
 
 :deep(.header-search .el-input__wrapper) {
-    border-radius: 100px;
+    border-radius: var(--el-border-radius-round);
 }
 
 :deep(.header-search-container) {

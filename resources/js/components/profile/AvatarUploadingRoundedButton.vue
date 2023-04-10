@@ -62,7 +62,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 28px;
-    border-radius: 100px;
+    border-radius: var(--el-border-radius-circle);
     border: 5px solid var(--el-bg-color);
 }
 
@@ -75,7 +75,7 @@ export default {
 }
 
 :deep(.avatar-uploader-loading) {
-    border-radius: 100px;
+    border-radius: var(--el-border-radius-circle);
 }
 
 :deep(.avatar-uploader-loading .path) {

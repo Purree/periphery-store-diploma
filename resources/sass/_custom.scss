@@ -9,6 +9,7 @@ $header-height: 60px;
 
 
 html {
+    background-color: var(--el-bg-color-page);
     @include set-component-css-var('menu', (
         'bg-color': (
             var(--el-bg-color-overlay)!important
