@@ -21,7 +21,11 @@ const routes = [
     },
     {
         path: '/product/:slug',
-        component: () => import('@/views/products/Product.vue')
+        name: 'Product',
+        component: () => import('@/views/products/Product.vue'),
+        meta: {
+            layout: 'ProductLayout'
+        }
     },
     ...errors,
     ...auth,

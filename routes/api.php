@@ -33,13 +33,13 @@ Route::apiResource('/banners', BannerController::class)->except('show');
 
 Route::name('products.')->middleware('can:viewAny,'.Product::class)
     ->prefix('products')->group(static function () {
-        Route::apiResource('/', ProductController::class);
-        Route::get('/discounted', PromotedProductsWithDiscountController::class);
+        Route::get('/discounted', PromotedProductsWithDiscountController::class)->name('discounted');
     });
+Route::apiResource('/products', ProductController::class);
 
 Route::name('categories.')->middleware('can:viewAny,'.Category::class)
     ->prefix('categories')->group(static function () {
-        Route::get('/popular', PopularCategoriesController::class);
+        Route::get('/popular', PopularCategoriesController::class)->name('popular');
     });
 
 Route::middleware('auth:sanctum')->group(static function () {
