@@ -33,6 +33,6 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        return $this->show($request, $user);
+        return $this->show($request, $user->with('roles')->first());
     }
 }
