@@ -22,7 +22,14 @@ export default {
                 const productResponse = await apiRequest(API_GET_PRODUCT_URL, { slug })
                 return productResponse.data
             } catch (errors) {
+                if (errors?.response?.status === 404) {
+                    this.$router.push({ name: 'Home' })
+                    openErrorNotification(this.$t('errors.pageNotFound'))
+                    return {}
+                }
+
                 openErrorNotification(getErrorsFromResponse(errors))
+                return {}
             }
         }
     },

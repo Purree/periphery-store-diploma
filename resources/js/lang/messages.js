@@ -1,7 +1,7 @@
 export default {
     en: {
         errors: {
-            page_not_found: 'Page not found',
+            pageNotFound: 'Page not found',
             forbidden: 'Access deny'
         },
         nav: {
@@ -10,9 +10,9 @@ export default {
                 profile: 'Profile',
                 orders: 'Orders',
                 cart: 'Cart',
-                additional_actions: {
+                additionalActions: {
                     name: 'Additional actions',
-                    change_language: 'Change language'
+                    changeLanguage: 'Change language'
                 }
             }
         },
@@ -83,7 +83,7 @@ export default {
     },
     ru: {
         errors: {
-            page_not_found: 'Страница не найдена',
+            pageNotFound: 'Страница не найдена',
             forbidden: 'Доступ запрещён'
         },
         nav: {
@@ -92,9 +92,9 @@ export default {
                 profile: 'Профиль',
                 orders: 'Заказы',
                 cart: 'Корзина',
-                additional_actions: {
+                additionalActions: {
                     name: 'Дополнительные действия',
-                    change_language: 'Сменить язык'
+                    changeLanguage: 'Сменить язык'
                 }
             }
         },

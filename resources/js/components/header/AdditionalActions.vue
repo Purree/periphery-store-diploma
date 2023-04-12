@@ -1,5 +1,5 @@
 <template>
-    <el-menu-item-group class="header-additional-actions" :title="$t('nav.buttons.additional_actions.name')">
+    <el-menu-item-group class="header-additional-actions" :title="$t('nav.buttons.additionalActions.name')">
         <el-menu-item class="inactive-header-element">
             <change-theme-button/>
         </el-menu-item>

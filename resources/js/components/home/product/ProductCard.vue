@@ -42,16 +42,6 @@ export default {
         ItemTitle,
         ItemImage
     },
-    computed: {
-        productRoute: {
-            get() {
-                return this.$router.resolve({
-                    name: 'Product',
-                    params: { slug: this.slug }
-                })
-            }
-        }
-    },
     props: {
         title: {
             required: true,

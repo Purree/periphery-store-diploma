@@ -1,6 +1,6 @@
 <template>
     <full-width-button v-bind="$attrs" @click="changeLanguage">{{
-            $t('nav.buttons.additional_actions.change_language')
+            $t('nav.buttons.additionalActions.changeLanguage')
         }}
     </full-width-button>
 </template>
