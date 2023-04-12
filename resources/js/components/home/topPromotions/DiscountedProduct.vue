@@ -2,7 +2,9 @@
     <div class="product">
         <div class="product-data">
             <div class="product-image">
-                <item-image :image-url="product.previewImage" :image-alt="product.title" />
+                <product-open-link :slug="product.slug">
+                    <item-image :image-url="product.previewImage" :image-alt="product.title" />
+                </product-open-link>
             </div>
             <div class="product-characteristics">
                 <div class="main-product-data">
@@ -11,7 +13,9 @@
                     <product-feedback :rating="product.rating" :reviews-count="product.reviewsCount"/>
                 </div>
                 <div class="product-title-container">
-                    <item-title class="product-title" :title="product.title"/>
+                    <product-open-link :slug="product.slug">
+                        <item-title class="product-title" :title="product.title"/>
+                    </product-open-link>
                     <!--                TODO: Реализовать добавление в корзину-->
                 </div>
             </div>
@@ -27,10 +31,12 @@ import ItemTitle from '@/components/home/ItemTitle.vue'
 import AddToCartButton from '@/components/home/AddToCartButton.vue'
 import ItemImage from '@/components/home/ItemImage.vue'
 import ProductFeedback from '@/components/home/product/ProductFeedback.vue'
+import ProductOpenLink from '@/components/home/product/ProductOpenLink.vue'
 
 export default {
     name: 'DiscountedProduct',
     components: {
+        ProductOpenLink,
         ProductFeedback,
         ItemImage,
         AddToCartButton,

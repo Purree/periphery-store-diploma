@@ -1,13 +1,16 @@
 <template>
-    <!--    TODO: Open slug in click-->
     <div class="product-card">
-        <div class="product-image-container">
-            <div class="product-image">
-                <item-image :image-url="imageUrl"/>
+        <product-open-link class="product-image-link" :slug="slug">
+            <div class="product-image-container">
+                <div class="product-image">
+                    <item-image :image-url="imageUrl"/>
+                </div>
             </div>
-        </div>
+        </product-open-link>
         <div class="product-title">
-            <item-title :title="title"/>
+            <product-open-link :slug="slug">
+                <item-title :title="title"/>
+            </product-open-link>
         </div>
         <div class="product-feedback-container">
             <product-feedback class="product-feedback" :reviews-count="reviewsCount" :rating="rating"/>
@@ -27,15 +30,27 @@ import ItemTitle from '@/components/home/ItemTitle.vue'
 import ProductPrice from '@/components/home/product/ProductPrice.vue'
 import AddToCartButton from '@/components/home/AddToCartButton.vue'
 import ProductFeedback from '@/components/home/product/ProductFeedback.vue'
+import ProductOpenLink from '@/components/home/product/ProductOpenLink.vue'
 
 export default {
     name: 'ProductCard',
     components: {
+        ProductOpenLink,
         ProductFeedback,
         AddToCartButton,
         ProductPrice,
         ItemTitle,
         ItemImage
+    },
+    computed: {
+        productRoute: {
+            get() {
+                return this.$router.resolve({
+                    name: 'Product',
+                    params: { slug: this.slug }
+                })
+            }
+        }
     },
     props: {
         title: {
@@ -81,7 +96,7 @@ export default {
     width: 200px;
 }
 
-.product-image-container {
+.product-image-container, :deep(.product-image-link) {
     display: flex;
     justify-content: center;
     width: 100%;
