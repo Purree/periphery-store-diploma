@@ -51,6 +51,8 @@ export default {
 }
 
 :deep(.el-carousel__container) {
+    height: calc(100% - calc(var(--el-carousel-indicator-height) + var(--el-carousel-indicator-padding-vertical) * 2)) !important;
+
     & .clickable:hover:not(:has(.el-carousel__arrow:hover)) {
         cursor: pointer;
         opacity: 0.8;
