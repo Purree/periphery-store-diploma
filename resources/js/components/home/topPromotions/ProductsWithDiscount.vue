@@ -1,16 +1,16 @@
 <template>
-    <carousel class="products-carousel carousel-with-bottom-indentation" trigger="click"
-                 height="inherit" :interval="25000">
-        <!--        TODO: Redirect to product.slug on click -->
+    <div class="products-with-discount">
         <div class="products-header">{{ $t('home.products.productsWithDiscount') }}</div>
-        <div class="products">
-            <div v-for="product in products" :key="product.slug" class="product-container">
-                <el-carousel-item :name="product.title">
+        <div class="products-carousel">
+            <carousel trigger="click"
+                      class="carousel"
+                      height="inherit" :interval="25000">
+                <el-carousel-item :name="product.title" v-for="product in products" :key="product.slug">
                     <discounted-product :product="product"/>
                 </el-carousel-item>
-            </div>
+            </carousel>
         </div>
-    </carousel>
+    </div>
 </template>
 
 <script>
@@ -19,7 +19,10 @@ import Carousel from '@/components/home/topPromotions/Carousel.vue'
 
 export default {
     name: 'ProductsWithDiscount',
-    components: { Carousel, DiscountedProduct },
+    components: {
+        Carousel,
+        DiscountedProduct
+    },
     props: {
         products: {
             type: Array,
@@ -30,32 +33,33 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.products-carousel {
-    --header-height: 1.5em;
-    --product-top-margin: 20px;
-    --carousel__item-padding: 22px;
-
-    &:deep(.el-carousel__container) {
-        display: flex;
-        flex-direction: column;
-        background-color: var(--el-bg-color);
-        border-radius: var(--el-border-radius-round);
-
-        &, .el-carousel__item {
-            padding: var(--carousel__item-padding);
-        }
-    }
+.products-with-discount {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--el-bg-color);
+    padding-top: var(--el-border-radius-round);
+    padding-inline: var(--el-border-radius-round);
+    border-radius: var(--el-border-radius-round);
 }
 
 .products-header {
+    font-size: 1.5em;
     font-weight: bold;
-    height: var(--header-height);
-    font-size: var(--header-height);
+    margin-bottom: 20px;
 }
 
-.el-carousel__item {
-    --carousel__item-height: calc(var(--carousel-height) - var(--header-height) - var(--carousel-indicators-height) - var(--product-top-margin));
-    top: calc(var(--header-height) + var(--product-top-margin));
-    height: var(--carousel__item-height);
+.products-carousel {
+    height: 100%;
+    &:deep(.el-carousel__container) {
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--el-border-radius-round);
+    }
+}
+
+:deep(.carousel) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="collection-container">
-        <slot name="title">
+        <slot name="title" v-if="collectionTitle">
             <list-title class="title" :title="collectionTitle" />
         </slot>
 

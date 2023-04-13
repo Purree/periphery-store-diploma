@@ -19,7 +19,6 @@ export default {
     width: 100%;
     word-break: break-word;
     white-space: normal;
-    max-height: 40px;
     overflow: hidden;
     font-size: var(--el-font-size-base);
 }

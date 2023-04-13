@@ -1,5 +1,5 @@
 <template>
-    <carousel class="carousel carousel-with-bottom-indentation" trigger="click" :interval="10000">
+    <carousel class="carousel" trigger="click" :interval="10000">
         <el-carousel-item v-for="banner in banners" :key="banner.name" @click="onBannerClick(banner)"
                           :name="banner.name" :class="{'clickable': !!banner.url}">
             <img class="carousel-image" :src="banner.image" :alt="banner.name"/>
@@ -17,11 +17,6 @@ export default {
         banners: {
             type: Array,
             required: true
-        },
-        height: {
-            type: String,
-            required: false,
-            default: '300px'
         }
     },
     methods: {

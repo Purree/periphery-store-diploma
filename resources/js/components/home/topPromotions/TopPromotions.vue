@@ -79,17 +79,16 @@ export default {
         flex-direction: column;
     }
     .products-with-discount {
-        --carousel__item-padding: 15px;
-        --carousel-height: min(40vh, 260px);
-
         margin-top: 20px;
-        height: var(--carousel-height) !important;
         width: 100% !important;
     }
 }
 
+.products-with-discount, .promotion-banners, .promotion-banners-skeleton, .products-with-discount-skeleton {
+    height: 326px;
+}
+
 .promotion-banners-skeleton, .products-with-discount-skeleton {
-    height: 260px;
     padding-bottom: 15px;
 }
 

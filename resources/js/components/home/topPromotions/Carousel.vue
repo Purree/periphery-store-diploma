@@ -1,5 +1,5 @@
 <template>
-    <el-carousel ref="carousel" v-bind="$attrs" @Touchstart="onTouchStart">
+    <el-carousel indicator-position="outside" ref="carousel" v-bind="$attrs" @Touchstart="onTouchStart">
         <slot />
     </el-carousel>
 </template>

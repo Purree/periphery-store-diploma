@@ -1,26 +1,31 @@
 <template>
     <div class="product">
         <div class="product-data">
-            <div class="product-image">
-                <product-open-link :slug="product.slug">
-                    <item-image :image-url="product.previewImage" :image-alt="product.title" />
-                </product-open-link>
-            </div>
-            <div class="product-characteristics">
-                <div class="main-product-data">
-                    <product-discount v-if="product.discount" :discount="product.discount" class="product-discount"/>
-                    <product-price :price="product.price" :discounted-price="product.priceWithDiscount"/>
-                    <product-feedback :rating="product.rating" :reviews-count="product.reviewsCount"/>
-                </div>
-                <div class="product-title-container">
+            <div class="product-image-container">
+                <div class="product-image-wrapper">
                     <product-open-link :slug="product.slug">
-                        <item-title class="product-title" :title="product.title"/>
+                        <item-image class="product-image" :image-url="product.previewImage" :image-alt="product.title"/>
                     </product-open-link>
-                    <!--                TODO: Реализовать добавление в корзину-->
                 </div>
+            </div>
+            <div class="product-information">
+                <div class="product-characteristics">
+                    <div class="main-product-data">
+                        <product-discount v-if="product.discount" :discount="product.discount"
+                                          class="product-discount"/>
+                        <product-price :price="product.price" :discounted-price="product.priceWithDiscount"/>
+                        <product-feedback :rating="product.rating" :reviews-count="product.reviewsCount"/>
+                    </div>
+                    <div class="product-title-container">
+                        <product-open-link :slug="product.slug">
+                            <item-title class="product-title" :title="product.title"/>
+                        </product-open-link>
+                        <!--                TODO: Реализовать добавление в корзину-->
+                    </div>
+                </div>
+                <add-to-cart-button class="cart-button"/>
             </div>
         </div>
-        <add-to-cart-button class="cart-button"/>
     </div>
 </template>
 
@@ -54,48 +59,67 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.product {
-    --cart-button-height: calc(var(--product-height) - (var(--product-height) * 0.8));
-    --product-data-bottom-margin: 5px;
-    --product-data-height: calc(var(--product-height) - var(--cart-button-height) - var(--product-data-bottom-margin));
-    --product-height: calc(var(--carousel__item-height) - var(--carousel__item-padding)*2);
+@import "@@/_variables.scss";
+@import "@@/mixins.scss";
 
-    height: var(--product-height);
+.product {
+    --max-image-width: 60%;
+
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
     width: 100%;
 }
 
 .product-data {
-    display: grid;
-    align-items: center;
-    height: var(--product-data-height);
-    margin-bottom: var(--product-data-bottom-margin);
+    display: flex;
+    align-items: start;
+    max-height: 100%;
     width: 100%;
-    grid-column-gap: 10%;
-    grid-template-columns: 40% 50%;
+    max-width: 100%;
+}
+
+@include screen-size('mobile') {
+    .product {
+        --max-image-width: 50% !important;
+    }
+}
+
+.product-image-container {
+    justify-self: center;
+    align-self: center;
+
+    width: var(--max-image-width);
+}
+
+.product-image-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    position: relative;
 }
 
 .product-image {
-    display: block;
-    justify-self: center;
-    max-height: var(--product-data-height);
-    max-width: 90%;
-    object-fit: cover;
+    max-height: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+}
+
+.product-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: calc(100% - var(--max-image-width));
 }
 
 .product-characteristics {
     display: flex;
-    height: var(--product-data-height);
     flex-direction: column;
-    justify-content: space-between;
-    --main-product-data-height: calc(var(--product-height) - calc(var(--product-height) * 0.2));
-
-    & .main-product-data {
-        height: var(--main-product-data-height);
-        overflow: hidden;
-    }
-    & .product-title-container {
-        height: calc(var(--product-height) - var(--main-product-data-height));
-    }
+    overflow: hidden;
 }
 
 .product-discount {
@@ -105,13 +129,10 @@ export default {
 .product-title-container {
     display: flex;
     flex-direction: column;
+    align-items: start;
 
     &, & > * {
         width: 100%;
     }
-}
-
-.cart-button {
-    height: var(--cart-button-height);
 }
 </style>

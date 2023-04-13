@@ -29,6 +29,10 @@ class ProductResource extends JsonResource
             'priceWithDiscount' => $this->priceWithDiscount,
             'quantity' => $this->quantity,
             'is_available' => $this->is_available,
+            // TODO: Implement
+            'rating' => random_int(0, 5),
+            // TODO: Implement
+            'reviewsCount' => random_int(0, 9999999),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             ...$this->whenLoaded(
                 'seller',

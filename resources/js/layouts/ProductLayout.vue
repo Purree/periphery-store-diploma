@@ -32,6 +32,5 @@ export default {
 
 .product-container {
     flex-grow: 1;
-    background: var(--el-bg-color);
 }
 </style>

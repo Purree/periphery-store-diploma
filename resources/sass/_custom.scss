@@ -17,16 +17,6 @@ html {
     ));
 }
 
-.carousel-with-bottom-indentation {
-    --carousel-height: 300px;
-    --carousel-indicators-height: calc(var(--el-carousel-indicator-padding-vertical) * 2 + var(--el-carousel-indicator-height));
-
-    height: var(--carousel-height) !important;
-
-    & .el-carousel__container {
-        height: calc(var(--carousel-height) - var(--carousel-indicators-height)) !important;
-    }
-}
 
 .main {
     margin-top: $header-height;

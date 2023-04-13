@@ -1,5 +1,5 @@
 <template>
-    <div class="product-feedback">
+    <div v-if="rating || reviewsCount" class="product-feedback">
         <product-rating v-if="rating" :rating="rating"/>
         <product-reviews-count v-if="reviewsCount" :reviews-count="reviewsCount"/>
     </div>
