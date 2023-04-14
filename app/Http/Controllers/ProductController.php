@@ -25,7 +25,7 @@ class ProductController extends Controller
         return ResponseResult::success(
             ProductResource::collection(
                 Product::query()->orderBy('created_at', 'desc')
-                    ->cursorPaginate(100)
+                    ->inStock()->cursorPaginate(100)
             )
         );
     }

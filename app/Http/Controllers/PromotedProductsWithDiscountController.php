@@ -18,6 +18,7 @@ class PromotedProductsWithDiscountController extends Controller
             ProductResource::collection(
                 Product::query()
                     ->orderByRaw('(price - '.Product::getPriceWithDiscountColumnName().') desc')
+                    ->inStock()
                     ->limit(5)
                     ->get()
             )
