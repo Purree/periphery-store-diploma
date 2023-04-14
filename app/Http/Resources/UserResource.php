@@ -29,7 +29,7 @@ class UserResource extends JsonResource
 
     protected function getRolesIfItsLoaded(): array
     {
-        if (!$this->whenLoaded('roles', null)?->isMissing()) {
+        if ($this->whenLoaded('roles', true, false)) {
             return [
                 'roles' => $this->roles->pluck('name'),
                 'permissions' => $this->getPermissions()->pluck('name'),

@@ -35,18 +35,23 @@ class ProductResource extends JsonResource
             // TODO: Implement
             'reviewsCount' => random_int(0, 9999999),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
-            ...$this->whenLoaded(
-                'seller',
-                [
-                    'seller' => new UserResource($this->seller),
-                    ...$this->when(Gate::allows('viewAdditionalResourceData', $this->resource), [
-                        'create_at' => $this->created_at,
-                        'updated_at' => $this->updated_at,
-                        'deleted_at' => $this->deleted_at,
-                    ], []),
-                ],
-                []
-            ),
+            ...$this->getAdditionalProductDataIfSellerIsLoaded(),
         ];
+    }
+
+    protected function getAdditionalProductDataIfSellerIsLoaded(): array
+    {
+        if ($this->whenLoaded('seller', true, false)) {
+            return [
+                new UserResource($this->seller),
+                ...$this->when(Gate::allows('viewAdditionalResourceData', $this->resource), [
+                    'create_at' => $this->created_at,
+                    'updated_at' => $this->updated_at,
+                    'deleted_at' => $this->deleted_at,
+                ], []),
+            ];
+        }
+
+        return [];
     }
 }
