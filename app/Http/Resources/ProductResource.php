@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Helpers\ImageFacade;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
@@ -26,7 +27,7 @@ class ProductResource extends JsonResource
             'SKU' => $this->SKU,
             'price' => $this->price,
             'discount' => $this->discount,
-            'priceWithDiscount' => $this->priceWithDiscount,
+            'priceWithDiscount' => $this->{Product::getPriceWithDiscountColumnName()},
             'quantity' => $this->quantity,
             'is_available' => $this->is_available,
             // TODO: Implement

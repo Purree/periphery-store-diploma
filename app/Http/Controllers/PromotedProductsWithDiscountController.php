@@ -17,8 +17,7 @@ class PromotedProductsWithDiscountController extends Controller
         return ResponseResult::success(
             ProductResource::collection(
                 Product::query()
-                    ->where('discount', Product::query()->max('discount'))
-                    ->inRandomOrder()
+                    ->orderByRaw('(price - ?) desc', [Product::getPriceWithDiscountColumnName()])
                     ->limit(5)
                     ->get()
             )

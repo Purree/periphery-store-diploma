@@ -2,22 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Helpers\PriceWithDiscountTrait;
+use App\Scopes\UnavailableScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    use PriceWithDiscountTrait;
 
     protected $casts = [
-        'price' => 'float',
+        'price' => 'float'
     ];
 
     protected $hidden = ['id'];
@@ -25,8 +26,7 @@ class Product extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(
-            'unavailable',
-            static fn (Builder $builder) => $builder->where('is_available', true)
+            new UnavailableScope()
         );
     }
 
@@ -49,12 +49,5 @@ class Product extends Model
     public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class);
-    }
-
-    protected function priceWithDiscount(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => round($this->price - ($this->price * ($this->discount / 100)), 2),
-        );
     }
 }
