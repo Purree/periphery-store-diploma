@@ -25,7 +25,7 @@ class UserAvatarController extends Controller
         $user->avatar = $image->save(StoredImagesFolderEnum::profilePhotos->value);
         $user->save();
 
-        return ResponseResult::success(['avatarPath' => (new UserResource($user))->toArray($request)['avatar']]);
+        return ResponseResult::success(['avatarPath' => (UserResource::make(($user))->toArray($request)['avatar'])]);
     }
 
     public function destroy(Request $request, User $user): JsonResponse

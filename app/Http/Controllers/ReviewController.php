@@ -3,29 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Results\ResponseResult;
-use App\Http\Resources\ProductResource;
-use App\Models\Product;
+use App\Http\Resources\ReviewResource;
+use App\Models\Review;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 
-class ProductController extends Controller
+class ReviewController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Product::class);
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
         return ResponseResult::success(
-            ProductResource::collection(
-                Product::query()->orderBy('created_at', 'desc')
-                    ->inStock()->cursorPaginate(100)
+            ReviewResource::collection(
+                Review::query()->orderBy('created_at', 'desc')
+                    ->cursorPaginate(100)
             )
         );
     }
@@ -35,35 +29,37 @@ class ProductController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        // @TODO: Implement store() method.
+
         return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product): JsonResponse
+    public function show(Review $review): JsonResponse
     {
-        return ResponseResult::success(
-            ProductResource::make($product->query()->with('seller', 'categories')->first())
-        );
+        return ResponseResult::success(ReviewResource::make($review->with('product', 'parent', 'children')
+            ->first()));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product): JsonResponse
+    public function update(Request $request, Review $review): JsonResponse
     {
+        // @TODO: Implement update() method.
+
         return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Product $product): JsonResponse
+    public function destroy(Review $review): JsonResponse
     {
-        Log::info("User {$request->user()} delete {$product->id} product");
-        $product->delete();
+        // @TODO: Implement destroy() method.
 
-        return ResponseResult::success();
+        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
 }

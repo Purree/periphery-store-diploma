@@ -6,6 +6,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
@@ -30,6 +31,8 @@ Route::post('/session', [AuthorizationController::class, 'login'])->name('login'
 Route::post('/users', [AuthorizationController::class, 'registration'])->name('register');
 
 Route::apiResource('/banners', BannerController::class)->except('show');
+
+Route::apiResource('/reviews', ReviewController::class);
 
 Route::name('products.')->middleware('can:viewAny,'.Product::class)
     ->prefix('products')->group(static function () {

@@ -12,7 +12,7 @@ return new class () extends Migration {
     {
         Schema::create('categories', static function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id')->nullable()->constrained('categories');
+            $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('title', 75);
             $table->string('meta_title', 100)->nullable();
             $table->string('slug', 100)->unique();

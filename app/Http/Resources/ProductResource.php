@@ -43,7 +43,7 @@ class ProductResource extends JsonResource
     {
         if ($this->whenLoaded('seller', true, false)) {
             return [
-                new UserResource($this->seller),
+                UserResource::make($this->seller),
                 ...$this->when(Gate::allows('viewAdditionalResourceData', $this->resource), [
                     'create_at' => $this->created_at,
                     'updated_at' => $this->updated_at,

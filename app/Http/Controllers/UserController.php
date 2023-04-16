@@ -20,7 +20,7 @@ class UserController extends Controller
     public function show(Request $request, User $user): JsonResponse
     {
         return ResponseResult::success(
-            new UserResource($user)
+            UserResource::make($user)
         );
     }
 

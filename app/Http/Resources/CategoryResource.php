@@ -21,7 +21,7 @@ class CategoryResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->description,
             'image' => ImageFacade::getPassedOrDefaultImageUrl($this->image),
-            'parent' => new CategoryResource($this->whenLoaded('parent')),
+            'parent' => self::make($this->whenLoaded('parent')),
         ];
     }
 }

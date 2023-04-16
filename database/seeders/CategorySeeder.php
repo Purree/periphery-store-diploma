@@ -12,8 +12,14 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        // Separated because of having parents
         Category::factory()->withProducts(
-            Category::factory(100)
+            Category::factory(10)
+                ->create()
+        );
+
+        Category::factory()->withProducts(
+            Category::factory(90)
                 ->create()
         );
     }
