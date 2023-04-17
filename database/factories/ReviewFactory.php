@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class ReviewFactory extends Factory
@@ -18,6 +19,9 @@ final class ReviewFactory extends Factory
         return [
             'product_id' => $this->getRandomProductIdOrCreate(),
             'parent_id' => $this->faker->boolean ? Review::query()->inRandomOrder()->first()?->id : null,
+            'user_id' => $this->getRandomUserIdOrCreate(),
+            'is_anonymous' => $this->faker->boolean(),
+            'rating' => $this->faker->numberBetween(0, 5),
             'advantages' => $this->faker->text(75),
             'disadvantages' => $this->faker->text(75),
             'comments' => $this->faker->text(75),
@@ -29,5 +33,12 @@ final class ReviewFactory extends Factory
         $product = Product::query()->inRandomOrder()->first() ?? Product::factory(1)->create()->first();
 
         return $product->id;
+    }
+
+    private function getRandomUserIdOrCreate(): int
+    {
+        $user = User::query()->inRandomOrder()->first() ?? User::factory(1)->associateWithRoles()->create()->first();
+
+        return $user->id;
     }
 }

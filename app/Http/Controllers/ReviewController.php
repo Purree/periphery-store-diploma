@@ -39,8 +39,12 @@ class ReviewController extends Controller
      */
     public function show(Review $review): JsonResponse
     {
-        return ResponseResult::success(ReviewResource::make($review->with('product', 'parent', 'children')
-            ->first()));
+        return ResponseResult::success(
+            ReviewResource::make(
+                $review->with('product', 'parent', 'children')
+                    ->first()
+            )
+        );
     }
 
     /**

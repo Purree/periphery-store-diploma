@@ -18,6 +18,8 @@ class PromotedProductsWithDiscountController extends Controller
             ProductResource::collection(
                 Product::query()
                     ->orderByRaw('(price - '.Product::getPriceWithDiscountColumnName().') desc')
+                    ->withCount('reviews')
+                    ->withAvg('reviews', 'rating')
                     ->inStock()
                     ->limit(5)
                     ->get()

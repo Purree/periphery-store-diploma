@@ -24,8 +24,12 @@ class ProductController extends Controller
     {
         return ResponseResult::success(
             ProductResource::collection(
-                Product::query()->orderBy('created_at', 'desc')
-                    ->inStock()->cursorPaginate(100)
+                Product::query()
+                    ->orderBy('created_at', 'desc')
+                    ->withCount('reviews')
+                    ->withAvg('reviews', 'rating')
+                    ->inStock()
+                    ->cursorPaginate(100)
             )
         );
     }
@@ -44,7 +48,13 @@ class ProductController extends Controller
     public function show(Product $product): JsonResponse
     {
         return ResponseResult::success(
-            ProductResource::make($product->query()->with('seller', 'categories')->first())
+            ProductResource::make(
+                $product->query()
+                    ->with('seller', 'categories', 'reviews')
+                    ->withCount('reviews')
+                    ->withAvg('reviews', 'rating')
+                    ->first()
+            )
         );
     }
 

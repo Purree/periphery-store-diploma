@@ -18,6 +18,7 @@ class ReviewResource extends JsonResource
             'product' => ProductResource::make($this->whenLoaded('product')),
             'parent' => self::make($this->whenLoaded('parent')),
             'children' => self::collection($this->whenLoaded('children')),
+            'rating' => $this->rating,
             'advantages' => $this->advantages,
             'disadvantages' => $this->disadvantages,
             'comments' => $this->comments,

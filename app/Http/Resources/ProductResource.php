@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
 
-class ProductResource extends JsonResource
+final class ProductResource extends JsonResource
 {
+    use AdditionalConditionallyLoadsAttributesTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -17,7 +19,7 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // TODO: Добавить количество продаж, множество фотографий в карточку и рейтинг
+        // TODO: Добавить количество продаж, множество фотографий в карточку
         return [
             'title' => $this->title,
             'metaTitle' => $this->meta_title,
@@ -29,19 +31,32 @@ class ProductResource extends JsonResource
             'discount' => $this->discount,
             'priceWithDiscount' => $this->{Product::getPriceWithDiscountColumnName()},
             'quantity' => $this->quantity,
-            'is_available' => $this->is_available,
-            // TODO: Implement
-            'rating' => random_int(0, 5),
-            // TODO: Implement
-            'reviewsCount' => random_int(0, 9999999),
+            'isAvailable' => $this->is_available,
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
-            ...$this->getAdditionalProductDataIfSellerIsLoaded(),
+            ...$this->getAdditionalProductDataIfRelationsLoaded(),
         ];
     }
 
-    protected function getAdditionalProductDataIfSellerIsLoaded(): array
+    private function getAdditionalProductDataIfRelationsLoaded(): array
     {
-        if ($this->whenLoaded('seller', true, false)) {
+        return [
+            ...$this->getReviewsDataIfItsLoaded(),
+            ...$this->getDataForSellerIsLoaded(),
+        ];
+    }
+
+    private function getReviewsDataIfItsLoaded(): array
+    {
+        return [
+            'reviews' => ReviewResource::collection($this->whenLoaded('reviews')),
+            ...(isset($this->reviews_count) ? ['reviewsCount' => $this->reviews_count] : []),
+            ...(isset($this->reviews_avg_rating) ? ['rating' => round($this->reviews_avg_rating, 2)] : []),
+        ];
+    }
+
+    private function getDataForSellerIsLoaded(): array
+    {
+        if ($this->checkIsRelationLoaded('seller')) {
             return [
                 UserResource::make($this->seller),
                 ...$this->when(Gate::allows('viewAdditionalResourceData', $this->resource), [

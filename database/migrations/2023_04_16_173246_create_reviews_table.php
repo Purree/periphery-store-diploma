@@ -15,7 +15,14 @@ return new class () extends Migration {
             $table->foreignId('product_id')->constrained('products')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('parent_id')->nullable()->constrained('reviews')->onDelete('set null');
+            $table->foreignId('parent_id')->nullable()
+                ->constrained('reviews')
+                ->onDelete('set null');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->boolean('is_anonymous')->default(0);
+            $table->smallInteger('rating');
             $table->string('advantages');
             $table->string('disadvantages');
             $table->text('comments');

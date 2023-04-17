@@ -9,6 +9,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
+    use AdditionalConditionallyLoadsAttributesTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -29,7 +31,7 @@ class UserResource extends JsonResource
 
     protected function getRolesIfItsLoaded(): array
     {
-        if ($this->whenLoaded('roles', true, false)) {
+        if ($this->checkIsRelationLoaded('roles')) {
             return [
                 'roles' => $this->roles->pluck('name'),
                 'permissions' => $this->getPermissions()->pluck('name'),
