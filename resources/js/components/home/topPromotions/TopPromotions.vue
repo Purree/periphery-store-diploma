@@ -92,10 +92,13 @@ export default {
     padding-bottom: 15px;
 }
 
-@include max-screen-size('big-tablet') {
-    .promotion-banners, .promotion-banners-skeleton {
+.promotion-banners, .promotion-banners-skeleton {
+    @include max-screen-size('big-tablet') {
         min-height: 126px;
-        height: 20vh !important;
+        max-height: 240px;
+    }
+    @include max-screen-size('mobile') {
+        max-height: 160px;
     }
 }
 

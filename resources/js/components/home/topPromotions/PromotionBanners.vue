@@ -1,5 +1,5 @@
 <template>
-    <carousel class="carousel" trigger="click" :interval="10000">
+    <carousel class="carousel" indicator-position="outside" trigger="click" :interval="10000">
         <el-carousel-item v-for="banner in banners" :key="banner.name" @click="onBannerClick(banner)"
                           :name="banner.name" :class="{'clickable': !!banner.url}">
             <img class="carousel-image" :src="banner.image" :alt="banner.name"/>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Carousel from '@/components/home/topPromotions/Carousel.vue'
+import Carousel from '@/components/Carousel.vue'
 
 export default {
     name: 'PromotionBanners',

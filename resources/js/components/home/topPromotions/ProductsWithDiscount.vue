@@ -3,6 +3,7 @@
         <div class="products-header">{{ $t('home.products.productsWithDiscount') }}</div>
         <div class="products-carousel">
             <carousel trigger="click"
+                      indicator-position="outside"
                       class="carousel"
                       height="inherit" :interval="25000">
                 <el-carousel-item :name="product.title" v-for="product in products" :key="product.slug">
@@ -15,7 +16,7 @@
 
 <script>
 import DiscountedProduct from '@/components/home/topPromotions/DiscountedProduct.vue'
-import Carousel from '@/components/home/topPromotions/Carousel.vue'
+import Carousel from '@/components/Carousel.vue'
 
 export default {
     name: 'ProductsWithDiscount',
