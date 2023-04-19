@@ -1,7 +1,7 @@
 <template>
     <div class="price-container" :class="{'price-variables': !isPriceSizeOverwritten}">
-        <div class="price" v-if="discountedPrice !== undefined">{{ getCurrency(discountedPrice) }}</div>
-        <div :class="discountedPrice === undefined ? 'price' : 'old-price'">{{ getCurrency(price) }}</div>
+        <div class="price" v-if="checkIsDiscountExists()">{{ getCurrency(discountedPrice) }}</div>
+        <div :class="!checkIsDiscountExists() ? 'price' : 'old-price'">{{ getCurrency(price) }}</div>
     </div>
 </template>
 
@@ -23,6 +23,11 @@ export default {
         isPriceSizeOverwritten: {
             type: [Boolean, undefined],
             required: false
+        }
+    },
+    methods: {
+        checkIsDiscountExists() {
+            return this.discountedPrice !== undefined && this.discountedPrice !== this.price
         }
     }
 }
