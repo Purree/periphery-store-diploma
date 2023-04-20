@@ -3,20 +3,20 @@
 namespace App\Helpers;
 
 use App\Enums\StoredImagesFolderEnum;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\Image as InterventionImage;
 use Log;
 
-class ImageFacade
+final class ImageFacade
 {
     public InterventionImage $image;
 
     /**
      * The constructor is private, you need to call "make" method to create an instance.
      */
-    protected function __construct()
+    private function __construct()
     {
     }
 
@@ -85,9 +85,9 @@ class ImageFacade
     {
         $this->image->stream();
         $extension ??= $this->getExtension();
-        $name ??= self::generateRandomFileName($extension);
+        $name ??= Str::random(40);
 
-        $fullPath = $path.$name;
+        $fullPath = $path.$name.$extension;
 
         Storage::disk('public')->put(
             $fullPath,
@@ -95,17 +95,6 @@ class ImageFacade
         );
 
         return $fullPath;
-    }
-
-    public static function generateRandomFileName(string $extension): string
-    {
-        return str_replace(
-            ['.', '/', '\\'],
-            '',
-            Hash::make(
-                uniqid(time(), true)
-            )
-        ).'.'.$extension;
     }
 
     public function getExtension(): string

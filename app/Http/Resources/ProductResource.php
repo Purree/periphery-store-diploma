@@ -33,6 +33,7 @@ final class ProductResource extends JsonResource
             'quantity' => $this->quantity,
             'isAvailable' => $this->is_available,
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
+            'images' => ProductImageResource::collection($this->whenLoaded('images')),
             ...$this->getAdditionalProductDataIfRelationsLoaded(),
         ];
     }

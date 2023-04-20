@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\Role as RoleEnum;
+use App\Enums\StoredImagesFolderEnum;
+use App\Helpers\ImageGenerator;
 use App\Models\Role as RoleModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,6 +28,7 @@ final class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'avatar' => $this->faker->boolean ? $this->createAvatarImage() : null,
         ];
     }
 
@@ -34,5 +37,10 @@ final class UserFactory extends Factory
         $roles = $role === null ? RoleModel::all() : [RoleModel::query()->firstWhere('name', $role->name)];
 
         return $this->hasAttached($roles);
+    }
+
+    private function createAvatarImage(): string
+    {
+        return (new ImageGenerator(StoredImagesFolderEnum::profilePhotos->value))->getRandomImage(10);
     }
 }

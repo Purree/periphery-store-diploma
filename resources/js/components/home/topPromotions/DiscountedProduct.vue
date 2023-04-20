@@ -31,11 +31,11 @@
 
 <script>
 import ProductDiscount from '@/components/home/topPromotions/ProductDiscount.vue'
-import ProductPrice from '@/components/home/product/ProductPrice.vue'
+import ProductPrice from '@/components/product/ProductPrice.vue'
 import ItemTitle from '@/components/home/ItemTitle.vue'
-import AddToCartButton from '@/components/home/AddToCartButton.vue'
+import AddToCartButton from '@/components/product/AddToCartButton.vue'
 import ItemImage from '@/components/home/ItemImage.vue'
-import ProductFeedback from '@/components/home/product/ProductFeedback.vue'
+import ProductFeedback from '@/components/product/ProductFeedback.vue'
 import ProductOpenLink from '@/components/home/product/ProductOpenLink.vue'
 
 export default {

@@ -27,9 +27,9 @@
 <script>
 import ItemImage from '@/components/home/ItemImage.vue'
 import ItemTitle from '@/components/home/ItemTitle.vue'
-import ProductPrice from '@/components/home/product/ProductPrice.vue'
-import AddToCartButton from '@/components/home/AddToCartButton.vue'
-import ProductFeedback from '@/components/home/product/ProductFeedback.vue'
+import ProductPrice from '@/components/product/ProductPrice.vue'
+import AddToCartButton from '@/components/product/AddToCartButton.vue'
+import ProductFeedback from '@/components/product/ProductFeedback.vue'
 import ProductOpenLink from '@/components/home/product/ProductOpenLink.vue'
 
 export default {

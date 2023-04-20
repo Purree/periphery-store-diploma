@@ -50,7 +50,7 @@ class ProductController extends Controller
         return ResponseResult::success(
             ProductResource::make(
                 $product->query()
-                    ->with('seller', 'categories', 'reviews')
+                    ->with(['seller', 'categories', 'reviews', 'images'])
                     ->withCount('reviews')
                     ->withAvg('reviews', 'rating')
                     ->first()

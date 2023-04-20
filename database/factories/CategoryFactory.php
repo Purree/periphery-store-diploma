@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\StoredImagesFolderEnum;
+use App\Helpers\ImageGenerator;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
@@ -24,7 +26,7 @@ class CategoryFactory extends Factory
             'title' => $this->faker->text(75),
             'meta_title' => $this->faker->word(),
             'slug' => $this->faker->unique()->slug(),
-            'image' => null,
+            'image' => $this->faker->boolean ? $this->createCategoryImage() : null,
             'description' => $this->faker->text(),
         ];
     }
@@ -50,5 +52,10 @@ class CategoryFactory extends Factory
         });
 
         return $categories->load('products');
+    }
+
+    private function createCategoryImage(): string
+    {
+        return (new ImageGenerator(StoredImagesFolderEnum::categoryImages->value))->getRandomImage(10);
     }
 }
