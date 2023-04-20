@@ -9,7 +9,6 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends Factory<Product>
@@ -56,7 +55,7 @@ final class ProductFactory extends Factory
     {
         $seller = User::query()->whereHas(
             'roles',
-            static fn($query) => $query->where('name', Role::seller->name)
+            static fn ($query) => $query->where('name', Role::seller->name)
         )->inRandomOrder()->first();
 
         if (empty($seller)) {
