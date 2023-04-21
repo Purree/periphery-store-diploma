@@ -26,6 +26,6 @@ class NotApng implements Rule
      */
     public function message(): string
     {
-        return __('The image is animated png.');
+        return (string)__('The image is animated png.');
     }
 }

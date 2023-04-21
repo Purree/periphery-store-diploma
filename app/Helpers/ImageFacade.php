@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\Image as InterventionImage;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 final class ImageFacade
 {
@@ -91,7 +91,7 @@ final class ImageFacade
 
         Storage::disk('public')->put(
             $fullPath,
-            $this->image
+            ($this->image->getEncoded())
         );
 
         return $fullPath;

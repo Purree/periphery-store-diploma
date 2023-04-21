@@ -22,7 +22,7 @@ class ReviewResource extends JsonResource
             'advantages' => $this->advantages,
             'disadvantages' => $this->disadvantages,
             'comments' => $this->comments,
-            'create_at' => $this->created_at,
+            'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
     }

@@ -60,11 +60,11 @@ final class ProductResource extends JsonResource
         if ($this->checkIsRelationLoaded('seller')) {
             return [
                 'seller' => UserResource::make($this->seller),
-                ...$this->when(Gate::allows('viewAdditionalResourceData', $this->resource), [
-                    'create_at' => $this->created_at,
+                ...((Gate::allows('viewAdditionalResourceData', $this->resource)) ? [
+                    'created_at' => $this->created_at,
                     'updated_at' => $this->updated_at,
                     'deleted_at' => $this->deleted_at,
-                ], []),
+                ] : []),
             ];
         }
 

@@ -45,6 +45,7 @@ final readonly class ImageGenerator
         $imageWidth = $this->faker->numberBetween($minImageWidth, $maxImageWidth);
         $imageHeight = $this->faker->numberBetween($minImageHeight, $maxImageHeight);
 
+        /** @psalm-suppress UndefinedInterfaceMethod */
         return $this->imagesFolder.$this->faker->image(
             Storage::disk('public')->path($this->imagesFolder),
             $imageWidth,

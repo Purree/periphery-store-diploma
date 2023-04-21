@@ -26,6 +26,7 @@ class UserController extends Controller
 
     public function showAuthenticated(Request $request): JsonResponse
     {
+        /** @psalm-suppress UndefinedInterfaceMethod */
         return $this->show($request, Auth::user()?->query()->with('roles')->first());
     }
 

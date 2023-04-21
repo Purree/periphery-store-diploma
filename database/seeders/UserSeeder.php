@@ -9,6 +9,7 @@ class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * @psalm-suppress UndefinedMagicMethod
      */
     public function run(): void
     {

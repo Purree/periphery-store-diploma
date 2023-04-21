@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 trait ModelWithParentTrait
@@ -20,6 +20,10 @@ trait ModelWithParentTrait
         return $this->belongsTo(__CLASS__, $this->getParentColumnName());
     }
 
+    /**
+     * @psalm-suppress InvalidReturnType
+     * @return Collection
+     */
     protected function getAllParents(): Collection
     {
         $tableName = $this->getTable();

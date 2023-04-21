@@ -6,7 +6,7 @@ use App\Exceptions\InvalidArgumentException;
 use App\Helpers\RolePermissionsRelation;
 use App\Models\Permission;
 use App\Models\Role;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Helpers\ImageFacade;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

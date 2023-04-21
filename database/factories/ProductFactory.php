@@ -59,6 +59,7 @@ final class ProductFactory extends Factory
         )->inRandomOrder()->first();
 
         if (empty($seller)) {
+            /** @psalm-suppress UndefinedMagicMethod */
             $seller = User::factory()
                 ->associateWithRoles(
                     Role::seller

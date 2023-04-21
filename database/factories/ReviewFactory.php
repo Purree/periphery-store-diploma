@@ -7,6 +7,9 @@ use App\Models\Review;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<Review>
+ */
 final class ReviewFactory extends Factory
 {
     /**
@@ -32,11 +35,12 @@ final class ReviewFactory extends Factory
     {
         $product = Product::query()->inRandomOrder()->first() ?? Product::factory(1)->create()->first();
 
-        return $product->id;
+        return (int)$product->id;
     }
 
     private function getRandomUserIdOrCreate(): int
     {
+        /** @psalm-suppress UndefinedMagicMethod */
         $user = User::query()->inRandomOrder()->first() ?? User::factory(1)->associateWithRoles()->create()->first();
 
         return $user->id;
