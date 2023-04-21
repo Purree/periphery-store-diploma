@@ -6,8 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "fakerphp/faker": "^1.21",
         "guzzlehttp/guzzle": "^7.2",
-        "fakerphp/faker": "^1.9.1",
         "intervention/image": "^2.7",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
