@@ -49,11 +49,11 @@ class ProductController extends Controller
     {
         return ResponseResult::success(
             ProductResource::make(
-                $product->query()
+                Product::query()
                     ->with(['seller', 'categories', 'reviews', 'images'])
                     ->withCount('reviews')
                     ->withAvg('reviews', 'rating')
-                    ->first()
+                    ->firstWhere('id', $product->id)
             )
         );
     }

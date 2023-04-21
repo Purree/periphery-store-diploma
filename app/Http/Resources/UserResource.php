@@ -21,7 +21,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'avatar' => $this->avatar ? ImageFacade::getImageUrl($this->avatar) : null,
+            'avatar' => ImageFacade::getPassedOrDefaultImageUrl($this->avatar),
             ...(Gate::allows('viewAdditionalResourceData', $this->resource) ? [
                 'email' => $this->email,
                 ...$this->getRolesIfItsLoaded()

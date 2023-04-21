@@ -41,8 +41,9 @@ class ReviewController extends Controller
     {
         return ResponseResult::success(
             ReviewResource::make(
-                $review->with('product', 'parent', 'children')
-                    ->first()
+                Review::query()
+                    ->with(['product', 'parent', 'children'])
+                    ->firstWhere('id', $review->id)
             )
         );
     }

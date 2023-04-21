@@ -8,7 +8,6 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -26,14 +25,15 @@ class UserController extends Controller
 
     public function showAuthenticated(Request $request): JsonResponse
     {
-        /** @psalm-suppress UndefinedInterfaceMethod */
-        return $this->show($request, Auth::user()?->query()->with('roles')->first());
+        /** @psalm-suppress UndefinedInterfaceMethod, ArgumentTypeCoercion */
+        return $this->show($request, User::query()->with('roles')->firstWhere('id', $request->user()?->id));
     }
 
     public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
         $user->update($request->validated());
 
-        return $this->show($request, $user->with('roles')->first());
+        /** @psalm-suppress ArgumentTypeCoercion */
+        return $this->show($request, User::query()->with('roles')->firstWhere('id', $user->id));
     }
 }
