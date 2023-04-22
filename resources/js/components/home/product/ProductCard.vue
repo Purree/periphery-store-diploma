@@ -1,5 +1,5 @@
 <template>
-    <div class="product-card">
+    <el-card class="product-card">
         <product-open-link class="product-image-link" :slug="slug">
             <div class="product-image-container">
                 <div class="product-image">
@@ -21,7 +21,7 @@
         <div class="product-actions">
             <add-to-cart-button/>
         </div>
-    </div>
+    </el-card>
 </template>
 
 <script>
@@ -83,7 +83,7 @@ export default {
 <style scoped>
 .product-card {
     overflow: hidden;
-    width: 200px;
+    width: calc(200px + var(--el-card-padding));
 }
 
 .product-image-container, :deep(.product-image-link) {

@@ -66,6 +66,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
+    overflow: hidden;
 
     & > *:not(:last-child) {
         margin-right: 10px;

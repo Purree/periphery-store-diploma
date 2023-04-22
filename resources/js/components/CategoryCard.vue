@@ -1,6 +1,6 @@
 <template>
     <!--    TODO: Открывать slug категории при клике-->
-    <div class="category-card">
+    <el-card class="category-card" :body-style="{paddingTop: 0}">
         <div class="category-container">
             <div class="category-image-container">
                 <div class="category-image">
@@ -11,7 +11,7 @@
                 <item-title :title="title"/>
             </div>
         </div>
-    </div>
+    </el-card>
 </template>
 
 <script>
@@ -44,12 +44,11 @@ export default {
 <style scoped>
 .category-card {
     position: relative;
-    width: 160px;
-    height: 210px;
+    width: calc(160px + var(--el-card-padding));
+    height: calc(210px + calc(var(--el-card-padding) / 2));
 }
 
 .category-container {
-    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,15 +58,15 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--el-bg-color-page);
     border-radius: var(--el-border-radius-round);
-    width: 160px;
-    height: 160px;
+    width: 100%;
+    height: 100%;
 }
 
 .category-image {
-    width: 120px;
-    height: 120px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
 }
 
 .category-title {
