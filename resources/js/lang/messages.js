@@ -73,6 +73,7 @@ export default {
             }
         },
         general: {
+            categories: 'Categories',
             discount: 'Discount',
             reviews: {
                 noReviews: 'No reviews',
@@ -156,6 +157,7 @@ export default {
             }
         },
         general: {
+            categories: 'Категории',
             discount: 'Скидка',
             reviews: {
                 noReviews: 'Нет отзывов',

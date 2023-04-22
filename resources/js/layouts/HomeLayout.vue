@@ -1,7 +1,9 @@
 <template>
-    <el-container direction="vertical" class="app-container" v-infinite-scroll="onPageEndReached" :infinite-scroll-distance="500">
+    <el-container direction="vertical" class="app-container" v-infinite-scroll="onPageEndReached"
+                  :infinite-scroll-distance="500">
         <main-header container-class="home-container"></main-header>
         <el-main class="main">
+            <el-backtop />
             <slot></slot>
         </el-main>
     </el-container>

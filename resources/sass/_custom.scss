@@ -68,3 +68,9 @@ html {
         padding: 0 calc(50% - 590px);
     }
 }
+
+.card {
+    background: var(--el-bg-color);
+    border-radius: var(--el-border-radius-round);
+    padding: var(--el-border-radius-round);
+}

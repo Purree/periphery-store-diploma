@@ -1,5 +1,7 @@
 <template>
-    <main-product-data :product="product" :pending="productPending"/>
+    <main-product-data class="main-product-data" :product="product" :pending="productPending"/>
+
+    <product-categories :pending="productPending" :categories="product.categories"/>
 </template>
 
 <script>
@@ -7,10 +9,12 @@ import apiRequest from '@/helpers/apiRequest'
 import { API_GET_PRODUCT_URL } from '@/api/products'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import MainProductData from '@/components/product/MainProductData.vue'
+import ProductCategories from '@/components/product/ProductCategories.vue'
 
 export default {
     name: 'Product',
     components: {
+        ProductCategories,
         MainProductData
     },
     data() {
@@ -44,9 +48,7 @@ export default {
 </script>
 
 <style scoped>
-:deep(.card) {
-    background: var(--el-bg-color);
-    border-radius: var(--el-border-radius-round);
-    padding: var(--el-border-radius-round);
+.main-product-data {
+    margin-bottom: 10px;
 }
 </style>

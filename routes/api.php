@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CategoryParentController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
@@ -43,6 +44,7 @@ Route::apiResource('/products', ProductController::class);
 Route::name('categories.')->middleware('can:viewAny,'.Category::class)
     ->prefix('categories')->group(static function () {
         Route::get('/popular', PopularCategoriesController::class)->name('popular');
+        Route::get('{category:slug}/parents', CategoryParentController::class)->name('parents');
     });
 
 Route::middleware('auth:sanctum')->group(static function () {
