@@ -78,7 +78,8 @@ export default {
                 noReviews: 'No reviews',
                 reviewsCount: 'No reviews | {count} review | {count} reviews'
             },
-            addToCart: 'To cart'
+            addToCart: 'To cart',
+            showMore: 'Show more'
         }
     },
     ru: {
@@ -160,7 +161,8 @@ export default {
                 noReviews: 'Нет отзывов',
                 reviewsCount: 'Нет отзывов | {count} отзыв | {count} отзыва | {count} отзывов'
             },
-            addToCart: 'В корзину'
+            addToCart: 'В корзину',
+            showMore: 'Показать больше'
         }
     }
 }

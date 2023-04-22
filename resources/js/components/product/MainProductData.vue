@@ -44,9 +44,7 @@
                                               :discount="product.discount"/>
                             <product-price class="product-price" :price="product.price"
                                            :discounted-price="product.priceWithDiscount"/>
-                            <div v-if="product.description" class="product-description">
-                                {{ product.description }}
-                            </div>
+                            <product-description v-if="product.description" :description="product.description"/>
                             <add-to-cart-button/>
                         </div>
                     </div>
@@ -67,10 +65,12 @@ import AddToCartButton from '@/components/product/AddToCartButton.vue'
 import ItemTitle from '@/components/home/ItemTitle.vue'
 import ProductFeedback from '@/components/product/ProductFeedback.vue'
 import ProductSellerCard from '@/components/product/ProductSellerCard.vue'
+import ProductDescription from '@/components/product/ProductDescription.vue'
 
 export default {
     name: 'MainProductData',
     components: {
+        ProductDescription,
         ProductSellerCard,
         ProductFeedback,
         ItemTitle,
