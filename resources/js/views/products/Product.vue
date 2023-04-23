@@ -1,7 +1,7 @@
 <template>
     <main-product-data class="main-product-data" :product="product" :pending="productPending"/>
 
-    <product-categories :pending="productPending" :categories="product.categories"/>
+    <product-categories class="product-categories" :pending="productPending" :categories="product.categories"/>
 </template>
 
 <script>
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style scoped>
-.main-product-data {
+.main-product-data, .product-categories {
     margin-bottom: 10px;
 }
 </style>

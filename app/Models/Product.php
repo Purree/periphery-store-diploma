@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -41,7 +42,6 @@ class Product extends Model
         return $builder->where('quantity', '<>', 0);
     }
 
-    // @TODO: Add reviews and rating
     public function seller(): BelongsTo
     {
         return $this->belongsTo(User::class, 'seller_id');
@@ -50,6 +50,11 @@ class Product extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function lastReview(): HasOne
+    {
+        return $this->hasOne(Review::class)->latestOfMany();
     }
     public function categories(): BelongsToMany
     {

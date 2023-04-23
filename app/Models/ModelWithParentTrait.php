@@ -41,6 +41,7 @@ trait ModelWithParentTrait
                            AND @current_id <> @previous_id)                                     AS child
                            JOIN {$tableName}                                                    AS parent
                        ON child._id = parent.id
+                   WHERE parent.id <> {$this->id}
                    ORDER BY child.lvl DESC"
             )
         )->pluck($this->primaryKey);

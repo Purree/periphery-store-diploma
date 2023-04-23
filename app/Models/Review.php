@@ -17,4 +17,15 @@ class Review extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    /**
+     * REMEMBER!
+     * If review "is_anonymous" column value equals 1 you need to hide user from public.
+     *
+     * @return BelongsTo
+     */
+    public function reviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

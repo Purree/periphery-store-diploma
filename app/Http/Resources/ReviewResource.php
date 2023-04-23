@@ -22,6 +22,8 @@ class ReviewResource extends JsonResource
             'advantages' => $this->advantages,
             'disadvantages' => $this->disadvantages,
             'comments' => $this->comments,
+            'is_anonymous' => $this->is_anonymous,
+            'reviewer' => $this->is_anonymous ? UserResource::make($this->whenLoaded('reviewer')) : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
