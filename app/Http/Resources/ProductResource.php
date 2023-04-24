@@ -19,7 +19,6 @@ final class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // TODO: Добавить количество продаж, множество фотографий в карточку
         return [
             'title' => $this->title,
             'metaTitle' => $this->meta_title,
@@ -61,6 +60,7 @@ final class ProductResource extends JsonResource
         if ($this->checkIsRelationLoaded('seller')) {
             return [
                 'seller' => UserResource::make($this->seller),
+                'isAvailableForBuying' => Gate::allows('buy', $this->resource),
                 ...((Gate::allows('viewAdditionalResourceData', $this->resource)) ? [
                     'created_at' => $this->created_at,
                     'updated_at' => $this->updated_at,

@@ -19,9 +19,13 @@ final class ReviewFactory extends Factory
      */
     public function definition(): array
     {
+        $productId = $this->getRandomProductIdOrCreate();
+
         return [
-            'product_id' => $this->getRandomProductIdOrCreate(),
-            'parent_id' => $this->faker->boolean ? Review::query()->inRandomOrder()->first()?->id : null,
+            'product_id' => $productId,
+            'parent_id' => $this->faker->boolean ?
+                Review::query()->where('product_id', $productId)->inRandomOrder()->first()?->id :
+                null,
             'user_id' => $this->getRandomUserIdOrCreate(),
             'is_anonymous' => $this->faker->boolean(),
             'rating' => $this->faker->numberBetween(0, 5),

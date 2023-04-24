@@ -37,11 +37,9 @@ export default {
                 if (errors?.response?.status === 404) {
                     this.$router.push({ name: 'Home' })
                     openErrorNotification(this.$t('errors.pageNotFound'))
-                    return {}
+                } else {
+                    openErrorNotification(getErrorsFromResponse(errors))
                 }
-
-                openErrorNotification(getErrorsFromResponse(errors))
-                return {}
             }
         }
     },

@@ -10,7 +10,7 @@ class ProductPolicy
 {
     public function before(?User $user, string $ability): bool|null
     {
-        if ($ability === 'viewAdditionalResourceData') {
+        if (!array_key_exists($ability, ['viewAdditionalResourceData', 'buy'])) {
             return null;
         }
 
@@ -35,6 +35,11 @@ class ProductPolicy
     public function view(?User $user, Product $product): bool
     {
         return true;
+    }
+
+    public function buy(User $user, Product $product): bool
+    {
+        return $product->is_available && $product->quantitu > 0 && $user->id !== $product->seller->id;
     }
 
     /**

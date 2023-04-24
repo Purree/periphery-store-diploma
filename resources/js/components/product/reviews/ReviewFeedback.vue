@@ -1,7 +1,6 @@
 <template>
     <div class="comment-category">
         <based-text class="comment-category-title" :title="title"/>
-        <!--        TODO: Add markdown -->
         <div>
             <based-text :title="text"/>
         </div>

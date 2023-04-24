@@ -23,8 +23,8 @@ return new class () extends Migration {
                 ->onDelete('cascade');
             $table->boolean('is_anonymous')->default(0);
             $table->smallInteger('rating');
-            $table->string('advantages');
-            $table->string('disadvantages');
+            $table->text('advantages');
+            $table->text('disadvantages');
             $table->text('comments');
             $table->timestamps();
         });

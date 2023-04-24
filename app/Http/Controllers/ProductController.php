@@ -29,6 +29,7 @@ class ProductController extends Controller
                     ->withCount('reviews')
                     ->withAvg('reviews', 'rating')
                     ->inStock()
+                    ->isAvailable()
                     ->cursorPaginate(100)
             )
         );
@@ -50,7 +51,9 @@ class ProductController extends Controller
         return ResponseResult::success(
             ProductResource::make(
                 Product::query()
-                    ->with(['seller', 'categories', 'latestReview', 'latestReview.reviewer', 'images', 'categories.parent'])
+                    ->with(
+                        ['seller', 'categories', 'latestReview', 'latestReview.reviewer', 'images', 'categories.parent']
+                    )
                     ->withCount('reviews')
                     ->withAvg('reviews', 'rating')
                     ->firstWhere('id', $product->id)

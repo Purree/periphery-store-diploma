@@ -11,8 +11,6 @@ class Review extends Model
     use HasFactory;
     use ModelWithParentTrait;
 
-    protected $hidden = ['id'];
-
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);

@@ -45,7 +45,8 @@
                             <product-price class="product-price" :price="product.price"
                                            :discounted-price="product.priceWithDiscount"/>
                             <product-description v-if="product.description" :description="product.description"/>
-                            <add-to-cart-button/>
+                            <add-to-cart-button v-if="product.isAvailableForBuying"/>
+                            <el-alert v-else :title="$t('product.productUnavailable')" :closable="false" type="info"/>
                         </div>
                     </div>
                     <el-skeleton v-else
@@ -83,7 +84,8 @@ export default {
         product: {
             required: true,
             type: Object,
-            default: () => {}
+            default: () => {
+            }
         },
         pending: {
             required: true,
@@ -134,6 +136,7 @@ export default {
 
 .product-title-small-container {
     margin-bottom: 5px;
+
     .product-title {
         font-size: 24px;
     }

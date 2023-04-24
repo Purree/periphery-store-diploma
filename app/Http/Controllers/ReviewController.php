@@ -12,19 +12,6 @@ use Illuminate\Http\Response;
 class ReviewController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index(): JsonResponse
-    {
-        return ResponseResult::success(
-            ReviewResource::collection(
-                Review::query()->orderBy('created_at', 'desc')
-                    ->cursorPaginate(100)
-            )
-        );
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request): JsonResponse

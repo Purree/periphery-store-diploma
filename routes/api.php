@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryParentController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReviewsController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserAvatarController;
@@ -33,11 +34,15 @@ Route::post('/users', [AuthorizationController::class, 'registration'])->name('r
 
 Route::apiResource('/banners', BannerController::class)->except('show');
 
-Route::apiResource('/reviews', ReviewController::class);
+Route::apiResource('/reviews', ReviewController::class)->except('index');
 
 Route::name('products.')->middleware('can:viewAny,'.Product::class)
     ->prefix('products')->group(static function () {
         Route::get('/discounted', PromotedProductsWithDiscountController::class)->name('discounted');
+
+        Route::prefix('{product}')->group(static function () {
+            Route::get('/reviews', ProductReviewsController::class)->name('reviews');
+        });
     });
 Route::apiResource('/products', ProductController::class);
 

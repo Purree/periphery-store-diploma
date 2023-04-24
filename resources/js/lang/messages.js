@@ -73,6 +73,7 @@ export default {
             }
         },
         product: {
+            productUnavailable: 'The product is not yet available for purchase. Please wait or contact the seller',
             reviews: {
                 allReviews: 'All reviews',
                 latestReview: 'Latest review'
@@ -169,6 +170,7 @@ export default {
             }
         },
         product: {
+            productUnavailable: 'Продукт пока недоступен к покупке. Пожалуйста, подождите или свяжитесь с продавцом',
             reviews: {
                 allReviews: 'Все отзывы',
                 latestReview: 'Последний отзыв'

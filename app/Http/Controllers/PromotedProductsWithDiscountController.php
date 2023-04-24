@@ -21,6 +21,7 @@ class PromotedProductsWithDiscountController extends Controller
                     ->withCount('reviews')
                     ->withAvg('reviews', 'rating')
                     ->inStock()
+                    ->isAvailable()
                     ->limit(5)
                     ->get()
             )

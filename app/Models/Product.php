@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Helpers\PriceWithDiscountTrait;
-use App\Scopes\UnavailableScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,21 +19,20 @@ class Product extends Model
     use PriceWithDiscountTrait;
 
     protected $casts = [
-        'price' => 'float'
+        'price' => 'float',
+        'is_available' => 'bool'
     ];
 
     protected $hidden = ['id'];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(
-            new UnavailableScope()
-        );
-    }
-
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function scopeIsAvailable(Builder $builder): Builder
+    {
+        return $builder->where('is_available', true);
     }
 
     public function scopeInStock(Builder $builder): Builder
