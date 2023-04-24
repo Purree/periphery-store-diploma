@@ -7,7 +7,7 @@
 
 <script>
 import ProductRating from '@/components/product/ProductRating.vue'
-import ProductReviewsCount from '@/components/product/ProductReviewsCount.vue'
+import ProductReviewsCount from '@/components/product/reviews/ProductReviewsCount.vue'
 
 export default {
     name: 'ProductFeedback',

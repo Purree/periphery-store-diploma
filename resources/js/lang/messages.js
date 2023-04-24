@@ -72,12 +72,24 @@ export default {
                 popularCategories: 'Popular categories'
             }
         },
+        product: {
+            reviews: {
+                allReviews: 'All reviews',
+                latestReview: 'Latest review'
+            }
+        },
         general: {
+            created: 'Created',
+            updated: 'Updated',
             categories: 'Categories',
             discount: 'Discount',
             reviews: {
                 noReviews: 'No reviews',
-                reviewsCount: 'No reviews | {count} review | {count} reviews'
+                reviewsCount: 'No reviews | {count} review | {count} reviews',
+                anonymousReview: 'Anonymous review',
+                advantages: 'Advantages',
+                disadvantages: 'Disadvantages',
+                comments: 'Comments'
             },
             addToCart: 'To cart',
             showMore: 'Show more'
@@ -156,12 +168,24 @@ export default {
                 popularCategories: 'Популярные категории'
             }
         },
+        product: {
+            reviews: {
+                allReviews: 'Все отзывы',
+                latestReview: 'Последний отзыв'
+            }
+        },
         general: {
+            created: 'Создано',
+            updated: 'Обновлено',
             categories: 'Категории',
             discount: 'Скидка',
             reviews: {
                 noReviews: 'Нет отзывов',
-                reviewsCount: 'Нет отзывов | {count} отзыв | {count} отзыва | {count} отзывов'
+                reviewsCount: 'Нет отзывов | {count} отзыв | {count} отзыва | {count} отзывов',
+                anonymousReview: 'Анонимный отзыв',
+                advantages: 'Достоинства',
+                disadvantages: 'Недостатки',
+                comments: 'Комментарии'
             },
             addToCart: 'В корзину',
             showMore: 'Показать больше'

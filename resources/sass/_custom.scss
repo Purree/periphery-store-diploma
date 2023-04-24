@@ -15,6 +15,11 @@ html {
             var(--el-bg-color-overlay)!important
         )
     ));
+    color: var(--el-text-color-regular);
+}
+
+:root {
+    --el-font-size-super-large: 32px;
 }
 
 

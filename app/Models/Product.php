@@ -52,7 +52,7 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function lastReview(): HasOne
+    public function latestReview(): HasOne
     {
         return $this->hasOne(Review::class)->latestOfMany();
     }

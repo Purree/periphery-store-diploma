@@ -50,7 +50,7 @@ final class ProductResource extends JsonResource
     {
         return [
             'reviews' => ReviewResource::collection($this->whenLoaded('reviews')),
-            'lastReview' => ReviewResource::make($this->whenLoaded('lastReview')),
+            'latestReview' => ReviewResource::make($this->whenLoaded('latestReview')),
             ...(isset($this->reviews_count) ? ['reviewsCount' => $this->reviews_count] : []),
             ...(isset($this->reviews_avg_rating) ? ['rating' => round($this->reviews_avg_rating, 2)] : []),
         ];

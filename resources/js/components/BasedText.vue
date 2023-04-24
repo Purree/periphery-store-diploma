@@ -1,10 +1,10 @@
 <template>
-    <div class="product-title">{{ title }}</div>
+    <el-text class="based-text">{{ title }}</el-text>
 </template>
 
 <script>
 export default {
-    name: 'ItemTitle',
+    name: 'BasedText',
     props: {
         title: {
             required: true,
@@ -15,11 +15,10 @@ export default {
 </script>
 
 <style scoped>
-.product-title {
+.based-text {
     width: 100%;
     word-break: break-word;
     white-space: normal;
     overflow: hidden;
-    font-size: var(--el-font-size-base);
 }
 </style>

@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="category-title">
-                <item-title :title="title"/>
+                <based-text :title="title"/>
             </div>
         </div>
     </el-card>
@@ -16,12 +16,12 @@
 
 <script>
 import ItemImage from '@/components/home/ItemImage.vue'
-import ItemTitle from '@/components/home/ItemTitle.vue'
+import BasedText from '@/components/BasedText.vue'
 
 export default {
     name: 'CategoryCard',
     components: {
-        ItemTitle,
+        BasedText,
         ItemImage
     },
     props: {

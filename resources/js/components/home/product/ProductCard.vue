@@ -9,7 +9,7 @@
         </product-open-link>
         <div class="product-title">
             <product-open-link :slug="slug">
-                <item-title :title="title"/>
+                <based-text :title="title"/>
             </product-open-link>
         </div>
         <div class="product-feedback-container">
@@ -26,7 +26,7 @@
 
 <script>
 import ItemImage from '@/components/home/ItemImage.vue'
-import ItemTitle from '@/components/home/ItemTitle.vue'
+import BasedText from '@/components/BasedText.vue'
 import ProductPrice from '@/components/product/ProductPrice.vue'
 import AddToCartButton from '@/components/product/AddToCartButton.vue'
 import ProductFeedback from '@/components/product/ProductFeedback.vue'
@@ -39,7 +39,7 @@ export default {
         ProductFeedback,
         AddToCartButton,
         ProductPrice,
-        ItemTitle,
+        BasedText,
         ItemImage
     },
     props: {
@@ -98,6 +98,7 @@ export default {
 }
 
 .product-title {
+    overflow: hidden;
     word-break: break-word;
     width: 100%;
     height: 44px;

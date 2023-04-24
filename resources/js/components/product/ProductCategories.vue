@@ -93,13 +93,15 @@ export default {
 .category-parent {
     margin-left: 20px;
     list-style: circle;
+    margin-top: 3px;
 }
 
 .product-category {
     display: flex;
+    margin-top: 10px;
 }
 .product-category, .category-parent {
-    min-height: 32px;
+    min-height: 30px;
 }
 
 .load-parents-button {

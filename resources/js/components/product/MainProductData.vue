@@ -1,7 +1,7 @@
 <template>
     <div class="product">
         <div class="product-title-container">
-            <item-title v-if="!pending" :title="product.title"/>
+            <based-text class="product-title" v-if="!pending" :title="product.title"/>
             <el-skeleton v-else class="product-title-skeleton"
                          animated>
                 <template #template>
@@ -18,7 +18,7 @@
             </div>
             <div class="product-data">
                 <div class="product-title-small-container">
-                    <item-title v-if="!pending" :title="product.title"/>
+                    <based-text class="product-title" v-if="!pending" :title="product.title"/>
                     <el-skeleton v-else class="product-title-small-skeleton"
                                  animated>
                         <template #template>
@@ -62,7 +62,7 @@ import ProductPrice from '@/components/product/ProductPrice.vue'
 import ProductImagesCarousel from '@/components/product/ProductImagesCarousel.vue'
 import ProductDiscount from '@/components/home/topPromotions/ProductDiscount.vue'
 import AddToCartButton from '@/components/product/AddToCartButton.vue'
-import ItemTitle from '@/components/home/ItemTitle.vue'
+import BasedText from '@/components/BasedText.vue'
 import ProductFeedback from '@/components/product/ProductFeedback.vue'
 import ProductSellerCard from '@/components/product/ProductSellerCard.vue'
 import ProductDescription from '@/components/product/ProductDescription.vue'
@@ -73,7 +73,7 @@ export default {
         ProductDescription,
         ProductSellerCard,
         ProductFeedback,
-        ItemTitle,
+        BasedText,
         AddToCartButton,
         ProductDiscount,
         ProductImagesCarousel,
@@ -114,7 +114,7 @@ export default {
     font-weight: bold;
 
     .product-title {
-        font-size: 32px;
+        font-size: var(--el-font-size-super-large);
     }
 
     @include max-screen-size('big-tablet') {

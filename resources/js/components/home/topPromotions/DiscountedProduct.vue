@@ -18,7 +18,7 @@
                     </div>
                     <div class="product-title-container">
                         <product-open-link :slug="product.slug">
-                            <item-title class="product-title" :title="product.title"/>
+                            <based-text class="product-title" :title="product.title"/>
                         </product-open-link>
                         <!--                TODO: Реализовать добавление в корзину-->
                     </div>
@@ -32,7 +32,7 @@
 <script>
 import ProductDiscount from '@/components/home/topPromotions/ProductDiscount.vue'
 import ProductPrice from '@/components/product/ProductPrice.vue'
-import ItemTitle from '@/components/home/ItemTitle.vue'
+import BasedText from '@/components/BasedText.vue'
 import AddToCartButton from '@/components/product/AddToCartButton.vue'
 import ItemImage from '@/components/home/ItemImage.vue'
 import ProductFeedback from '@/components/product/ProductFeedback.vue'
@@ -45,7 +45,7 @@ export default {
         ProductFeedback,
         ItemImage,
         AddToCartButton,
-        ItemTitle,
+        BasedText,
         ProductPrice,
         ProductDiscount
     },
