@@ -32,11 +32,19 @@
         <review-feedback :title="$t('general.reviews.disadvantages')" :text="review.disadvantages"/>
         <review-feedback :title="$t('general.reviews.comments')" :text="review.comments"/>
 
-        <full-width-button v-if="review.childrenCount && review.childrenCount > 0">{{
+        <div v-if="children.length > 0">
+            <div v-for="child in children" :key="child.id" class="children-container">
+                <el-divider class="child-divider" direction="vertical"/>
+                <review-card class="child-review" :review="child"/>
+            </div>
+        </div>
+
+        <full-width-button :pending="childrenPending"
+                           v-if="review.childrenCount > 0 && children.length < 1"
+                           @click="usePending(loadChildren, 'childrenPending')">
+            {{
                 $t('general.reviews.showChildren')
-            }} ({{
-                review.childrenCount
-            }})
+            }}
         </full-width-button>
     </div>
 </template>
@@ -47,15 +55,26 @@ import BasedText from '@/components/BasedText.vue'
 import ProductRating from '@/components/product/ProductRating.vue'
 import ReviewFeedback from '@/components/product/reviews/ReviewFeedback.vue'
 import FullWidthButton from '@/components/FullWidthButton.vue'
+import apiRequest from '@/helpers/apiRequest'
+import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
+import { API_GET_REVIEW_CHILDREN_URL } from '@/api/reviews'
+import usePending from '@/mixins/usePending'
 
 export default {
     name: 'ReviewCard',
+    mixins: [usePending],
     components: {
         FullWidthButton,
         ReviewFeedback,
         ProductRating,
         BasedText,
         UserAvatar
+    },
+    data() {
+        return {
+            children: [],
+            childrenPending: false
+        }
     },
     props: {
         review: {
@@ -66,6 +85,16 @@ export default {
     methods: {
         beautifyDate(date) {
             return new Date(date).toLocaleDateString()
+        },
+        async loadChildren() {
+            try {
+                const review = (await apiRequest(API_GET_REVIEW_CHILDREN_URL, { id: this.review.id })).data
+
+                this.children = review.children
+            } catch (error) {
+                openErrorNotification(getErrorsFromResponse(error))
+                console.error(error)
+            }
         }
     }
 }
@@ -100,4 +129,17 @@ export default {
     margin-bottom: 5px;
 }
 
+.children-container {
+    display: flex;
+    align-items: center;
+}
+
+.child-divider {
+    height: 200px;
+    border-width: 3px;
+}
+
+.child-review {
+    width: 100%;
+}
 </style>

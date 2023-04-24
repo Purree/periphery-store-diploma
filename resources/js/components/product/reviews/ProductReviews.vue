@@ -1,4 +1,5 @@
 <template>
+    <!--    TODO: Add reviews add functionality.-->
     <div class="card" v-if="pending || latestReview !== undefined || (reviews !== undefined && reviews.length > 0)">
         <div v-if="!pending">
             <div v-if="latestReview !== undefined">
@@ -11,19 +12,19 @@
             <div v-if="reviews.length > 0">
                 <div v-for="review in reviews"
                      :key="review.id">
-                    <el-divider />
-                    <review-card :review="review" />
+                    <el-divider/>
+                    <review-card :review="review"/>
                 </div>
             </div>
-            <div v-if="reviews.length < 1 || reviewsPagination.next_cursor !== null">
+            <div v-if="reviewsCount > 1 && (reviews.length < 1 || reviewsPagination.next_cursor !== null)">
                 <full-width-button @click="$emit('loadReviews')"
-                                   v-if="reviewsCount > 1"
                                    :pending="reviewsPending">
-                    {{ $t('product.reviews.allReviews') }} ({{
-                        reviewsCount
-                    }})
+                    {{ $t('product.reviews.allReviews') }}
                 </full-width-button>
             </div>
+        </div>
+        <div v-else>
+            <el-skeleton animated/>
         </div>
     </div>
 </template>
