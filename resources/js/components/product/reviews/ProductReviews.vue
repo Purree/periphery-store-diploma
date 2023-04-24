@@ -8,11 +8,22 @@
                 <review-card :review="latestReview"/>
             </div>
 
-            <!--            TODO: Add implementation-->
-            <full-width-button v-if="reviewsCount > 1">{{ $t('product.reviews.allReviews') }} ({{
-                    reviewsCount
-                }})
-            </full-width-button>
+            <div v-if="reviews.length > 0">
+                <div v-for="review in reviews"
+                     :key="review.id">
+                    <el-divider />
+                    <review-card :review="review" />
+                </div>
+            </div>
+            <div v-if="reviews.length < 1 || reviewsPagination.next_cursor !== null">
+                <full-width-button @click="$emit('loadReviews')"
+                                   v-if="reviewsCount > 1"
+                                   :pending="reviewsPending">
+                    {{ $t('product.reviews.allReviews') }} ({{
+                        reviewsCount
+                    }})
+                </full-width-button>
+            </div>
         </div>
     </div>
 </template>
@@ -43,6 +54,14 @@ export default {
         reviewsCount: {
             required: false,
             type: Number
+        },
+        reviewsPending: {
+            required: true,
+            type: Boolean
+        },
+        reviewsPagination: {
+            required: false,
+            type: Object
         }
     }
 }

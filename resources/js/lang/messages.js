@@ -90,7 +90,8 @@ export default {
                 anonymousReview: 'Anonymous review',
                 advantages: 'Advantages',
                 disadvantages: 'Disadvantages',
-                comments: 'Comments'
+                comments: 'Comments',
+                showChildren: 'Show answers'
             },
             addToCart: 'To cart',
             showMore: 'Show more'
@@ -187,7 +188,8 @@ export default {
                 anonymousReview: 'Анонимный отзыв',
                 advantages: 'Достоинства',
                 disadvantages: 'Недостатки',
-                comments: 'Комментарии'
+                comments: 'Комментарии',
+                showChildren: 'Показать ответы'
             },
             addToCart: 'В корзину',
             showMore: 'Показать больше'

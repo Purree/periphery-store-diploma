@@ -31,7 +31,13 @@
         <review-feedback :title="$t('general.reviews.advantages')" :text="review.advantages"/>
         <review-feedback :title="$t('general.reviews.disadvantages')" :text="review.disadvantages"/>
         <review-feedback :title="$t('general.reviews.comments')" :text="review.comments"/>
-        <!--        TODO: Add subcomments count and ability to unfold it -->
+
+        <full-width-button v-if="review.childrenCount && review.childrenCount > 0">{{
+                $t('general.reviews.showChildren')
+            }} ({{
+                review.childrenCount
+            }})
+        </full-width-button>
     </div>
 </template>
 
@@ -40,10 +46,12 @@ import UserAvatar from '@/components/profile/UserAvatar.vue'
 import BasedText from '@/components/BasedText.vue'
 import ProductRating from '@/components/product/ProductRating.vue'
 import ReviewFeedback from '@/components/product/reviews/ReviewFeedback.vue'
+import FullWidthButton from '@/components/FullWidthButton.vue'
 
 export default {
     name: 'ReviewCard',
     components: {
+        FullWidthButton,
         ReviewFeedback,
         ProductRating,
         BasedText,

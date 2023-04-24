@@ -4,19 +4,23 @@
     <product-categories class="product-categories" :pending="productPending" :categories="product.categories"/>
 
     <product-reviews :pending="productPending" :latest-review="product.latestReview"
-                     :reviews-count="product.reviewsCount"/>
+                     :reviews-pending="productReviewsPending" :reviews="reviews"
+                     :reviews-pagination="reviewsPagination"
+                     :reviews-count="product.reviewsCount" @load-reviews="usePending(loadReviews, 'productReviewsPending')"/>
 </template>
 
 <script>
 import apiRequest from '@/helpers/apiRequest'
-import { API_GET_PRODUCT_URL } from '@/api/products'
+import { API_GET_PRODUCT_REVIEWS_URL, API_GET_PRODUCT_URL } from '@/api/products'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import MainProductData from '@/components/product/MainProductData.vue'
 import ProductCategories from '@/components/product/ProductCategories.vue'
 import ProductReviews from '@/components/product/reviews/ProductReviews.vue'
+import usePending from '@/mixins/usePending'
 
 export default {
     name: 'Product',
+    mixins: [usePending],
     components: {
         ProductReviews,
         ProductCategories,
@@ -25,7 +29,10 @@ export default {
     data() {
         return {
             product: {},
-            productPending: true
+            reviews: [],
+            reviewsPagination: {},
+            productPending: true,
+            productReviewsPending: false
         }
     },
     methods: {
@@ -40,6 +47,18 @@ export default {
                 } else {
                     openErrorNotification(getErrorsFromResponse(errors))
                 }
+            }
+        },
+        async loadReviews() {
+            try {
+                const reviews = (await apiRequest(API_GET_PRODUCT_REVIEWS_URL, { slug: this.product.slug },
+                    { params: { cursor: this.reviewsPagination?.next_cursor } })).data
+
+                this.reviews.push(...reviews.data)
+                this.reviewsPagination = reviews.meta
+            } catch (error) {
+                openErrorNotification(getErrorsFromResponse(error))
+                console.error(error)
             }
         }
     },
