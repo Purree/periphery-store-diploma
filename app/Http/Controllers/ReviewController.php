@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Resources\ReviewResource;
 use App\Models\Review;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -29,7 +30,17 @@ class ReviewController extends Controller
         return ResponseResult::success(
             ReviewResource::make(
                 Review::query()
-                    ->with(['product', 'reviewer', 'replies', 'replies.replier'])
+                    ->with(['product', 'reviewer'])
+                    ->with([
+                        'replies' =>
+                            static function (HasMany $reply) {
+                                $reply
+                                    ->with('replier')
+                                    ->withCount('children')
+                                    ->where('parent_id', null)
+                                    ->get();
+                            },
+                    ])
                     ->firstWhere('id', $review->id)
             )
         );

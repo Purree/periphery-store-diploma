@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductReviewsController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReviewReplyController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
@@ -35,6 +36,7 @@ Route::post('/users', [AuthorizationController::class, 'registration'])->name('r
 Route::apiResource('/banners', BannerController::class)->except('show');
 
 Route::apiResource('/reviews', ReviewController::class)->except('index');
+Route::apiResource('/replies', ReviewReplyController::class)->except('index');
 
 Route::name('products.')->middleware('can:viewAny,'.Product::class)
     ->prefix('products')->group(static function () {

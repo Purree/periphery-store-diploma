@@ -11,6 +11,10 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'is_anonymous' => 'bool'
+    ];
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
@@ -18,7 +22,7 @@ class Review extends Model
 
     public function replies(): HasMany
     {
-        return $this->hasMany(ReviewReplY::class);
+        return $this->hasMany(ReviewReply::class);
     }
 
     /**

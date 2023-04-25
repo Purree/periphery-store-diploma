@@ -82,6 +82,7 @@ export default {
         general: {
             created: 'Created',
             updated: 'Updated',
+            expand: 'Expand',
             categories: 'Categories',
             discount: 'Discount',
             reviews: {
@@ -180,6 +181,7 @@ export default {
         general: {
             created: 'Создано',
             updated: 'Обновлено',
+            expand: 'Расширить',
             categories: 'Категории',
             discount: 'Скидка',
             reviews: {

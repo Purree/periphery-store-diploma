@@ -11,7 +11,7 @@
                     <el-button class="load-parents-button" v-if="category.parent && !categoriesWithLoadedParent.includes(category.slug)"
                                @click="loadCategoryParents(category)"
                                :loading="categoriesParentsPending.includes(category.slug)">
-                        Expand
+                        {{ $t('general.expand') }}
                     </el-button>
                 </li>
                 <li v-if="category.parent">

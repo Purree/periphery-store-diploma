@@ -16,7 +16,9 @@ class ReviewReplyResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'review' => self::make($this->whenLoaded('review')),
             'children' => self::collection($this->whenLoaded('children')),
+            ...(isset($this->children_count) ? ['childrenCount' => $this->children_count] : []),
             'replier' => UserResource::make($this->whenLoaded('replier')),
             'text' => $this->text,
             'updated_at' => $this->updated_at,
