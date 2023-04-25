@@ -18,7 +18,7 @@ class ReviewResource extends JsonResource
             'id' => $this->id,
             'product' => ProductResource::make($this->whenLoaded('product')),
             'parent' => self::make($this->whenLoaded('parent')),
-            'children' => self::collection($this->whenLoaded('children')),
+            'replies' => ReviewReplyResource::collection($this->whenLoaded('replies')),
             'rating' => $this->rating,
             'advantages' => $this->advantages,
             'disadvantages' => $this->disadvantages,
@@ -27,7 +27,7 @@ class ReviewResource extends JsonResource
             'reviewer' => $this->is_anonymous ? null : UserResource::make($this->whenLoaded('reviewer')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            ...(isset($this->children_count) ? ['childrenCount' => $this->children_count] : [])
+            ...(isset($this->replies_count) ? ['repliesCount' => $this->replies_count] : [])
         ];
     }
 }

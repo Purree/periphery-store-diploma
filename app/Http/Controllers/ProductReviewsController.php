@@ -19,9 +19,8 @@ class ProductReviewsController extends Controller
             ReviewResource::collection(
                 Review::query()
                     ->where('product_id', $product->id)
-                    ->where('parent_id', null)
                     ->with('reviewer')
-                    ->withCount('children')
+                    ->withCount('replies')
                     ->orderBy('created_at', 'desc')
                     ->cursorPaginate(100)
             )

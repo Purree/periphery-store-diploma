@@ -91,7 +91,7 @@ export default {
                 advantages: 'Advantages',
                 disadvantages: 'Disadvantages',
                 comments: 'Comments',
-                showChildren: 'Show answers'
+                showReplies: 'Show answers'
             },
             addToCart: 'To cart',
             showMore: 'Show more'
@@ -189,7 +189,7 @@ export default {
                 advantages: 'Достоинства',
                 disadvantages: 'Недостатки',
                 comments: 'Комментарии',
-                showChildren: 'Показать ответы'
+                showReplies: 'Показать ответы'
             },
             addToCart: 'В корзину',
             showMore: 'Показать больше'

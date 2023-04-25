@@ -66,6 +66,11 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
+    public function replies(): HasMany
+    {
+        return $this->hasMany(ReviewReply::class, 'replier_id');
+    }
+
     public function getPermissions(): Collection
     {
         return $this->roles()->with('permissions')->get()

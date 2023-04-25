@@ -32,18 +32,18 @@
         <review-feedback :title="$t('general.reviews.disadvantages')" :text="review.disadvantages"/>
         <review-feedback :title="$t('general.reviews.comments')" :text="review.comments"/>
 
-        <div v-if="children.length > 0">
-            <div v-for="child in children" :key="child.id" class="children-container">
-                <el-divider class="child-divider" direction="vertical"/>
-                <review-card class="child-review" :review="child"/>
+        <div v-if="replies.length > 0">
+            <div v-for="reply in replies" :key="reply.id" class="replies-container">
+                <el-divider class="reply-divider" direction="vertical"/>
+                <review-card class="reply-review" :review="reply"/>
             </div>
         </div>
 
-        <full-width-button :pending="childrenPending"
-                           v-if="review.childrenCount > 0 && children.length < 1"
-                           @click="usePending(loadChildren, 'childrenPending')">
+        <full-width-button :pending="repliesPending"
+                           v-if="review.repliesCount > 0 && replies.length < 1"
+                           @click="usePending(loadreplies, 'repliesPending')">
             {{
-                $t('general.reviews.showChildren')
+                $t('general.reviews.showReplies')
             }}
         </full-width-button>
     </div>
@@ -57,7 +57,7 @@ import ReviewFeedback from '@/components/product/reviews/ReviewFeedback.vue'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import apiRequest from '@/helpers/apiRequest'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
-import { API_GET_REVIEW_CHILDREN_URL } from '@/api/reviews'
+import { API_GET_REVIEW_REPLIES_URL } from '@/api/reviews'
 import usePending from '@/mixins/usePending'
 
 export default {
@@ -72,8 +72,8 @@ export default {
     },
     data() {
         return {
-            children: [],
-            childrenPending: false
+            replies: [],
+            repliesPending: false
         }
     },
     props: {
@@ -86,11 +86,11 @@ export default {
         beautifyDate(date) {
             return new Date(date).toLocaleDateString()
         },
-        async loadChildren() {
+        async loadreplies() {
             try {
-                const review = (await apiRequest(API_GET_REVIEW_CHILDREN_URL, { id: this.review.id })).data
+                const review = (await apiRequest(API_GET_REVIEW_REPLIES_URL, { id: this.review.id })).data
 
-                this.children = review.children
+                this.replies = review.replies
             } catch (error) {
                 openErrorNotification(getErrorsFromResponse(error))
                 console.error(error)
@@ -129,17 +129,17 @@ export default {
     margin-bottom: 5px;
 }
 
-.children-container {
+.replies-container {
     display: flex;
     align-items: center;
 }
 
-.child-divider {
+.reply-divider {
     height: 200px;
     border-width: 3px;
 }
 
-.child-review {
+.reply-review {
     width: 100%;
 }
 </style>

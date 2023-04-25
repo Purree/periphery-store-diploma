@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Product;
+use Illuminate\Support\Facades\App;
 use App\Models\Review;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,34 +18,16 @@ final class ReviewFactory extends Factory
      */
     public function definition(): array
     {
-        $productId = $this->getRandomProductIdOrCreate();
+        $modelInstanceFactory = App::make(\Database\Factories\ModelInstanceFactory::class);
 
         return [
-            'product_id' => $productId,
-            'parent_id' => $this->faker->boolean ?
-                Review::query()->where('product_id', $productId)->inRandomOrder()->first()?->id :
-                null,
-            'user_id' => $this->getRandomUserIdOrCreate(),
+            'product_id' => $modelInstanceFactory->createProduct()->id,
+            'user_id' => $modelInstanceFactory->createUser()->id,
             'is_anonymous' => $this->faker->boolean(),
             'rating' => $this->faker->numberBetween(0, 5),
             'advantages' => $this->faker->text(75),
             'disadvantages' => $this->faker->text(75),
             'comments' => $this->faker->text(75),
         ];
-    }
-
-    private function getRandomProductIdOrCreate(): int
-    {
-        $product = Product::query()->inRandomOrder()->first() ?? Product::factory(1)->create()->first();
-
-        return (int)$product->id;
-    }
-
-    private function getRandomUserIdOrCreate(): int
-    {
-        /** @psalm-suppress UndefinedMagicMethod */
-        $user = User::query()->inRandomOrder()->first() ?? User::factory(1)->associateWithRoles()->create()->first();
-
-        return $user->id;
     }
 }

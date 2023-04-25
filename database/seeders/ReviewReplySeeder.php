@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Review;
+use App\Models\ReviewReply;
 use Illuminate\Database\Seeder;
 
-class ReviewSeeder extends Seeder
+class ReviewReplySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Review::factory(1000)->create();
+        ReviewReply::factory(500)
+            ->create();
     }
 }
