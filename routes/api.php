@@ -35,11 +35,12 @@ Route::post('/users', [AuthorizationController::class, 'registration'])->name('r
 
 Route::apiResource('/banners', BannerController::class)->except('show');
 
-Route::apiResource('/reviews', ReviewController::class)->except('index');
-Route::apiResource('/replies', ReviewReplyController::class)->except('index');
 
 Route::name('products.')->middleware('can:viewAny,'.Product::class)
     ->prefix('products')->group(static function () {
+        Route::apiResource('/reviews', ReviewController::class)->except('index');
+        Route::apiResource('/reviews/replies', ReviewReplyController::class)->except('index');
+
         Route::get('/discounted', PromotedProductsWithDiscountController::class)->name('discounted');
 
         Route::prefix('{product}')->group(static function () {

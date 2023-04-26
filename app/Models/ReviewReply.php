@@ -11,6 +11,8 @@ class ReviewReply extends Model
     use HasFactory;
     use ModelWithParentTrait;
 
+    protected $guarded = ['id'];
+
     public function review(): BelongsTo
     {
         return $this->belongsTo(Review::class);

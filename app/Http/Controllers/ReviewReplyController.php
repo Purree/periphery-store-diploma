@@ -3,23 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Results\ResponseResult;
+use App\Http\Requests\CreateReviewReplyRequest;
+use App\Http\Requests\UpdateReviewReplyRequest;
 use App\Http\Resources\ReviewReplyResource;
 use App\Models\ReviewReply;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ReviewReplyController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(ReviewReply::class, 'reply');
+    }
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(CreateReviewReplyRequest $request): JsonResponse
     {
-        // @TODO: Implement store() method.
+        $createdReply = ReviewReply::query()
+            ->create([...(array)$request->validated(), 'replier_id' => $request->user()->id]);
 
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+        return $this->show($createdReply);
     }
 
     /**
@@ -47,11 +53,11 @@ class ReviewReplyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ReviewReply $reply): JsonResponse
+    public function update(UpdateReviewReplyRequest $request, ReviewReply $reply): JsonResponse
     {
-        // @TODO: Implement update() method.
+        $reply->update($request->validated());
 
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+        return $this->show($reply);
     }
 
     /**
@@ -59,8 +65,8 @@ class ReviewReplyController extends Controller
      */
     public function destroy(ReviewReply $reply): JsonResponse
     {
-        // @TODO: Implement destroy() method.
+        $reply->delete();
 
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+        return ResponseResult::success();
     }
 }
