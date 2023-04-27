@@ -27,13 +27,13 @@ class ReviewReplyController extends Controller
         $createdReply = ReviewReply::query()
             ->create([...(array)$request->validated(), 'replier_id' => $request->user()->id]);
 
-                if (!RateLimiter::attempt(
-                    'createReview:'.$request->ip(),
-                    1,
-                    static fn () => null
-                )) {
-                    return ResponseResult::error(__('Too Many Requests'), Response::HTTP_UNPROCESSABLE_ENTITY);
-                }
+        if (!RateLimiter::attempt(
+            'createReview:'.$request->ip(),
+            1,
+            static fn () => null
+        )) {
+            return ResponseResult::error(__('Too Many Requests'), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         return $this->show($createdReply);
     }
