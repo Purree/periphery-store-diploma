@@ -15,10 +15,13 @@
 
 <script>
 import Carousel from '@/components/Carousel.vue'
+import screenWidth from '@/mixins/screenWidth'
+import { screenSizes } from '@/helpers/enums/ScreenSizesEnum'
 
 export default {
     name: 'ProductImagesCarousel',
     components: { Carousel },
+    mixins: [screenWidth],
     props: {
         images: {
             required: false,
@@ -33,11 +36,6 @@ export default {
             required: false,
             type: Boolean,
             default: false
-        }
-    },
-    data() {
-        return {
-            isCarouselVertical: true
         }
     },
     methods: {
@@ -59,11 +57,14 @@ export default {
             )
         },
         onScreenResize() {
-            this.isCarouselVertical = window.innerWidth >= 991.98
+            this.isCarouselVertical = screenWidth.methods.checkIsScreenSizeBiggerThan(screenSizes.smallDesktop)
             this.updateCarouselButtonsBackgroundImage()
         }
     },
     computed: {
+        isCarouselVertical() {
+            return screenWidth.methods.checkIsScreenSizeBiggerThan(screenSizes.smallDesktop)
+        },
         allImages: {
             get() {
                 if (this.images.length > 0) {

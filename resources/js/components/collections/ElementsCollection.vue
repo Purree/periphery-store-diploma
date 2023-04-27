@@ -1,7 +1,7 @@
 <template>
     <div class="collection-container">
         <slot name="title" v-if="collectionTitle">
-            <list-title class="title" :title="collectionTitle" />
+            <list-title class="title" :title="collectionTitle"/>
         </slot>
 
         <div class="elements-container">
@@ -32,15 +32,19 @@
 import CollectionControlButton from '@/components/collections/CollectionControlButton.vue'
 import CollectionWhenScrollIsVisibleEnum from '@/helpers/enums/CollectionWhenScrollIsVisibleEnum'
 import ListTitle from '@/components/ListTitle.vue'
+import screenWidth from '@/mixins/screenWidth'
 
 export default {
     name: 'ElementsCollection',
-    components: { ListTitle, CollectionControlButton },
+    components: {
+        ListTitle,
+        CollectionControlButton
+    },
+    mixins: [screenWidth],
     data() {
         return {
             collectionScrollPosition: 0,
-            collectionScrollWidth: 0,
-            isScrollVisible: true
+            collectionScrollWidth: 0
         }
     },
     props: {
@@ -79,16 +83,19 @@ export default {
             const collectionElements = this.$refs.collectionElements
 
             this.collectionScrollWidth = collectionElements.scrollWidth - collectionElements.clientWidth
-        },
-        updateIsScrollVisible() {
-            const mobileWindowWidth = 800
-
-            if (this.whenScrollIsVisible === CollectionWhenScrollIsVisibleEnum.onPhone) {
-                this.isScrollVisible = window.innerWidth <= mobileWindowWidth
-            } else if (this.whenScrollIsVisible === CollectionWhenScrollIsVisibleEnum.onComputer) {
-                this.isScrollVisible = window.innerWidth > mobileWindowWidth
-            } else {
-                this.isScrollVisible = this.whenScrollIsVisible === CollectionWhenScrollIsVisibleEnum.always
+        }
+    },
+    computed: {
+        isScrollVisible() {
+            switch (this.whenScrollIsVisible) {
+            case CollectionWhenScrollIsVisibleEnum.onPhone:
+                return this.deviceType === 'mobile'
+            case CollectionWhenScrollIsVisibleEnum.onComputer:
+                return this.deviceType !== 'mobile'
+            case CollectionWhenScrollIsVisibleEnum.always:
+                return true
+            default:
+                return false
             }
         }
     },
@@ -96,10 +103,8 @@ export default {
         const collectionElements = this.$refs.collectionElements
 
         this.updateCollectionScrollWidth()
-        this.updateIsScrollVisible()
         window.addEventListener('resize', () => {
             this.updateCollectionScrollWidth()
-            this.updateIsScrollVisible()
         })
         collectionElements.addEventListener('scroll', () => {
             this.collectionScrollPosition = collectionElements.scrollLeft
