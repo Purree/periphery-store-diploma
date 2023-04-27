@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\Role as RoleEnum;
 use App\Enums\StoredImagesFolderEnum;
-use App\Helpers\ImageGenerator;
 use App\Models\Role as RoleModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;

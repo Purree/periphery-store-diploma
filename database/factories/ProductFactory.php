@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\StoredImagesFolderEnum;
-use App\Helpers\ImageGenerator;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
