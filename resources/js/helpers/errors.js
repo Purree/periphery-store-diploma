@@ -4,7 +4,7 @@ export default function getErrorsFromResponse(errors) {
     console.log(errors)
     console.log(errors.response)
 
-    return errors?.response ? errors.response.data?.errors || { server: [errors.response.data.message] } : errors
+    return errors?.response ? errors.response.data?.errors || { server: [errors.response.data.message] } : { server: [errors] }
 }
 
 export function openErrorNotification(errors) {

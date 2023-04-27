@@ -18,6 +18,9 @@ import i18n from '@/lang/index.js'
 import store from '@/store/index.js'
 import router from '@/routes/index.js'
 
+// Load this component because it throws infinitive loop
+import ReviewRepliesBlock from '@/components/product/reviews/replies/ReviewRepliesBlock.vue'
+
 import App from '@/App.vue'
 
 library.add(fas)
@@ -28,5 +31,6 @@ const app = createApp(App)
     .use(ElementPlus)
     .use(i18n)
 
+app.component('ReviewRepliesBlock', ReviewRepliesBlock)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')

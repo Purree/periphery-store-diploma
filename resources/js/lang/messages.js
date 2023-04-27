@@ -75,6 +75,9 @@ export default {
         product: {
             productUnavailable: 'The product is not yet available for purchase. Please wait or contact the seller',
             reviews: {
+                writeComment: 'Write comment',
+                reply: 'Reply',
+                showReplies: 'Show replies',
                 allReviews: 'Show additional reviews',
                 latestReview: 'Latest review'
             }
@@ -85,6 +88,7 @@ export default {
             expand: 'Expand',
             categories: 'Categories',
             discount: 'Discount',
+            needAuth: 'You need to be logged in to perform this action',
             reviews: {
                 noReviews: 'No reviews',
                 reviewsCount: 'No reviews | {count} review | {count} reviews',
@@ -174,6 +178,9 @@ export default {
         product: {
             productUnavailable: 'Продукт пока недоступен к покупке. Пожалуйста, подождите или свяжитесь с продавцом',
             reviews: {
+                writeComment: 'Написать комментарий',
+                reply: 'Ответить',
+                showReplies: 'Показать ответы',
                 allReviews: 'Показать дополнительные отзывы',
                 latestReview: 'Последний отзыв'
             }
@@ -184,6 +191,7 @@ export default {
             expand: 'Расширить',
             categories: 'Категории',
             discount: 'Скидка',
+            needAuth: 'Вам нужно авторизоваться, чтобы совершить это действие',
             reviews: {
                 noReviews: 'Нет отзывов',
                 reviewsCount: 'Нет отзывов | {count} отзыв | {count} отзыва | {count} отзывов',

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -52,8 +54,24 @@ class ProductController extends Controller
             ProductResource::make(
                 Product::query()
                     ->with(
-                        ['seller', 'categories', 'latestReview', 'latestReview.reviewer', 'images', 'categories.parent']
+                        ['seller', 'categories', 'images', 'categories.parent']
                     )
+                    ->with([
+                        'latestReview' => static function (HasOne $reply) {
+                            $reply
+                                ->withCount('replies')
+                                ->get();
+                        },
+                        'latestReview.reviewer',
+                        'latestReview.replies' =>
+                            static function (HasMany $reply) {
+                                $reply
+                                    ->with('replier')
+                                    ->withCount('children')
+                                    ->where('parent_id', null)
+                                    ->get();
+                            },
+                    ])
                     ->withCount('reviews')
                     ->withAvg('reviews', 'rating')
                     ->firstWhere('id', $product->id)
