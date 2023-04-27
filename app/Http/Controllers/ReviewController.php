@@ -61,8 +61,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review): JsonResponse
     {
-        // @TODO: Implement destroy() method.
+        $review->delete();
 
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+        return ResponseResult::success();
     }
 }

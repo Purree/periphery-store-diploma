@@ -6,7 +6,8 @@
     <product-reviews :pending="productPending" :latest-review="product.latestReview"
                      :reviews-pending="productReviewsPending" :reviews="reviews"
                      :reviews-pagination="reviewsPagination"
-                     :reviews-count="product.reviewsCount" @load-reviews="usePending(loadReviews, 'productReviewsPending')"/>
+                     :reviews-count="product.reviewsCount" @load-reviews="usePending(loadReviews, 'productReviewsPending')"
+                     @delete-review="onReviewDelete" @delete-latest-review="delete product.latestReview" />
 </template>
 
 <script>
@@ -60,6 +61,9 @@ export default {
                 openErrorNotification(getErrorsFromResponse(error))
                 console.error(error)
             }
+        },
+        onReviewDelete(review) {
+            this.reviews = this.reviews.filter((el) => el.id !== review.id)
         }
     },
     async mounted() {

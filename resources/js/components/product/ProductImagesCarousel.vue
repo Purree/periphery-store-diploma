@@ -22,6 +22,11 @@ export default {
     name: 'ProductImagesCarousel',
     components: { Carousel },
     mixins: [screenWidth],
+    data() {
+        return {
+            isCarouselVertical: true
+        }
+    },
     props: {
         images: {
             required: false,
@@ -62,9 +67,6 @@ export default {
         }
     },
     computed: {
-        isCarouselVertical() {
-            return screenWidth.methods.checkIsScreenSizeBiggerThan(screenSizes.smallDesktop)
-        },
         allImages: {
             get() {
                 if (this.images.length > 0) {

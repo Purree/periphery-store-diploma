@@ -88,6 +88,7 @@ export default {
             expand: 'Expand',
             categories: 'Categories',
             discount: 'Discount',
+            delete: 'Delete',
             needAuth: 'You need to be logged in to perform this action',
             reviews: {
                 noReviews: 'No reviews',
@@ -191,6 +192,7 @@ export default {
             expand: 'Расширить',
             categories: 'Категории',
             discount: 'Скидка',
+            delete: 'Удалить',
             needAuth: 'Вам нужно авторизоваться, чтобы совершить это действие',
             reviews: {
                 noReviews: 'Нет отзывов',

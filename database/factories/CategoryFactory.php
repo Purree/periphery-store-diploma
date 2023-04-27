@@ -3,11 +3,11 @@
 namespace Database\Factories;
 
 use App\Enums\StoredImagesFolderEnum;
-use App\Helpers\ImageGenerator;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\App;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
@@ -56,6 +56,11 @@ class CategoryFactory extends Factory
 
     private function createCategoryImage(): string
     {
-        return (new ImageGenerator(StoredImagesFolderEnum::categoryImages->value))->getRandomImage(10);
+        $imageGenerator = App::make(
+            \App\Helpers\ImageGenerator::class,
+            ['imagesFolder' => StoredImagesFolderEnum::categoryImages->value]
+        );
+
+        return $imageGenerator->getRandomImage(10);
     }
 }

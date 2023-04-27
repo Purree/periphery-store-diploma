@@ -8,6 +8,7 @@ use App\Helpers\ImageGenerator;
 use App\Models\Role as RoleModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
@@ -41,6 +42,11 @@ final class UserFactory extends Factory
 
     private function createAvatarImage(): string
     {
-        return (new ImageGenerator(StoredImagesFolderEnum::profilePhotos->value))->getRandomImage(10);
+        $imageGenerator = App::make(
+            \App\Helpers\ImageGenerator::class,
+            ['imagesFolder' => StoredImagesFolderEnum::profilePhotos->value]
+        );
+
+        return $imageGenerator->getRandomImage(10);
     }
 }

@@ -1,18 +1,18 @@
 <template>
-    <div class="card" v-if="pending || latestReview !== undefined || (reviews !== undefined && reviews.length > 0)">
+    <div class="card" v-if="pending || latestReview !== undefined || reviews.length <= 0 || reviewsCount > 0">
         <div v-if="!pending">
             <div v-if="latestReview !== undefined" class="latest-review-container">
                 <div class="latest-review-title" v-if="reviewsCount > 1">
                     {{ $t('product.reviews.latestReview') }}:
                 </div>
-                <review-card :review="latestReview"/>
+                <review-card @delete-review="this.$emit('deleteLatestReview')" :review="latestReview"/>
             </div>
 
             <div v-if="reviews.length > 0">
                 <div v-for="review in reviews"
                      :key="review.id">
                     <el-divider/>
-                    <review-card :review="review"/>
+                    <review-card @delete-review="this.$emit('deleteReview', review)" :review="review"/>
                 </div>
             </div>
 
@@ -34,6 +34,7 @@ import ReviewCard from '@/components/product/reviews/ReviewCard.vue'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 export default {
     name: 'ProductReviews',
+    emits: ['deleteReview', 'deleteLatestReview'],
     components: {
         FullWidthButton,
         ReviewCard

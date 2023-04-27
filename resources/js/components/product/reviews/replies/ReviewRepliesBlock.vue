@@ -3,7 +3,7 @@
          v-for="reply in replies" :key="reply.id">
         <el-divider class="reply-divider" :direction="this.deviceType !== 'mobile' ? 'vertical' : 'horizontal'"/>
         <div class="reply-review">
-            <review-reply-card :reply="reply" :review-id="reviewId"/>
+            <review-reply-card @delete-reply="$emit('deleteReply', reply)" :reply="reply" :review-id="reviewId"/>
         </div>
     </div>
 </template>
@@ -20,6 +20,7 @@ export default {
             return screenSizes
         }
     },
+    emits: ['deleteReply'],
     mixins: [screenWidth],
     components: { ReviewReplyCard },
     props: {

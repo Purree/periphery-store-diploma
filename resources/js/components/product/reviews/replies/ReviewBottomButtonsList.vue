@@ -2,7 +2,7 @@
     <div class="review-bottom-buttons-list">
         <review-bottom-button v-if="isShowRepliesButtonVisible" @click="$emit('showReplies')"
                               :pending="showRepliesButtonPending"
-                              class="bottom-button">
+                              class="bottom-button" type="primary">
             {{ $t('product.reviews.showReplies') }}
             <font-awesome-icon class="button-icon"
                                :icon="showRepliesButtonPending ? ['fas', 'spinner'] : 'chevron-down'"
@@ -10,8 +10,13 @@
         </review-bottom-button>
 
         <review-bottom-button @click="$emit('showAddReplyForm')" v-if="isAddReplyButtonVisible && checkIsLoggedIn()"
-                              class="bottom-button">
+                              class="bottom-button" type="primary">
             {{ $t('product.reviews.reply') }}
+        </review-bottom-button>
+
+        <review-bottom-button @click="$emit('deleteReview')" v-if="reviewerId === user?.id"
+                              class="bottom-button" type="danger" :pending="reviewDeletePending">
+            {{ $t('general.delete') }}
         </review-bottom-button>
     </div>
 </template>
@@ -20,6 +25,7 @@
 import ReviewBottomButton from '@/components/product/reviews/ReviewBottomButton.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import auth from '@/mixins/auth'
+import { mapState } from 'vuex'
 
 export default {
     name: 'ReviewBottomButtonsList',
@@ -28,7 +34,10 @@ export default {
         FontAwesomeIcon,
         ReviewBottomButton
     },
-    emits: ['showReplies', 'showAddReplyForm'],
+    emits: ['showReplies', 'showAddReplyForm', 'deleteReview'],
+    computed: {
+        ...mapState('auth', ['user'])
+    },
     props: {
         isShowRepliesButtonVisible: {
             required: false,
@@ -44,6 +53,16 @@ export default {
             required: false,
             type: Boolean,
             default: false
+        },
+        reviewDeletePending: {
+            required: false,
+            type: Boolean,
+            default: false
+        },
+        reviewerId: {
+            require: false,
+            type: [null, Number],
+            default: null
         }
     }
 }
@@ -51,7 +70,7 @@ export default {
 
 <style scoped>
 .bottom-button {
-    color: var(--el-color-primary);
+    margin-right: 10px;
     font-size: var(--el-font-size-large);
 }
 

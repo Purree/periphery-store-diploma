@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReviewResource extends JsonResource
 {
+    use AdditionalConditionallyLoadsAttributesTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -24,10 +26,25 @@ class ReviewResource extends JsonResource
             'disadvantages' => $this->disadvantages,
             'comments' => $this->comments,
             'isAnonymous' => $this->is_anonymous,
-            'reviewer' => $this->is_anonymous ? null : UserResource::make($this->whenLoaded('reviewer')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            ...(isset($this->replies_count) ? ['repliesCount' => $this->replies_count] : [])
+            ...(isset($this->replies_count) ? ['repliesCount' => $this->replies_count] : []),
+            ...$this->getReviewerDataIfItsPossible($request),
         ];
     }
+
+    private function getReviewerDataIfItsPossible(Request $request): array
+    {
+        if (
+            !$this->is_anonymous ||
+            ($this->checkIsRelationLoaded('reviewer') && $request->user()->id === $this->reviewer->id)
+        ) {
+            return [
+                'reviewer' => UserResource::make($this->whenLoaded('reviewer')),
+            ];
+        }
+
+        return ['reviewer' => null];
+    }
+
 }

@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\StoredImagesFolderEnum;
-use App\Helpers\ImageGenerator;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\App;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Banner>
@@ -27,6 +27,11 @@ final class BannerFactory extends Factory
 
     private function createBannerImage(): string
     {
-        return (new ImageGenerator(StoredImagesFolderEnum::banners->value))->getRandomImage();
+        $imageGenerator = App::make(
+            \App\Helpers\ImageGenerator::class,
+            ['imagesFolder' => StoredImagesFolderEnum::banners->value]
+        );
+
+        return $imageGenerator->getRandomImage();
     }
 }

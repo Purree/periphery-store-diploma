@@ -54,7 +54,12 @@ final class ProductFactory extends Factory
 
     private function createProductImage(): string
     {
-        return (new ImageGenerator(StoredImagesFolderEnum::productImages->value))->getRandomImage(
+        $imageGenerator = App::make(
+            \App\Helpers\ImageGenerator::class,
+            ['imagesFolder' => StoredImagesFolderEnum::productImages->value]
+        );
+
+        return $imageGenerator->getRandomImage(
             maxImageWidth: 3840,
             maxImageHeight: 2160
         );

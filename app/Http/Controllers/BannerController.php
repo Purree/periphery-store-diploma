@@ -9,6 +9,7 @@ use App\Http\Resources\BannerResource;
 use App\Models\Banner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class BannerController extends Controller
@@ -23,7 +24,9 @@ class BannerController extends Controller
      */
     public function index(): JsonResponse
     {
-        return ResponseResult::success(BannerResource::collection(Banner::all()));
+        $banners = Cache::remember('banners', 86400, static fn () => Banner::all());
+
+        return ResponseResult::success(BannerResource::collection($banners));
     }
 
     /**

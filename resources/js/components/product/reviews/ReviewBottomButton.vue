@@ -1,5 +1,5 @@
 <template>
-    <el-link :disabled="pending">
+    <el-link :disabled="pending" v-bind="$attrs">
         <slot>
             {{ text }}
         </slot>

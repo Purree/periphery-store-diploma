@@ -22,6 +22,9 @@
         <review-bottom-buttons-list :is-show-replies-button-visible="isRepliesExists && !isRepliesLoaded"
                                     :is-add-reply-button-visible="(!isRepliesExists && isReplyButtonVisible) || isShowAddReplyButtonForce"
                                     :show-replies-button-pending="repliesPending"
+                                    :reviewer-id="review?.reviewer?.id"
+                                    :review-delete-pending="reviewDeletePending"
+                                    @delete-review="usePending(onReviewDeleteButtonClick, 'reviewDeletePending')"
                                     @show-add-reply-form="changeAddReplyFormVisibility"
                                     @show-replies="usePending(loadReplies, 'repliesPending')"/>
 
@@ -29,7 +32,7 @@
             <add-reply-form @create-reply="onReplyCreate" :review-id="review.id"/>
         </div>
         <template v-if="isRepliesLoaded">
-            <review-replies-block :replies="replies" :review-id="review.id"/>
+            <review-replies-block :replies="replies" :review-id="review.id" @delete-reply="onReplyDelete"/>
         </template>
     </div>
 </template>
@@ -39,7 +42,7 @@ import ProductRating from '@/components/product/ProductRating.vue'
 import ReviewFeedback from '@/components/product/reviews/ReviewFeedback.vue'
 import apiRequest from '@/helpers/apiRequest'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
-import { API_GET_REVIEW_REPLIES_URL } from '@/api/reviews'
+import { API_DELETE_REVIEW_URL, API_GET_REVIEW_REPLIES_URL } from '@/api/reviews'
 import usePending from '@/mixins/usePending'
 import ReviewHeader from '@/components/product/reviews/ReviewHeader.vue'
 import ExpandableBlock from '@/components/ExpandableBlock.vue'
@@ -49,6 +52,7 @@ import AddReplyForm from '@/components/product/reviews/replies/AddReplyForm.vue'
 export default {
     name: 'ReviewCard',
     mixins: [usePending],
+    emits: ['deleteReview'],
     components: {
         AddReplyForm,
         ReviewBottomButtonsList,
@@ -62,6 +66,7 @@ export default {
             replies: [],
             repliesPending: false,
             isReplyButtonVisible: true,
+            reviewDeletePending: false,
             isShowAddReplyButtonForce: false
         }
     },
@@ -87,13 +92,24 @@ export default {
                 this.replies.push(...review.replies)
             } catch (error) {
                 openErrorNotification(getErrorsFromResponse(error))
-                console.error(error)
             }
+        },
+        onReplyDelete(reply) {
+            this.replies = this.replies.filter((el) => el.id !== reply.id)
         },
         onReplyCreate(reply) {
             this.changeAddReplyFormVisibility()
             this.isShowAddReplyButtonForce = true
             this.replies.push(reply)
+        },
+        async onReviewDeleteButtonClick() {
+            try {
+                await apiRequest(API_DELETE_REVIEW_URL, { id: this.review.id })
+                this.$emit('deleteReview')
+            } catch (error) {
+                openErrorNotification(getErrorsFromResponse(error))
+                console.error(error)
+            }
         },
         changeAddReplyFormVisibility() {
             this.isReplyButtonVisible = !this.isReplyButtonVisible
