@@ -32,7 +32,8 @@
             <add-reply-form @create-reply="onReplyCreate" :review-id="review.id"/>
         </div>
         <template v-if="isRepliesLoaded">
-            <review-replies-block :replies="replies" :review-id="review.id" @delete-reply="onReplyDelete"/>
+            <review-replies-block :replies="replies" :review-id="review.id" @delete-reply="onReplyDelete"
+                                  @update-reply="onReplyUpdate"/>
         </template>
     </div>
 </template>
@@ -101,6 +102,11 @@ export default {
             this.changeAddReplyFormVisibility()
             this.isShowAddReplyButtonForce = true
             this.replies.push(reply)
+        },
+        onReplyUpdate(reply) {
+            const replyId = Object.keys(reply)[0]
+
+            this.replies[this.replies.findIndex(el => el.id === +replyId)] = reply[replyId]
         },
         async onReviewDeleteButtonClick() {
             try {

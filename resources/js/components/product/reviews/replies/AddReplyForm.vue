@@ -1,5 +1,5 @@
 <template>
-    <el-form v-if="checkIsLoggedIn()" @submit.prevent="usePending(createReply)">
+    <el-form v-if="checkIsLoggedIn()">
         <errors-alert :errors="errors"/>
         <el-input
             v-model="text"

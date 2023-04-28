@@ -1,6 +1,6 @@
 <template>
     <el-carousel ref="carousel" :class="{'horizontal-carousel': isCarouselInHorizontalDirection()}" v-bind="$attrs"
-                 @Touchstart="onTouchStart">
+                 @Touchstart.passive="onTouchStart">
         <slot/>
     </el-carousel>
 </template>

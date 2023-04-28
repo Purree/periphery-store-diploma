@@ -34,7 +34,7 @@ import ReviewCard from '@/components/product/reviews/ReviewCard.vue'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 export default {
     name: 'ProductReviews',
-    emits: ['deleteReview', 'deleteLatestReview'],
+    emits: ['deleteReview', 'deleteLatestReview', 'loadReviews'],
     components: {
         FullWidthButton,
         ReviewCard

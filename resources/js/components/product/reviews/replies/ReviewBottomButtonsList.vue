@@ -14,9 +14,14 @@
             {{ $t('product.reviews.reply') }}
         </review-bottom-button>
 
-        <review-bottom-button @click="$emit('deleteReview')" v-if="reviewerId === user?.id"
+        <review-bottom-button @click="$emit('deleteReview')" v-if="isReviewCreatedByCurrentUser"
                               class="bottom-button" type="danger" :pending="reviewDeletePending">
             {{ $t('general.delete') }}
+        </review-bottom-button>
+
+        <review-bottom-button @click="$emit('editReview')" v-if="isReviewCreatedByCurrentUser && isEditReviewButtonVisible"
+                              class="bottom-button" type="info">
+            {{ $t('general.edit') }}
         </review-bottom-button>
     </div>
 </template>
@@ -34,9 +39,12 @@ export default {
         FontAwesomeIcon,
         ReviewBottomButton
     },
-    emits: ['showReplies', 'showAddReplyForm', 'deleteReview'],
+    emits: ['showReplies', 'showAddReplyForm', 'deleteReview', 'editReview'],
     computed: {
-        ...mapState('auth', ['user'])
+        ...mapState('auth', ['user']),
+        isReviewCreatedByCurrentUser() {
+            return this.reviewerId === this.user?.id
+        }
     },
     props: {
         isShowRepliesButtonVisible: {
@@ -50,6 +58,11 @@ export default {
             default: false
         },
         isAddReplyButtonVisible: {
+            required: false,
+            type: Boolean,
+            default: false
+        },
+        isEditReviewButtonVisible: {
             required: false,
             type: Boolean,
             default: false
