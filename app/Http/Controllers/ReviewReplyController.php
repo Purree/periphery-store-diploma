@@ -47,11 +47,11 @@ class ReviewReplyController extends Controller
             ReviewReplyResource::make(
                 ReviewReply::query()
                     ->with(['review', 'replier'])
+                    ->withCount('children')
                     ->with([
                         'children' => static function (HasMany $answer) {
                             $answer
                                 ->with('replier')
-                                ->withCount('children')
                                 ->get();
                         },
                     ])
