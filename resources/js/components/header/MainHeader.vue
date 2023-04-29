@@ -16,16 +16,7 @@
             </header-menu-item>
 
             <div class="header-blocks-divider"/>
-            <el-menu-item class="header-search-container inactive-header-element" index="1">
-                <el-input
-                    class="header-search"
-                    :placeholder="$t('nav.search')"
-                >
-                    <template v-slot:prefix>
-                        <font-awesome-icon icon="search"></font-awesome-icon>
-                    </template>
-                </el-input>
-            </el-menu-item>
+            <search-input class="inactive-header-element"/>
 
             <div class="header-blocks-divider"/>
             <header-menu-rounded-button-item :text="checkIsLoggedIn() ? $t('nav.buttons.profile') : $t('authorization.login')"
@@ -48,7 +39,6 @@
 
 <script>
 import StoreIcon from '@/components/header/StoreIcon.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import HeaderMenuRoundedButtonItem from '@/components/header/HeaderMenuRoundedButtonItem.vue'
 import RootMenuInjector from '@/components/header/RootMenuInjector.vue'
 import AdditionalActions from '@/components/header/AdditionalActions.vue'
@@ -56,17 +46,18 @@ import route from '@/mixins/route'
 import auth from '@/mixins/auth'
 import UserAvatar from '@/components/profile/UserAvatar.vue'
 import HeaderMenuItem from '@/components/header/HeaderMenuItem.vue'
+import SearchInput from '@/components/header/search/SearchInput.vue'
 
 export default {
     name: 'MainHeader',
     mixins: [route, auth],
     components: {
+        SearchInput,
         HeaderMenuItem,
         UserAvatar,
         AdditionalActions,
         RootMenuInjector,
         HeaderMenuRoundedButtonItem,
-        FontAwesomeIcon,
         StoreIcon
     },
     data() {
@@ -111,15 +102,6 @@ export default {
 
 :deep(.header-logo) {
     height: 100%;
-}
-
-:deep(.header-search .el-input__wrapper) {
-    border-radius: var(--el-border-radius-round);
-}
-
-:deep(.header-search-container) {
-    flex-grow: 2;
-    min-width: 205px;
 }
 
 :deep(.header-logo-container) {

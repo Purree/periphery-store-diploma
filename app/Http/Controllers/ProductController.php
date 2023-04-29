@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\ProductFilter;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -22,11 +23,12 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(ProductFilter $request): JsonResponse
     {
         return ResponseResult::success(
             ProductResource::collection(
                 Product::query()
+                    ->filter($request)
                     ->orderBy('created_at', 'desc')
                     ->withCount('reviews')
                     ->withAvg('reviews', 'rating')

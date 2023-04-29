@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filters\QueryFilter;
 use App\Helpers\PriceWithDiscountTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,11 @@ class Product extends Model
     public function scopeInStock(Builder $builder): Builder
     {
         return $builder->where('quantity', '<>', 0);
+    }
+
+    public function scopeFilter(Builder $builder, QueryFilter $filter): Builder
+    {
+        return $filter->apply($builder);
     }
 
     public function seller(): BelongsTo
