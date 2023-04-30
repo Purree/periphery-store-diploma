@@ -1,26 +1,29 @@
 <template>
-    <!--    TODO: Открывать slug категории при клике-->
     <el-card class="category-card" :body-style="{paddingTop: 0}">
-        <div class="category-container">
-            <div class="category-image-container">
-                <div class="category-image">
-                    <item-image :image-url="imageUrl"/>
+        <category-open-link-card :slug="this.slug">
+            <div class="category-container">
+                <div class="category-image-container">
+                    <div class="category-image">
+                        <item-image :image-url="imageUrl"/>
+                    </div>
+                </div>
+                <div class="category-title">
+                    <based-text :title="title"/>
                 </div>
             </div>
-            <div class="category-title">
-                <based-text :title="title"/>
-            </div>
-        </div>
+        </category-open-link-card>
     </el-card>
 </template>
 
 <script>
 import ItemImage from '@/components/home/ItemImage.vue'
 import BasedText from '@/components/BasedText.vue'
+import CategoryOpenLinkCard from '@/components/CategoryOpenLinkCard.vue'
 
 export default {
     name: 'CategoryCard',
     components: {
+        CategoryOpenLinkCard,
         BasedText,
         ItemImage
     },

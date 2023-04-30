@@ -27,8 +27,10 @@
                     </el-skeleton>
                 </div>
                 <div class="product-seller-container">
-                    <product-seller-card v-if="!pending" :avatar="product.seller.avatar"
-                                         :name="product.seller.name"/>
+                    <product-seller-open-link v-if="!pending" :id="product.seller.id">
+                        <product-seller-card :avatar="product.seller.avatar"
+                                             :name="product.seller.name"/>
+                    </product-seller-open-link>
                     <el-skeleton v-else class="product-title-skeleton"
                                  animated>
                         <template #template>
@@ -67,10 +69,12 @@ import BasedText from '@/components/BasedText.vue'
 import ProductFeedback from '@/components/product/ProductFeedback.vue'
 import ProductSellerCard from '@/components/product/ProductSellerCard.vue'
 import ProductDescription from '@/components/product/ProductDescription.vue'
+import ProductSellerOpenLink from '@/components/product/ProductSellerOpenLink.vue'
 
 export default {
     name: 'MainProductData',
     components: {
+        ProductSellerOpenLink,
         ProductDescription,
         ProductSellerCard,
         ProductFeedback,

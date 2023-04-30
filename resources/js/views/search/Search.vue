@@ -113,7 +113,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@@/_variables.scss";
+@import "@@/mixins.scss";
+
 .search-by-title-container {
     font-weight: bold;
     margin-block: 10px;
@@ -128,6 +131,10 @@ export default {
     grid-template-columns: 250px 1fr;
     grid-column-gap: 20px;
     height: 100px;
+    @include max-screen-size('big-tablet') {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .product-card {
@@ -143,6 +150,7 @@ export default {
 
 .search-filters-container {
     position: relative;
+    margin-bottom: 20px;
 }
 
 .search-filters-block {

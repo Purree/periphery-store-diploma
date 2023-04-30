@@ -1,5 +1,5 @@
 <template>
-    <div class="product-card card" >
+    <div class="product-card card">
         <div class="product-image-container">
             <product-open-link :slug="slug">
                 <div class="product-image">
@@ -79,11 +79,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@@/_variables.scss";
+@import "@@/mixins.scss";
+
 .product-card {
     overflow: hidden;
     display: grid;
-    grid-template-columns: 160px 3fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
+    @include max-screen-size('big-tablet') {
+        grid-template-columns: 2fr 2fr 1fr;
+    }
     column-gap: 20px;
 }
 
@@ -97,6 +103,7 @@ export default {
 .product-image {
     display: flex;
     justify-content: center;
+    max-height: 160px;
     width: 100%;
     aspect-ratio: 1 / 1;
     height: 100%;

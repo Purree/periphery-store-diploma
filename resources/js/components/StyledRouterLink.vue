@@ -1,5 +1,5 @@
 <template>
-    <router-link custom :to="this.to" v-slot="{ navigate, href }">
+    <router-link class="mocha" custom :to="this.to" v-slot="{ navigate, href }">
         <el-link v-bind="$attrs" :href="href" @click="navigate">
             <template v-slot:icon>
                 <slot name="icon"></slot>

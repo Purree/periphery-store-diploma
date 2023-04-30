@@ -3,11 +3,13 @@
         <div class="categories-title">
             {{ $t('general.categories') }}:
         </div>
-        <!--        TODO: Open category on click -->
+
         <div v-if="!pending">
             <ul v-for="category in extendedCategories" :key="category.slug" class="product-group">
                 <li class="product-category">
-                    <el-link href="#">{{ category.title }}</el-link>
+                    <category-open-link-card :underline="true" :slug="category.slug">
+                        {{ category.title }}
+                    </category-open-link-card>
                     <el-button class="load-parents-button" v-if="category.parent && !categoriesWithLoadedParent.includes(category.slug)"
                                @click="loadCategoryParents(category)"
                                :loading="categoriesParentsPending.includes(category.slug)">
@@ -18,9 +20,9 @@
                     <ul>
                         <li class="category-parent" v-for="parentCategory in category.parents"
                             :key="parentCategory.slug">
-                            <el-link href="#">
+                            <category-open-link-card :underline="true" :slug="parentCategory.slug">
                                 {{ parentCategory.title }}
-                            </el-link>
+                            </category-open-link-card>
                         </li>
                     </ul>
                 </li>
@@ -36,9 +38,11 @@
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_CATEGORY_PARENTS_URL } from '@/api/categories'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
+import CategoryOpenLinkCard from '@/components/CategoryOpenLinkCard.vue'
 
 export default {
     name: 'ProductCategories',
+    components: { CategoryOpenLinkCard },
     props: {
         categories: {
             required: false,
