@@ -27,6 +27,14 @@ const routes = [
             layout: 'ProductLayout'
         }
     },
+    {
+        path: '/search',
+        name: 'Search',
+        component: () => import('@/views/search/Search.vue'),
+        meta: {
+            layout: 'SearchLayout'
+        }
+    },
     ...errors,
     ...auth,
     ...user,

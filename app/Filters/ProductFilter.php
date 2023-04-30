@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ProductFilter extends QueryFilter
 {
+    public function searchBy($searchedString): Builder
+    {
+        return $this->builder
+            ->where('title', 'LIKE', '%'.$searchedString.'%')
+            ->orWhere('description', 'LIKE', '%'.$searchedString.'%');
+    }
+
     public function categories(string $slug): Builder
     {
         $slugs = $this->explodeParameters($slug);
@@ -18,10 +25,30 @@ class ProductFilter extends QueryFilter
         );
     }
 
-    public function searchBy($searchedString): Builder
+    public function sellers(string $ids): Builder
     {
-        return $this->builder
-            ->where('title', 'LIKE', '%'.$searchedString.'%')
-            ->orWhere('description', 'LIKE', '%'.$searchedString.'%');
+        $sellerIds = $this->explodeParameters($ids);
+
+        return $this->builder->whereHas(
+            'seller',
+            fn (Builder $query) => $query->whereIn('seller_id', $sellerIds)
+        );
+    }
+
+    public function hasReviews(): Builder
+    {
+        return $this->builder->whereHas(
+            'reviews',
+            fn (Builder $query) => $query->where(fn (Builder $query) => $query->count() > 0)
+        );
+    }
+
+    public function priceBetween(string|array $costs): Builder
+    {
+        $priceDiapason = is_string($costs) ? $this->explodeParameters($costs) : $costs;
+
+        asort($priceDiapason);
+
+        return $this->builder->whereBetween('price', $priceDiapason);
     }
 }

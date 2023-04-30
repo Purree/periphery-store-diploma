@@ -1,57 +1,37 @@
 <template>
-    <products-list :title="$t('home.products.otherProducts')" :products="otherProducts"
-                   :pending="otherProductsPending" v-if="otherProducts.length > 0 || otherProductsPending"/>
+    <products-list :title="$t('home.products.otherProducts')" :products="products"
+                   :pending="productsPending" v-if="products.length > 0 || productsPending"/>
     <div class="no-products-message" v-else>{{ $t('home.products.noProducts') }}</div>
 </template>
 
 <script>
 import ProductsList from '@/components/home/product/ProductsList.vue'
-import apiRequest from '@/helpers/apiRequest'
-import { API_GET_PRODUCTS_URL } from '@/api/products'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
+import allProducts from '@/mixins/allProducts'
 
 export default {
     name: 'OtherProductsList',
+    mixins: [allProducts],
     components: { ProductsList },
     data() {
         return {
-            otherProducts: [],
-            otherProductsPagination: [],
-            otherProductsPending: true
-        }
-    },
-    methods: {
-        async getAllProducts(cursor = undefined) {
-            const productsResponse = await apiRequest(API_GET_PRODUCTS_URL, {}, { params: { cursor } })
-            return productsResponse.data
-        },
-        async pushProductsToArray(cursor = undefined) {
-            try {
-                const allProductsResponse = await this.getAllProducts(cursor)
-
-                this.otherProducts.push(...allProductsResponse.data)
-                this.otherProductsPagination = allProductsResponse.meta
-            } catch (error) {
-                openErrorNotification(getErrorsFromResponse(error))
-                console.error(error)
-            }
+            productsPending: true
         }
     },
     async mounted() {
         await this.pushProductsToArray()
-        this.otherProductsPending = false
+        this.productsPending = false
 
         document.addEventListener('pageEndReached', async() => {
-            if (Object.values(this.otherProductsPagination).length === 0 || this.otherProductsPending) {
+            if (Object.values(this.productsPagination).length === 0 || this.productsPending) {
                 return
             }
 
-            const nextCursor = this.otherProductsPagination.next_cursor
+            const nextCursor = this.productsPagination.next_cursor
 
             if (nextCursor !== null) {
-                this.otherProductsPending = true
+                this.productsPending = true
                 await this.pushProductsToArray(nextCursor)
-                this.otherProductsPending = false
+                this.productsPending = false
             }
         })
     }

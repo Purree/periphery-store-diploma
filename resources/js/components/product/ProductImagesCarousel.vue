@@ -62,7 +62,7 @@ export default {
             )
         },
         onScreenResize() {
-            this.isCarouselVertical = screenWidth.methods.checkIsScreenSizeBiggerThan(screenSizes.smallDesktop)
+            this.isCarouselVertical = this.checkIsScreenSizeBiggerThan(screenSizes.smallDesktop)
             this.updateCarouselButtonsBackgroundImage()
         }
     },

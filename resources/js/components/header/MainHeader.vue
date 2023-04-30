@@ -10,17 +10,24 @@
             <root-menu-injector ref="rootMenu" :active-index="activeIndex"
                                 :restricted-tab-indexes="restrictedTabIndexes"/>
             <header-menu-item class="header-logo-container" :index="this.getRoutePathByName('Home')">
-                    <store-icon
-                        class="header-logo header-icon"
-                    />
+                <store-icon
+                    class="header-logo header-icon"
+                />
             </header-menu-item>
 
             <div class="header-blocks-divider"/>
-            <search-input class="inactive-header-element"/>
+            <search-input class="inactive-header-element header-search-container"/>
 
             <div class="header-blocks-divider"/>
-            <header-menu-rounded-button-item :text="checkIsLoggedIn() ? $t('nav.buttons.profile') : $t('authorization.login')"
-                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Profile')">
+            <header-menu-rounded-button-item class="mobile-home-button-container"
+                                             :index="this.getRoutePathByName('Home')"
+                                             text=""
+                                             icon="home" />
+
+            <div class="header-blocks-divider"/>
+            <header-menu-rounded-button-item
+                :text="checkIsLoggedIn() ? $t('nav.buttons.profile') : $t('authorization.login')"
+                :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Profile')">
                 <template v-slot:icon>
                     <user-avatar></user-avatar>
                 </template>
@@ -79,7 +86,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@@/_variables.scss";
+@import "@@/mixins.scss";
+
 .header {
     height: var(--el-header-height);
     padding: 0;
@@ -109,6 +119,32 @@ export default {
     padding: 0;
     min-width: 57px;
     width: calc(initial + (var(--el-menu-base-level-padding) * 2)) px;
+    @include max-screen-size('mobile') {
+        display: none;
+    }
+}
+
+:deep(.mobile-home-button-container) {
+    @include screen-size('tablet') {
+        display: none;
+    }
+}
+
+@include max-screen-size('mobile') {
+    .header-search-container {
+        padding-right: 0;
+    }
+    :deep(.mobile-home-button-container) {
+        padding: 0 10px;
+    }
+
+    :deep(.el-sub-menu) {
+        max-width: 30px;
+    }
+
+    :deep(.el-sub-menu__title) {
+        padding: 0;
+    }
 }
 
 :deep(.inactive-header-element.is-active), :deep(.header-logo-container.is-active) {

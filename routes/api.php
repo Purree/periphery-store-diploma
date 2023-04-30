@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryParentController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductReviewsController;
+use App\Http\Controllers\ProductSellersController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewReplyController;
@@ -34,6 +36,7 @@ Route::post('/session', [AuthorizationController::class, 'login'])->name('login'
 Route::post('/users', [AuthorizationController::class, 'registration'])->name('register');
 
 Route::apiResource('/banners', BannerController::class)->except('show');
+Route::apiResource('/categories', CategoryController::class)->only('index');
 
 
 Route::name('products.')->middleware('can:viewAny,'.Product::class)
@@ -42,6 +45,7 @@ Route::name('products.')->middleware('can:viewAny,'.Product::class)
         Route::apiResource('/reviews/replies', ReviewReplyController::class)->except('index');
 
         Route::get('/discounted', PromotedProductsWithDiscountController::class)->name('discounted');
+        Route::get('/sellers', ProductSellersController::class)->name('sellers');
 
         Route::prefix('{product}')->group(static function () {
             Route::get('/reviews', ProductReviewsController::class)->name('reviews');

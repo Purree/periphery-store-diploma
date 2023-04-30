@@ -83,6 +83,16 @@ export default {
                 latestReview: 'Latest review'
             }
         },
+        search: {
+            filters: {
+                hasReviews: 'Has reviews',
+                priceBetween: 'Price between',
+                categories: 'Has categories',
+                sellers: 'Sellers',
+                apply: 'Apply'
+            },
+            noProducts: 'No products were found for your query. Try searching with other filters.'
+        },
         general: {
             created: 'Created',
             updated: 'Updated',
@@ -188,6 +198,16 @@ export default {
                 allReviews: 'Показать дополнительные отзывы',
                 latestReview: 'Последний отзыв'
             }
+        },
+        search: {
+            filters: {
+                hasReviews: 'Есть отзывы',
+                priceBetween: 'Цена между',
+                categories: 'Имеет категории',
+                sellers: 'Продавцы',
+                apply: 'Применить'
+            },
+            noProducts: 'По вашему запросу не найдено продуктов. Попробуйте поискать с другими фильтрами.'
         },
         general: {
             created: 'Создано',

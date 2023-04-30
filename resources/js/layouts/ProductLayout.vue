@@ -2,6 +2,7 @@
     <el-container direction="vertical" class="app-container">
         <main-header container-class="home-container"></main-header>
         <el-main class="main home-container">
+            <el-backtop />
             <div class="product-container">
                 <slot></slot>
             </div>
