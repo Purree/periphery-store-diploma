@@ -8,6 +8,9 @@ import { restrictOpeningOfProtectedRoutes } from '@/routes/middleware/restrictOp
 import user from '@/routes/user'
 import auth from '@/routes/auth'
 import errors from '@/routes/errors'
+import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
+import { waitForUserLoading } from '@/routes/middleware/waitForUserLoading'
+import { GuardedRouteMetaEnum } from '@/helpers/enums/GuardedRouteMetaEnum'
 
 const routes = [
     {
@@ -16,7 +19,9 @@ const routes = [
         component: () => import('@/views/Home.vue'),
         meta: {
             layout: 'HomeLayout',
-            transition: 'none'
+            transition: 'none',
+            [GuardedRouteMetaEnum.needPermissionsOrGuest]: PermissionsEnum.view_products,
+            withoutPermissionRedirectTo: 'Profile'
         }
     },
     {
@@ -32,7 +37,9 @@ const routes = [
         name: 'Search',
         component: () => import('@/views/search/Search.vue'),
         meta: {
-            layout: 'SearchLayout'
+            layout: 'SearchLayout',
+            [GuardedRouteMetaEnum.needPermissionsOrGuest]: PermissionsEnum.view_products,
+            withoutPermissionRedirectTo: 'Profile'
         }
     },
     ...errors,
@@ -49,6 +56,7 @@ const router = createRouter({
     routes
 })
 
+router.beforeEach(waitForUserLoading)
 router.beforeEach(loadLayoutMiddleware)
 router.beforeEach(redirectFromAuthRoutes)
 router.beforeEach(redirectFromRoutesRequiredAuth)

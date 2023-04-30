@@ -26,7 +26,7 @@ class ProductPolicy
      */
     public function viewAny(?User $user): bool
     {
-        return true;
+        return null === $user || $user->hasPermission(Permission::view_products);
     }
 
     /**
@@ -34,12 +34,15 @@ class ProductPolicy
      */
     public function view(?User $user, Product $product): bool
     {
-        return true;
+        return $this->viewAny($user) || $product->seller->id === $user?->id;
     }
 
     public function buy(User $user, Product $product): bool
     {
-        return $product->is_available && $product->quantitu > 0 && $user->id !== $product->seller->id;
+        return $product->is_available &&
+            $product->inStock &&
+            $user->id !== $product->seller->id &&
+            $user->hasPermission(Permission::buy_products);
     }
 
     /**

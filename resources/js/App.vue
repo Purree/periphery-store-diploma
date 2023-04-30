@@ -40,7 +40,7 @@ export default {
         this.$store.commit('auth/setIsLoggedIn', isLocallyAuthorized)
 
         try {
-            if (isLocallyAuthorized) {
+            if (isLocallyAuthorized && Object.values(this.user).length === 0) {
                 await this.$store.dispatch('auth/changeStatusToLoggedIn')
             }
         } catch (error) {
@@ -57,7 +57,7 @@ export default {
     },
     computed: {
         ...mapState('language', ['locale']),
-        ...mapState('auth', ['isLoggedIn'])
+        ...mapState('auth', ['isLoggedIn', 'user'])
     }
 }
 </script>

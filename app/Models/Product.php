@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Filters\QueryFilter;
 use App\Helpers\PriceWithDiscountTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,9 +39,15 @@ class Product extends Model
 
     public function scopeInStock(Builder $builder): Builder
     {
-        return $builder->where('quantity', '<>', 0);
+        return $builder->where('quantity', '>', 0);
     }
 
+    protected function inStock(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->quantity > 0,
+        );
+    }
     public function scopeFilter(Builder $builder, QueryFilter $filter): Builder
     {
         return $filter->apply($builder);

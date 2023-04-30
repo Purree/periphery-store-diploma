@@ -25,9 +25,12 @@ enum Permission implements ArrayableEnumInterface
      * General
      */
     case change_own_data;
-    case manipulate_banners;
-    case manipulate_categories;
-    case manipulate_all_products;
+
+    /**
+     * Customer
+     */
+    case buy_products;
+    case view_products;
 
     /**
      * Seller
@@ -35,4 +38,11 @@ enum Permission implements ArrayableEnumInterface
     case create_products;
     case update_own_products;
     case delete_own_products;
+
+    /**
+     * Administrator
+     */
+    case manipulate_banners;
+    case manipulate_categories;
+    case manipulate_all_products;
 }

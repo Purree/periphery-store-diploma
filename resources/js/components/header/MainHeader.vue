@@ -16,7 +16,7 @@
             </header-menu-item>
 
             <div class="header-blocks-divider"/>
-            <search-input class="inactive-header-element header-search-container"/>
+            <search-input v-if="checkIsUserCanViewSearch()" class="inactive-header-element header-search-container"/>
 
             <div class="header-blocks-divider"/>
             <header-menu-rounded-button-item class="mobile-home-button-container"
@@ -32,10 +32,10 @@
                     <user-avatar></user-avatar>
                 </template>
             </header-menu-rounded-button-item>
-            <header-menu-rounded-button-item v-if="checkIsLoggedIn()"
+            <header-menu-rounded-button-item v-if="checkIsLoggedIn() && this.checkIsUserCanBuy()"
                                              :text="$t('nav.buttons.orders')" icon="box"
                                              :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
-            <header-menu-rounded-button-item v-if="checkIsLoggedIn()"
+            <header-menu-rounded-button-item v-if="checkIsLoggedIn() && this.checkIsUserCanBuy()"
                                              :text="$t('nav.buttons.cart')" icon="cart-shopping"
                                              :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
 
@@ -54,6 +54,7 @@ import auth from '@/mixins/auth'
 import UserAvatar from '@/components/profile/UserAvatar.vue'
 import HeaderMenuItem from '@/components/header/HeaderMenuItem.vue'
 import SearchInput from '@/components/header/search/SearchInput.vue'
+import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
 
 export default {
     name: 'MainHeader',
@@ -71,6 +72,14 @@ export default {
         return {
             activeIndex: '/',
             restrictedTabIndexes: [null, '1']
+        }
+    },
+    methods: {
+        checkIsUserCanBuy() {
+            return this.checkIsUserHasPermission(PermissionsEnum.buy_products)
+        },
+        checkIsUserCanViewSearch() {
+            return !this.checkIsLoggedIn() || this.checkIsUserHasPermission(PermissionsEnum.view_products)
         }
     },
     mounted() {

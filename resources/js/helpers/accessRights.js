@@ -8,13 +8,13 @@ export function isUserHasPermission(user, permission) {
     return getUserPermissions(user).includes(permission) || isUserAdministrator(user)
 }
 
-export function isUserHasRoles(user, roles) {
+export function isUserHasRoles(user, ...roles) {
     return roles.every(function(role) {
         return isUserHasRole(user, role)
     })
 }
 
-export function isUserHasPermissions(user, permissions) {
+export function isUserHasPermissions(user, ...permissions) {
     return permissions.every(function(permission) {
         return isUserHasPermission(user, permission)
     })

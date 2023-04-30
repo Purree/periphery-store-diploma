@@ -37,7 +37,7 @@ class ReviewResource extends JsonResource
     {
         if (
             !$this->is_anonymous ||
-            ($this->checkIsRelationLoaded('reviewer') && $request->user()->id === $this->reviewer->id)
+            ($this->checkIsRelationLoaded('reviewer') && $request->user()?->id === $this->reviewer->id)
         ) {
             return [
                 'reviewer' => UserResource::make($this->whenLoaded('reviewer')),

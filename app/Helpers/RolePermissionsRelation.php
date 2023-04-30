@@ -16,7 +16,12 @@ class RolePermissionsRelation
          * @command php artisan db:seed --class=RolePermissionSeeder
          */
         $this->createRelation(Role::administrator, ...Permission::cases());
-        $this->createRelation(Role::customer, Permission::change_own_data);
+        $this->createRelation(
+            Role::customer,
+            Permission::change_own_data,
+            Permission::view_products,
+            Permission::buy_products
+        );
         $this->createRelation(
             Role::seller,
             Permission::create_products,
