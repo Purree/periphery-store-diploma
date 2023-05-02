@@ -1,6 +1,6 @@
 <template>
     <div class="seller-products-container">
-        <full-width-button>{{ $t('profile.productsForSale.createProduct') }}</full-width-button>
+        <full-width-button @click="onProductCreateButtonClick">{{ $t('profile.productsForSale.createProduct') }}</full-width-button>
         <div v-if="!sellerProductsPending">
             <div v-if="sellerProducts.length > 0">
                 <product-card-factory :products="sellerProducts" :is-show-add-to-cart-button="false"/>
@@ -39,6 +39,9 @@ export default {
             } catch (errors) {
                 openErrorNotification(getErrorsFromResponse(errors))
             }
+        },
+        onProductCreateButtonClick() {
+            this.$router.push({ name: 'ProductCreate' })
         }
     },
     async mounted() {

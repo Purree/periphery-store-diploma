@@ -11,6 +11,7 @@ import errors from '@/routes/errors'
 import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
 import { waitForUserLoading } from '@/routes/middleware/waitForUserLoading'
 import { GuardedRouteMetaEnum } from '@/helpers/enums/GuardedRouteMetaEnum'
+import products from '@/routes/products'
 
 const routes = [
     {
@@ -25,14 +26,6 @@ const routes = [
         }
     },
     {
-        path: '/product/:slug',
-        name: 'Product',
-        component: () => import('@/views/products/Product.vue'),
-        meta: {
-            layout: 'ProductLayout'
-        }
-    },
-    {
         path: '/search',
         name: 'Search',
         component: () => import('@/views/search/Search.vue'),
@@ -42,6 +35,7 @@ const routes = [
             withoutPermissionRedirectTo: 'Profile'
         }
     },
+    ...products,
     ...errors,
     ...auth,
     ...user,

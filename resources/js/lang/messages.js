@@ -86,6 +86,19 @@ export default {
                 showReplies: 'Show replies',
                 allReviews: 'Show additional reviews',
                 latestReview: 'Latest review'
+            },
+            createProduct: {},
+            updateProduct: {
+                title: 'Product title',
+                metaTitle: 'Abbreviated product name',
+                description: 'Product description',
+                previewImage: 'Main product image',
+                price: 'Price',
+                discount: 'Discount',
+                quantity: 'Quantity in stock',
+                available: 'Available',
+                unavailable: 'Unavailable',
+                is_available: 'Available for sale'
             }
         },
         search: {
@@ -100,6 +113,7 @@ export default {
         },
         general: {
             created: 'Created',
+            save: 'Save',
             updated: 'Updated',
             expand: 'Expand',
             categories: 'Categories',
@@ -207,6 +221,19 @@ export default {
                 showReplies: 'Показать ответы',
                 allReviews: 'Показать дополнительные отзывы',
                 latestReview: 'Последний отзыв'
+            },
+            createProduct: {},
+            updateProduct: {
+                title: 'Название продукта',
+                metaTitle: 'Сокращённое название продукта',
+                description: 'Описание продукта',
+                previewImage: 'Главное изображение продукта',
+                price: 'Цена',
+                discount: 'Скидка',
+                available: 'Доступен',
+                unavailable: 'Недоступен',
+                quantity: 'Количество на складе',
+                is_available: 'Доступен к продаже'
             }
         },
         search: {
@@ -221,6 +248,7 @@ export default {
         },
         general: {
             created: 'Создано',
+            save: 'Сохранить',
             updated: 'Обновлено',
             expand: 'Расширить',
             categories: 'Категории',
