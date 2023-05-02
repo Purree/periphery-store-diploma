@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Enums\ValidationRules\ProductValidationRules;
 use App\Models\Product;
-use App\Rules\NotApng;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
