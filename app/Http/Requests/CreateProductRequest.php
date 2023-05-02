@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ValidationRules\ProductValidationRules;
 use App\Models\Product;
 use App\Rules\NotApng;
 use Illuminate\Foundation\Http\FormRequest;
@@ -20,14 +21,14 @@ class CreateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'metaTitle' => 'required|string|max:255',
-            'description' => 'required|string',
-            'previewImage' => ['nullable', 'image', 'mimes:png,jpeg,jpg', 'max:2048', new NotApng()],
-            'price' => 'required|int|min:0',
-            'discount' => 'required|int|min:0|max:100',
-            'quantity' => 'required|int|min:0',
-            'isAvailable' => 'nullable|bool'
+            'title' => 'required|'.ProductValidationRules::title->value,
+            'metaTitle' => 'required|'.ProductValidationRules::metaTitle->value,
+            'description' => 'required|'.ProductValidationRules::description->value,
+            'previewImage' => ProductValidationRules::getPreviewImageValidationRule(),
+            'price' => 'required|'.ProductValidationRules::price->value,
+            'discount' => 'required|'.ProductValidationRules::discount->value,
+            'quantity' => 'required|'.ProductValidationRules::quantity->value,
+            'isAvailable' => 'nullable|'.ProductValidationRules::isAvailable->value
         ];
     }
 }

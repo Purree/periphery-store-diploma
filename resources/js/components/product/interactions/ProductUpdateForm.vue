@@ -41,6 +41,13 @@
                     list-type="picture"
                     accept="image/png, image/gif, image/jpeg"
                     :auto-upload="false"/>
+                <div v-if="previousProductPreviewImageUrl">
+                    <based-text :title="$t('product.updateProduct.currentImage')"/>
+
+                    <div class="previous-product-preview">
+                        <item-image :image-url="previousProductPreviewImageUrl"/>
+                    </div>
+                </div>
             </template>
         </el-form-item>
         <el-form-item :label="$t('product.updateProduct.price')" prop="price" class="form-item">
@@ -70,7 +77,13 @@
                 size="large"
             />
         </el-form-item>
-        <full-width-button :pending="pending" @click="onSubmit()">{{ $t('general.save') }}</full-width-button>
+        <div class="product-manipulate-buttons">
+            <full-width-button :pending="pending" @click="onSubmit()">{{ $t('general.save') }}</full-width-button>
+            <full-width-button v-if="productToUpdate.slug" @click="deleteProduct()" type="danger">{{
+                    $t('general.delete')
+                }}
+            </full-width-button>
+        </div>
     </el-form>
 </template>
 
@@ -78,15 +91,19 @@
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import ErrorsAlert from '@/components/errors/ErrorsAlert.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import ItemImage from '@/components/home/ItemImage.vue'
+import BasedText from '@/components/BasedText.vue'
 
 export default {
     name: 'ProductUpdateForm',
     components: {
+        BasedText,
+        ItemImage,
         FontAwesomeIcon,
         ErrorsAlert,
         FullWidthButton
     },
-    emits: ['updateProduct'],
+    emits: ['updateProduct', 'deleteProduct'],
     data() {
         return {
             product: {
@@ -99,6 +116,7 @@ export default {
                 quantity: 0,
                 isAvailable: false
             },
+            previousProductPreviewImageUrl: '',
             validationRules: {
                 title: { required: true },
                 metaTitle: { required: true },
@@ -118,6 +136,12 @@ export default {
             default: false
         },
         requestErrors: {
+            required: false,
+            type: Object,
+            default: () => {
+            }
+        },
+        productToUpdate: {
             required: false,
             type: Object,
             default: () => {
@@ -152,6 +176,18 @@ export default {
             })
 
             this.$emit('updateProduct', productFormData)
+        },
+        async deleteProduct() {
+            this.$emit('deleteProduct')
+        }
+    },
+    watch: {
+        productToUpdate() {
+            const cachedProduct = this.productToUpdate
+            this.previousProductPreviewImageUrl = cachedProduct.previewImage
+            delete cachedProduct.previewImage
+
+            this.product = { ...this.product, ...cachedProduct }
         }
     }
 }
@@ -161,10 +197,20 @@ export default {
 .form-item, .form-item-input {
     width: 100%;
 }
+
 .preview-image-info-popover-icon {
     color: var(--el-color-primary);
 }
+
 .preview-image-info-popover-icon:hover {
     cursor: pointer;
+}
+
+.previous-product-preview {
+    width: 128px;
+    height: 128px;
+}
+.product-manipulate-buttons {
+    display: flex;
 }
 </style>

@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Filters\ProductFilter;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
 final class ProductController extends Controller
@@ -46,9 +46,9 @@ final class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product): JsonResponse
+    public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+        return $this->productService->update($request, $product);
     }
 
     /**
@@ -56,6 +56,7 @@ final class ProductController extends Controller
      */
     public function destroy(Request $request, Product $product): JsonResponse
     {
+        // @TODO: Не удалять продукт, если он имеет незавершённые заказы
         Log::info("User {$request->user()} delete {$product->id} product");
         $product->delete();
 

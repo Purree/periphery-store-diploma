@@ -7,6 +7,7 @@ use App\Filters\ProductFilter;
 use App\Helpers\ImageFacade;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\User;
@@ -38,27 +39,22 @@ class ProductService
     {
         $seller = $request->user();
 
+        $isAvailable = (bool)$request->validated('isAvailable');
         $sellerId = $seller->id;
         $slug = Str::slug($request->title);
-        $previewImagePath = null;
+        $previewImagePath = $this->savePreviewImage($request->validated('previewImage'));
         $sku = $this->generateSku($seller, $slug);
 
-        $previewImage = $request->validated('previewImage');
-
-        if ($previewImage) {
-            $previewImagePath = ImageFacade::make($previewImage)
-                ->resize(512, 512, true)
-                ->save(StoredImagesFolderEnum::productImages->value);
-        }
 
         $product = Product::query()->create(
             [
                 'seller_id' => $sellerId,
                 'slug' => $slug,
                 'preview_image' => $previewImagePath,
+                'is_available' => $isAvailable,
                 'SKU' => $sku,
                 'meta_title' => $request->validated('metaTitle'),
-                ...(array)$request->validated()
+                ...(array)$request->validated(),
             ]
         );
 
@@ -98,6 +94,26 @@ class ProductService
         );
     }
 
+    public function update(UpdateProductRequest $request, Product $product): JsonResponse
+    {
+        Log::info("User {$request->user()} update {$product} product");
+
+        // @TODO: Добавить возможность удаления прошлого превью
+        // @TODO: Добавить удаление превью с сервера
+        $previewImagePath = $this->savePreviewImage($request->validated('previewImage'));
+        $isAvailable = (bool)$request->validated('isAvailable');
+        $product->update(
+            [
+                'is_available' => $isAvailable,
+                ...($request->validated('metaTitle') ? ['meta_title' => $request->validated('metaTitle')] : []),
+                ...(null !== $previewImagePath ? ['preview_image' => $previewImagePath] : []),
+                ...(array)$request->validated(),
+            ]
+        );
+
+        return $this->show($product);
+    }
+
     private function generateSku(User $seller, string $slug): string
     {
         return mb_substr(
@@ -105,16 +121,27 @@ class ProductService
             0,
             4
         ).
-        mb_substr(
-            $slug,
-            0,
-            4
-        ).
-        str_pad(
-            mb_substr((string)$seller->id, 0, 2),
-            2,
-            "0",
-            STR_PAD_LEFT
-        ).date('s');
+            mb_substr(
+                $slug,
+                0,
+                4
+            ).
+            str_pad(
+                mb_substr((string)$seller->id, 0, 2),
+                2,
+                "0",
+                STR_PAD_LEFT
+            ).date('s');
+    }
+
+    private function savePreviewImage(?string $previewImage): ?string
+    {
+        if ($previewImage) {
+            return ImageFacade::make($previewImage)
+                ->resize(512, 512, true)
+                ->save(StoredImagesFolderEnum::productImages->value);
+        }
+
+        return null;
     }
 }
