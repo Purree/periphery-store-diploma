@@ -58,11 +58,11 @@ class ProductService
                 'preview_image' => $previewImagePath,
                 'SKU' => $sku,
                 'meta_title' => $request->validated('metaTitle'),
-                ...$request->validated()
+                ...(array)$request->validated()
             ]
         );
 
-        Log::info("User {$request->user()} create {$product->id} product");
+        Log::info("User {$request->user()} create {$product} product");
 
         return ResponseResult::success($product);
     }
