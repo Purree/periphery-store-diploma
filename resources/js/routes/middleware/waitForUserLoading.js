@@ -10,7 +10,7 @@ export async function waitForUserLoading(to, from, next) {
                         route.meta[metaKey]
                     )
                 ) &&
-                (store.getters['auth/isLoggedIn'] && Object.values(store.getters['auth/getUser'] === {}).length === 0)
+                (store.getters['auth/isLoggedIn'] && Object.values(store.getters['auth/getUser']).length === 0)
             )
         )
     ) {

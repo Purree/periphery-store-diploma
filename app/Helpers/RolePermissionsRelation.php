@@ -24,6 +24,7 @@ class RolePermissionsRelation
         );
         $this->createRelation(
             Role::seller,
+            Permission::change_own_data,
             Permission::create_products,
             Permission::delete_own_products,
             Permission::update_own_products

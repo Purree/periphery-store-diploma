@@ -20,6 +20,12 @@ export function isUserHasPermissions(user, ...permissions) {
     })
 }
 
+export function isUserHasAnyPermission(user, ...permissions) {
+    return permissions.some(function(permission) {
+        return isUserHasPermission(user, permission)
+    })
+}
+
 export function isUserAdministrator(user) {
     return getUserRoles(user).includes(RolesEnum.admin)
 }

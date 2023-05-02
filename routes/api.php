@@ -14,6 +14,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewReplyController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserProductsController;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,7 @@ Route::middleware('auth:sanctum')->group(static function () {
 
     Route::name('users.')->prefix('users')->group(static function () {
         Route::get('/me', [UserController::class, 'showAuthenticated'])->name('me');
+        Route::get('/products', UserProductsController::class)->name('products');
 
         Route::middleware('can:update,user')->prefix('/{user}')->group(static function () {
             Route::put('/', [UserController::class, 'update'])->name('update_main_user_data');

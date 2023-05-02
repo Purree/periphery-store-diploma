@@ -1,5 +1,5 @@
 <template>
-    <div class="card" v-if="pending || latestReview !== undefined || reviews.length <= 0 || reviewsCount > 0">
+    <div class="card" v-if="pending || latestReview || reviews.length > 0 || reviewsCount > 0">
         <div v-if="!pending">
             <div v-if="latestReview !== undefined" class="latest-review-container">
                 <div class="latest-review-title" v-if="reviewsCount > 1">

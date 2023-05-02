@@ -7,8 +7,7 @@ export default {
     name: 'BasedText',
     props: {
         title: {
-            required: true,
-            type: String
+            required: true
         }
     }
 }

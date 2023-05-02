@@ -11,15 +11,7 @@
         <div>
             <div v-if="!productsPending || products.length > 0">
                 <div v-if="products.length > 0">
-                    <product-card v-for="product in products" :key="product.slug"
-                                  :reviews-count="product.reviewsCount"
-                                  :title="product.title"
-                                  :image-url="product.previewImage"
-                                  :price="product.price"
-                                  :price-with-discount="product.priceWithDiscount"
-                                  :rating="product.rating"
-                                  :slug="product.slug"
-                                  class="product-card"/>
+                    <product-card-factory :products="products"/>
                 </div>
                 <div v-if="!productsPending && products.length === 0" class="empty-products-error card">
                     {{ $t('search.noProducts') }}
@@ -41,16 +33,16 @@ import allProducts from '@/mixins/allProducts'
 import usePending from '@/mixins/usePending'
 import searchKeywordsEnum from '@/helpers/enums/SearchKeywordsEnum'
 import BasedText from '@/components/BasedText.vue'
-import ProductCard from '@/components/search/ProductCard.vue'
 import FiltersBlock from '@/components/search/FiltersBlock.vue'
 import FullWidthButton from '@/components/FullWidthButton.vue'
+import ProductCardFactory from '@/components/search/ProductCardFactory.vue'
 
 export default {
     name: 'Search',
     components: {
+        ProductCardFactory,
         FullWidthButton,
         FiltersBlock,
-        ProductCard,
         BasedText
     },
     mixins: [allProducts, usePending],
@@ -137,7 +129,7 @@ export default {
     }
 }
 
-.product-card {
+:deep(.product-card) {
     margin-bottom: 20px;
     height: 200px;
 }

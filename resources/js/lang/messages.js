@@ -35,7 +35,8 @@ export default {
         },
         profile: {
             titles: {
-                personalInformation: 'Personal information'
+                personalInformation: 'Personal information',
+                yourProducts: 'Your products'
             },
             successfullyUpdated: 'You have successfully updated your profile!',
             mainInformation: {
@@ -59,6 +60,10 @@ export default {
                     incorrectExtension: 'Avatar must be JPG/PNG file!',
                     incorrectSize: 'Avatar size must be less than 2MB!'
                 }
+            },
+            productsForSale: {
+                createProduct: 'Create product',
+                noProducts: 'There are no products here yet'
             }
         },
         home: {
@@ -151,7 +156,8 @@ export default {
         },
         profile: {
             titles: {
-                personalInformation: 'Личные данные'
+                personalInformation: 'Личные данные',
+                yourProducts: 'Ваши продукты'
             },
             successfullyUpdated: 'Вы успешно обновили свой профиль!',
             mainInformation: {
@@ -175,6 +181,10 @@ export default {
                     incorrectExtension: 'Аватар должен быть JPG/PNG файлом!',
                     incorrectSize: 'Размер аватара должен быть меньше 2MB!'
                 }
+            },
+            productsForSale: {
+                createProduct: 'Создать продукт',
+                noProducts: 'Здесь ещё нет продуктов'
             }
         },
         home: {

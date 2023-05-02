@@ -22,7 +22,7 @@
                 <product-price :is-price-size-overwritten="true" :price="price" :discounted-price="priceWithDiscount"/>
             </div>
             <div>
-                <add-to-cart-button/>
+                <add-to-cart-button v-if="isShowAddToCartButton"/>
             </div>
         </div>
     </div>
@@ -74,6 +74,10 @@ export default {
         priceWithDiscount: {
             required: false,
             type: [Number, undefined]
+        },
+        isShowAddToCartButton: {
+            required: true,
+            type: [Boolean]
         }
     }
 }

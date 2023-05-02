@@ -1,5 +1,5 @@
 import { mapState } from 'vuex'
-import { isUserHasPermissions, isUserHasRole } from '@/helpers/accessRights'
+import { isUserHasAnyPermission, isUserHasPermissions, isUserHasRole } from '@/helpers/accessRights'
 
 export default {
     methods: {
@@ -14,6 +14,9 @@ export default {
         },
         checkIsUserHasPermissions(...permissions) {
             return isUserHasPermissions(this.user, ...permissions)
+        },
+        checkIsUserHasAnyPermission(...permissions) {
+            return isUserHasAnyPermission(this.user, ...permissions)
         }
     },
     computed: {

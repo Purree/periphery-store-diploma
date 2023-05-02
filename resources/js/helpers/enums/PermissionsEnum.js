@@ -4,5 +4,6 @@ export default {
     change_own_data: 'change_own_data',
     create_products: 'create_products',
     update_own_products: 'update_own_products',
-    delete_own_products: 'delete_own_products'
+    delete_own_products: 'delete_own_products',
+    manipulate_all_products: 'manipulate_all_products'
 }
