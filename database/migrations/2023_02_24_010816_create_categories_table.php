@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('title', 75);
-            $table->string('meta_title', 100)->nullable();
+            $table->string('meta_title', 100);
             $table->string('slug', 100)->unique();
             $table->string('image', 2048)->nullable();
             $table->text('description')->nullable();

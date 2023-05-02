@@ -26,6 +26,7 @@ class Product extends Model
     ];
 
     protected $hidden = ['id'];
+    protected $guarded = ['id'];
 
     public function getRouteKeyName(): string
     {

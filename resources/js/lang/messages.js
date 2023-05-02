@@ -22,6 +22,7 @@ export default {
                 unableToDetermineUserDescription: 'Unable to sign in to your account, please try again later or sign out and sign in again.'
             },
             login: 'Login',
+            attention: 'Attention',
             register: 'Register',
             logout: 'Logout',
             email: 'Email',
@@ -93,12 +94,13 @@ export default {
                 metaTitle: 'Abbreviated product name',
                 description: 'Product description',
                 previewImage: 'Main product image',
+                previewImageInfo: 'The image will be automatically reduced to a resolution of {count} by {count} pixels',
                 price: 'Price',
                 discount: 'Discount',
                 quantity: 'Quantity in stock',
                 available: 'Available',
                 unavailable: 'Unavailable',
-                is_available: 'Available for sale'
+                isAvailable: 'Available for sale'
             }
         },
         search: {
@@ -228,12 +230,13 @@ export default {
                 metaTitle: 'Сокращённое название продукта',
                 description: 'Описание продукта',
                 previewImage: 'Главное изображение продукта',
+                previewImageInfo: 'Изображение будет автоматически приведено к разрешению {count} на {count} пикселей',
                 price: 'Цена',
                 discount: 'Скидка',
                 available: 'Доступен',
                 unavailable: 'Недоступен',
                 quantity: 'Количество на складе',
-                is_available: 'Доступен к продаже'
+                isAvailable: 'Доступен к продаже'
             }
         },
         search: {
@@ -248,6 +251,7 @@ export default {
         },
         general: {
             created: 'Создано',
+            attention: 'Внимание',
             save: 'Сохранить',
             updated: 'Обновлено',
             expand: 'Расширить',

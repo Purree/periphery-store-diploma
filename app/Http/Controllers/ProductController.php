@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Filters\ProductFilter;
 use App\Helpers\Results\ResponseResult;
+use App\Http\Requests\CreateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\JsonResponse;
@@ -13,9 +15,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
-class ProductController extends Controller
+final class ProductController extends Controller
 {
-    public function __construct()
+    public function __construct(private readonly ProductService $productService)
     {
         $this->authorizeResource(Product::class);
     }
@@ -23,28 +25,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(ProductFilter $request): JsonResponse
+    public function index(ProductFilter $productFilter): JsonResponse
     {
-        return ResponseResult::success(
-            ProductResource::collection(
-                Product::query()
-                    ->filter($request)
-                    ->orderBy('created_at', 'desc')
-                    ->withCount('reviews')
-                    ->withAvg('reviews', 'rating')
-                    ->inStock()
-                    ->isAvailable()
-                    ->cursorPaginate(100)
-            )
-        );
+        return $this->productService->index($productFilter);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(CreateProductRequest $request): JsonResponse
     {
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+        return $this->productService->store($request);
     }
 
     /**
@@ -52,33 +43,7 @@ class ProductController extends Controller
      */
     public function show(Product $product): JsonResponse
     {
-        return ResponseResult::success(
-            ProductResource::make(
-                Product::query()
-                    ->with(
-                        ['seller', 'categories', 'images', 'categories.parent']
-                    )
-                    ->with([
-                        'latestReview' => static function (HasOne $reply) {
-                            $reply
-                                ->withCount('replies')
-                                ->get();
-                        },
-                        'latestReview.reviewer',
-                        'latestReview.replies' =>
-                            static function (HasMany $reply) {
-                                $reply
-                                    ->with('replier')
-                                    ->withCount('children')
-                                    ->where('parent_id', null)
-                                    ->get();
-                            },
-                    ])
-                    ->withCount('reviews')
-                    ->withAvg('reviews', 'rating')
-                    ->firstWhere('id', $product->id)
-            )
-        );
+        return $this->productService->show($product);
     }
 
     /**
