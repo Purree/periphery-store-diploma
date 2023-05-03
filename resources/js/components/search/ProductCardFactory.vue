@@ -1,4 +1,5 @@
 <template>
+    <!--  Also implicitly used in the SellerProducts  -->
     <product-card v-for="product in products" :key="product.slug"
                   :reviews-count="product.reviewsCount"
                   :title="product.title"

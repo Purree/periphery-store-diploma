@@ -3,6 +3,7 @@
         <product-update-form :request-errors="errors"
                              :product-to-update="product"
                              :pending="pending"
+                             @delete-product="usePending(onProductDeleteButtonClick)"
                              @update-product="(productFormData) => usePending(onProductUpdateButtonClick, 'pending', productFormData)"/>
     </div>
 </template>
@@ -38,18 +39,24 @@ export default {
                 this.errors = getErrorsFromResponse(errors)
             }
         },
+        async onProductDeleteButtonClick() {
+            await this.redirectToHome()
+        },
         async loadProduct() {
             try {
                 const product = (await apiRequest(API_GET_PRODUCT_URL, { slug: this.productSlug })).data
                 if (product.seller.id !== this.user.id) {
-                    await this.$router.push({ name: 'Home' })
+                    await this.redirectToHome()
                 }
 
                 this.product = product
             } catch (errors) {
                 openErrorNotification(getErrorsFromResponse(errors))
-                this.$router.push({ name: 'Home' })
+                await this.redirectToHome()
             }
+        },
+        async redirectToHome() {
+            await this.$router.push({ name: 'Home' })
         }
     },
     computed: {

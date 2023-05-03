@@ -79,10 +79,9 @@
         </el-form-item>
         <div class="product-manipulate-buttons">
             <full-width-button :pending="pending" @click="onSubmit()">{{ $t('general.save') }}</full-width-button>
-            <full-width-button v-if="productToUpdate.slug" @click="deleteProduct()" type="danger">{{
-                    $t('general.delete')
-                }}
-            </full-width-button>
+            <product-delete-button @delete-product="$emit('deleteProduct')"
+                                   v-if="productToUpdate.slug"
+                                   :slug="productToUpdate.slug"/>
         </div>
     </el-form>
 </template>
@@ -93,10 +92,12 @@ import ErrorsAlert from '@/components/errors/ErrorsAlert.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ItemImage from '@/components/home/ItemImage.vue'
 import BasedText from '@/components/BasedText.vue'
+import ProductDeleteButton from '@/components/product/interactions/ProductDeleteButton.vue'
 
 export default {
     name: 'ProductUpdateForm',
     components: {
+        ProductDeleteButton,
         BasedText,
         ItemImage,
         FontAwesomeIcon,
@@ -176,9 +177,6 @@ export default {
             })
 
             this.$emit('updateProduct', productFormData)
-        },
-        async deleteProduct() {
-            this.$emit('deleteProduct')
         }
     },
     watch: {
@@ -210,6 +208,7 @@ export default {
     width: 128px;
     height: 128px;
 }
+
 .product-manipulate-buttons {
     display: flex;
 }

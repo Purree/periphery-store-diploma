@@ -92,6 +92,7 @@ export default {
             updateProduct: {
                 title: 'Product title',
                 metaTitle: 'Abbreviated product name',
+                productDeleteConfirm: 'Are you sure to delete this?',
                 description: 'Product description',
                 currentImage: 'Current image',
                 previewImage: 'Main product image',
@@ -115,6 +116,8 @@ export default {
             noProducts: 'No products were found for your query. Try searching with other filters.'
         },
         general: {
+            yes: 'Yes',
+            no: 'No',
             created: 'Created',
             save: 'Save',
             updated: 'Updated',
@@ -229,6 +232,7 @@ export default {
             updateProduct: {
                 title: 'Название продукта',
                 metaTitle: 'Сокращённое название продукта',
+                productDeleteConfirm: 'Вы уверены, что хотите удалить это?',
                 description: 'Описание продукта',
                 currentImage: 'Текущее изображение',
                 previewImage: 'Главное изображение продукта',
@@ -252,6 +256,8 @@ export default {
             noProducts: 'По вашему запросу не найдено продуктов. Попробуйте поискать с другими фильтрами.'
         },
         general: {
+            yes: 'Да',
+            no: 'Нет',
             created: 'Создано',
             attention: 'Внимание',
             save: 'Сохранить',
