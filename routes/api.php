@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductSellersController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewReplyController;
+use App\Http\Controllers\UpdateProductCategoriesController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProductsController;
@@ -50,6 +51,9 @@ Route::name('products.')->middleware('can:viewAny,'.Product::class)
 
         Route::prefix('{product}')->group(static function () {
             Route::get('/reviews', ProductReviewsController::class)->name('reviews');
+            Route::put('/categories', UpdateProductCategoriesController::class)
+                ->middleware('can:update,product')
+                ->name('categories.update');
         });
     });
 Route::apiResource('/products', ProductController::class);

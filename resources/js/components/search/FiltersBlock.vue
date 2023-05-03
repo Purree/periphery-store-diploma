@@ -27,15 +27,7 @@
         </div>
         <div class="filter-block">
             <based-text :title="$t('search.filters.categories')+':'"/>
-            <el-select-v2
-                class="filter-select"
-                v-model="selectedCategories"
-                :disabled="categoriesPending"
-                filterable
-                :options="categoriesOptions"
-                :placeholder="$t('search.filters.categories')"
-                multiple
-            />
+            <product-categories-select v-model:selected-categories="selectedCategories"/>
         </div>
         <full-width-button :pending="productsLoadingPending" @click="saveFilters()">
             {{ $t('search.filters.apply') }}
@@ -47,14 +39,15 @@
 import BasedText from '@/components/BasedText.vue'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import apiRequest from '@/helpers/apiRequest'
-import { API_GET_ALL_CATEGORIES_URL } from '@/api/categories'
 import { API_GET_PRODUCT_SELLERS_URL } from '@/api/products'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import searchKeywordsEnum from '@/helpers/enums/SearchKeywordsEnum'
+import ProductCategoriesSelect from '@/components/search/ProductCategoriesSelect.vue'
 
 export default {
     name: 'FiltersBlock',
     components: {
+        ProductCategoriesSelect,
         FullWidthButton,
         BasedText
     },
@@ -81,10 +74,8 @@ export default {
         return {
             hasReviews: false,
             priceBetween: [],
-            categories: [],
             categoriesOptions: [],
             selectedCategories: [],
-            categoriesPending: true,
             sellers: [],
             sellersOptions: [],
             selectedSellers: [],
@@ -99,22 +90,6 @@ export default {
         }
     },
     methods: {
-        async loadCategories() {
-            try {
-                this.categories = (await apiRequest(API_GET_ALL_CATEGORIES_URL)).data
-                this.categoriesOptions = this.categories.map((category) => {
-                    return {
-                        value: category.slug,
-                        label: category.title
-                    }
-                })
-
-                this.categoriesPending = false
-            } catch (error) {
-                openErrorNotification(getErrorsFromResponse(error))
-                console.error(error)
-            }
-        },
         async loadSellers() {
             try {
                 this.sellers = (await apiRequest(API_GET_PRODUCT_SELLERS_URL)).data
@@ -157,7 +132,6 @@ export default {
     },
     mounted() {
         this.priceBetween = [0, this.maxAvailablePrice]
-        this.loadCategories()
         this.loadSellers()
     }
 }

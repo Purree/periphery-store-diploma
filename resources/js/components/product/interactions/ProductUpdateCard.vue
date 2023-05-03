@@ -6,6 +6,15 @@
                              @delete-product="usePending(onProductDeleteButtonClick)"
                              @update-product="(productFormData) => usePending(onProductUpdateButtonClick, 'pending', productFormData)"/>
     </div>
+    <div class="card">
+        <product-categories-update-card @update-categories="usePending(loadProduct)"
+                                        :product-slug="productSlug"
+                                        :categories="product.categories || []"
+                                        :external-pending="pending"/>
+    </div>
+    <div class="card">
+        <product-images-update-card :images="product.images || []"/>
+    </div>
 </template>
 
 <script>
@@ -15,10 +24,12 @@ import { API_GET_PRODUCT_URL, API_UPDATE_PRODUCT_URL } from '@/api/products'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import { mapState } from 'vuex'
 import usePending from '@/mixins/usePending'
+import ProductCategoriesUpdateCard from '@/components/product/interactions/ProductCategoriesUpdateCard.vue'
+import ProductImagesUpdateCard from '@/components/product/interactions/ProductImagesUpdateCard.vue'
 
 export default {
     name: 'ProductUpdateCard',
-    components: { ProductUpdateForm },
+    components: { ProductImagesUpdateCard, ProductCategoriesUpdateCard, ProductUpdateForm },
     data() {
         return {
             product: {},
@@ -70,5 +81,7 @@ export default {
 </script>
 
 <style scoped>
-
+.card + .card {
+    margin-top: 10px;
+}
 </style>
