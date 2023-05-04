@@ -90,13 +90,16 @@ export default {
             },
             createProduct: {},
             updateProduct: {
+                images: {
+                    tooFewImages: 'Too few images',
+                    currentImage: 'Current image',
+                    previewImage: 'Main product image',
+                    previewImageInfo: 'The image will be automatically reduced to a resolution of {count} by {count} pixels'
+                },
                 title: 'Product title',
                 metaTitle: 'Abbreviated product name',
                 productDeleteConfirm: 'Are you sure to delete this?',
                 description: 'Product description',
-                currentImage: 'Current image',
-                previewImage: 'Main product image',
-                previewImageInfo: 'The image will be automatically reduced to a resolution of {count} by {count} pixels',
                 price: 'Price',
                 discount: 'Discount',
                 quantity: 'Quantity in stock',
@@ -230,13 +233,16 @@ export default {
             },
             createProduct: {},
             updateProduct: {
+                images: {
+                    tooFewImages: 'Слишком мало изображений',
+                    currentImage: 'Текущее изображение',
+                    previewImage: 'Главное изображение продукта',
+                    previewImageInfo: 'Изображение будет автоматически приведено к разрешению {count} на {count} пикселей'
+                },
                 title: 'Название продукта',
                 metaTitle: 'Сокращённое название продукта',
                 productDeleteConfirm: 'Вы уверены, что хотите удалить это?',
                 description: 'Описание продукта',
-                currentImage: 'Текущее изображение',
-                previewImage: 'Главное изображение продукта',
-                previewImageInfo: 'Изображение будет автоматически приведено к разрешению {count} на {count} пикселей',
                 price: 'Цена',
                 discount: 'Скидка',
                 available: 'Доступен',

@@ -138,7 +138,7 @@ class ProductService
     {
         if ($previewImage) {
             return ImageFacade::make($previewImage)
-                ->resize(512, 512, true)
+                ->resize(512, 512)
                 ->save(StoredImagesFolderEnum::productImages->value);
         }
 

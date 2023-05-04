@@ -13,7 +13,10 @@
                                         :external-pending="pending"/>
     </div>
     <div class="card">
-        <product-images-update-card :images="product.images || []"/>
+        <product-images-update-card @images-update="usePending(loadProduct)"
+                                    :product-slug="productSlug"
+                                    :external-pending="pending"
+                                    :current-images="product.images || []"/>
     </div>
 </template>
 
@@ -29,7 +32,11 @@ import ProductImagesUpdateCard from '@/components/product/interactions/ProductIm
 
 export default {
     name: 'ProductUpdateCard',
-    components: { ProductImagesUpdateCard, ProductCategoriesUpdateCard, ProductUpdateForm },
+    components: {
+        ProductImagesUpdateCard,
+        ProductCategoriesUpdateCard,
+        ProductUpdateForm
+    },
     data() {
         return {
             product: {},

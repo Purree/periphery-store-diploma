@@ -17,7 +17,7 @@ export async function restrictOpeningOfProtectedRoutes(to, from, next) {
     ) {
         if (!isUserHasPermissions(
             user,
-            to.meta[GuardedRouteMetaEnum.needPermissions] || to.meta[GuardedRouteMetaEnum.needPermissionsOrGuest]
+            ...(to.meta[GuardedRouteMetaEnum.needPermissions] || to.meta[GuardedRouteMetaEnum.needPermissionsOrGuest])
         )) {
             return denyAccessToRoute(to, next)
         }

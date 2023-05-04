@@ -87,7 +87,7 @@ final class ImageFacade
         $extension ??= $this->getExtension();
         $name ??= Str::random(40);
 
-        $fullPath = $path.$name.$extension;
+        $fullPath = $path.$name.'.'.$extension;
 
         Storage::disk('public')->put(
             $fullPath,

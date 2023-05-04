@@ -16,7 +16,8 @@ class ProductImageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            ImageFacade::getImageUrl($this->image)
+            'id' => $this->id,
+            'link' => ImageFacade::getImageUrl($this->image)
         ];
     }
 }

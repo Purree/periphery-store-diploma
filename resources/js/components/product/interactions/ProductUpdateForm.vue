@@ -20,12 +20,12 @@
         </el-form-item>
         <el-form-item prop="previewImage" class="form-item">
             <template #label>
-                {{ $t('product.updateProduct.previewImage') }}
+                {{ $t('product.updateProduct.images.previewImage') }}
                 <el-popover
                     placement="top-start"
                     :title="$t('general.attention')"
                     trigger="hover"
-                    :content="$tc('product.updateProduct.previewImageInfo', 512)"
+                    :content="$tc('product.updateProduct.images.previewImageInfo', 512)"
                 >
                     <template #reference>
                         <font-awesome-icon class="preview-image-info-popover-icon" icon="circle-info"/>
@@ -42,7 +42,7 @@
                     accept="image/png, image/gif, image/jpeg"
                     :auto-upload="false"/>
                 <div v-if="previousProductPreviewImageUrl">
-                    <based-text :title="$t('product.updateProduct.currentImage')"/>
+                    <based-text :title="$t('product.updateProduct.images.currentImage')"/>
 
                     <div class="previous-product-preview">
                         <item-image :image-url="previousProductPreviewImageUrl"/>

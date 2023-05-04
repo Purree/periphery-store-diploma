@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProductImage extends Model
 {
     public $timestamps = false;
+    protected $guarded = ['id'];
 
     public function product(): BelongsTo
     {

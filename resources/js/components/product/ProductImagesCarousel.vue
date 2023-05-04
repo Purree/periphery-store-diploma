@@ -70,7 +70,7 @@ export default {
         allImages: {
             get() {
                 if (this.images.length > 0) {
-                    return [this.productPreview, ...this.images]
+                    return [this.productPreview, ...this.images.map(image => image.link)]
                 }
 
                 return [this.productPreview]

@@ -26,7 +26,7 @@ class ProductPolicy
      */
     public function viewAny(?User $user): bool
     {
-        return null === $user || $user->hasPermission(Permission::view_products);
+        return true;
     }
 
     /**

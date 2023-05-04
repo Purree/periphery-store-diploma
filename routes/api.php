@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryParentController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImagesController;
 use App\Http\Controllers\ProductReviewsController;
 use App\Http\Controllers\ProductSellersController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
@@ -51,9 +52,13 @@ Route::name('products.')->middleware('can:viewAny,'.Product::class)
 
         Route::prefix('{product}')->group(static function () {
             Route::get('/reviews', ProductReviewsController::class)->name('reviews');
-            Route::put('/categories', UpdateProductCategoriesController::class)
-                ->middleware('can:update,product')
-                ->name('categories.update');
+
+            Route::middleware('can:update,product')->group(function () {
+                Route::apiResource('/images', ProductImagesController::class)
+                    ->only(['store', 'destroy']);
+                Route::put('/categories', UpdateProductCategoriesController::class)
+                    ->name('categories.update');
+            });
         });
     });
 Route::apiResource('/products', ProductController::class);
