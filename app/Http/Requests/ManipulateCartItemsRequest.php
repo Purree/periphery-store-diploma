@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\CartManipulateMode;
 use App\Models\CartItem;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class ManipulateCartItemsRequest extends FormRequest
 {
@@ -20,8 +18,8 @@ class ManipulateCartItemsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'quantity' => 'nullable|int|min:1|max:'.CartItem::MAX_ITEM_QUANTITY,
-            'mode' => Rule::in(CartManipulateMode::getAllNames())
+            'quantity' => 'required|int|min:0|max:'.CartItem::MAX_ITEM_QUANTITY
+
         ];
     }
 }

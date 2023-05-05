@@ -91,8 +91,8 @@ Route::middleware('auth:sanctum')->group(static function () {
     Route::name('carts.')->prefix('carts')->group(static function () {
         Route::name('items.')->prefix('items')->group(static function () {
             Route::name('product')->prefix('{product}')->middleware('can:buy,product')->group(static function () {
-                Route::put('', [CartItemController::class, 'manipulateCartProduct'])->name('add');
-                Route::delete('', [CartItemController::class, 'deleteFromCart'])->name('delete');
+                Route::put('', [CartItemController::class, 'update'])->name('add');
+                Route::delete('', [CartItemController::class, 'destroy'])->name('delete');
             });
         });
     });

@@ -20,10 +20,9 @@
                         <product-open-link :slug="product.slug">
                             <based-text class="product-title" :title="product.title"/>
                         </product-open-link>
-                        <!--                @TODO: Реализовать добавление в корзину-->
                     </div>
                 </div>
-                <add-to-cart-button class="cart-button"/>
+                <add-to-cart-button :product-slug="product.slug" class="cart-button"/>
             </div>
         </div>
     </div>

@@ -22,7 +22,7 @@
                 <product-price :is-price-size-overwritten="true" :price="price" :discounted-price="priceWithDiscount"/>
             </div>
             <div>
-                <add-to-cart-button v-if="isShowAddToCartButton"/>
+                <add-to-cart-button :product-slug="slug" v-if="isShowAddToCartButton"/>
             </div>
         </div>
     </div>

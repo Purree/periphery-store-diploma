@@ -47,7 +47,7 @@
                             <product-price class="product-price" :price="product.price"
                                            :discounted-price="product.priceWithDiscount"/>
                             <product-description v-if="product.description" :description="product.description"/>
-                            <add-to-cart-button v-if="product.isAvailableForBuying"/>
+                            <add-to-cart-button :product-slug="product.slug" v-if="product.isAvailableForBuying"/>
                             <el-alert v-else :title="$t('product.productUnavailable')" :closable="false" type="info"/>
                         </div>
                     </div>

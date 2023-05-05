@@ -19,7 +19,7 @@
             <product-price :is-price-size-overwritten="true" :price="price" :discounted-price="priceWithDiscount"/>
         </div>
         <div class="product-actions">
-            <add-to-cart-button/>
+            <add-to-cart-button :product-slug="slug"/>
         </div>
     </el-card>
 </template>

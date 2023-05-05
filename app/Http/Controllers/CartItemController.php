@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\CartManipulateMode;
 use App\Exceptions\ProductNotAvailableForPurchaseException;
 use App\Exceptions\TooManyQuantitiesException;
 use App\Helpers\Results\ResponseResult;
@@ -13,6 +12,7 @@ use App\Services\CartItemService;
 use App\Services\CartService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CartItemController extends Controller
 {
@@ -20,18 +20,13 @@ class CartItemController extends Controller
     {
     }
 
-    public function manipulateCartProduct(ManipulateCartItemsRequest $request, Product $product): JsonResponse
+    public function update(ManipulateCartItemsRequest $request, Product $product): JsonResponse
     {
-        $manipulationMode = $request->validated('mode') ?? CartManipulateMode::increase->name;
-        if ($manipulationMode === CartManipulateMode::increase->name) {
-            return $this->addToCart($request, $product);
+        $addToCartProductsQuantity = $request->validated('quantity');
+        if ($addToCartProductsQuantity <= 0) {
+            return $this->destroy($product);
         }
 
-        return $this->decreaseCartProductQuantity($request, $product);
-    }
-
-    public function addToCart(ManipulateCartItemsRequest $request, Product $product): JsonResponse
-    {
         $user = $request->user();
         $activeCart = $user->activeCart()->first();
 
@@ -39,9 +34,8 @@ class CartItemController extends Controller
             $activeCart = $this->cartService->store($user);
         }
 
-        $addToCartProductsQuantity = $request->validated('quantity') ?? 1;
         try {
-            $cartItem = $this->cartItemService->addToCart($activeCart, $product, $addToCartProductsQuantity);
+            $cartItem = $this->cartItemService->update($activeCart, $product, $addToCartProductsQuantity);
 
             return ResponseResult::success(CartItemResource::make($cartItem));
         } catch (TooManyQuantitiesException|ProductNotAvailableForPurchaseException $e) {
@@ -49,14 +43,9 @@ class CartItemController extends Controller
         }
     }
 
-    public function deleteFromCart(ManipulateCartItemsRequest $request, Product $product): JsonResponse
+    public function destroy(Product $product): JsonResponse
     {
-        return $this->decreaseCartProductQuantity($request, $product);
-    }
-
-    public function decreaseCartProductQuantity(ManipulateCartItemsRequest $request, Product $product): JsonResponse
-    {
-        $activeCart = $request->user()->activeCart()->first();
+        $activeCart = Auth::user()->activeCart()->first();
         if (!$activeCart?->exists()) {
             return ResponseResult::error(
                 ['cart' => __('errors.cartDoesntExists')],
@@ -72,17 +61,8 @@ class CartItemController extends Controller
             );
         }
 
-        $quantityOfProductsToDelete = $request->validated('quantity');
-        if (!$quantityOfProductsToDelete || $cartProduct->quantity - $quantityOfProductsToDelete <= 0) {
-            $this->cartItemService->deleteFromCart($activeCart, $product);
+        $this->cartItemService->destroy($activeCart, $product);
 
-            return ResponseResult::success();
-        }
-
-        return ResponseResult::success(
-            CartItemResource::make(
-                $this->cartItemService->decreaseCartProductQuantity($activeCart, $product, $quantityOfProductsToDelete)
-            )
-        );
+        return ResponseResult::success();
     }
 }

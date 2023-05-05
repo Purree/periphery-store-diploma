@@ -14,7 +14,7 @@ class CartItemService
     /**
      * @throws TooManyQuantitiesException|ProductNotAvailableForPurchaseException
      */
-    public function addToCart(Cart $cart, Product $product, int $quantity = 1): CartItem
+    public function update(Cart $cart, Product $product, int $quantity = 1): CartItem
     {
         $storedCartProduct = $cart->items->firstWhere('product_id', $product->id);
         $isCartHasProduct = $storedCartProduct !== null;
@@ -29,37 +29,28 @@ class CartItemService
         if (!$product->is_available) {
             throw new ProductNotAvailableForPurchaseException((string)__("errors.productNotAvailableForPurchase"));
         }
+
+        $cartItemBuilder = $this->getCartItemBuilder($cart, $product);
         if (!$isCartHasProduct) {
-            return $cart->items()->create([
+            $cart->items()->create([
                 'product_id' => $product->id,
                 'quantity' => $quantity,
                 'active' => true,
             ]);
+        } else {
+            $cartItemBuilder->update(['quantity' => $quantity]);
         }
-
-        $cartItemBuilder = $this->getCartItemBuilder($cart, $product);
-
-        $cartItemBuilder->increment('quantity', $quantity);
 
         /** @psalm-suppress NullableReturnStatement */
         return $cartItemBuilder->with('product')->first();
     }
 
-    public function decreaseCartProductQuantity(Cart $cart, Product $product, int $quantity = 1): CartItem
-    {
-        $cartItemBuilder = $this->getCartItemBuilder($cart, $product);
-
-        $cartItemBuilder->decrement('quantity', $quantity);
-
-        return $cartItemBuilder->with('product')->first();
-    }
-
-    public function deleteFromCart(Cart $cart, Product $product): void
+    public function destroy(Cart $cart, Product $product): void
     {
         $this->getCartItemBuilder($cart, $product)->delete();
     }
 
-    public function getCartItemBuilder(Cart $cart, Product $product): HasMany
+    private function getCartItemBuilder(Cart $cart, Product $product): HasMany
     {
         return $cart->items()
             ->where('cart_id', $cart->id)
