@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryParentController;
 use App\Http\Controllers\LanguageController;
@@ -53,7 +54,7 @@ Route::name('products.')->middleware('can:viewAny,'.Product::class)
         Route::prefix('{product}')->group(static function () {
             Route::get('/reviews', ProductReviewsController::class)->name('reviews');
 
-            Route::middleware('can:update,product')->group(function () {
+            Route::middleware(['can:update,product', 'auth:sanctum'])->group(function () {
                 Route::apiResource('/images', ProductImagesController::class)
                     ->only(['store', 'destroy']);
                 Route::put('/categories', UpdateProductCategoriesController::class)
@@ -83,6 +84,15 @@ Route::middleware('auth:sanctum')->group(static function () {
                 Route::post('/', [UserAvatarController::class, 'store'])->name('change');
 
                 Route::delete('/', [UserAvatarController::class, 'destroy'])->name('delete');
+            });
+        });
+    });
+
+    Route::name('carts.')->prefix('carts')->group(static function () {
+        Route::name('items.')->prefix('items')->group(static function () {
+            Route::name('product')->prefix('{product}')->middleware('can:buy,product')->group(static function () {
+                Route::put('', [CartItemController::class, 'addToCart'])->name('add');
+                Route::delete('', [CartItemController::class, 'deleteFromCart'])->name('delete');
             });
         });
     });

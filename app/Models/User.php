@@ -8,6 +8,7 @@ use App\Models\Role as RoleModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -69,6 +70,26 @@ class User extends Authenticatable
     public function replies(): HasMany
     {
         return $this->hasMany(ReviewReply::class, 'replier_id');
+    }
+
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class, 'user_id');
+    }
+
+    public function activeCart(): HasOne
+    {
+        return $this->hasOne(Cart::class)->active()->latestOfMany();
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'user_id');
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'user_id');
     }
 
     public function getPermissions(): Collection

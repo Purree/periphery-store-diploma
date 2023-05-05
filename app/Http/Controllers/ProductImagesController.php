@@ -26,7 +26,7 @@ class ProductImagesController extends Controller
             return ResponseResult::error(
                 [
                     'images' => __(
-                        'Too many images count. Max images count is :attribute',
+                        'errors.tooManyImages',
                         ['attribute' => $maxImagesCount]
                     ),
                 ],
