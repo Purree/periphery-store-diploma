@@ -19,7 +19,7 @@ class CartService
      */
     public function store(User $user): Cart
     {
-        if ($user->activeCart()->exists()) {
+        if ($this->checkIsUserHasActiveCart($user)) {
             throw new CartAlreadyExistsException();
         }
 
@@ -27,5 +27,10 @@ class CartService
         $newCartStatusId = CartStatus::query()->firstWhere('name', CartStatusEnum::new->name)->id;
 
         return Cart::query()->create(['user_id' => $user->id, 'status_id' => $newCartStatusId]);
+    }
+
+    public function checkIsUserHasActiveCart(User $user): bool
+    {
+        return $user->activeCart()->exists();
     }
 }

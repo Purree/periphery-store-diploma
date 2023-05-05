@@ -15,7 +15,7 @@ class CartItemResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'product' => ProductResource::make($this->with('product')),
+            'product' => ProductResource::make($this->whenLoaded('product')),
             'active' => $this->active,
             'quantity' => $this->quantity,
         ];

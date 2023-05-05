@@ -16,5 +16,6 @@ return [
     'tooManyImages' => 'Слишком большое количество изображений. Максимальное количество - :attribute',
     'tooManyQuantities' => 'Вы указали слишком большое количество товаров. Продавец не может доставить столько',
     'productNotAvailableForPurchase' => 'Этот продукт недоступен для продажи',
-
+    'cartDoesntExists' => 'Корзина не существует',
+    'cartDoesntContainProduct' => 'Корзина не содержит товар',
 ];
