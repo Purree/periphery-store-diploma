@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\Role;
+use App\Enums\Structural\Role;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\ReviewReply;

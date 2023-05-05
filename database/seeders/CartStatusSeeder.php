@@ -2,23 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Structural\Permission as PermissionEnum;
+use App\Enums\Structural\CartStatus as CartStatusEnum;
 use App\Helpers\TableColumnUtils;
-use App\Models\Permission as PermissionModel;
+use App\Models\CartStatus as CartStatusModel;
 use Illuminate\Database\Seeder;
 
-class PermissionSeeder extends Seeder
+class CartStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
-        $permissionTableUtils = new TableColumnUtils(new PermissionModel(), 'name');
+        $permissionTableUtils = new TableColumnUtils(new CartStatusModel(), 'name');
 
-        $allPermissions = PermissionEnum::getAllNames();
+        $allPermissions = CartStatusEnum::getAllNames();
         $permissionTableUtils->fillWithUniqueValues($allPermissions);
         $permissionTableUtils->removeUnusedFields($allPermissions);
     }

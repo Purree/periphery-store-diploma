@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\Role as RoleEnum;
+use App\Enums\Structural\Role as RoleEnum;
 use App\Models\Role as RoleModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -96,7 +96,7 @@ class User extends Authenticatable
         return (bool) $this->roles()->firstWhere('name', $roleName);
     }
 
-    public function hasPermission(\App\Enums\Permission|string $permission): bool
+    public function hasPermission(\App\Enums\Structural\Permission|string $permission): bool
     {
         $permissionName = is_string($permission) ? $permission : $permission->name;
 

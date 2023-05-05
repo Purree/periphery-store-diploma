@@ -2,23 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Structural\Permission as PermissionEnum;
+use App\Enums\Structural\OrderStatus as OrderStatusEnum;
 use App\Helpers\TableColumnUtils;
-use App\Models\Permission as PermissionModel;
+use App\Models\OrderStatus as OrderStatusModel;
 use Illuminate\Database\Seeder;
 
-class PermissionSeeder extends Seeder
+class OrderStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
-        $permissionTableUtils = new TableColumnUtils(new PermissionModel(), 'name');
+        $permissionTableUtils = new TableColumnUtils(new OrderStatusModel(), 'name');
 
-        $allPermissions = PermissionEnum::getAllNames();
+        $allPermissions = OrderStatusEnum::getAllNames();
         $permissionTableUtils->fillWithUniqueValues($allPermissions);
         $permissionTableUtils->removeUnusedFields($allPermissions);
     }

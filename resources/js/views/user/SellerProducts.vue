@@ -93,5 +93,6 @@ export default {
 
 .product-interaction-buttons {
     display: flex;
+    margin-top: 10px;
 }
 </style>

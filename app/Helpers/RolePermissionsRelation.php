@@ -2,8 +2,8 @@
 
 namespace App\Helpers;
 
-use App\Enums\Permission;
-use App\Enums\Role;
+use App\Enums\Structural\Permission;
+use App\Enums\Structural\Role;
 
 class RolePermissionsRelation
 {

@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\Permission;
+use App\Enums\Structural\Permission;
 use App\Models\Category;
 use App\Models\User;
 

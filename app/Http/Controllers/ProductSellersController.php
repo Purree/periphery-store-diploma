@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Role;
+use App\Enums\Structural\Role;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Resources\UserResource;
 use App\Models\User;

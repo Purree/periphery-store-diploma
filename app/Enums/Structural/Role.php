@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Structural;
+
+use App\Enums\ArrayableEnumInterface;
+use App\Enums\ArrayableEnumTrait;
 
 enum Role implements ArrayableEnumInterface
 {

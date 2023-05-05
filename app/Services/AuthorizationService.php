@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\DataTransferObjects\LoginUserDTO;
 use App\DataTransferObjects\RegisterUserDTO;
-use App\Enums\Role;
+use App\Enums\Structural\Role;
 use App\Exceptions\InvalidArgumentException;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;

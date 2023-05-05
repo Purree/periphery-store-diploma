@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Role as RoleEnum;
+use App\Enums\Structural\Role as RoleEnum;
 use App\Helpers\TableColumnUtils;
 use App\Models\Role as RoleModel;
 use Illuminate\Database\Seeder;
