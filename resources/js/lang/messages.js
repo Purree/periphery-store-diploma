@@ -37,7 +37,10 @@ export default {
         profile: {
             titles: {
                 personalInformation: 'Personal information',
-                yourProducts: 'Your products'
+                yourProducts: 'Your products',
+                names: 'Recipient names',
+                mobiles: 'Mobile numbers',
+                addresses: 'Delivery addresses'
             },
             successfullyUpdated: 'You have successfully updated your profile!',
             mainInformation: {
@@ -186,7 +189,10 @@ export default {
         profile: {
             titles: {
                 personalInformation: 'Личные данные',
-                yourProducts: 'Ваши продукты'
+                yourProducts: 'Ваши продукты',
+                names: 'Имена получателей',
+                mobiles: 'Мобильные номера',
+                addresses: 'Адреса доставки'
             },
             successfullyUpdated: 'Вы успешно обновили свой профиль!',
             mainInformation: {

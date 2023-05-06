@@ -18,6 +18,7 @@ return new class () extends Migration {
                 ->onDelete('cascade');
             $table->string('address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

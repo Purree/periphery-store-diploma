@@ -1,15 +1,14 @@
 <template>
     <div class="profile-container" v-if="checkIsUserHasPermission(PermissionsEnum.change_own_data)">
-        <based-text class="profile-title" :title="$t('profile.titles.personalInformation')" />
+        <profile-title :text="$t('profile.titles.personalInformation')"/>
         <user-avatar-change></user-avatar-change>
         <div>
             <main-user-information-change></main-user-information-change>
         </div>
     </div>
+    <user-contact-information-change/>
     <div class="products-for-sale-container card" v-if="canUserManipulateProducts">
-        <based-text class="profile-title" :title="$t('profile.titles.yourProducts')" />
-        <el-divider/>
-
+        <profile-title :text="$t('profile.titles.yourProducts')"/>
         <seller-products/>
     </div>
 </template>
@@ -20,7 +19,8 @@ import UserAvatarChange from '@/components/profile/UserAvatarChange.vue'
 import auth from '@/mixins/auth'
 import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
 import SellerProducts from '@/views/user/SellerProducts.vue'
-import BasedText from '@/components/BasedText.vue'
+import UserContactInformationChange from '@/components/profile/UserContactInformationChange.vue'
+import ProfileTitle from '@/components/profile/ProfileTitle.vue'
 
 export default {
     name: 'Profile',
@@ -39,7 +39,8 @@ export default {
     },
     mixins: [auth],
     components: {
-        BasedText,
+        ProfileTitle,
+        UserContactInformationChange,
         SellerProducts,
         UserAvatarChange,
         MainUserInformationChange
@@ -55,13 +56,6 @@ export default {
     padding-bottom: 1px;
     border-bottom-left-radius: var(--el-border-radius-round);
     border-bottom-right-radius: var(--el-border-radius-round);
-}
-
-.profile-title {
-    text-align: center;
-    font-size: var(--el-font-size-extra-large);
-    display: block;
-    width: 100%;
 }
 
 .products-for-sale-container {
