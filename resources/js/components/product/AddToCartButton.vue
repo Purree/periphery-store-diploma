@@ -19,10 +19,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import usePending from '@/mixins/usePending'
 import { mapState } from 'vuex'
+import auth from '@/mixins/auth'
+import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
 
 export default {
     name: 'AddToCartButton',
-    mixins: [usePending],
+    mixins: [usePending, auth],
     components: {
         FullWidthButton,
         FontAwesomeIcon
@@ -59,10 +61,14 @@ export default {
     },
     methods: {
         async addProductToCart(quantity = 1) {
-            await this.$store.dispatch('cart/addProductToCart', {
-                productSlug: this.productSlug,
-                quantity
-            })
+            if (this.checkIsUserHasPermission(PermissionsEnum.buy_products)) {
+                await this.$store.dispatch('cart/addProductToCart', {
+                    productSlug: this.productSlug,
+                    quantity
+                })
+            } else {
+                this.$router.push({ name: 'Login' })
+            }
         }
     }
 }

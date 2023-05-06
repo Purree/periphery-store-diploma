@@ -35,6 +35,16 @@ const routes = [
             withoutPermissionRedirectTo: 'Profile'
         }
     },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/views/cart/Cart.vue'),
+        meta: {
+            layout: 'CartLayout',
+            [GuardedRouteMetaEnum.needPermissions]: PermissionsEnum.buy_products,
+            withoutPermissionRedirectTo: 'Home'
+        }
+    },
     ...products,
     ...errors,
     ...auth,

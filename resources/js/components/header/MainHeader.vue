@@ -37,7 +37,7 @@
                                              :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
             <header-menu-rounded-button-item v-if="checkIsLoggedIn() && this.checkIsUserCanBuy()"
                                              :text="$t('nav.buttons.cart')" icon="cart-shopping"
-                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
+                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Cart')"/>
 
             <additional-actions/>
         </el-menu>
