@@ -7,6 +7,7 @@
 
 <script>
 import price from '@/mixins/price'
+import { checkIsDiscountExists } from '@/helpers/price'
 
 export default {
     name: 'ProductPrice',
@@ -27,7 +28,7 @@ export default {
     },
     methods: {
         checkIsDiscountExists() {
-            return this.discountedPrice !== undefined && this.discountedPrice !== this.price
+            return checkIsDiscountExists(this.price, this.discountedPrice)
         }
     }
 }

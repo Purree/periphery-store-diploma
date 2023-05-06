@@ -118,9 +118,15 @@ export default {
             },
             noProducts: 'No products were found for your query. Try searching with other filters.'
         },
+        cart: {
+            cart: 'Cart',
+            noProducts: 'There are no products in the cart yet. Add something to see it here'
+        },
         general: {
             yes: 'Yes',
             no: 'No',
+            buy: 'Buy',
+            total: 'Total',
             created: 'Created',
             save: 'Save',
             updated: 'Updated',
@@ -261,9 +267,15 @@ export default {
             },
             noProducts: 'По вашему запросу не найдено продуктов. Попробуйте поискать с другими фильтрами.'
         },
+        cart: {
+            cart: 'Корзина',
+            noProducts: 'В корзине ещё нету продуктов. Добавьте что-нибудь, чтобы увидеть его тут'
+        },
         general: {
             yes: 'Да',
             no: 'Нет',
+            buy: 'Купить',
+            total: 'Всего',
             created: 'Создано',
             attention: 'Внимание',
             save: 'Сохранить',

@@ -11,6 +11,8 @@ use App\Models\CartItem;
 use App\Models\Product;
 use App\Services\CartItemService;
 use App\Services\CartService;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -21,11 +23,15 @@ class CartItemController extends Controller
     {
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return ResponseResult::success(
             CartItemResource::collection(
                 CartItem::query()
+                    ->whereHas(
+                        'cart',
+                        fn (Builder $builder) => $builder->where('user_id', $request->user()->id)
+                    )
                     ->with(['product'])
                     ->get()
             )

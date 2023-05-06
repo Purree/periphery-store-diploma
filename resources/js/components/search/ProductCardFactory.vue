@@ -1,5 +1,5 @@
 <template>
-    <!--  Also implicitly used in the SellerProducts  -->
+    <!--  Also implicitly used in the SellerProducts and Cart.vue  -->
     <product-card v-for="product in products" :key="product.slug"
                   :reviews-count="product.reviewsCount"
                   :title="product.title"

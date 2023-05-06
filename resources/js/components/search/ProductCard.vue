@@ -92,7 +92,8 @@ export default {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     @include max-screen-size('big-tablet') {
-        grid-template-columns: 2fr 2fr 1fr;
+        grid-template-columns: 1fr;
+        column-gap: 5px;
     }
     column-gap: 20px;
 }

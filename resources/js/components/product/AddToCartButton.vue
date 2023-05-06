@@ -6,7 +6,7 @@
                        v-bind="$attrs">
         <font-awesome-icon icon="cart-shopping" class="cart-icon"/>
         <div>
-            {{ $t('general.addToCart') }}
+            {{ $t('general.addProductToCart') }}
         </div>
     </full-width-button>
     <div v-else>
@@ -18,7 +18,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import usePending from '@/mixins/usePending'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import auth from '@/mixins/auth'
 import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
 
@@ -32,7 +32,7 @@ export default {
     data() {
         return {
             pending: false,
-            addToCartTimeout: setTimeout(() => {}, 1)
+            addProductToCartTimeout: setTimeout(() => {}, 1)
         }
     },
     props: {
@@ -51,18 +51,19 @@ export default {
                 return this.cartItems.find(item => item.product.slug === this.productSlug).quantity
             },
             set(value) {
-                clearTimeout(this.addToCartTimeout)
+                clearTimeout(this.addProductToCartTimeout)
 
-                this.addToCartTimeout = setTimeout(() => {
+                this.addProductToCartTimeout = setTimeout(() => {
                     this.usePending(this.addProductToCart, 'pending', value)
                 }, 500)
             }
         }
     },
     methods: {
+        ...mapActions('cart', ['changeProductInCartQuantity']),
         async addProductToCart(quantity = 1) {
             if (this.checkIsUserHasPermission(PermissionsEnum.buy_products)) {
-                await this.$store.dispatch('cart/addProductToCart', {
+                await this.changeProductInCartQuantity({
                     productSlug: this.productSlug,
                     quantity
                 })
