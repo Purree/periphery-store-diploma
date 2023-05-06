@@ -36,6 +36,8 @@ export default {
             this.changeLanguage()
         }
 
+        await this.$store.dispatch('cart/loadCart')
+
         const isLocallyAuthorized = localStorage.getItem('isLoggedIn') === 'true'
         this.$store.commit('auth/setIsLoggedIn', isLocallyAuthorized)
 

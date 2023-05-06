@@ -90,9 +90,10 @@ Route::middleware('auth:sanctum')->group(static function () {
 
     Route::name('carts.')->prefix('carts')->group(static function () {
         Route::name('items.')->prefix('items')->group(static function () {
+            Route::get('', [CartItemController::class, 'index'])->name('index');
             Route::name('product')->prefix('{product}')->middleware('can:buy,product')->group(static function () {
-                Route::put('', [CartItemController::class, 'update'])->name('add');
-                Route::delete('', [CartItemController::class, 'destroy'])->name('delete');
+                Route::put('', [CartItemController::class, 'update'])->name('update');
+                Route::delete('', [CartItemController::class, 'destroy'])->name('destroy');
             });
         });
     });

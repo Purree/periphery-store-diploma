@@ -7,6 +7,7 @@ use App\Exceptions\TooManyQuantitiesException;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Requests\ManipulateCartItemsRequest;
 use App\Http\Resources\CartItemResource;
+use App\Models\CartItem;
 use App\Models\Product;
 use App\Services\CartItemService;
 use App\Services\CartService;
@@ -18,6 +19,17 @@ class CartItemController extends Controller
 {
     public function __construct(private readonly CartService $cartService, private CartItemService $cartItemService)
     {
+    }
+
+    public function index(): JsonResponse
+    {
+        return ResponseResult::success(
+            CartItemResource::collection(
+                CartItem::query()
+                    ->with(['product'])
+                    ->get()
+            )
+        );
     }
 
     public function update(ManipulateCartItemsRequest $request, Product $product): JsonResponse
@@ -45,6 +57,7 @@ class CartItemController extends Controller
 
     public function destroy(Product $product): JsonResponse
     {
+        /** @psalm-suppress UndefinedInterfaceMethod */
         $activeCart = Auth::user()->activeCart()->first();
         if (!$activeCart?->exists()) {
             return ResponseResult::error(

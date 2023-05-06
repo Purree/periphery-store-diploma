@@ -1,5 +1,5 @@
 import apiRequest from '@/helpers/apiRequest'
-import { API_UPDATE_PRODUCTS_IN_CART_COUNT_URL } from '@/api/cart'
+import { API_GET_ALL_CART_ITEMS_URL, API_UPDATE_PRODUCTS_IN_CART_COUNT_URL } from '@/api/cart'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 
 export default {
@@ -7,21 +7,28 @@ export default {
         cartItems: []
     },
     mutations: {
+        appendCart: (state, items) => {
+            state.cartItems.push(...items)
+        },
         replaceCartItem: (state, newItem) => {
             if (state.cartItems.some(item => item.id === newItem.id)) {
-                state.cartItems = state.cartItems.map(el => el.id === newItem.id ? newItem : el)
+                state.cartItems = state.cartItems.map(oldItem => oldItem.id === newItem.id ? newItem : oldItem)
             } else {
                 state.cartItems.push(newItem)
             }
         },
         deleteProductFromCart(state, productSlug) {
-            state.cartItems.filter(oldItem => oldItem.product.slug === productSlug)
+            state.cartItems.map(oldItem => oldItem.product.slug === productSlug)
         }
     },
     actions: {
-        async loadCart() {
-            // @TODO
-            await apiRequest()
+        async loadCart({ commit }) {
+            try {
+                const cartItems = (await apiRequest(API_GET_ALL_CART_ITEMS_URL)).data
+                commit('appendCart', cartItems)
+            } catch (errors) {
+                openErrorNotification(getErrorsFromResponse(errors))
+            }
         },
         async addProductToCart({ commit }, {
             productSlug,
