@@ -16,4 +16,19 @@ class Order extends Model
     {
         return $this->belongsTo(OrderStatus::class, 'status_id');
     }
+
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(UserAddress::class, 'status_id');
+    }
+
+    public function mobile(): BelongsTo
+    {
+        return $this->belongsTo(UserMobile::class, 'status_id');
+    }
+
+    public function name(): BelongsTo
+    {
+        return $this->belongsTo(OrderStatus::class, 'status_id');
+    }
 }

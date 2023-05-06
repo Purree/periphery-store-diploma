@@ -23,8 +23,11 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'avatar' => ImageFacade::getPassedOrDefaultImageUrl($this->avatar),
             ...(Gate::allows('viewAdditionalResourceData', $this->resource) ? [
+                'addresses' => UserAddressResource::collection($this->whenLoaded('addresses')),
+                'mobiles' => UserMobileResource::collection($this->whenLoaded('mobiles')),
+                'names' => UserNameResource::collection($this->whenLoaded('names')),
+                ...$this->getRolesIfItsLoaded(),
                 'email' => $this->email,
-                ...$this->getRolesIfItsLoaded()
             ] : []),
         ];
     }

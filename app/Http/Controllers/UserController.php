@@ -26,7 +26,9 @@ class UserController extends Controller
     public function showAuthenticated(Request $request): JsonResponse
     {
         /** @psalm-suppress UndefinedInterfaceMethod, ArgumentTypeCoercion */
-        return $this->show($request, User::query()->with('roles')->firstWhere('id', $request->user()?->id));
+        return $this->show($request, User::query()
+            ->with(['roles', 'addresses', 'mobiles', 'names'])
+            ->firstWhere('id', $request->user()?->id));
     }
 
     public function update(UpdateUserRequest $request, User $user): JsonResponse

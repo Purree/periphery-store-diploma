@@ -6,7 +6,7 @@
                        v-bind="$attrs">
         <font-awesome-icon icon="cart-shopping" class="cart-icon"/>
         <div>
-            {{ $t('general.addProductToCart') }}
+            {{ $t('general.addToCart') }}
         </div>
     </full-width-button>
     <div v-else>

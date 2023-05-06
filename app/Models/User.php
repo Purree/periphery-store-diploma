@@ -92,6 +92,21 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class, 'user_id');
     }
 
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(UserAddress::class, 'user_id');
+    }
+
+    public function mobiles(): HasMany
+    {
+        return $this->hasMany(UserMobile::class, 'user_id');
+    }
+
+    public function names(): HasMany
+    {
+        return $this->hasMany(UserName::class, 'user_id');
+    }
+
     public function getPermissions(): Collection
     {
         return $this->roles()->with('permissions')->get()

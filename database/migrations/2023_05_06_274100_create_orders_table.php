@@ -16,13 +16,14 @@ return new class () extends Migration {
                 ->constrained('users');
             $table->foreignId('status_id')
                 ->constrained('order_statuses');
-            $table->string('token')->comment('Unique token that pass to the payment gateway');
-            $table->string('first_name');
-            $table->string('middle_name');
-            $table->string('last_name')->nullable();
-            $table->string('email');
-            $table->string('mobile');
-            $table->string('address');
+            $table->string('token')
+                ->comment('Unique token that pass to the payment gateway');
+            $table->foreignId('user_name_id')
+                ->constrained('user_names');
+            $table->foreignId('user_mobile_id')
+                ->constrained('user_mobiles');
+            $table->foreignId('user_address_id')
+                ->constrained('user_addresses');
             $table->timestamps();
         });
     }
