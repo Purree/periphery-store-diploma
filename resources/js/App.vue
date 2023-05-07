@@ -41,8 +41,8 @@ export default {
 
         try {
             if (isLocallyAuthorized && Object.values(this.user).length === 0) {
-                await this.$store.dispatch('cart/loadCart')
                 await this.$store.dispatch('auth/changeStatusToLoggedIn')
+                await this.$store.dispatch('cart/loadCart')
             }
         } catch (error) {
             console.log(error.response)

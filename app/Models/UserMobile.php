@@ -11,6 +11,8 @@ class UserMobile extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = ['mobile'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

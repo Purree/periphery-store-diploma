@@ -11,6 +11,7 @@ class UserAddress extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = ['address'];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

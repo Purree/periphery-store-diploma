@@ -65,6 +65,15 @@ export default {
                     incorrectSize: 'Avatar size must be less than 2MB!'
                 }
             },
+            contactInformation: {
+                names: {
+                    noNames: 'You don\'t have any recipient names added yet. But you can add a name right now',
+                    addName: 'Add name',
+                    firstName: 'First name',
+                    middleName: 'Middle name',
+                    lastName: 'Last name'
+                }
+            },
             productsForSale: {
                 createProduct: 'Create product',
                 noProducts: 'There are no products here yet'
@@ -215,6 +224,15 @@ export default {
                 errors: {
                     incorrectExtension: 'Аватар должен быть JPG/PNG файлом!',
                     incorrectSize: 'Размер аватара должен быть меньше 2MB!'
+                }
+            },
+            contactInformation: {
+                names: {
+                    noNames: 'У вас ещё нет добавленных имён получателей. Но вы можете добавить имя прямо сейчас',
+                    addName: 'Добавить имя',
+                    firstName: 'Имя',
+                    middleName: 'Фамилия',
+                    lastName: 'Отчество'
                 }
             },
             productsForSale: {

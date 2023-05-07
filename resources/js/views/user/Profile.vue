@@ -19,7 +19,7 @@ import UserAvatarChange from '@/components/profile/UserAvatarChange.vue'
 import auth from '@/mixins/auth'
 import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
 import SellerProducts from '@/views/user/SellerProducts.vue'
-import UserContactInformationChange from '@/components/profile/UserContactInformationChange.vue'
+import UserContactInformationChange from '@/components/profile/contactData/UserContactInformationChange.vue'
 import ProfileTitle from '@/components/profile/ProfileTitle.vue'
 
 export default {

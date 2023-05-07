@@ -14,6 +14,27 @@ export default {
         setUser(state, user) {
             state.user = user
         },
+        deleteUserDataProperty(state, {
+            userDataKey,
+            id
+        }) {
+            state.user[userDataKey] = state.user[userDataKey].filter(userName => userName.id !== id)
+        },
+        appendUserDataProperty(state, {
+            userDataKey,
+            userDataValue
+        }) {
+            state.user[userDataKey].push(userDataValue)
+        },
+        replaceUserDataProperty(state, {
+            userDataKey,
+            userDataValue
+        }) {
+            state.user[userDataKey] =
+                state.user[userDataKey].map(userData => userData.id === userDataValue.id
+                    ? { ...userData, ...userDataValue }
+                    : userData)
+        },
         setUserPromise(state, userPromise) {
             state.userPromise = userPromise
         },
@@ -36,7 +57,10 @@ export default {
         }
     },
     actions: {
-        async changeStatusToLoggedIn({ commit, getters }) {
+        async changeStatusToLoggedIn({
+            commit,
+            getters
+        }) {
             let getUserPromise = getters.getUserPromise
             if (getUserPromise === null) {
                 getUserPromise = apiRequest(API_CURRENT_USER_URL)

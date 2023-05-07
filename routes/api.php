@@ -15,8 +15,11 @@ use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewReplyController;
 use App\Http\Controllers\UpdateProductCategoriesController;
+use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserMobileController;
+use App\Http\Controllers\UserNameController;
 use App\Http\Controllers\UserProductsController;
 use App\Models\Category;
 use App\Models\Product;
@@ -76,6 +79,9 @@ Route::middleware('auth:sanctum')->group(static function () {
     Route::name('users.')->prefix('users')->group(static function () {
         Route::get('/me', [UserController::class, 'showAuthenticated'])->name('me');
         Route::get('/products', UserProductsController::class)->name('products');
+        Route::apiResource('/names', UserNameController::class)->except('show');
+        Route::apiResource('/mobiles', UserMobileController::class)->except('show');
+        Route::apiResource('/addresses', UserAddressController::class)->except('show');
 
         Route::middleware('can:update,user')->prefix('/{user}')->group(static function () {
             Route::put('/', [UserController::class, 'update'])->name('update_main_user_data');
