@@ -2,12 +2,12 @@
 
 namespace App\DataTransferObjects;
 
-class RegisterUserDTO
+readonly class RegisterUserDTO implements DTOInterface
 {
     public function __construct(
-        public readonly string $name,
-        public readonly string $email,
-        public readonly string $password,
+        public string $name,
+        public string $email,
+        public string $password,
     ) {
     }
 }

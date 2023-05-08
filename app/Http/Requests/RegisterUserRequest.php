@@ -6,7 +6,7 @@ use App\DataTransferObjects\RegisterUserDTO;
 use App\Enums\ValidationRules\UserValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterUserRequest extends FormRequest
+class RegisterUserRequest extends FormRequest implements DTOConvertibleInterface
 {
     /**
      * Determine if the user is authorized to make this request.

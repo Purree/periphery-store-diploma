@@ -1,7 +1,7 @@
 <template>
     <user-names-update :names="this.user.names" class="user-names-container"/>
-    <user-mobiles-update class="user-mobiles-container"/>
-    <user-addresses-update class="user-addresses-container"/>
+    <user-mobiles-update :mobiles="this.user.mobiles" class="user-mobiles-container"/>
+    <user-addresses-update :addresses="this.user.addresses" class="user-addresses-container"/>
 </template>
 
 <script>

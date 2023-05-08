@@ -66,6 +66,16 @@ export default {
                 }
             },
             contactInformation: {
+                mobiles: {
+                    noMobiles: 'You don\'t have any phone numbers added yet. But you can add a number right now',
+                    addMobile: 'Add phone number',
+                    mobile: 'Phone number'
+                },
+                addresses: {
+                    noAddresses: 'You don\'t have any addresses added yet. But you can add a number right now',
+                    addAddress: 'Add address',
+                    address: 'Address'
+                },
                 names: {
                     noNames: 'You don\'t have any recipient names added yet. But you can add a name right now',
                     addName: 'Add name',
@@ -227,6 +237,16 @@ export default {
                 }
             },
             contactInformation: {
+                mobiles: {
+                    noMobiles: 'У вас ещё нет добавленных телефонных номеров. Но вы можете добавить имя прямо сейчас',
+                    addMobile: 'Добавить номер',
+                    mobile: 'Номер'
+                },
+                addresses: {
+                    noAddresses: 'У вас ещё нет добавленных адресов. Но вы можете добавить имя прямо сейчас',
+                    addAddress: 'Добавить адрес',
+                    address: 'Адрес'
+                },
                 names: {
                     noNames: 'У вас ещё нет добавленных имён получателей. Но вы можете добавить имя прямо сейчас',
                     addName: 'Добавить имя',
