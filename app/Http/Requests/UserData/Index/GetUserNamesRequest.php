@@ -3,7 +3,6 @@
 namespace App\Http\Requests\UserData\Index;
 
 use App\DataTransferObjects\UserData\UserDataIndexDTO;
-use App\Http\Requests\DTOConvertibleInterface;
 use App\Models\UserName;
 use Illuminate\Foundation\Http\FormRequest;
 
