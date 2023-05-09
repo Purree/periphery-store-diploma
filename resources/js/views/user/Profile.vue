@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-container" v-if="checkIsUserHasPermission(PermissionsEnum.change_own_data)">
+    <div class="bottom-card" v-if="checkIsUserHasPermission(PermissionsEnum.change_own_data)">
         <profile-title :text="$t('profile.titles.personalInformation')"/>
         <user-avatar-change></user-avatar-change>
         <div>
@@ -49,15 +49,6 @@ export default {
 </script>
 
 <style scoped>
-.profile-container {
-    background: var(--el-bg-color);
-    padding-inline: 20px;
-    padding-top: 20px;
-    padding-bottom: 1px;
-    border-bottom-left-radius: var(--el-border-radius-round);
-    border-bottom-right-radius: var(--el-border-radius-round);
-}
-
 .products-for-sale-container {
     margin-top: 10px;
     min-height: 100px;

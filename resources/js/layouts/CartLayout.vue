@@ -1,6 +1,8 @@
 <template>
     <product-layout>
-        <slot></slot>
+        <div class="bottom-card">
+            <slot></slot>
+        </div>
     </product-layout>
 </template>
 

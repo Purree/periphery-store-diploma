@@ -13,15 +13,12 @@
 
 <script>
 import BasedText from '@/components/BasedText.vue'
+import { beautifyDate } from '@/helpers/date'
 
 export default {
     name: 'ReviewInteractionTime',
+    methods: { beautifyDate },
     components: { BasedText },
-    methods: {
-        beautifyDate(date) {
-            return new Date(date).toLocaleDateString()
-        }
-    },
     props: {
         created_at: {
             required: true,

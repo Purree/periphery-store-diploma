@@ -17,6 +17,7 @@ return new class () extends Migration {
             $table->foreignId('status_id')
                 ->constrained('order_statuses');
             $table->string('token')
+                ->unique()
                 ->comment('Unique token that pass to the payment gateway');
             $table->foreignId('user_name_id')
                 ->constrained('user_names');

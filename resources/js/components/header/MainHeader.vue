@@ -34,7 +34,7 @@
             </header-menu-rounded-button-item>
             <header-menu-rounded-button-item v-if="checkIsLoggedIn() && this.checkIsUserCanBuy()"
                                              :text="$t('nav.buttons.orders')" icon="box"
-                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Home')"/>
+                                             :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Orders')"/>
             <header-menu-rounded-button-item v-if="checkIsLoggedIn() && this.checkIsUserCanBuy()"
                                              :text="$t('nav.buttons.cart')" icon="cart-shopping"
                                              :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Cart')"/>

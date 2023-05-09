@@ -1,6 +1,6 @@
 <template>
-    <div class="card">
-        <based-text :title="$t('cart.cart')" class="cart-title"/>
+    <div>
+        <view-title :text="$t('cart.cart')"/>
 
         <div class="cart-container">
             <div v-if="!pending">
@@ -42,11 +42,13 @@ import ProductCard from '@/components/search/ProductCard.vue'
 import BasedText from '@/components/BasedText.vue'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import price from '@/mixins/price'
+import ViewTitle from '@/components/ViewTitle.vue'
 
 export default {
     name: 'Cart',
     mixins: [price],
     components: {
+        ViewTitle,
         FullWidthButton,
         BasedText,
         ProductCard
@@ -74,10 +76,6 @@ export default {
 </script>
 
 <style scoped>
-.cart-title {
-    font-size: var(--el-font-size-super-large)
-}
-
 .cart-container {
     min-height: 100px;
     margin-top: 10px;

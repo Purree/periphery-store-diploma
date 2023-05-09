@@ -6,6 +6,7 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryParentController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
@@ -93,6 +94,8 @@ Route::middleware('auth:sanctum')->group(static function () {
             });
         });
     });
+
+    Route::apiResource('orders', OrderController::class);
 
     Route::name('carts.')->prefix('carts')->group(static function () {
         Route::name('items.')->prefix('items')->group(static function () {

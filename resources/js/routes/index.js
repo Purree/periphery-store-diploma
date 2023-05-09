@@ -12,6 +12,7 @@ import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
 import { waitForUserLoading } from '@/routes/middleware/waitForUserLoading'
 import { GuardedRouteMetaEnum } from '@/helpers/enums/GuardedRouteMetaEnum'
 import products from '@/routes/products'
+import orders from '@/routes/orders'
 
 const routes = [
     {
@@ -47,6 +48,7 @@ const routes = [
     },
     ...products,
     ...errors,
+    ...orders,
     ...auth,
     ...user,
     {

@@ -79,3 +79,10 @@ html {
     border-radius: var(--el-border-radius-round);
     padding: var(--el-border-radius-round);
 }
+
+.bottom-card {
+    background: var(--el-bg-color);
+    padding: var(--el-border-radius-round);
+    border-bottom-left-radius: var(--el-border-radius-round);
+    border-bottom-right-radius: var(--el-border-radius-round);
+}
