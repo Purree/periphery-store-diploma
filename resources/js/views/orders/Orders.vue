@@ -6,8 +6,7 @@
             <div v-if="!pending">
                 <div v-if="orders.length > 0">
                     <div v-for="order in orders" :key="order.id">
-                        <order-item-card :products="order.items"
-                                         :status="order.status"
+                        <order-item-card :status="order.status"
                                          :total-cost="order.totalCost"
                                          :order-id="order.id"
                                          :created-at="order.createdAt"
@@ -66,5 +65,7 @@ export default {
 </script>
 
 <style scoped>
-
+.cart-container {
+    margin-top: 10px;
+}
 </style>

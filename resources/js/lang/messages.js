@@ -147,7 +147,18 @@ export default {
         orders: {
             orders: 'Orders',
             orderDated: 'Order dated',
-            noOrders: 'You don\'t have any orders yet. Buy something and it will appear her'
+            noOrders: 'You don\'t have any orders yet. Buy something and it will appear her',
+            status: 'Order status',
+            statuses: {
+                new: 'New',
+                checkout: 'Checkout',
+                paid: 'Paid',
+                failed: 'Failed',
+                shipped: 'Shipped',
+                delivered: 'Delivered',
+                returned: 'Returned',
+                completed: 'Completed'
+            }
         },
         general: {
             yes: 'Yes',
@@ -323,7 +334,18 @@ export default {
         orders: {
             orders: 'Заказы',
             orderDated: 'Заказ от',
-            noOrders: 'У вас ещё нет заказов. Купите что-нибудь и это появится тут'
+            noOrders: 'У вас ещё нет заказов. Купите что-нибудь и это появится тут',
+            status: 'Статус заказа',
+            statuses: {
+                new: 'Новый',
+                checkout: 'Проверяется',
+                paid: 'Оплачено',
+                failed: 'Провалено',
+                shipped: 'Отправлено',
+                delivered: 'Доставлено',
+                returned: 'Отменено',
+                completed: 'Завершено'
+            }
         },
         general: {
             yes: 'Да',

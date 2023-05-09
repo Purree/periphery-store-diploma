@@ -13,6 +13,8 @@ enum OrderStatus
      * @after deleting a status from here,
      * run the following
      * @command php artisan db:seed --class=OrderStatusSeeder
+     * and add it into
+     * @see /resources/js/helpers/enums/OrderStatusesEnum.js
      */
 
     case new;
