@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\Structural\Role;
-use App\Models\Product;
 use App\Models\Review;
 use App\Models\ReviewReply;
 use App\Models\User;
@@ -12,20 +11,10 @@ use Illuminate\Database\Eloquent\Builder;
 /** @psalm-suppress NullableReturnStatement */
 class ModelInstanceFactory
 {
-    public function createProduct(): Product
-    {
-        return Product::query()->inRandomOrder()->first() ?? Product::factory(1)->create()->first();
-    }
-
     public function createUser(): User
     {
         /** @psalm-suppress UndefinedMagicMethod */
         return User::query()->inRandomOrder()->first() ?? User::factory(1)->associateWithRoles()->create()->first();
-    }
-
-    public function createReview(): Review
-    {
-        return Review::query()->inRandomOrder()->first() ?? Review::factory(1)->create()->first();
     }
 
     public function createReviewReply(?Review $review = null): ReviewReply
@@ -63,5 +52,18 @@ class ModelInstanceFactory
         }
 
         return $seller;
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+
+        $methodStartString = 'create';
+        if (!str_starts_with($name, $methodStartString)) {
+            throw new \BadMethodCallException('Cannot call this method');
+        }
+
+        $modelName = 'App\\Models\\'.mb_substr($name, mb_strlen($methodStartString));
+
+        return $modelName::query()->inRandomOrder()->first() ?? $modelName::factory(1)->create()->first();
     }
 }

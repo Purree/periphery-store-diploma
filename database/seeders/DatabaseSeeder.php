@@ -22,7 +22,10 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ReviewSeeder::class,
             ReviewReplySeeder::class,
-            BannerSeeder::class
+            BannerSeeder::class,
+            OrderSeeder::class,
+            OrderItemSeeder::class,
+            UserDataSeeder::class
         ]);
     }
 }
