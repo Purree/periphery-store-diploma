@@ -6,11 +6,11 @@
             <div v-if="!pending">
                 <div v-if="orders.length > 0">
                     <div v-for="order in orders" :key="order.id">
-                        <order-item-card :status="order.status"
-                                         :total-cost="order.totalCost"
-                                         :order-id="order.id"
-                                         :created-at="order.createdAt"
-                                         :items="order.items"/>
+                        <order-card :status="order.status"
+                                    :total-cost="order.totalCost"
+                                    :order-id="order.id"
+                                    :created-at="order.createdAt"
+                                    :items="order.items"/>
                         <el-divider/>
                     </div>
                 </div>
@@ -34,12 +34,12 @@ import apiRequest from '@/helpers/apiRequest'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import usePending from '@/mixins/usePending'
 import { API_GET_ALL_ORDERS_URL } from '@/api/orders'
-import OrderItemCard from '@/components/orders/OrderItemCard.vue'
+import OrderCard from '@/components/orders/OrderCard.vue'
 
 export default {
     name: 'Orders',
     components: {
-        OrderItemCard,
+        OrderCard,
         ViewTitle
     },
     mixins: [usePending],

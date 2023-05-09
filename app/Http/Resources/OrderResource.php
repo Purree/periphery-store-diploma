@@ -37,13 +37,13 @@ class OrderResource extends JsonResource
                 $additionalRelationsData['status'] = $this->status->name;
                 // no break
             case $this->checkIsRelationLoaded('address'):
-                $additionalRelationsData['address'] = $this->address;
+                $additionalRelationsData['address'] = UserAddressResource::make($this->address)->address;
                 // no break
             case $this->checkIsRelationLoaded('mobile'):
-                $additionalRelationsData['mobile'] = $this->mobile;
+                $additionalRelationsData['mobile'] = UserMobileResource::make($this->mobile)->mobile;
                 // no break
             case $this->checkIsRelationLoaded('name'):
-                $additionalRelationsData['name'] = $this->name;
+                $additionalRelationsData['name'] = UserNameResource::make($this->name);
         }
 
         return $additionalRelationsData;

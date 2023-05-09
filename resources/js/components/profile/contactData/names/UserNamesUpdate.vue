@@ -13,8 +13,7 @@
                     @edit-button-click="onDataEditButtonClick(name)"
                     @delete-button-click="onDataDelete(name.id, userDataKey, API_DELETE_USER_NAME_URL())"
                     :delete-user-data-pending="checkIsDataUnderDelete(name.id)"
-                    :user-data-edit-button-text="name.firstName + ' ' + name.middleName +
-                    (name.lastName ? ' ' + name.lastName : '')"/>
+                    :user-data-edit-button-text="generateFullName(name.firstName, name.middleName, name.lastName)"/>
                 <user-name-update-form :pending="editUserDataPending"
                                        v-model:user-name-form="editedUserDataForm"
                                        v-if="Object.keys(editedUserDataForm).length > 0 && editedUserDataForm.id === name.id"
@@ -42,10 +41,12 @@ import UserDataManipulateButtons from '@/components/profile/contactData/UserData
 import AddDataButton from '@/components/profile/contactData/AddDataButton.vue'
 import userDataManipulation from '@/mixins/userDataManipulation'
 import { API_CREATE_USER_NAME_URL, API_DELETE_USER_NAME_URL, API_UPDATE_USER_NAME_URL } from '@/api/users'
+import { generateFullName } from '@/helpers/name'
 
 export default {
     name: 'UserNamesUpdate',
     methods: {
+        generateFullName,
         API_DELETE_USER_NAME_URL() {
             return API_DELETE_USER_NAME_URL
         },

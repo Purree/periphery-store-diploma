@@ -1,15 +1,15 @@
 <template>
-    <cart-layout>
+    <product-layout>
         <slot></slot>
-    </cart-layout>
+    </product-layout>
 </template>
 
 <script>
-import CartLayout from '@/layouts/CartLayout.vue'
+import ProductLayout from '@/layouts/ProductLayout.vue'
 
 export default {
     name: 'OrderLayout',
-    components: { CartLayout }
+    components: { ProductLayout }
 }
 </script>
 

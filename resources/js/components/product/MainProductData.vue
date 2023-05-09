@@ -1,14 +1,6 @@
 <template>
     <div class="product">
-        <div class="product-title-container">
-            <based-text class="product-title" v-if="!pending" :title="product.title"/>
-            <el-skeleton v-else class="product-title-skeleton"
-                         animated>
-                <template #template>
-                    <el-skeleton-item variant="rect"/>
-                </template>
-            </el-skeleton>
-        </div>
+        <under-header-title :text="product.title" :pending="pending"/>
 
         <div class="product-card card">
             <div class="product-images">
@@ -70,10 +62,12 @@ import ProductFeedback from '@/components/product/ProductFeedback.vue'
 import ProductSellerCard from '@/components/product/ProductSellerCard.vue'
 import ProductDescription from '@/components/product/ProductDescription.vue'
 import ProductSellerOpenLink from '@/components/product/ProductSellerOpenLink.vue'
+import UnderHeaderTitle from '@/components/product/UnderHeaderTitle.vue'
 
 export default {
     name: 'MainProductData',
     components: {
+        UnderHeaderTitle,
         ProductSellerOpenLink,
         ProductDescription,
         ProductSellerCard,
@@ -118,10 +112,6 @@ export default {
 
 .product-title-container {
     font-weight: bold;
-
-    .product-title {
-        font-size: var(--el-font-size-super-large);
-    }
 
     @include max-screen-size('big-tablet') {
         display: none;

@@ -40,7 +40,7 @@ import OrderOpenLink from '@/components/orders/OrderOpenLink.vue'
 import OrderStatusTag from '@/components/orders/OrderStatusTag.vue'
 
 export default {
-    name: 'OrderItemCard',
+    name: 'OrderCard',
     components: {
         OrderStatusTag,
         OrderOpenLink,

@@ -9,7 +9,7 @@ export default [
         meta: {
             [GuardedRouteMetaEnum.needPermissions]: PermissionsEnum.buy_products,
             withoutPermissionRedirectTo: 'Profile',
-            layout: 'OrderLayout'
+            layout: 'OrdersLayout'
         }
     },
     {

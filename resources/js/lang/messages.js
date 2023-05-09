@@ -145,6 +145,7 @@ export default {
             noProducts: 'There are no products in the cart yet. Add something to see it here'
         },
         orders: {
+            order: 'Order',
             orders: 'Orders',
             orderDated: 'Order dated',
             noOrders: 'You don\'t have any orders yet. Buy something and it will appear her',
@@ -332,6 +333,7 @@ export default {
             noProducts: 'В корзине ещё нету продуктов. Добавьте что-нибудь, чтобы увидеть его тут'
         },
         orders: {
+            order: 'Заказ',
             orders: 'Заказы',
             orderDated: 'Заказ от',
             noOrders: 'У вас ещё нет заказов. Купите что-нибудь и это появится тут',
