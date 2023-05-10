@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductSellersController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewReplyController;
+use App\Http\Controllers\SalesHitsController;
 use App\Http\Controllers\UpdateProductCategoriesController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
@@ -53,6 +54,7 @@ Route::name('products.')->middleware('can:viewAny,'.Product::class)
         Route::apiResource('/reviews/replies', ReviewReplyController::class)->except('index');
 
         Route::get('/discounted', PromotedProductsWithDiscountController::class)->name('discounted');
+        Route::get('/hits', SalesHitsController::class)->name('sales-hits');
         Route::get('/sellers', ProductSellersController::class)->name('sellers');
 
         Route::prefix('{product}')->group(static function () {

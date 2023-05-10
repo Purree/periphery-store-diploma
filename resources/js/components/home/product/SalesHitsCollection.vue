@@ -1,68 +1,39 @@
 <template>
-    <products-collection v-if="salesHits.length > 0" :collection-title="$t('home.products.salesHits')"
-                         :products="salesHits" class="sales-hits"/>
+    <products-collection v-if="salesHits.length > 0 || pending"
+                         :collection-title="$t('home.products.salesHits')"
+                         :products="salesHits"
+                         :pending="pending"
+                         class="sales-hits"/>
 </template>
 
 <script>
 import ProductsCollection from '@/components/collections/ProductsCollection.vue'
+import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
+import apiRequest from '@/helpers/apiRequest'
+import { API_GET_SALES_HITS_URL } from '@/api/products'
 
 export default {
     name: 'SalesHitsCollection',
     components: { ProductsCollection },
     data() {
         return {
-            salesHits: [{
-                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-                slug: 'test',
-                previewImage: 'http://diploma.com/storage/default.png',
-                price: 100000000000000.0,
-                discount: 50,
-                priceWithDiscount: 50000000000000.0
-            }, {
-                title: 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
-                reviewsCount: 6,
-                rating: 2.5,
-                slug: 'tost',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 10000000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'text',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'texts',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 10.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'toxt',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }, {
-                title: 'test3',
-                reviewsCount: 21,
-                rating: 5,
-                slug: 'detox',
-                previewImage: 'http://diploma.com/storage/product-images/image.jpg',
-                price: 100000.0,
-                discount: 1,
-                priceWithDiscount: 10000000.0
-            }]
+            salesHits: [],
+            pending: true
         }
+    },
+    methods: {
+        async loadSalesHits() {
+            try {
+                this.salesHits = (await apiRequest(API_GET_SALES_HITS_URL)).data
+            } catch (errors) {
+                openErrorNotification(getErrorsFromResponse(errors))
+            }
+
+            this.pending = false
+        }
+    },
+    mounted() {
+        this.loadSalesHits()
     }
 }
 </script>
