@@ -103,6 +103,7 @@ export default {
         product: {
             productUnavailable: 'The product is not yet available for purchase. Please wait or contact the seller',
             reviews: {
+                leaveReview: 'Leave a review',
                 writeComment: 'Write comment',
                 editComment: 'Edit comment',
                 reply: 'Reply',
@@ -147,6 +148,7 @@ export default {
         orders: {
             order: 'Order',
             orders: 'Orders',
+            quantity: 'Quantity',
             orderDated: 'Order dated',
             noOrders: 'You don\'t have any orders yet. Buy something and it will appear her',
             status: 'Order status',
@@ -291,6 +293,7 @@ export default {
         product: {
             productUnavailable: 'Продукт пока недоступен к покупке. Пожалуйста, подождите или свяжитесь с продавцом',
             reviews: {
+                leaveReview: 'Оставить отзыв',
                 writeComment: 'Написать комментарий',
                 editComment: 'Редактировать комментарий',
                 reply: 'Ответить',
@@ -335,6 +338,7 @@ export default {
         orders: {
             order: 'Заказ',
             orders: 'Заказы',
+            quantity: 'Количество',
             orderDated: 'Заказ от',
             noOrders: 'У вас ещё нет заказов. Купите что-нибудь и это появится тут',
             status: 'Статус заказа',

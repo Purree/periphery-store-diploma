@@ -6,13 +6,7 @@
             <div v-if="!pending">
                 <div v-if="cartItems.length > 0">
                     <div v-for="product in products" :key="product.slug">
-                        <product-card :reviews-count="product.reviewsCount"
-                                      :title="product.title"
-                                      :image-url="product.previewImage"
-                                      :price="product.price"
-                                      :price-with-discount="product.priceWithDiscount"
-                                      :rating="product.rating"
-                                      :slug="product.slug"
+                        <product-card :product="product"
                                       class="product-card"
                                       :is-show-add-to-cart-button="true"/>
                         <el-divider/>

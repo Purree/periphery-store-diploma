@@ -11,7 +11,10 @@
         <div>
             <div v-if="!productsPending || products.length > 0">
                 <div v-if="products.length > 0">
-                    <product-card-factory :products="products"/>
+                    <product-card v-for="product in products"
+                                  :product="product"
+                                  :key="product.slug"
+                                  :is-show-add-to-cart-button="true"/>
                 </div>
                 <div v-if="!productsPending && products.length === 0" class="empty-products-error card">
                     {{ $t('search.noProducts') }}
@@ -35,12 +38,12 @@ import searchKeywordsEnum from '@/helpers/enums/SearchKeywordsEnum'
 import BasedText from '@/components/BasedText.vue'
 import FiltersBlock from '@/components/search/FiltersBlock.vue'
 import FullWidthButton from '@/components/FullWidthButton.vue'
-import ProductCardFactory from '@/components/search/ProductCardFactory.vue'
+import ProductCard from '@/components/search/ProductCard.vue'
 
 export default {
     name: 'Search',
     components: {
-        ProductCardFactory,
+        ProductCard,
         FullWidthButton,
         FiltersBlock,
         BasedText

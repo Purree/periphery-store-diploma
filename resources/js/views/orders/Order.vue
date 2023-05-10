@@ -16,6 +16,12 @@
         <div class="card recipient-data" v-else>
             <el-skeleton animated/>
         </div>
+        <div v-if="!pending" class="order-items-data">
+            <order-items-data :items="order.items"/>
+        </div>
+        <div class="card order-items-data" v-else>
+            <el-skeleton v-for="i in 20" :key="i" animated/>
+        </div>
     </div>
 </template>
 
@@ -30,6 +36,7 @@ import UnderHeaderTitle from '@/components/product/UnderHeaderTitle.vue'
 import RecipientData from '@/components/orders/RecipientData.vue'
 import { mapState } from 'vuex'
 import { generateFullName } from '@/helpers/name'
+import OrderItemsData from '@/components/orders/OrderItemsData.vue'
 
 export default {
     name: 'Order',
@@ -47,6 +54,7 @@ export default {
         }
     },
     components: {
+        OrderItemsData,
         RecipientData,
         UnderHeaderTitle,
         BasedText
@@ -69,7 +77,7 @@ export default {
 </script>
 
 <style scoped>
-.order-container, .recipient-data {
+.order-container, .recipient-data, .order-items-data {
     margin-top: 20px;
 }
 </style>

@@ -7,22 +7,20 @@
         <div v-if="!sellerProductsPending">
             <div v-if="sellerProducts.length > 0">
                 <div v-for="product in sellerProducts" :key="product.slug">
-                    <div class="product-interaction-buttons">
-                        <full-width-button @click="onProductEditButtonClick(product.slug)">{{
-                                $t('general.edit')
-                            }}
-                        </full-width-button>
-                        <product-delete-button @delete-product="onProductDelete(product.slug)" :slug="product.slug"/>
-                    </div>
-                    <product-card :reviews-count="product.reviewsCount"
-                                  :title="product.title"
-                                  :image-url="product.previewImage"
-                                  :price="product.price"
-                                  :price-with-discount="product.priceWithDiscount"
-                                  :rating="product.rating"
-                                  :slug="product.slug"
+                    <product-card :product="product"
                                   :is-show-add-to-cart-button="false"
-                                  class="product-card"/>
+                                  class="product-card">
+                        <template #additionalButtons>
+                            <div class="product-interaction-buttons">
+                                <full-width-button @click="onProductEditButtonClick(product.slug)">{{
+                                        $t('general.edit')
+                                    }}
+                                </full-width-button>
+                                <product-delete-button @delete-product="onProductDelete(product.slug)"
+                                                       :slug="product.slug"/>
+                            </div>
+                        </template>
+                    </product-card>
                 </div>
             </div>
             <div v-else>

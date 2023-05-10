@@ -1,29 +1,30 @@
 <template>
     <div class="product-card card">
         <div class="product-image-container">
-            <product-open-link :slug="slug">
+            <product-open-link :slug="product.slug">
                 <div class="product-image">
-                    <item-image :image-url="imageUrl"/>
+                    <item-image :image-url="product.previewImage"/>
                 </div>
             </product-open-link>
         </div>
         <div>
             <div class="product-title">
-                <product-open-link :slug="slug">
-                    <based-text :title="title"/>
+                <product-open-link :slug="product.slug">
+                    <based-text :title="product.title"/>
                 </product-open-link>
             </div>
             <div>
-                <product-feedback class="product-feedback" :reviews-count="reviewsCount" :rating="rating"/>
+                <product-feedback class="product-feedback" :reviews-count="product.reviewsCount" :rating="product.rating"/>
             </div>
         </div>
         <div>
             <div class="product-price">
-                <product-price :is-price-size-overwritten="true" :price="price" :discounted-price="priceWithDiscount"/>
+                <product-price :is-price-size-overwritten="true" :price="product.price" :discounted-price="product.priceWithDiscount"/>
             </div>
             <div>
-                <add-to-cart-button :product-slug="slug" v-if="isShowAddToCartButton"/>
+                <add-to-cart-button :product-slug="product.slug" v-if="isShowAddToCartButton"/>
             </div>
+            <slot name="additionalButtons"></slot>
         </div>
     </div>
 </template>
@@ -47,33 +48,9 @@ export default {
         ProductFeedback
     },
     props: {
-        title: {
+        product: {
             required: true,
-            type: String
-        },
-        imageUrl: {
-            required: true,
-            type: String
-        },
-        slug: {
-            required: true,
-            type: String
-        },
-        price: {
-            required: true,
-            type: Number
-        },
-        rating: {
-            required: false,
-            type: [Number, undefined]
-        },
-        reviewsCount: {
-            required: false,
-            type: [Number, undefined]
-        },
-        priceWithDiscount: {
-            required: false,
-            type: [Number, undefined]
+            type: Object
         },
         isShowAddToCartButton: {
             required: true,

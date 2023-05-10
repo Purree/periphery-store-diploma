@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,9 +21,10 @@ class OrderItemResource extends JsonResource
             'sku' => $this->sku,
             'price' => $this->price,
             'discount' => $this->discount,
+            'priceWithDiscount' =>  $this->{Product::getPriceWithDiscountColumnName()},
             'totalPrice' => $this->total_price,
             'quantity' => $this->quantity,
-            'createAt' => $this->create_at,
+            'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
         ];
     }
