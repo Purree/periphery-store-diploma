@@ -11,8 +11,18 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'product_id',
+        'user_id',
+        'is_anonymous',
+        'rating',
+        'advantages',
+        'disadvantages',
+        'comments',
+    ];
+
     protected $casts = [
-        'is_anonymous' => 'bool'
+        'is_anonymous' => 'bool',
     ];
 
     public function product(): BelongsTo

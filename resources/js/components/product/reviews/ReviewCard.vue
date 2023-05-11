@@ -23,12 +23,13 @@
                                       :reviewer-id="review?.reviewer?.id || null"
                                       :review-id="review.id"
                                       :delete-reply-api-url="API_DELETE_REVIEW_URL()"
-                                      :is-show-edit-reply-button="false"
-                                      :load-replies-api-url="API_GET_REVIEW_REPLIES_URL()"
+                                      :is-show-edit-reply-button="isShowEditReplyButton"
+                                      :load-replies-api-url="API_GET_REVIEW_URL()"
                                       :replies="replies"
                                       :object-for-api-manipulation-id="review.id"
                                       :reply-children-count="review.repliesCount"
                                       reply-children-key="replies"
+                                      @review-edit-button-click="$emit('editReview')"
                                       @delete-review="$emit('deleteReview')"
                                       @push-replies="onRepliesPush"
                                       @reload-replies="onRepliesReload"/>
@@ -40,7 +41,7 @@ import ProductRating from '@/components/product/ProductRating.vue'
 import ReviewFeedback from '@/components/product/reviews/ReviewFeedback.vue'
 import apiRequest from '@/helpers/apiRequest'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
-import { API_DELETE_REVIEW_URL, API_GET_REVIEW_REPLIES_URL } from '@/api/reviews'
+import { API_DELETE_REVIEW_URL, API_GET_REVIEW_URL } from '@/api/reviews'
 import usePending from '@/mixins/usePending'
 import ReviewHeader from '@/components/product/reviews/ReviewHeader.vue'
 import ExpandableBlock from '@/components/ExpandableBlock.vue'
@@ -49,7 +50,7 @@ import RepliesBottomActionsPanel from '@/components/product/reviews/replies/Repl
 export default {
     name: 'ReviewCard',
     mixins: [usePending],
-    emits: ['deleteReview'],
+    emits: ['deleteReview', 'editReview'],
     components: {
         RepliesBottomActionsPanel,
         ExpandableBlock,
@@ -70,18 +71,23 @@ export default {
         review: {
             required: true,
             type: Object
+        },
+        isShowEditReplyButton: {
+            required: false,
+            type: Boolean,
+            default: false
         }
     },
     methods: {
-        API_GET_REVIEW_REPLIES_URL() {
-            return API_GET_REVIEW_REPLIES_URL
+        API_GET_REVIEW_URL() {
+            return API_GET_REVIEW_URL
         },
         API_DELETE_REVIEW_URL() {
             return API_DELETE_REVIEW_URL
         },
         async loadReplies() {
             try {
-                const review = (await apiRequest(API_GET_REVIEW_REPLIES_URL, { id: this.review.id })).data
+                const review = (await apiRequest(API_GET_REVIEW_URL, { id: this.review.id })).data
 
                 this.replies.push(...review.replies)
             } catch (error) {

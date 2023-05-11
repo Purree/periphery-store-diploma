@@ -13,6 +13,7 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\JsonResponse;
@@ -71,23 +72,15 @@ class ProductService
             ProductResource::make(
                 Product::query()
                     ->with(
-                        ['seller', 'categories', 'images', 'categories.parent', 'userReview', 'userReview.reviewer']
+                        ['seller', 'categories', 'images', 'categories.parent']
                     )
                     ->with([
-                        'latestReview' => static function (HasOne $reply) {
-                            $reply
-                                ->withCount('replies')
-                                ->get();
-                        },
+                        'userReview' => $this->loadReviewRepliesCount(...),
+                        'userReview.reviewer',
+                        'userReview.replies' => $this->loadReviewReplies(...),
+                        'latestReview' => $this->loadReviewRepliesCount(...),
                         'latestReview.reviewer',
-                        'latestReview.replies' =>
-                            static function (HasMany $reply) {
-                                $reply
-                                    ->with('replier')
-                                    ->withCount('children')
-                                    ->where('parent_id', null)
-                                    ->get();
-                            },
+                        'latestReview.replies' => $this->loadReviewReplies(...),
                     ])
                     ->withCount('reviews')
                     ->withAvg('reviews', 'rating')
@@ -114,6 +107,22 @@ class ProductService
         );
 
         return $this->show($product);
+    }
+
+    private function loadReviewReplies(HasMany $reply): Collection
+    {
+        return $reply
+            ->with('replier')
+            ->withCount('children')
+            ->where('parent_id', null)
+            ->get();
+    }
+
+    private function loadReviewRepliesCount(HasOne $reply): Collection
+    {
+        return $reply
+            ->withCount('replies')
+            ->get();
     }
 
     public function checkIsProductHasUnfinishedOrders(Product $product): bool

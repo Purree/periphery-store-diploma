@@ -10,7 +10,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
-use App\Http\Controllers\ProductReviewsController;
 use App\Http\Controllers\ProductSellersController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
@@ -50,7 +49,7 @@ Route::apiResource('/categories', CategoryController::class)->only('index');
 
 Route::name('products.')->middleware('can:viewAny,'.Product::class)
     ->prefix('products')->group(static function () {
-        Route::apiResource('/reviews', ReviewController::class)->except('index');
+        Route::apiResource('/reviews', ReviewController::class)->except(['index', 'store']);
         Route::apiResource('/reviews/replies', ReviewReplyController::class)->except('index');
 
         Route::get('/discounted', PromotedProductsWithDiscountController::class)->name('discounted');
@@ -58,7 +57,7 @@ Route::name('products.')->middleware('can:viewAny,'.Product::class)
         Route::get('/sellers', ProductSellersController::class)->name('sellers');
 
         Route::prefix('{product}')->group(static function () {
-            Route::get('/reviews', ProductReviewsController::class)->name('reviews');
+            Route::apiResource('/reviews', ReviewController::class)->only(['index', 'store']);
 
             Route::middleware(['can:update,product', 'auth:sanctum'])->group(function () {
                 Route::apiResource('/images', ProductImagesController::class)

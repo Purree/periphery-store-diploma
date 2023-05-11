@@ -1,18 +1,21 @@
 <template>
-    <div class="card" v-if="pending || latestReview || reviews.length > 0 || reviewsCount > 0">
-        <div v-if="!pending">
-            <div v-if="latestReview !== undefined" class="latest-review-container">
-                <div class="latest-review-title" v-if="reviewsCount > 1">
-                    {{ $t('product.reviews.latestReview') }}:
-                </div>
-                <review-card @delete-review="this.$emit('deleteLatestReview')" :review="latestReview"/>
-            </div>
+    <template v-if="!pending">
+        <user-review @delete-review="$emit('deleteUserReview')"
+                     @create-review="(review) => $emit('createUserReview', review)"
+                     :can-create-review="canLeaveReview"
+                     :user-review="userReview"/>
 
+        <latest-review class="latest-review-container" @delete-latest-review="$emit('deleteLatestReview')"
+                   :latest-review="latestReview || {}"/>
+    </template>
+
+    <div class="main-reviews-card card" v-if="pending || reviews.length > 0 || reviewsCount > 0">
+        <div v-if="!pending">
             <div v-if="reviews.length > 0">
                 <div v-for="review in reviews"
                      :key="review.id">
-                    <el-divider/>
                     <review-card @delete-review="this.$emit('deleteReview', review)" :review="review"/>
+                    <el-divider/>
                 </div>
             </div>
 
@@ -32,10 +35,15 @@
 <script>
 import ReviewCard from '@/components/product/reviews/ReviewCard.vue'
 import FullWidthButton from '@/components/FullWidthButton.vue'
+import LatestReview from '@/components/product/reviews/cards/LatestReview.vue'
+import UserReview from '@/components/product/reviews/cards/UserReview.vue'
+
 export default {
     name: 'ProductReviews',
-    emits: ['deleteReview', 'deleteLatestReview', 'loadReviews'],
+    emits: ['deleteReview', 'deleteLatestReview', 'loadReviews', 'deleteUserReview', 'createUserReview'],
     components: {
+        UserReview,
+        LatestReview,
         FullWidthButton,
         ReviewCard
     },
@@ -53,8 +61,9 @@ export default {
             type: Boolean
         },
         userReview: {
-            required: true,
-            type: [null, Object]
+            required: false,
+            type: [null, Object],
+            default: null
         },
         reviewsCount: {
             required: false,
@@ -78,12 +87,7 @@ export default {
 </script>
 
 <style scoped>
-.latest-review-container {
-    margin-bottom: 10px;
-}
-
-.latest-review-title {
-    font-size: var(--el-font-size-extra-large);
-    margin-bottom: 20px;
+.main-reviews-card {
+    margin-top: 10px;
 }
 </style>

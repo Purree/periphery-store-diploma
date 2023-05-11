@@ -18,5 +18,6 @@ return [
     'productHasIncompleteOrders' => 'The product has incomplete orders. You cannot delete it, but you can make it unavailable for purchase',
     'productNotAvailableForPurchase' => 'This product is not available for sale',
     'cartDoesntExists' => 'Cart doesnt exists',
+    'reviewAlreadyExists' => 'Review already exists',
     'cartDoesntContainProduct' => 'Cart doesnt exists',
 ];

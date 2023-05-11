@@ -18,5 +18,6 @@ return [
     'productHasIncompleteOrders' => 'Продукт имеет незавершённые заказы. Вы не можете удалить его, но можете сделать недоступным к покупке',
     'productNotAvailableForPurchase' => 'Этот продукт недоступен для продажи',
     'cartDoesntExists' => 'Корзина не существует',
+    'reviewAlreadyExists' => 'Отзыв уже существует',
     'cartDoesntContainProduct' => 'Корзина не содержит товар',
 ];

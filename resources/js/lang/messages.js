@@ -109,7 +109,8 @@ export default {
                 reply: 'Reply',
                 showReplies: 'Show replies',
                 allReviews: 'Show additional reviews',
-                latestReview: 'Latest review'
+                latestReview: 'Latest review',
+                yourReview: 'Your review'
             },
             createProduct: {},
             updateProduct: {
@@ -168,6 +169,7 @@ export default {
             no: 'No',
             buy: 'Buy',
             total: 'Total',
+            rating: 'Rating',
             created: 'Created',
             save: 'Save',
             updated: 'Updated',
@@ -299,7 +301,8 @@ export default {
                 reply: 'Ответить',
                 showReplies: 'Показать ответы',
                 allReviews: 'Показать дополнительные отзывы',
-                latestReview: 'Последний отзыв'
+                latestReview: 'Последний отзыв',
+                yourReview: 'Ваш отзыв'
             },
             createProduct: {},
             updateProduct: {
@@ -358,6 +361,7 @@ export default {
             no: 'Нет',
             buy: 'Купить',
             total: 'Всего',
+            rating: 'Рейтинг',
             created: 'Создано',
             attention: 'Внимание',
             save: 'Сохранить',

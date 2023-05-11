@@ -23,7 +23,7 @@ class Product extends Model
 
     protected $casts = [
         'price' => 'float',
-        'is_available' => 'bool'
+        'is_available' => 'bool',
     ];
 
     protected $hidden = ['id'];
@@ -50,6 +50,7 @@ class Product extends Model
             get: fn () => $this->quantity > 0,
         );
     }
+
     public function scopeFilter(Builder $builder, QueryFilter $filter): Builder
     {
         return $filter->apply($builder);
@@ -67,13 +68,17 @@ class Product extends Model
 
     public function userReview(): HasOne
     {
+        /** @psalm-suppress NoInterfaceProperties */
         return $this->hasOne(Review::class)->where('user_id', Auth::user()?->id)->latest();
     }
 
     public function latestReview(): HasOne
     {
-        return $this->hasOne(Review::class)->latestOfMany();
+        /** @psalm-suppress NoInterfaceProperties */
+        return $this->hasOne(Review::class)->where('user_id', '<>', Auth::user()?->id)
+            ->latestOfMany();
     }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'product_category');

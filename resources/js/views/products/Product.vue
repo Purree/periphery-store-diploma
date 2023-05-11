@@ -11,6 +11,8 @@
                      :reviews-count="product.reviewsCount"
                      :can-leave-review="product.canLeaveReview"
                      :user-review="product.userReview"
+                     @delete-user-review="delete product.userReview"
+                     @create-user-review="review => product.userReview = review"
                      @load-reviews="usePending(loadReviews, 'productReviewsPending')"
                      @delete-review="onReviewDelete"
                      @delete-latest-review="delete product.latestReview" />
@@ -18,7 +20,8 @@
 
 <script>
 import apiRequest from '@/helpers/apiRequest'
-import { API_GET_PRODUCT_REVIEWS_URL, API_GET_PRODUCT_URL } from '@/api/products'
+import { API_GET_PRODUCT_URL } from '@/api/products'
+import { API_GET_PRODUCT_REVIEWS_URL } from '@/api/reviews'
 import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import MainProductData from '@/components/product/MainProductData.vue'
 import ProductCategories from '@/components/product/ProductCategories.vue'
