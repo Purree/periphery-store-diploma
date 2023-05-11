@@ -12,6 +12,6 @@ trait AdditionalConditionallyLoadsAttributesTrait
      */
     private function checkIsRelationLoaded(string $relation): bool
     {
-        return $this->whenLoaded($relation, true, false);
+        return $this->resource->relationLoaded($relation);
     }
 }

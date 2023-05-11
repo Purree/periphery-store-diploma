@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\StoredImagesFolderEnum;
+use App\Enums\Structural\OrderStatus;
 use App\Filters\ProductFilter;
 use App\Helpers\ImageFacade;
 use App\Helpers\Results\ResponseResult;
@@ -11,6 +12,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\JsonResponse;
@@ -69,7 +71,7 @@ class ProductService
             ProductResource::make(
                 Product::query()
                     ->with(
-                        ['seller', 'categories', 'images', 'categories.parent']
+                        ['seller', 'categories', 'images', 'categories.parent', 'userReview', 'userReview.reviewer']
                     )
                     ->with([
                         'latestReview' => static function (HasOne $reply) {
@@ -112,6 +114,17 @@ class ProductService
         );
 
         return $this->show($product);
+    }
+
+    public function checkIsProductHasUnfinishedOrders(Product $product): bool
+    {
+        return $product->orderItems()->whereHas(
+            'order',
+            fn (Builder $builder) => $builder->whereHas(
+                'status',
+                fn (Builder $builder) => $builder->whereIn('name', OrderStatus::getFinishedOrderStatuses())
+            ),
+        )->exists();
     }
 
     private function generateSku(User $seller, string $slug): string

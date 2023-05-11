@@ -47,12 +47,19 @@ final class ProductResource extends JsonResource
 
     private function getReviewsDataIfItsLoaded(): array
     {
-        return [
+        $reviewsData = [
             'reviews' => ReviewResource::collection($this->whenLoaded('reviews')),
+            'userReview' => ReviewResource::make($this->whenLoaded('userReview')),
             'latestReview' => ReviewResource::make($this->whenLoaded('latestReview')),
             ...(isset($this->reviews_count) ? ['reviewsCount' => $this->reviews_count] : []),
             ...(isset($this->reviews_avg_rating) ? ['rating' => round($this->reviews_avg_rating, 2)] : []),
         ];
+
+        if ($this->checkIsRelationLoaded('userReview')) {
+            $reviewsData['canLeaveReview'] = Gate::allows('leaveReview', $this->resource);
+        }
+
+        return $reviewsData;
     }
 
     private function getDataForSellerIsLoaded(): array

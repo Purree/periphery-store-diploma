@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
@@ -62,6 +63,11 @@ class Product extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function userReview(): HasOne
+    {
+        return $this->hasOne(Review::class)->where('user_id', Auth::user()?->id)->latest();
     }
 
     public function latestReview(): HasOne

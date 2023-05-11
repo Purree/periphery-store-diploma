@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
 final class ProductController extends Controller
@@ -56,7 +57,13 @@ final class ProductController extends Controller
      */
     public function destroy(Request $request, Product $product): JsonResponse
     {
-        // @TODO: Не удалять продукт, если он имеет незавершённые заказы
+        if ($this->productService->checkIsProductHasUnfinishedOrders($product)) {
+            return ResponseResult::error(
+                ['product' => __('errors.productHasIncompleteOrders')],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
         Log::info("User {$request->user()} delete {$product->id} product");
         $product->delete();
 

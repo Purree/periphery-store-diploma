@@ -25,4 +25,9 @@ enum OrderStatus
     case delivered;
     case returned;
     case completed;
+
+    public static function getFinishedOrderStatuses(): array
+    {
+        return [self::completed->name, self::returned->name, self::failed->name];
+    }
 }

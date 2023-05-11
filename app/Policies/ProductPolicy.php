@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Enums\Structural\Permission;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductPolicy
 {
@@ -43,6 +44,14 @@ class ProductPolicy
             $product->inStock &&
             $user->id !== $product->seller->id &&
             $user->hasPermission(Permission::buy_products);
+    }
+
+    public function leaveReview(User $user, Product $product): bool
+    {
+        return $product->userReview()->exists() || $product->orderItems()->whereHas(
+            'order',
+            fn (Builder $builder) => $builder->where('user_id', $user->id)
+        )->exists();
     }
 
     /**

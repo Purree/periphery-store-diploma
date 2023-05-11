@@ -52,6 +52,10 @@ export default {
             required: true,
             type: Boolean
         },
+        userReview: {
+            required: true,
+            type: [null, Object]
+        },
         reviewsCount: {
             required: false,
             type: Number
@@ -59,6 +63,11 @@ export default {
         reviewsPending: {
             required: true,
             type: Boolean
+        },
+        canLeaveReview: {
+            required: false,
+            type: Boolean,
+            default: false
         },
         reviewsPagination: {
             required: false,

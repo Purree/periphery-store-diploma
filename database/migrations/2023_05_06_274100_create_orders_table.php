@@ -26,6 +26,7 @@ return new class () extends Migration {
             $table->foreignId('user_address_id')
                 ->constrained('user_addresses');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

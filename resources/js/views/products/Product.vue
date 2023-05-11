@@ -3,11 +3,17 @@
 
     <product-categories class="product-categories" :pending="productPending" :categories="product.categories"/>
 
-    <product-reviews :pending="productPending" :latest-review="product.latestReview"
-                     :reviews-pending="productReviewsPending" :reviews="reviews"
+    <product-reviews :pending="productPending"
+                     :latest-review="product.latestReview"
+                     :reviews-pending="productReviewsPending"
+                     :reviews="reviews"
                      :reviews-pagination="reviewsPagination"
-                     :reviews-count="product.reviewsCount" @load-reviews="usePending(loadReviews, 'productReviewsPending')"
-                     @delete-review="onReviewDelete" @delete-latest-review="delete product.latestReview" />
+                     :reviews-count="product.reviewsCount"
+                     :can-leave-review="product.canLeaveReview"
+                     :user-review="product.userReview"
+                     @load-reviews="usePending(loadReviews, 'productReviewsPending')"
+                     @delete-review="onReviewDelete"
+                     @delete-latest-review="delete product.latestReview" />
 </template>
 
 <script>

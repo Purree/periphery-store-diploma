@@ -15,6 +15,7 @@ return [
 
     'tooManyImages' => 'Too many images count. Max images count is :attribute',
     'tooManyQuantities' => 'You entered too many items. The seller can\'t deliver that much',
+    'productHasIncompleteOrders' => 'The product has incomplete orders. You cannot delete it, but you can make it unavailable for purchase',
     'productNotAvailableForPurchase' => 'This product is not available for sale',
     'cartDoesntExists' => 'Cart doesnt exists',
     'cartDoesntContainProduct' => 'Cart doesnt exists',

@@ -19,6 +19,8 @@ class ReviewController extends Controller
     {
         // @TODO: Implement store() method.
 
+        // 1 ЮЗЕР - 1 ПРОДУКТ - 1 ОТЗЫВ
+
         return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
 
