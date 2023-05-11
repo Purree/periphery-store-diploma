@@ -6,7 +6,6 @@ use App\DataTransferObjects\UserData\UserDataStoreDTO;
 use App\Http\Requests\DTOConvertibleInterface;
 use App\Http\Requests\SnakedRequestKeysTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
 class ManipulateUserNameRequest extends FormRequest implements DTOConvertibleInterface
 {
