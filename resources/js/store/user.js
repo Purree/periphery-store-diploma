@@ -73,15 +73,12 @@ export default {
         },
         async logout({ commit }) {
             await apiRequest(API_LOGOUT_URL)
-            commit('setIsLoggedIn', false)
-            commit('setUser', {})
+            await commit('setIsLoggedIn', false)
+            await commit('setUser', {})
 
-            if (router.currentRoute.value.meta[GuardedRouteMetaEnum.requiresAuth]) {
+            if (Object.values(GuardedRouteMetaEnum).some(middleware => router.currentRoute.value.meta[middleware])) {
                 await router.push({
-                    name: 'Login',
-                    query: {
-                        redirect: router.currentRoute.value.path
-                    }
+                    name: 'Login'
                 })
             }
         }

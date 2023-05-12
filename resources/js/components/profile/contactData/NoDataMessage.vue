@@ -1,5 +1,5 @@
 <template>
-    <div v-if="data.length === 0 && isAddDataButtonVisible">
+    <div v-if="(data || []).length === 0 && isAddDataButtonVisible">
         {{ text }}
     </div>
 </template>

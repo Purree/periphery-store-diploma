@@ -32,7 +32,7 @@ export function isUserAdministrator(user) {
 
 export function getUserRoles(user) {
     try {
-        return Object.values(user.roles)
+        return Object.values(user.roles || {})
     } catch (e) {
         console.log(e)
         return []
@@ -41,7 +41,7 @@ export function getUserRoles(user) {
 
 export function getUserPermissions(user) {
     try {
-        return Object.values(user.permissions)
+        return Object.values(user.permissions || {})
     } catch (e) {
         console.log(e)
         return []

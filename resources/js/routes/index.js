@@ -13,6 +13,7 @@ import { waitForUserLoading } from '@/routes/middleware/waitForUserLoading'
 import { GuardedRouteMetaEnum } from '@/helpers/enums/GuardedRouteMetaEnum'
 import products from '@/routes/products'
 import orders from '@/routes/orders'
+import { addRedirectQueryToAuthRoutes } from '@/routes/middleware/addRedirectQueryToAuthRoutes'
 
 const routes = [
     {
@@ -67,6 +68,7 @@ router.beforeEach(loadLayoutMiddleware)
 router.beforeEach(redirectFromAuthRoutes)
 router.beforeEach(redirectFromRoutesRequiredAuth)
 router.beforeEach(saveQueryParametersBetweenAuthRoutes)
+router.beforeEach(addRedirectQueryToAuthRoutes)
 router.beforeEach(restrictOpeningOfProtectedRoutes)
 
 export default router
