@@ -1,6 +1,6 @@
 <template>
     <div class="user-data-manipulate-buttons-block">
-        <el-button type="primary" @click="$emit('editButtonClick')">
+        <el-button type="primary" class="edit-user-data-button" @click="$emit('editButtonClick')">
             <template #default>
                 {{ userDataEditButtonText }}
             </template>
@@ -37,6 +37,10 @@ export default {
 <style scoped>
 .user-data-manipulate-buttons-block {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 80% auto;
+}
+.edit-user-data-button {
+    overflow: hidden;
+    display: block;
 }
 </style>

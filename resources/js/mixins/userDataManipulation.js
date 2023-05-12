@@ -26,10 +26,15 @@ export default {
         },
         async onDataEdit(data, userDataKey, apiObject) {
             await useErrorsCatch.methods.useErrorsCatch(async() => {
-                await apiRequest(apiObject, { id: data.id }, data)
-                this.replaceUserDataProperty({
+                const updatedData = (await apiRequest(apiObject, { id: data.id }, data)).data
+
+                this.deleteUserDataProperty({
                     userDataKey,
-                    userDataValue: data
+                    id: data.id
+                })
+                this.appendUserDataProperty({
+                    userDataKey,
+                    userDataValue: updatedData
                 })
                 this.editedUserDataForm = {}
             })

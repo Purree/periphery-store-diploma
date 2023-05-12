@@ -9,7 +9,7 @@ readonly class UserDataUpdateDTO implements DTOInterface
 {
     public function __construct(
         public Model $userData,
-        public array $params
+        public UserDataStoreDTO $userDataUpdateDTO,
     ) {
     }
 }

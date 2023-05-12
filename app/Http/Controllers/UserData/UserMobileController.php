@@ -49,7 +49,7 @@ class UserMobileController extends Controller
         return $this->userDataService->update(
             new UserDataUpdateDTO(
                 userData: $mobile,
-                params: $request->toDTO()->params
+                userDataUpdateDTO: $request->toDTO()
             )
         );
     }

@@ -49,7 +49,7 @@ class UserAddressController extends Controller
         return $this->userDataService->update(
             new UserDataUpdateDTO(
                 userData: $address,
-                params: $request->toDTO()->params
+                userDataUpdateDTO: $request->toDTO()
             )
         );
     }

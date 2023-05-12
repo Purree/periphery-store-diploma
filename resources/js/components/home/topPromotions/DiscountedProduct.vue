@@ -73,6 +73,7 @@ export default {
 .product-data {
     display: flex;
     align-items: start;
+    gap: 10px;
     max-height: 100%;
     width: 100%;
     max-width: 100%;
@@ -106,6 +107,7 @@ export default {
 }
 
 .product-image {
+    object-fit: contain;
     max-height: 100%;
     aspect-ratio: 1 / 1;
     max-width: 100%;

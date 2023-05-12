@@ -9,6 +9,7 @@ use App\Helpers\Results\ResponseResult;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class UserDataService
 {
@@ -50,9 +51,11 @@ class UserDataService
      */
     public function update(UserDataUpdateDTO $dto): JsonResponse
     {
-        $dto->userData->update($dto->params);
-
-        return ResponseResult::success();
+        // Doesn't common update because if user change data after ordering it will be incorrect in stored order
+        return DB::transaction(function () use ($dto) {
+            $this->destroy($dto->userData);
+            return $this->store($dto->userDataUpdateDTO);
+        });
     }
 
     /**

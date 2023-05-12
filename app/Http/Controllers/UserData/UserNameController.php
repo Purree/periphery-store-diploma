@@ -49,7 +49,7 @@ class UserNameController extends Controller
         return $this->userDataService->update(
             new UserDataUpdateDTO(
                 userData: $name,
-                params: $request->toDTO()->params
+                userDataUpdateDTO: $request->toDTO()
             )
         );
     }
