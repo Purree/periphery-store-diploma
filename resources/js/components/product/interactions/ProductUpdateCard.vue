@@ -24,11 +24,12 @@
 import ProductUpdateForm from '@/components/product/interactions/ProductUpdateForm.vue'
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_PRODUCT_URL, API_UPDATE_PRODUCT_URL } from '@/api/products'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
+import getErrorsFromResponse from '@/helpers/errors'
 import { mapState } from 'vuex'
 import usePending from '@/mixins/usePending'
 import ProductCategoriesUpdateCard from '@/components/product/interactions/ProductCategoriesUpdateCard.vue'
 import ProductImagesUpdateCard from '@/components/product/interactions/ProductImagesUpdateCard.vue'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'ProductUpdateCard',
@@ -45,7 +46,7 @@ export default {
             productSlug: ''
         }
     },
-    mixins: [usePending],
+    mixins: [usePending, useErrorsCatch],
     methods: {
         async onProductUpdateButtonClick(productFormData) {
             this.errors = {}
@@ -61,17 +62,16 @@ export default {
             await this.redirectToHome()
         },
         async loadProduct() {
-            try {
+            await this.useErrorsCatch(async() => {
                 const product = (await apiRequest(API_GET_PRODUCT_URL, { slug: this.productSlug })).data
                 if (product.seller.id !== this.user.id) {
                     await this.redirectToHome()
                 }
 
                 this.product = product
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
+            }, async() => {
                 await this.redirectToHome()
-            }
+            })
         },
         async redirectToHome() {
             await this.$router.push({ name: 'Home' })

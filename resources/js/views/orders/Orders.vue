@@ -31,10 +31,10 @@
 <script>
 import ViewTitle from '@/components/ViewTitle.vue'
 import apiRequest from '@/helpers/apiRequest'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import usePending from '@/mixins/usePending'
 import { API_GET_ALL_ORDERS_URL } from '@/api/orders'
 import OrderCard from '@/components/orders/OrderCard.vue'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'Orders',
@@ -42,7 +42,7 @@ export default {
         OrderCard,
         ViewTitle
     },
-    mixins: [usePending],
+    mixins: [usePending, useErrorsCatch],
     data() {
         return {
             pending: false,
@@ -51,11 +51,9 @@ export default {
     },
     methods: {
         async loadOrders() {
-            try {
+            await this.useErrorsCatch(async() => {
                 this.orders = (await apiRequest(API_GET_ALL_ORDERS_URL)).data
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
         }
     },
     mounted() {

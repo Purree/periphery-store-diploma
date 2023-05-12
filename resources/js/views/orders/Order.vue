@@ -31,26 +31,25 @@ import { beautifyDate } from '@/helpers/date'
 import usePending from '@/mixins/usePending'
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_ORDER_URL } from '@/api/orders'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import UnderHeaderTitle from '@/components/product/UnderHeaderTitle.vue'
 import RecipientData from '@/components/orders/RecipientData.vue'
 import { mapState } from 'vuex'
 import { generateFullName } from '@/helpers/name'
 import OrderItemsData from '@/components/orders/OrderItemsData.vue'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'Order',
-    mixins: [usePending],
+    mixins: [usePending, useErrorsCatch],
     methods: {
         generateFullName,
         beautifyDate,
         async loadOrder() {
-            try {
+            await this.useErrorsCatch(async() => {
                 this.order = (await apiRequest(API_GET_ORDER_URL, { id: this.orderId })).data
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-                this.$router.push({ name: 'Orders' })
-            }
+            }, async() => {
+                await this.$router.push({ name: 'Orders' })
+            })
         }
     },
     components: {

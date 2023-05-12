@@ -8,12 +8,13 @@
 <script>
 import usePending from '@/mixins/usePending'
 import FullWidthButton from '@/components/FullWidthButton.vue'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'LogoutButton',
     components: { FullWidthButton },
     emits: ['logout'],
-    mixins: [usePending],
+    mixins: [usePending, useErrorsCatch],
     data() {
         return {
             pending: false
@@ -21,12 +22,10 @@ export default {
     },
     methods: {
         async logout() {
-            try {
+            await this.useErrorsCatch(async() => {
                 await this.$store.dispatch('auth/logout')
-            } catch (error) {
-                console.log(error)
-                console.log(error.response.data)
-            }
+            })
+
             this.$emit('logout')
         }
     }

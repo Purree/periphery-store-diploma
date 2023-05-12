@@ -27,10 +27,11 @@ import MainProductData from '@/components/product/MainProductData.vue'
 import ProductCategories from '@/components/product/ProductCategories.vue'
 import ProductReviews from '@/components/product/reviews/ProductReviews.vue'
 import usePending from '@/mixins/usePending'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'Product',
-    mixins: [usePending],
+    mixins: [usePending, useErrorsCatch],
     components: {
         ProductReviews,
         ProductCategories,
@@ -47,16 +48,14 @@ export default {
     },
     methods: {
         async getProduct(slug) {
-            try {
+            return await this.useErrorsCatch(async() => {
                 const productResponse = await apiRequest(API_GET_PRODUCT_URL, { slug })
                 return productResponse.data
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-
+            }, (errors) => {
                 if ([403, 404].includes(errors?.response?.status)) {
                     this.$router.push({ name: 'Home' })
                 }
-            }
+            })
         },
         async loadReviews() {
             try {

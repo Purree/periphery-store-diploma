@@ -16,12 +16,12 @@
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import apiRequest from '@/helpers/apiRequest'
 import { API_DELETE_PRODUCT_URL } from '@/api/products'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import usePending from '@/mixins/usePending'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'ProductDeleteButton',
-    mixins: [usePending],
+    mixins: [usePending, useErrorsCatch],
     emits: ['deleteProduct'],
     components: { FullWidthButton },
     data() {
@@ -37,13 +37,11 @@ export default {
     },
     methods: {
         async deleteProduct() {
-            try {
+            await this.useErrorsCatch(async() => {
                 await apiRequest(API_DELETE_PRODUCT_URL, { slug: this.slug })
 
                 this.$emit('deleteProduct')
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
         }
     }
 }

@@ -36,14 +36,15 @@
 <script>
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_USER_PRODUCTS_URL } from '@/api/products'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import FullWidthButton from '@/components/FullWidthButton.vue'
 import ErrorsAlert from '@/components/errors/ErrorsAlert.vue'
 import ProductCard from '@/components/search/ProductCard.vue'
 import ProductDeleteButton from '@/components/product/interactions/ProductDeleteButton.vue'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'SellerProducts',
+    mixins: [useErrorsCatch],
     components: {
         ProductDeleteButton,
         ProductCard,
@@ -58,11 +59,9 @@ export default {
     },
     methods: {
         async loadProducts() {
-            try {
+            await this.useErrorsCatch(async() => {
                 this.sellerProducts = (await apiRequest(API_GET_USER_PRODUCTS_URL)).data
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
         },
         onProductCreateButtonClick() {
             this.$router.push({ name: 'ProductCreate' })

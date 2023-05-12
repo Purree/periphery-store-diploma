@@ -9,11 +9,12 @@
 import CategoriesCollection from '@/components/collections/CategoriesCollection.vue'
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_POPULAR_CATEGORIES_URL } from '@/api/categories'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'PopularCategoriesCollection',
     components: { CategoriesCollection },
+    mixins: [useErrorsCatch],
     data() {
         return {
             popularCategories: [],
@@ -27,13 +28,10 @@ export default {
         }
     },
     async mounted() {
-        try {
+        await this.useErrorsCatch(async() => {
             this.popularCategories = await this.getPopularCategories()
             this.popularCategoriesPending = false
-        } catch (error) {
-            openErrorNotification(getErrorsFromResponse(error))
-            console.error(error)
-        }
+        })
     }
 }
 </script>

@@ -1,6 +1,6 @@
 import { mapMutations } from 'vuex'
 import apiRequest from '@/helpers/apiRequest'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     data() {
@@ -16,27 +16,23 @@ export default {
     methods: {
         ...mapMutations('auth', ['deleteUserDataProperty', 'appendUserDataProperty', 'replaceUserDataProperty']),
         async onDataCreate(data, userDataKey, apiObject) {
-            try {
+            await useErrorsCatch.methods.useErrorsCatch(async() => {
                 this.appendUserDataProperty({
                     userDataKey,
                     userDataValue: (await apiRequest(apiObject, {}, data)).data
                 })
                 this.isAddDataButtonVisible = true
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
         },
         async onDataEdit(data, userDataKey, apiObject) {
-            try {
+            await useErrorsCatch.methods.useErrorsCatch(async() => {
                 await apiRequest(apiObject, { id: data.id }, data)
                 this.replaceUserDataProperty({
                     userDataKey,
                     userDataValue: data
                 })
                 this.editedUserDataForm = {}
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
         },
         onDataEditButtonClick(data) {
             this.editedUserDataForm = data
@@ -46,16 +42,14 @@ export default {
                 return
             }
 
-            try {
+            await useErrorsCatch.methods.useErrorsCatch(async() => {
                 this.deletedUserData.push(id)
                 await apiRequest(apiObject, { id })
                 this.deleteUserDataProperty({
                     userDataKey,
                     id
                 })
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
 
             this.deletedUserData = this.deletedUserData.filter(deletingUserName => deletingUserName !== id)
         },

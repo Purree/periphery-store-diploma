@@ -23,12 +23,13 @@
 import PromotionBanners from '@/components/home/topPromotions/PromotionBanners.vue'
 import ProductsWithDiscount from '@/components/home/topPromotions/ProductsWithDiscount.vue'
 import apiRequest from '@/helpers/apiRequest'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import { API_GET_BANNERS_URL } from '@/api/banners'
 import { API_GET_DISCOUNTED_PRODUCTS_URL } from '@/api/products'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'TopPromotions',
+    mixins: [useErrorsCatch],
     components: {
         ProductsWithDiscount,
         PromotionBanners
@@ -43,24 +44,20 @@ export default {
     },
     methods: {
         async loadBanners() {
-            try {
+            await this.useErrorsCatch(async() => {
                 const getBannersResponse = await apiRequest(API_GET_BANNERS_URL)
                 this.banners = getBannersResponse.data
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            } finally {
-                this.bannerPending = false
-            }
+            })
+
+            this.bannerPending = false
         },
         async loadProductWithDiscount() {
-            try {
+            await this.useErrorsCatch(async() => {
                 const getProductsResponse = await apiRequest(API_GET_DISCOUNTED_PRODUCTS_URL)
                 this.productsWithDiscount = getProductsResponse.data
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            } finally {
-                this.productsWithDiscountPending = false
-            }
+            })
+
+            this.productsWithDiscountPending = false
         }
     },
     mounted() {

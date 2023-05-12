@@ -91,6 +91,10 @@ export default {
     width: var(--max-image-width);
 }
 
+.product-image-container, :deep(.product-image-wrapper) * {
+    height: 100%;
+}
+
 .product-image-wrapper {
     height: 100%;
     width: 100%;

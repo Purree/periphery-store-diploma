@@ -8,13 +8,14 @@
 
 <script>
 import ProductsCollection from '@/components/collections/ProductsCollection.vue'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_SALES_HITS_URL } from '@/api/products'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'SalesHitsCollection',
     components: { ProductsCollection },
+    mixins: [useErrorsCatch],
     data() {
         return {
             salesHits: [],
@@ -23,11 +24,9 @@ export default {
     },
     methods: {
         async loadSalesHits() {
-            try {
+            await this.useErrorsCatch(async() => {
                 this.salesHits = (await apiRequest(API_GET_SALES_HITS_URL)).data
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
 
             this.pending = false
         }

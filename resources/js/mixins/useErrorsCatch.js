@@ -6,9 +6,9 @@ export default {
             try {
                 await handler()
             } catch (errors) {
-                if (!catcher) {
-                    openErrorNotification(getErrorsFromResponse(errors))
-                } else {
+                openErrorNotification(getErrorsFromResponse(errors))
+
+                if (catcher) {
                     catcher(errors)
                 }
             }

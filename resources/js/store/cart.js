@@ -1,7 +1,7 @@
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_ALL_CART_ITEMS_URL, API_UPDATE_PRODUCTS_IN_CART_COUNT_URL } from '@/api/cart'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import { getMinimalProductPrice } from '@/helpers/price'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     state: {
@@ -35,18 +35,16 @@ export default {
     },
     actions: {
         async loadCart({ commit }) {
-            try {
+            await useErrorsCatch.methods.useErrorsCatch(async() => {
                 const cartItems = (await apiRequest(API_GET_ALL_CART_ITEMS_URL)).data
                 commit('setCartItems', cartItems)
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
         },
         async changeProductInCartQuantity({ commit }, {
             productSlug,
             quantity
         }) {
-            try {
+            await useErrorsCatch.methods.useErrorsCatch(async() => {
                 const newCartProduct = (await apiRequest(
                     API_UPDATE_PRODUCTS_IN_CART_COUNT_URL,
                     { product: productSlug },
@@ -58,9 +56,7 @@ export default {
                 } else {
                     commit('appendCart', [newCartProduct])
                 }
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            }
+            })
         }
     },
     namespaced: true

@@ -10,7 +10,8 @@
                     <category-open-link-card :underline="true" :slug="category.slug">
                         {{ category.title }}
                     </category-open-link-card>
-                    <el-button class="load-parents-button" v-if="category.parent && !categoriesWithLoadedParent.includes(category.slug)"
+                    <el-button class="load-parents-button"
+                               v-if="category.parent && !categoriesWithLoadedParent.includes(category.slug)"
                                @click="loadCategoryParents(category)"
                                :loading="categoriesParentsPending.includes(category.slug)">
                         {{ $t('general.expand') }}
@@ -37,12 +38,13 @@
 <script>
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_CATEGORY_PARENTS_URL } from '@/api/categories'
-import getErrorsFromResponse, { openErrorNotification } from '@/helpers/errors'
 import CategoryOpenLinkCard from '@/components/CategoryOpenLinkCard.vue'
+import useErrorsCatch from '@/mixins/useErrorsCatch'
 
 export default {
     name: 'ProductCategories',
     components: { CategoryOpenLinkCard },
+    mixins: [useErrorsCatch],
     props: {
         categories: {
             required: false,
@@ -68,16 +70,18 @@ export default {
             }
             this.categoriesParentsPending.push(category.slug)
 
-            try {
+            await this.useErrorsCatch(async() => {
                 const parents = (await apiRequest(API_GET_CATEGORY_PARENTS_URL, { slug: category.slug })).data
-                const currentCategory = this.extendedCategories.find((searchedCategory) => searchedCategory.slug === category.slug)
+
+                const currentCategory = this.extendedCategories.find(
+                    (searchedCategory) => searchedCategory.slug === category.slug
+                )
+
                 currentCategory.parents = parents
                 this.categoriesWithLoadedParent.push(category.slug)
-            } catch (errors) {
-                openErrorNotification(getErrorsFromResponse(errors))
-            } finally {
-                this.categoriesParentsPending.splice(category.slug)
-            }
+            })
+
+            this.categoriesParentsPending.splice(category.slug)
         }
     },
     watch: {
@@ -104,6 +108,7 @@ export default {
     display: flex;
     margin-top: 10px;
 }
+
 .product-category, .category-parent {
     min-height: 30px;
 }
