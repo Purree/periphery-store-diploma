@@ -84,6 +84,7 @@ export default {
                     userAddressId
                 })
 
+                await this.loadCart()
                 await this.$router.push({ name: 'Orders' })
             })
         }

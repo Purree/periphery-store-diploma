@@ -10,7 +10,7 @@
         </div>
     </full-width-button>
     <div v-else>
-        <el-input-number :min="0" v-model="cartProductCount" class="fullwidth-button"/>
+        <el-input-number :min="0" :disabled="pending" v-model="cartProductCount" class="fullwidth-button"/>
     </div>
 </template>
 

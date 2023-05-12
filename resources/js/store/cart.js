@@ -8,6 +8,9 @@ export default {
         cartItems: []
     },
     mutations: {
+        setCartItems: (state, newItems) => {
+            state.cartItems = newItems
+        },
         appendCart: (state, newItems) => {
             newItems.forEach((newItem) => {
                 if (state.cartItems.some(item => item.id === newItem.id)) {
@@ -34,7 +37,7 @@ export default {
         async loadCart({ commit }) {
             try {
                 const cartItems = (await apiRequest(API_GET_ALL_CART_ITEMS_URL)).data
-                commit('appendCart', cartItems)
+                commit('setCartItems', cartItems)
             } catch (errors) {
                 openErrorNotification(getErrorsFromResponse(errors))
             }

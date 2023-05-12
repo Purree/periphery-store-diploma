@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
 
 class OrderController extends Controller
 {
@@ -31,6 +32,7 @@ class OrderController extends Controller
                 Order::query()
                     ->where('user_id', $request->user()->id)
                     ->with(['status', 'items', 'items.product', 'address', 'mobile', 'name'])
+                    ->orderByDesc('created_at')
                     ->get()
             )
         );
@@ -56,6 +58,14 @@ class OrderController extends Controller
                 ['cart' => $exception->getMessage()],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
+        }
+
+        if (!RateLimiter::attempt(
+            'createOrder:'.$request->ip(),
+            1,
+            static fn () => null
+        )) {
+            return ResponseResult::error(__('Too Many Requests'), Response::HTTP_TOO_MANY_REQUESTS);
         }
 
         return ResponseResult::success();

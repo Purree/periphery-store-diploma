@@ -32,7 +32,7 @@ class ReviewReplyController extends Controller
             1,
             static fn () => null
         )) {
-            return ResponseResult::error(__('Too Many Requests'), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return ResponseResult::error(__('Too Many Requests'), Response::HTTP_TOO_MANY_REQUESTS);
         }
 
         return $this->show($createdReply);

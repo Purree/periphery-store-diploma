@@ -22,7 +22,9 @@
         </el-form>
 
         <div v-else>
-            <styled-router-link to="{ name: 'Profile' }">{{ $t('cart.buyMessage.emptyUserData') }}</styled-router-link>
+            <styled-router-link class="open-profile-link" :to="{ name: 'Profile' }">
+                {{ this.$t('cart.buyMessage.emptyUserData') }}
+            </styled-router-link>
         </div>
         <template #footer>
       <span class="dialog-footer">
@@ -111,5 +113,9 @@ export default {
 <style scoped>
 .user-data-select {
     width: 100%;
+}
+
+:deep(.open-profile-link) {
+    color: var(--el-color-primary);
 }
 </style>
