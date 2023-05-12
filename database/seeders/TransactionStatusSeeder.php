@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Structural\CartStatus as CartStatusEnum;
+use App\Enums\Structural\Statuses\CartStatus as CartStatusEnum;
 use App\Helpers\TableColumnUtils;
 use App\Models\TransactionStatus as TransactionStatusModel;
-
 use Illuminate\Database\Seeder;
 
 class TransactionStatusSeeder extends Seeder

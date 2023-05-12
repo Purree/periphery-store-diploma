@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Enums\Structural\Statuses\CartStatus as CartStatusEnum;
 use App\Exceptions\CartAlreadyExistsException;
 use App\Models\Cart;
-use App\Models\CartStatus;
-use App\Enums\Structural\CartStatus as CartStatusEnum;
+use App\Models\CartStatus as CartStatusModel;
 use App\Models\User;
 
 class CartService
@@ -24,7 +24,7 @@ class CartService
         }
 
         /** @psalm-suppress UndefinedMagicPropertyFetch */
-        $newCartStatusId = CartStatus::query()->firstWhere('name', CartStatusEnum::new->name)->id;
+        $newCartStatusId = CartStatusModel::getIdByName(CartStatusEnum::new);
 
         return Cart::query()->create(['user_id' => $user->id, 'status_id' => $newCartStatusId]);
     }
@@ -32,5 +32,13 @@ class CartService
     public function checkIsUserHasActiveCart(User $user): bool
     {
         return $user->activeCart()->exists();
+    }
+
+    public function updateStatus(Cart $cart, CartStatusEnum $status): void
+    {
+        $cart->update([
+            'status_id' =>
+                CartStatusModel::getIdByName($status),
+        ]);
     }
 }

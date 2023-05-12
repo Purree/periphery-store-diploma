@@ -144,7 +144,12 @@ export default {
         },
         cart: {
             cart: 'Cart',
-            noProducts: 'There are no products in the cart yet. Add something to see it here'
+            noProducts: 'There are no products in the cart yet. Add something to see it here',
+            buyMessage: {
+                info: 'Before buying, you need to provide your contact information',
+                emptyUserData: 'Fill them out in your profile (clickable), and then come back here'
+            }
+
         },
         orders: {
             order: 'Order',
@@ -171,6 +176,8 @@ export default {
             total: 'Total',
             rating: 'Rating',
             created: 'Created',
+            attention: 'Attention',
+            cancel: 'Cancel',
             save: 'Save',
             updated: 'Updated',
             expand: 'Expand',
@@ -336,7 +343,11 @@ export default {
         },
         cart: {
             cart: 'Корзина',
-            noProducts: 'В корзине ещё нету продуктов. Добавьте что-нибудь, чтобы увидеть его тут'
+            noProducts: 'В корзине ещё нету продуктов. Добавьте что-нибудь, чтобы увидеть его тут',
+            buyMessage: {
+                info: 'Перед покупкой вам необходимо указать Ваши контактные данные',
+                emptyUserData: 'Заполните их в профиле (кликабельно), а, затем, возвращайтесь сюда'
+            }
         },
         orders: {
             order: 'Заказ',
@@ -364,6 +375,7 @@ export default {
             rating: 'Рейтинг',
             created: 'Создано',
             attention: 'Внимание',
+            cancel: 'Отменить',
             save: 'Сохранить',
             updated: 'Обновлено',
             expand: 'Расширить',

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class CartStatus extends Model
 {
+    use StatusTrait;
+
     public $timestamps = false;
 
     public function carts(): BelongsToMany

@@ -14,6 +14,8 @@ class OrderItem extends Model
     use TotalPriceTrait;
     use HasFactory;
 
+    protected $fillable = ['product_id', 'order_id', 'sku', 'price', 'discount', 'quantity'];
+
     protected $casts = [
         'price' => 'float'
     ];
@@ -25,6 +27,6 @@ class OrderItem extends Model
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id')->withTrashed();
     }
 }

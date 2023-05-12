@@ -23,11 +23,11 @@ class CartItemService
             $product->quantity < $quantity ||
             ($isCartHasProduct && $storedCartProduct->quantity + $quantity > CartItem::MAX_ITEM_QUANTITY)
         ) {
-            throw new TooManyQuantitiesException((string)__("errors.tooManyQuantities"));
+            throw new TooManyQuantitiesException($product->title);
         }
 
         if (!$product->is_available) {
-            throw new ProductNotAvailableForPurchaseException((string)__("errors.productNotAvailableForPurchase"));
+            throw new ProductNotAvailableForPurchaseException();
         }
 
         $cartItemBuilder = $this->getCartItemBuilder($cart, $product);

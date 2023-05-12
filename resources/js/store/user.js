@@ -77,7 +77,7 @@ export default {
             commit('setUser', {})
 
             if (router.currentRoute.value.meta[GuardedRouteMetaEnum.requiresAuth]) {
-                router.push({
+                await router.push({
                     name: 'Login',
                     query: {
                         redirect: router.currentRoute.value.path

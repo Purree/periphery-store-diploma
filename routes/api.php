@@ -96,7 +96,7 @@ Route::middleware('auth:sanctum')->group(static function () {
         });
     });
 
-    Route::apiResource('orders', OrderController::class)->except('destroy');
+    Route::apiResource('orders', OrderController::class)->except(['destroy', 'update']);
 
     Route::name('carts.')->prefix('carts')->group(static function () {
         Route::name('items.')->prefix('items')->group(static function () {

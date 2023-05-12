@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\Structural\Statuses\CartStatus as CartStatusEnum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Enums\Structural\CartStatus as CartStatusEnum;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cart extends Model

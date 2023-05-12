@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Enums\StoredImagesFolderEnum;
-use App\Enums\Structural\OrderStatus;
+use App\Enums\Structural\Statuses\OrderStatus;
 use App\Filters\ProductFilter;
 use App\Helpers\ImageFacade;
 use App\Helpers\Results\ResponseResult;

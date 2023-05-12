@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums\Structural;
+namespace App\Enums\Structural\Statuses;
 
 use App\Enums\ArrayableEnumTrait;
 

@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ProductNotAvailableForPurchaseException;
+use App\Exceptions\TooManyQuantitiesException;
 use App\Helpers\Results\ResponseResult;
+use App\Http\Requests\CreateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function __construct()
+    public function __construct(private readonly OrderService $orderService)
     {
         $this->authorizeResource(Order::class);
     }
@@ -25,20 +30,35 @@ class OrderController extends Controller
             OrderResource::collection(
                 Order::query()
                     ->where('user_id', $request->user()->id)
-                    ->with(['status', 'items', 'items.product'])
+                    ->with(['status', 'items', 'items.product', 'address', 'mobile', 'name'])
                     ->get()
             )
         );
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create order from active user cart.
      */
-    public function store(Request $request): JsonResponse
+    public function store(CreateOrderRequest $request): JsonResponse
     {
-        // @TODO: Implement method.
+        try {
+            DB::transaction(function () use ($request) {
+                $cart = $request->user()->activeCart()->with(['items', 'items.product'])->first();
 
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
+                if (!$cart || !$this->orderService->allowsOrderCart($cart)) {
+                    throw new ProductNotAvailableForPurchaseException();
+                }
+
+                $this->orderService->store($cart, $request->toDTO());
+            });
+        } catch (TooManyQuantitiesException|ProductNotAvailableForPurchaseException $exception) {
+            return ResponseResult::error(
+                ['cart' => $exception->getMessage()],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        return ResponseResult::success();
     }
 
     /**
@@ -53,15 +73,5 @@ class OrderController extends Controller
                     ->firstWhere('id', $order->id)
             )
         );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Order $order): JsonResponse
-    {
-        // @TODO: Implement method.
-
-        return ResponseResult::error('Method not implemented yet.', Response::HTTP_NOT_IMPLEMENTED);
     }
 }

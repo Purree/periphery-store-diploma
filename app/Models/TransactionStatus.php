@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TransactionStatus extends Model
 {
+    use StatusTrait;
+
     public $timestamps = false;
 
     public function transactions(): BelongsToMany

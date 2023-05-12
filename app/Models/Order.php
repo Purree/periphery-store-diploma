@@ -14,9 +14,11 @@ class Order extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = ['user_id', 'status_id', 'token', 'user_name_id', 'user_mobile_id', 'user_address_id'];
+
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function status(): BelongsTo
@@ -31,17 +33,17 @@ class Order extends Model
 
     public function address(): BelongsTo
     {
-        return $this->belongsTo(UserAddress::class, 'user_address_id');
+        return $this->belongsTo(UserAddress::class, 'user_address_id')->withTrashed();
     }
 
     public function mobile(): BelongsTo
     {
-        return $this->belongsTo(UserMobile::class, 'user_mobile_id');
+        return $this->belongsTo(UserMobile::class, 'user_mobile_id')->withTrashed();
     }
 
     public function name(): BelongsTo
     {
-        return $this->belongsTo(UserName::class, 'user_name_id');
+        return $this->belongsTo(UserName::class, 'user_name_id')->withTrashed();
     }
 
     public function totalCost(): Attribute

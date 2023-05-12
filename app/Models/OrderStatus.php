@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class OrderStatus extends Model
 {
+    use StatusTrait;
+
     public $timestamps = false;
 
     public function orders(): BelongsToMany

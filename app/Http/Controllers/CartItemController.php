@@ -30,7 +30,9 @@ class CartItemController extends Controller
                 CartItem::query()
                     ->whereHas(
                         'cart',
-                        fn (Builder $builder) => $builder->where('user_id', $request->user()->id)
+                        fn (Builder $builder) => $builder
+                            ->where('user_id', $request->user()->id)
+                            ->where('id', $request->user()->activeCart?->id)
                     )
                     ->with(['product'])
                     ->get()

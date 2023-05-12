@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Structural\OrderStatus as OrderStatusEnum;
+use App\Enums\Structural\Statuses\OrderStatus as OrderStatusEnum;
 use App\Helpers\TableColumnUtils;
 use App\Models\OrderStatus as OrderStatusModel;
 use Illuminate\Database\Seeder;
