@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Structural\Role as RoleEnum;
 use App\Models\Role as RoleModel;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -142,5 +143,10 @@ class User extends Authenticatable
     public function isAdministrator(): bool
     {
         return $this->hasRole(RoleEnum::administrator);
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->isAdministrator();
     }
 }
