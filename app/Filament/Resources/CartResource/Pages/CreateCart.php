@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\CartResource\Pages;
 
 use App\Filament\Resources\CartResource;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateCart extends CreateRecord
