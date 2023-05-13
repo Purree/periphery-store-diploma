@@ -70,6 +70,7 @@ export default {
     grid-template-columns: 1fr 3fr 1fr;
     @include max-screen-size('big-tablet') {
         grid-template-columns: 1fr;
+        grid-template-rows: 1fr repeat(2, auto);
         column-gap: 5px;
     }
     column-gap: 20px;

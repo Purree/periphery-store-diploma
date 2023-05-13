@@ -134,7 +134,7 @@ export default {
 
 :deep(.product-card) {
     margin-bottom: 20px;
-    height: 200px;
+    min-height: 200px;
 }
 
 .empty-products-error {

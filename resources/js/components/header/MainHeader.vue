@@ -19,12 +19,6 @@
             <search-input v-if="checkIsUserCanViewSearch()" class="inactive-header-element header-search-container"/>
 
             <div class="header-blocks-divider"/>
-            <header-menu-rounded-button-item class="mobile-home-button-container"
-                                             :index="this.getRoutePathByName('Home')"
-                                             text=""
-                                             icon="home" />
-
-            <div class="header-blocks-divider"/>
             <header-menu-rounded-button-item
                 :text="checkIsLoggedIn() ? $t('nav.buttons.profile') : $t('authorization.login')"
                 :index="this.getRoutePathByNameIfLoggedInElseGetLoginRoute('Profile')">
@@ -128,23 +122,11 @@ export default {
     padding: 0;
     min-width: 57px;
     width: calc(initial + (var(--el-menu-base-level-padding) * 2)) px;
-    @include max-screen-size('mobile') {
-        display: none;
-    }
-}
-
-:deep(.mobile-home-button-container) {
-    @include screen-size('tablet') {
-        display: none;
-    }
 }
 
 @include max-screen-size('mobile') {
     .header-search-container {
         padding-right: 0;
-    }
-    :deep(.mobile-home-button-container) {
-        padding: 0 10px;
     }
 
     :deep(.el-sub-menu) {

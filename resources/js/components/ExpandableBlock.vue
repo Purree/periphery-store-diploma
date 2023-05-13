@@ -51,7 +51,7 @@ export default {
 .show-more-button {
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: flex-end;
     position: absolute;
     bottom: 0;
     width: 100%;
