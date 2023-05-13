@@ -72,7 +72,7 @@ export default {
 
 .product-data {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     gap: 10px;
     max-height: 100%;
     width: 100%;
@@ -134,7 +134,7 @@ export default {
 .product-title-container {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 
     &, & > * {
         width: 100%;

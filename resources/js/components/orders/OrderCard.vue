@@ -102,7 +102,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    align-items: start;
+    align-items: flex-start;
 }
 
 :deep(.order-created-text) {
