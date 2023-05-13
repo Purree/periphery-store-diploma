@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\StoredImagesFolderEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers\CategoriesRelationManager;
+use App\Filament\Resources\ProductResource\RelationManagers\ImagesRelationManager;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -37,8 +39,11 @@ class ProductResource extends Resource
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->maxLength(65535),
-                Forms\Components\TextInput::make('preview_image')
-                    ->maxLength(2048),
+                Forms\Components\FileUpload::make('preview_image')
+                    ->disk('public')
+                    ->directory(StoredImagesFolderEnum::productImages->value)
+                    ->image()
+                    ->required(),
                 Forms\Components\TextInput::make('SKU')
                     ->required()
                     ->maxLength(100),
@@ -95,7 +100,8 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            CategoriesRelationManager::class
+            CategoriesRelationManager::class,
+            ImagesRelationManager::class
         ];
     }
 

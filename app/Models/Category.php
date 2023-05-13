@@ -10,6 +10,9 @@ class Category extends Model
 {
     use HasFactory;
     use ModelWithParentTrait;
+
+    protected $fillable = ['parent_id', 'title', 'meta_title', 'slug', 'image', 'description'];
+
     public $timestamps = false;
     protected $hidden = ['id'];
 

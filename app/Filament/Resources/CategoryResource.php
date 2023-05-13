@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\StoredImagesFolderEnum;
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Models\Category;
 use Filament\Forms;
@@ -21,7 +22,7 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('parent_id')
-                    ->relationship('parent', 'title'),
+                    ->relationship('parent', 'title')->nullable(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(75),
@@ -30,8 +31,10 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(100),
-                Forms\Components\TextInput::make('image')
-                    ->maxLength(2048),
+                Forms\Components\FileUpload::make('image')
+                    ->disk('public')
+                    ->directory(StoredImagesFolderEnum::categoryImages->value)
+                    ->image(),
                 Forms\Components\Textarea::make('description')
                     ->maxLength(65535),
             ]);
@@ -45,7 +48,7 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('meta_title'),
                 Tables\Columns\TextColumn::make('slug'),
-                Tables\Columns\TextColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('description'),
             ])
             ->filters([

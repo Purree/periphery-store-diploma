@@ -4,12 +4,12 @@ export default {
     methods: {
         async useErrorsCatch(handler, catcher = undefined) {
             try {
-                await handler()
+                return await handler()
             } catch (errors) {
                 openErrorNotification(getErrorsFromResponse(errors))
 
                 if (catcher) {
-                    catcher(errors)
+                    return catcher(errors)
                 }
             }
         }

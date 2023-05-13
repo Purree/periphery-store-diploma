@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\StoredImagesFolderEnum;
 use App\Filament\Resources\BannerResource\Pages;
 use App\Models\Banner;
 use Filament\Forms;
@@ -25,9 +26,11 @@ class BannerResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('url')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('image')
-                    ->required()
-                    ->maxLength(2048),
+                Forms\Components\FileUpload::make('image')
+                    ->disk('public')
+                    ->directory(StoredImagesFolderEnum::banners->value)
+                    ->image()
+                    ->required(),
             ]);
     }
 
@@ -37,7 +40,7 @@ class BannerResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('url'),
-                Tables\Columns\TextColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image'),
             ])
             ->filters([
                 //

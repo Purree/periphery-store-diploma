@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\StoredImagesFolderEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers\AddressesRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\MobilesRelationManager;
@@ -15,6 +16,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -36,10 +38,14 @@ class UserResource extends Resource
                 Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->required()
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('avatar')
-                    ->maxLength(2048),
+                Forms\Components\FileUpload::make('avatar')
+                    ->disk('public')
+                    ->directory(StoredImagesFolderEnum::profilePhotos->value)
+                    ->image(),
                 Forms\Components\Toggle::make('is_organization')
                     ->required(),
             ]);
@@ -53,7 +59,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('avatar'),
+                Tables\Columns\ImageColumn::make('avatar'),
                 Tables\Columns\IconColumn::make('is_organization')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')

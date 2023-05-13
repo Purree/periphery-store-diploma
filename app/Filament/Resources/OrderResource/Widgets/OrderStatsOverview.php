@@ -13,7 +13,7 @@ class OrderStatsOverview extends BaseWidget
     {
         $orderStatusesCount = Order::query()
             ->join('order_statuses', 'status_id', '=', 'order_statuses.id')
-            ->select('order_statuses.name', DB::raw('count(*) as total'))
+            ->select(['order_statuses.name', DB::raw('count(*) as total')])
             ->groupBy('status_id')
             ->pluck('total', 'name');
 
