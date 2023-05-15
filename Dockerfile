@@ -39,9 +39,13 @@ USER $user
 RUN composer install
 
 FROM node:19-alpine
-COPY ["package.json", "package-lock.json*", "./"]
 
+WORKDIR /var/www
+COPY ["package.json", "package-lock.json*", "/var/www"]
+WORKDIR /var/www
+
+RUN npm config set registry https://registry.npmjs.org/
 RUN npm install --production
-COPY . .
+COPY . /var/www
 EXPOSE 3000
-CMD ["npm", "build"]
+CMD ["npm", "run", "build"]

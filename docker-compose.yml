@@ -1,14 +1,14 @@
 version: "3.8"
 
 services:
-    app:
+    shopapp:
         build:
             args:
                 user: pure_shop
                 uid: 1228
             context: ./
             dockerfile: Dockerfile
-        container_name: app
+        container_name: shopapp
         restart: unless-stopped
         working_dir: /var/www/
         volumes:
@@ -16,14 +16,14 @@ services:
             - ./docker-compose/logs:/var/log/:rw
             - ./docker-compose/logs/laravel:/var/www/storage/logs/:rw
         networks:
-            - internal
+            - shop
 
-    db:
+    shopdb:
         image: mysql:8.0
-        container_name: db
+        container_name: shopdb
         restart: unless-stopped
         ports:
-            - 8000:${DB_PORT}
+            - 8001:${DB_PORT}
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
             MYSQL_DATABASE: ${DB_DATABASE}
@@ -36,10 +36,10 @@ services:
             - ./tmp/db:/var/lib/mysql
         command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
         networks:
-            - internal
+            - shop
 
 networks:
-    internal:
+    shop:
         driver: bridge
         ipam:
             driver: default
