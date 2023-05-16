@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class OrderController extends Controller
 {
@@ -51,6 +52,14 @@ class OrderController extends Controller
                     throw new ProductNotAvailableForPurchaseException();
                 }
 
+                if (!RateLimiter::attempt(
+                    'createOrder:'.$request->ip(),
+                    1,
+                    static fn () => null
+                )) {
+                    throw new TooManyRequestsHttpException();
+                }
+
                 $this->orderService->store($cart, $request->toDTO());
             });
         } catch (TooManyQuantitiesException|ProductNotAvailableForPurchaseException $exception) {
@@ -60,13 +69,6 @@ class OrderController extends Controller
             );
         }
 
-        if (!RateLimiter::attempt(
-            'createOrder:'.$request->ip(),
-            1,
-            static fn () => null
-        )) {
-            return ResponseResult::error(__('Too Many Requests'), Response::HTTP_TOO_MANY_REQUESTS);
-        }
 
         return ResponseResult::success();
     }
