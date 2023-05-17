@@ -20,4 +20,5 @@ return [
     'cartDoesntExists' => 'Корзина не существует',
     'reviewAlreadyExists' => 'Отзыв уже существует',
     'cartDoesntContainProduct' => 'Корзина не содержит товар',
+    'modelNotFound' => 'Объект не найден'
 ];

@@ -20,4 +20,5 @@ return [
     'cartDoesntExists' => 'Cart doesnt exists',
     'reviewAlreadyExists' => 'Review already exists',
     'cartDoesntContainProduct' => 'Cart doesnt exists',
+    'modelNotFound' => 'Object not found'
 ];
