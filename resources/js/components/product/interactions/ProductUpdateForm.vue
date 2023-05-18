@@ -80,8 +80,8 @@
         <div class="product-manipulate-buttons">
             <full-width-button :pending="pending" @click="onSubmit()">{{ $t('general.save') }}</full-width-button>
             <product-delete-button @delete-product="$emit('deleteProduct')"
-                                   v-if="productToUpdate.slug"
-                                   :slug="productToUpdate.slug"/>
+                                   v-if="productToUpdate?.slug"
+                                   :slug="productToUpdate?.slug"/>
         </div>
     </el-form>
 </template>
