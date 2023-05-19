@@ -105,6 +105,10 @@ export default {
     flex-grow: 1;
 }
 
+.header-search-container {
+    flex-grow: 2;
+}
+
 .el-menu--popup .el-menu-item {
     margin-bottom: 10px;
 }
