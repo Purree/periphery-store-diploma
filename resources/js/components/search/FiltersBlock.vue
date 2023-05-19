@@ -128,11 +128,25 @@ export default {
             }
 
             return [minPrice, maxPrice]
+        },
+        getSelectedIdsFromString(selectedItemsIds) {
+            return (selectedItemsIds || '')
+                .split(',')
+                .map(filter => parseInt(filter))
+                .filter(filter => filter && !isNaN(filter))
         }
     },
     mounted() {
         this.priceBetween = [0, this.maxAvailablePrice]
         this.loadSellers()
+
+        const cachedFilters = this.$route.query
+
+        const cachedPriceBetween = cachedFilters[searchKeywordsEnum.priceBetween]
+        this.hasReviews = !!cachedFilters[searchKeywordsEnum.hasReviews]
+        this.selectedSellers = this.getSelectedIdsFromString(cachedFilters[searchKeywordsEnum.sellers])
+        this.selectedCategories = this.getSelectedIdsFromString(cachedFilters[searchKeywordsEnum.categories])
+        this.priceBetween = cachedPriceBetween || [0, this.maxAvailablePrice]
     }
 }
 </script>
