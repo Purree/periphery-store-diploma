@@ -19,6 +19,19 @@
                                 <product-delete-button @delete-product="onProductDelete(product.slug)"
                                                        :slug="product.slug"/>
                             </div>
+                            <div>
+                                <based-text :title="$t('product.updateProduct.quantity')+': '"/>
+                                <based-text :type="product.quantity <= 10 ? 'danger' : 'primary'"
+                                            :title="product.quantity"/>
+                            </div>
+                            <div>
+                                <based-text type="danger" v-if="!product.isAvailable"
+                                            :title="$t('product.isNotInSale')"/>
+                            </div>
+                            <div>
+                                <based-text :title="$t('orders.count')+': '"/>
+                                <based-text :title="product.ordersCount"/>
+                            </div>
                         </template>
                     </product-card>
                 </div>
@@ -41,11 +54,13 @@ import ErrorsAlert from '@/components/errors/ErrorsAlert.vue'
 import ProductCard from '@/components/search/ProductCard.vue'
 import ProductDeleteButton from '@/components/product/interactions/ProductDeleteButton.vue'
 import useErrorsCatch from '@/mixins/useErrorsCatch'
+import BasedText from '@/components/BasedText.vue'
 
 export default {
     name: 'SellerProducts',
     mixins: [useErrorsCatch],
     components: {
+        BasedText,
         ProductDeleteButton,
         ProductCard,
         ErrorsAlert,

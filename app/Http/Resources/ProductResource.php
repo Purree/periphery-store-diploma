@@ -41,7 +41,8 @@ final class ProductResource extends JsonResource
     {
         return [
             ...$this->getReviewsDataIfItsLoaded(),
-            ...$this->getDataForSellerIsLoaded(),
+            ...$this->getSellerDataIfItIsLoaded(),
+            ...$this->getDataForSeller()
         ];
     }
 
@@ -62,17 +63,26 @@ final class ProductResource extends JsonResource
         return $reviewsData;
     }
 
-    private function getDataForSellerIsLoaded(): array
+    private function getSellerDataIfItIsLoaded(): array
     {
         if ($this->checkIsRelationLoaded('seller')) {
             return [
                 'seller' => UserResource::make($this->seller),
                 'isAvailableForBuying' => Gate::allows('buy', $this->resource),
-                ...((Gate::allows('viewAdditionalResourceData', $this->resource)) ? [
-                    'created_at' => $this->created_at,
-                    'updated_at' => $this->updated_at,
-                    'deleted_at' => $this->deleted_at,
-                ] : []),
+            ];
+        }
+
+        return [];
+    }
+
+    private function getDataForSeller(): array
+    {
+        if (Gate::allows('viewAdditionalResourceData', $this->resource)) {
+            return [
+                ...isset($this->order_items_count) ? ['ordersCount' => $this->order_items_count] : [],
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+                'deleted_at' => $this->deleted_at,
             ];
         }
 

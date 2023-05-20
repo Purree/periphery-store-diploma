@@ -19,6 +19,7 @@ class UserProductsController extends Controller
             ProductResource::collection(
                 Product::query()
                     ->where('seller_id', $request->user()->id)
+                    ->withCount('orderItems')
                     ->get()
             )
         );

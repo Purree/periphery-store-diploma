@@ -102,6 +102,7 @@ export default {
         },
         product: {
             productUnavailable: 'The product is not yet available for purchase. Please wait or contact the seller',
+            isNotInSale: 'The product is not in sale',
             reviews: {
                 leaveReview: 'Leave a review',
                 writeComment: 'Write comment',
@@ -154,6 +155,7 @@ export default {
         orders: {
             order: 'Order',
             orders: 'Orders',
+            count: 'Orders count',
             quantity: 'Quantity',
             orderDated: 'Order dated',
             noOrders: 'You don\'t have any orders yet. Buy something and it will appear her',

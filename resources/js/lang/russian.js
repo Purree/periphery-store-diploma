@@ -101,6 +101,7 @@ export default {
         },
         product: {
             productUnavailable: 'Продукт пока недоступен к покупке. Пожалуйста, подождите или свяжитесь с продавцом',
+            isNotInSale: 'Продукт не продаётся',
             reviews: {
                 leaveReview: 'Оставить отзыв',
                 writeComment: 'Написать комментарий',
@@ -152,6 +153,7 @@ export default {
         orders: {
             order: 'Заказ',
             orders: 'Заказы',
+            count: 'Количество заказов',
             quantity: 'Количество',
             orderDated: 'Заказ от',
             noOrders: 'У вас ещё нет заказов. Купите что-нибудь и это появится тут',
