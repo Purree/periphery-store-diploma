@@ -145,7 +145,7 @@ export default {
 .product-image {
     --product-image-size: 470px;
 
-    height: var(--product-image-size);
+    max-height: var(--product-image-size);
     width: var(--product-image-size);
     @include max-screen-size('small-desktop') {
         --product-image-size: 310px;
