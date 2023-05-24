@@ -35,17 +35,3 @@ RUN mkdir -p /home/$user/.composer && \
 WORKDIR /var/www
 
 USER $user
-
-RUN composer install
-
-FROM node:19-alpine
-
-WORKDIR /var/www
-COPY ["package.json", "package-lock.json*", "/var/www"]
-WORKDIR /var/www
-
-RUN npm config set registry https://registry.npmjs.org/
-RUN npm install --production
-COPY . /var/www
-EXPOSE 3000
-CMD ["npm", "run", "build"]
