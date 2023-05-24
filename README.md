@@ -7,8 +7,10 @@
 5. Run `docker-compose up -d`.
 5.1. If npm download packages too slow use it https://stackoverflow.com/a/75792059.
 6. Run `docker-compose exec shopapp bash`.
-7. Run `php artisan key:generate`.
-8. *Skip this step if you do 3-rd step*
+7. Run `composer install`.
+8. Run `php artisan key:generate`.
+9. Run SQL query `GRANT ALL PRIVILEGES ON *.* TO 'puresh'@'%';`;
+10. *Skip this step if you do 3-rd step*
     1. Run `php artisan migrate`.
 
 # Queue start
