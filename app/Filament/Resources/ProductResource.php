@@ -9,7 +9,6 @@ use App\Filament\Resources\ProductResource\RelationManagers\CategoriesRelationMa
 use App\Filament\Resources\ProductResource\RelationManagers\ImagesRelationManager;
 use App\Models\Product;
 use Filament\Forms;
-use Filament\Forms\Components\TextInput\Mask;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
