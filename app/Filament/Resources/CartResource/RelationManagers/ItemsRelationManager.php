@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CartResource\RelationManagers;
 
+use App\Filament\FormInputs\ProductInputs;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -21,9 +22,7 @@ class ItemsRelationManager extends RelationManager
                 Forms\Components\Select::make('product_id')
                     ->relationship('product', 'title')
                     ->required(),
-                Forms\Components\TextInput::make('quantity')
-                    ->required()
-                    ->minValue(0),
+                ProductInputs::getQuantityInput(),
             ]);
     }
 

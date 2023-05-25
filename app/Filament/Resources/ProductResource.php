@@ -3,11 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Enums\StoredImagesFolderEnum;
+use App\Filament\FormInputs\ProductInputs;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers\CategoriesRelationManager;
 use App\Filament\Resources\ProductResource\RelationManagers\ImagesRelationManager;
 use App\Models\Product;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput\Mask;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -47,12 +49,9 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('SKU')
                     ->required()
                     ->maxLength(100),
-                Forms\Components\TextInput::make('price')
-                    ->required(),
-                Forms\Components\TextInput::make('discount')
-                    ->required(),
-                Forms\Components\TextInput::make('quantity')
-                    ->required(),
+                ProductInputs::getPriceInput(),
+                ProductInputs::getDiscountInput(),
+                ProductInputs::getQuantityInput(),
                 Forms\Components\Toggle::make('is_available')
                     ->required(),
             ]);
@@ -101,7 +100,7 @@ class ProductResource extends Resource
     {
         return [
             CategoriesRelationManager::class,
-            ImagesRelationManager::class
+            ImagesRelationManager::class,
         ];
     }
 

@@ -29,6 +29,10 @@ class ReviewResource extends Resource
                 Forms\Components\Toggle::make('is_anonymous')
                     ->required(),
                 Forms\Components\TextInput::make('rating')
+                    ->numeric()
+                    ->integer()
+                    ->minValue(0)
+                    ->maxValue(5)
                     ->required(),
                 Forms\Components\Textarea::make('advantages')
                     ->required()

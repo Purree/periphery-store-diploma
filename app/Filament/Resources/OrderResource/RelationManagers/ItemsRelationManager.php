@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\OrderResource\RelationManagers;
 
+use App\Filament\FormInputs\ProductInputs;
 use App\Models\OrderItem;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -25,15 +26,9 @@ class ItemsRelationManager extends RelationManager
                 Forms\Components\TextInput::make('sku')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('price')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('discount')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('quantity')
-                    ->required()
-                    ->maxLength(255),
+                ProductInputs::getPriceInput(),
+                ProductInputs::getDiscountInput(),
+                ProductInputs::getQuantityInput(),
             ]);
     }
 
