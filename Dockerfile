@@ -9,16 +9,25 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libgd-dev \
+    jpegoptim optipng pngquant gifsicle \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    build-essential \
+    sudo
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP config
 COPY ./docker-compose/local/app/php.ini /usr/local/etc/php/conf.d/php.ini
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd

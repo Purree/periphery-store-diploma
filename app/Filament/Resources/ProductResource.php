@@ -49,7 +49,7 @@ class ProductResource extends Resource
                     ->maxLength(100),
                 Forms\Components\TextInput::make('price')
                     ->required(),
-                Forms\Components\Toggle::make('discount')
+                Forms\Components\TextInput::make('discount')
                     ->required(),
                 Forms\Components\TextInput::make('quantity')
                     ->required(),

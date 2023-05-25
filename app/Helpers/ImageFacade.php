@@ -99,11 +99,13 @@ final class ImageFacade
 
     public function getExtension(): string
     {
-        return $this->image->extension !== 'tmp' ? $this->image->extension : match ($this->image->mime()) {
-            'image/png' => 'png',
-            'image/gif' => 'gif',
-            'image/webp' => 'webp',
-            default => 'jpg',
-        };
+        return $this->image->extension && $this->image->extension !== 'tmp' ?
+            $this->image->extension :
+            match ($this->image->mime()) {
+                'image/png' => 'png',
+                'image/gif' => 'gif',
+                'image/webp' => 'webp',
+                default => 'jpg',
+            };
     }
 }
