@@ -39,7 +39,8 @@
                             <product-price class="product-price" :price="product.price"
                                            :discounted-price="product.priceWithDiscount"/>
                             <product-description v-if="product.description" :description="product.description"/>
-                            <add-to-cart-button :product-slug="product.slug" v-if="product.isAvailableForBuying"/>
+                            <add-to-cart-button :product-slug="product.slug"
+                                                v-if="product.isAvailableForBuying || !this.checkIsLoggedIn()"/>
                             <el-alert v-else :title="$t('product.productUnavailable')" :closable="false" type="info"/>
                         </div>
                     </div>
@@ -63,6 +64,7 @@ import ProductSellerCard from '@/components/product/ProductSellerCard.vue'
 import ProductDescription from '@/components/product/ProductDescription.vue'
 import ProductSellerOpenLink from '@/components/product/ProductSellerOpenLink.vue'
 import UnderHeaderTitle from '@/components/product/UnderHeaderTitle.vue'
+import auth from '@/mixins/auth'
 
 export default {
     name: 'MainProductData',
@@ -78,6 +80,7 @@ export default {
         ProductImagesCarousel,
         ProductPrice
     },
+    mixins: [auth],
     props: {
         product: {
             required: true,
