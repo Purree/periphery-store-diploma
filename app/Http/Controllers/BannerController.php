@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CacheKeyEnum;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Requests\CreateBannerRequest;
 use App\Http\Requests\UpdateBannerRequest;
@@ -24,7 +25,7 @@ class BannerController extends Controller
      */
     public function index(): JsonResponse
     {
-        $banners = Cache::remember('banners', 86400, static fn () => Banner::all());
+        $banners = Cache::remember(CacheKeyEnum::banners->value, 86400, static fn () => Banner::all());
 
         return ResponseResult::success(BannerResource::collection($banners));
     }

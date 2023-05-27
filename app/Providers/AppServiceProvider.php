@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Banner;
+use App\Observers\BannerObserver;
 use Filament\Facades\Filament;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
@@ -30,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Filament::serving(function () {
             Filament::registerViteTheme('resources/css/filament.css');
         });
+
+        Banner::observe(BannerObserver::class);
     }
 }

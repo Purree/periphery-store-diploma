@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CacheKeyEnum;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Resources\ProductResource;
 use App\Services\SalesHitsService;
@@ -21,7 +22,7 @@ class SalesHitsController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         $salesHits = Cache::remember(
-            'salesHits',
+            CacheKeyEnum::salesHits->value,
             600,
             fn () => $this->salesHitsService->getSalesHits()
         );
