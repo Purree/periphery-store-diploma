@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PopularCategoriesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImagesController;
+use App\Http\Controllers\ProductPreviewController;
 use App\Http\Controllers\ProductSellersController;
 use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
@@ -57,6 +58,9 @@ Route::name('products.')->middleware('can:viewAny,'.Product::class)
         Route::get('/sellers', ProductSellersController::class)->name('sellers');
 
         Route::prefix('{product}')->group(static function () {
+            Route::delete('/preview', [ProductPreviewController::class, 'destroy'])
+                ->middleware('can:update,product');
+
             Route::apiResource('/reviews', ReviewController::class)->only(['index', 'store']);
 
             Route::middleware(['can:update,product', 'auth:sanctum'])->group(function () {

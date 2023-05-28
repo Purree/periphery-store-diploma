@@ -44,8 +44,23 @@
                 <div v-if="previousProductPreviewImageUrl">
                     <based-text :title="$t('product.updateProduct.images.currentImage')"/>
 
-                    <div class="previous-product-preview">
-                        <item-image :image-url="previousProductPreviewImageUrl"/>
+                    <div class="previous-product-preview-container">
+                        <el-button :disabled="generalPending"
+                                   :loading="generalPending"
+                                   type="danger"
+                                   plain
+                                   class="delete-previous-product-preview-button"
+                                   @click="usePending(onPreviousProductPreviewDelete, 'previousProductPreviewImageDeletePending')">
+                            <font-awesome-icon type="danger"
+                                               icon="trash">
+                                {{
+                                    $t('profile.avatar.buttons.delete')
+                                }}
+                            </font-awesome-icon>
+                        </el-button>
+                        <div class="previous-product-preview">
+                            <item-image :image-url="previousProductPreviewImageUrl"/>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -78,7 +93,10 @@
             />
         </el-form-item>
         <div class="product-manipulate-buttons">
-            <full-width-button :pending="pending" @click="onSubmit()">{{ $t('general.save') }}</full-width-button>
+            <full-width-button :pending="generalPending" @click="onSubmit()">{{
+                    $t('general.save')
+                }}
+            </full-width-button>
             <product-delete-button @delete-product="$emit('deleteProduct')"
                                    v-if="productToUpdate?.slug"
                                    :slug="productToUpdate?.slug"/>
@@ -93,9 +111,19 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ItemImage from '@/components/home/ItemImage.vue'
 import BasedText from '@/components/BasedText.vue'
 import ProductDeleteButton from '@/components/product/interactions/ProductDeleteButton.vue'
+import usePending from '@/mixins/usePending'
+import apiRequest from '@/helpers/apiRequest'
+import { API_DELETE_PRODUCT_PREVIEW_URL } from '@/api/products'
+import getErrorsFromResponse from '@/helpers/errors'
 
 export default {
     name: 'ProductUpdateForm',
+    computed: {
+        generalPending() {
+            return this.pending || this.previousProductPreviewImageDeletePending
+        }
+    },
+    mixins: [usePending],
     components: {
         ProductDeleteButton,
         BasedText,
@@ -118,6 +146,7 @@ export default {
                 isAvailable: false
             },
             previousProductPreviewImageUrl: '',
+            previousProductPreviewImageDeletePending: false,
             validationRules: {
                 title: { required: true },
                 metaTitle: { required: true },
@@ -164,6 +193,15 @@ export default {
                 }
             })
         },
+        async onPreviousProductPreviewDelete() {
+            try {
+                await apiRequest(API_DELETE_PRODUCT_PREVIEW_URL, { slug: this.productToUpdate.slug })
+
+                this.previousProductPreviewImageUrl = ''
+            } catch (e) {
+                this.errors = getErrorsFromResponse(e)
+            }
+        },
         onFormValidation() {
             const product = Object.assign({}, this.product)
             product.previewImage = product.previewImage.length === 1 ? product.previewImage[0].raw : null
@@ -202,6 +240,14 @@ export default {
 
 .preview-image-info-popover-icon:hover {
     cursor: pointer;
+}
+
+.previous-product-preview-container {
+    position: relative;
+}
+
+.delete-previous-product-preview-button {
+    position: absolute;
 }
 
 .previous-product-preview {
