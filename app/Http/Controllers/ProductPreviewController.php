@@ -10,6 +10,7 @@ class ProductPreviewController extends Controller
 {
     public function destroy(Product $product): JsonResponse
     {
+        $product->deletePreview();
         return ResponseResult::success();
     }
 }

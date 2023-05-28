@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -92,5 +93,16 @@ class Product extends Model
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function deletePreview(): void
+    {
+        if ($this->previewImage) {
+            Storage::disk('public')->delete(
+                $this->previewImage,
+            );
+        }
+
+        $this->update(['preview_image' => null]);
     }
 }
