@@ -1,17 +1,19 @@
 <template>
     <el-menu-item class="header-search-container inactive-header-element" index="1">
-        <el-input
-            class="header-search"
-            :placeholder="$t('nav.search')"
-            v-model="searchRequest"
-            @keyup.enter="onSearchButtonClick()"
-        >
-            <template v-slot:suffix>
-                <el-button class="search-button" @click="onSearchButtonClick()">
-                    <font-awesome-icon icon="search"></font-awesome-icon>
-                </el-button>
-            </template>
-        </el-input>
+        <div @keydown.stop class="header-search-box">
+            <el-input
+                class="header-search"
+                :placeholder="$t('nav.search')"
+                v-model="searchRequest"
+                @keyup.enter="onSearchButtonClick()"
+            >
+                <template v-slot:suffix>
+                    <el-button class="search-button" @click="onSearchButtonClick()">
+                        <font-awesome-icon icon="search"></font-awesome-icon>
+                    </el-button>
+                </template>
+            </el-input>
+        </div>
     </el-menu-item>
 </template>
 
@@ -53,6 +55,11 @@ export default {
 :deep(.header-search-container) {
     flex-grow: 2;
     min-width: 205px;
+    width: 100%;
+}
+
+.header-search-box {
+    display: flex;
     width: 100%;
 }
 </style>
