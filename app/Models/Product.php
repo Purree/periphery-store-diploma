@@ -97,9 +97,9 @@ class Product extends Model
 
     public function deletePreview(): void
     {
-        if ($this->previewImage) {
+        if ($this->preview_image) {
             Storage::disk('public')->delete(
-                $this->previewImage,
+                $this->preview_image,
             );
         }
 

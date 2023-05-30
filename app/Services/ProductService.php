@@ -93,9 +93,16 @@ class ProductService
     {
         Log::info("User {$request->user()} update {$product} product");
 
-        // @TODO: Добавить возможность удаления прошлого превью
-        // @TODO: Добавить удаление превью с сервера
-        $previewImagePath = $this->savePreviewImage($request->validated('previewImage'));
+        $previewImagePath = null;
+        if ($request->has('previewImage')) {
+            $product->deletePreview();
+
+            $requestPreviewImage = $request->validated('previewImage');
+            if ($requestPreviewImage !== null) {
+                $previewImagePath = $this->savePreviewImage($requestPreviewImage);
+            }
+        }
+
         $isAvailable = (bool)$request->validated('isAvailable');
         $product->update(
             [
