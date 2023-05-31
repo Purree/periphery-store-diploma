@@ -1,0 +1,1 @@
+import{_ as o,a as t,t as s,o as a}from"./app-aa966424.js";const n={name:"PageNotFound"},_={class:"error-text"};function c(e,r,d,p,u,i){return a(),t("div",_,"404 | "+s(e.$t("errors.pageNotFound")),1)}const f=o(n,[["render",c],["__scopeId","data-v-0091cc56"]]);export{f as default};

@@ -142,11 +142,11 @@ export default {
 
         const cachedFilters = this.$route.query
 
-        const cachedPriceBetween = cachedFilters[searchKeywordsEnum.priceBetween].map(Number)
+        const cachedPriceBetween = cachedFilters[searchKeywordsEnum.priceBetween]
         this.hasReviews = !!cachedFilters[searchKeywordsEnum.hasReviews]
         this.selectedSellers = this.getSelectedIdsFromString(cachedFilters[searchKeywordsEnum.sellers])
         this.selectedCategories = this.getSelectedIdsFromString(cachedFilters[searchKeywordsEnum.categories])
-        this.priceBetween = cachedPriceBetween || [0, this.maxAvailablePrice]
+        this.priceBetween = (cachedPriceBetween || [0, this.maxAvailablePrice]).map(Number)
     }
 }
 </script>
