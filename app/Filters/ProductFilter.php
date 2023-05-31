@@ -3,6 +3,7 @@
 namespace App\Filters;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 
 class ProductFilter extends QueryFilter
@@ -49,6 +50,6 @@ class ProductFilter extends QueryFilter
 
         asort($priceDiapason);
 
-        return $this->builder->whereBetween('price', $priceDiapason);
+        return $this->builder->havingBetween(Product::getPriceWithDiscountColumnName(), $priceDiapason);
     }
 }
