@@ -129,11 +129,9 @@ export default {
 
             return [minPrice, maxPrice]
         },
-        getSelectedIdsFromString(selectedItemsIds) {
+        getFiltersFromQuery(selectedItemsIds) {
             return (selectedItemsIds || '')
                 .split(',')
-                .map(filter => parseInt(filter))
-                .filter(filter => filter && !isNaN(filter))
         }
     },
     mounted() {
@@ -144,8 +142,10 @@ export default {
 
         const cachedPriceBetween = cachedFilters[searchKeywordsEnum.priceBetween]
         this.hasReviews = !!cachedFilters[searchKeywordsEnum.hasReviews]
-        this.selectedSellers = this.getSelectedIdsFromString(cachedFilters[searchKeywordsEnum.sellers])
-        this.selectedCategories = this.getSelectedIdsFromString(cachedFilters[searchKeywordsEnum.categories])
+        this.selectedSellers = this.getFiltersFromQuery(cachedFilters[searchKeywordsEnum.sellers])
+            .map(filter => parseInt(filter))
+            .filter(filter => filter && !isNaN(filter))
+        this.selectedCategories = this.getFiltersFromQuery(cachedFilters[searchKeywordsEnum.categories])
         this.priceBetween = (cachedPriceBetween || [0, this.maxAvailablePrice]).map(Number)
     }
 }
