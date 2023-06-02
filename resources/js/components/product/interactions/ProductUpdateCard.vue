@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import ProductUpdateForm from '@/components/product/interactions/ProductUpdateForm.vue'
+import ProductUpdateForm from '@/components/product/interactions/updateForm/ProductUpdateForm.vue'
 import apiRequest from '@/helpers/apiRequest'
 import { API_GET_PRODUCT_URL, API_UPDATE_PRODUCT_URL } from '@/api/products'
 import getErrorsFromResponse from '@/helpers/errors'
