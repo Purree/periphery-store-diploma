@@ -7,6 +7,7 @@ export default [
         name: 'ProductCreate',
         component: () => import('@/views/products/ProductCreate.vue'),
         meta: {
+            title: 'titles.productCreate',
             layout: 'ProductLayout',
             [GuardedRouteMetaEnum.needPermissions]: [PermissionsEnum.create_products]
         }
@@ -15,6 +16,7 @@ export default [
         name: 'ProductUpdate',
         component: () => import('@/views/products/ProductUpdate.vue'),
         meta: {
+            title: 'titles.productUpdate',
             layout: 'ProductLayout',
             [GuardedRouteMetaEnum.needPermissions]: [PermissionsEnum.update_own_products]
         }
@@ -24,6 +26,7 @@ export default [
         name: 'Product',
         component: () => import('@/views/products/Product.vue'),
         meta: {
+            title: 'titles.product',
             layout: 'ProductLayout'
         }
     }

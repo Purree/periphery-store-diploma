@@ -30,6 +30,7 @@ import usePending from '@/mixins/usePending'
 import ProductCategoriesUpdateCard from '@/components/product/interactions/ProductCategoriesUpdateCard.vue'
 import ProductImagesUpdateCard from '@/components/product/interactions/ProductImagesUpdateCard.vue'
 import useErrorsCatch from '@/mixins/useErrorsCatch'
+import title from '@/mixins/title'
 
 export default {
     name: 'ProductUpdateCard',
@@ -46,7 +47,7 @@ export default {
             productSlug: ''
         }
     },
-    mixins: [usePending, useErrorsCatch],
+    mixins: [usePending, useErrorsCatch, title],
     methods: {
         async onProductUpdateButtonClick(productFormData) {
             this.errors = {}
@@ -54,6 +55,7 @@ export default {
 
             try {
                 this.product = (await apiRequest(API_UPDATE_PRODUCT_URL, { slug: this.productSlug }, productFormData)).data
+                this.updateTitle()
             } catch (errors) {
                 this.errors = getErrorsFromResponse(errors)
             }
@@ -69,9 +71,13 @@ export default {
                 }
 
                 this.product = product
+                this.updateTitle()
             }, async() => {
                 await this.redirectToHome()
             })
+        },
+        updateTitle() {
+            this.updateDocumentTitle('titles.productUpdate', { product: this.product.metaTitle })
         },
         async redirectToHome() {
             await this.$router.push({ name: 'Home' })

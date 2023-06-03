@@ -1,5 +1,21 @@
 export default {
     en: {
+        titles: {
+            main: 'Shop selling computer peripherals',
+            searchBy: 'Search for {searchBy}',
+            search: 'Search page',
+            cart: 'Products in cart',
+            productCreate: 'Product create',
+            product: 'Product {product}',
+            productUpdate: 'Update product {product}',
+            pageNotFound: 'Page not found',
+            forbidden: 'Access deny',
+            orders: 'Orders list',
+            order: 'Order {order}',
+            login: 'Login',
+            register: 'Register',
+            profile: 'User {user} profile'
+        },
         errors: {
             pageNotFound: 'Page not found',
             forbidden: 'Access deny'

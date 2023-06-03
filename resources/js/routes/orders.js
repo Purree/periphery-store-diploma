@@ -7,6 +7,7 @@ export default [
         name: 'Orders',
         component: () => import('@/views/orders/Orders.vue'),
         meta: {
+            title: 'titles.orders',
             [GuardedRouteMetaEnum.needPermissions]: PermissionsEnum.buy_products,
             withoutPermissionRedirectTo: 'Profile',
             layout: 'OrdersLayout'
@@ -17,6 +18,7 @@ export default [
         name: 'Order',
         component: () => import('@/views/orders/Order.vue'),
         meta: {
+            title: 'titles.order',
             [GuardedRouteMetaEnum.needPermissions]: PermissionsEnum.buy_products,
             withoutPermissionRedirectTo: 'Profile',
             layout: 'OrderLayout'

@@ -14,6 +14,7 @@ import { GuardedRouteMetaEnum } from '@/helpers/enums/GuardedRouteMetaEnum'
 import products from '@/routes/products'
 import orders from '@/routes/orders'
 import { addRedirectQueryToAuthRoutes } from '@/routes/middleware/addRedirectQueryToAuthRoutes'
+import SearchKeywordsEnum from '@/helpers/enums/SearchKeywordsEnum'
 
 const routes = [
     {
@@ -32,6 +33,12 @@ const routes = [
         name: 'Search',
         component: () => import('@/views/search/Search.vue'),
         meta: {
+            title: route => {
+                const searchBy = route.query[SearchKeywordsEnum.searchBy]
+                return searchBy
+                    ? ['titles.searchBy', { searchBy }]
+                    : ['titles.search']
+            },
             layout: 'SearchLayout',
             [GuardedRouteMetaEnum.needPermissionsOrGuest]: PermissionsEnum.view_products,
             withoutPermissionRedirectTo: 'Profile'
@@ -42,6 +49,7 @@ const routes = [
         name: 'Cart',
         component: () => import('@/views/cart/Cart.vue'),
         meta: {
+            title: 'titles.cart',
             layout: 'CartLayout',
             [GuardedRouteMetaEnum.needPermissions]: PermissionsEnum.buy_products,
             withoutPermissionRedirectTo: 'Home'

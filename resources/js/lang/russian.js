@@ -1,5 +1,21 @@
 export default {
     ru: {
+        titles: {
+            main: 'Магазин по продаже компьютерной периферии',
+            searchBy: 'Поиск по {searchBy}',
+            search: 'Страница поиска',
+            cart: 'Товары в корзине',
+            productCreate: 'Создание продукта',
+            product: 'Товар {product}',
+            productUpdate: 'Обновление товара {product}',
+            pageNotFound: 'Страница не найдена',
+            forbidden: 'Доступ запрещён',
+            orders: 'Список заказов',
+            order: 'Заказ {order}',
+            login: 'Вход в аккаунт',
+            register: 'Регистрация',
+            profile: 'Профиль пользователя {user}'
+        },
         errors: {
             pageNotFound: 'Страница не найдена',
             forbidden: 'Доступ запрещён'

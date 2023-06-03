@@ -37,16 +37,18 @@ import { mapState } from 'vuex'
 import { generateFullName } from '@/helpers/name'
 import OrderItemsData from '@/components/orders/OrderItemsData.vue'
 import useErrorsCatch from '@/mixins/useErrorsCatch'
+import title from '@/mixins/title'
 
 export default {
     name: 'Order',
-    mixins: [usePending, useErrorsCatch],
+    mixins: [usePending, useErrorsCatch, title],
     methods: {
         generateFullName,
         beautifyDate,
         async loadOrder() {
             await this.useErrorsCatch(async() => {
                 this.order = (await apiRequest(API_GET_ORDER_URL, { id: this.orderId })).data
+                this.updateDocumentTitle('titles.order', { order: this.order.id })
             }, async() => {
                 await this.$router.push({ name: 'Orders' })
             })

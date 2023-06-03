@@ -4,6 +4,7 @@ export default [
         name: 'PageNotExist',
         component: () => import('@/views/Errors/PageNotFound.vue'),
         meta: {
+            title: 'titles.pageNotFound',
             layout: 'ErrorLayout'
         }
     },
@@ -12,6 +13,7 @@ export default [
         name: 'Forbidden',
         component: () => import('@/views/Errors/Forbidden.vue'),
         meta: {
+            title: 'titles.forbidden',
             layout: 'ErrorLayout'
         }
     }

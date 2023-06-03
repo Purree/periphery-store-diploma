@@ -14,14 +14,14 @@ import changeTheme from '@/mixins/theme'
 import changeLanguage from '@/mixins/changeLanguage'
 import { mapState } from 'vuex'
 import UnableToAuthenticateDialog from '@/components/authentication/UnableToAuthenticateDialog.vue'
-
+import title from '@/mixins/title'
 export default {
     name: 'app',
     components: {
         UnableToAuthenticateDialog,
         AppLayout
     },
-    mixins: [changeTheme, changeLanguage],
+    mixins: [changeTheme, changeLanguage, title],
     data() {
         return {
             isLoaded: false,
@@ -54,6 +54,20 @@ export default {
             }
         } finally {
             this.isLoaded = true
+        }
+    },
+    watch: {
+        locale() {
+            this.updatePageTitle()
+        },
+        $route() {
+            this.updatePageTitle()
+        }
+    },
+    methods: {
+        updatePageTitle() {
+            const { title } = this.$route.meta
+            this.updateDocumentTitle(...(typeof title === 'function' ? title(this.$route) : [title]))
         }
     },
     computed: {

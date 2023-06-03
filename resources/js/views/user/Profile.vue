@@ -21,6 +21,8 @@ import PermissionsEnum from '@/helpers/enums/PermissionsEnum'
 import SellerProducts from '@/views/user/SellerProducts.vue'
 import UserContactInformationChange from '@/components/profile/contactData/UserContactInformationChange.vue'
 import ProfileTitle from '@/components/profile/ProfileTitle.vue'
+import { mapState } from 'vuex'
+import title from '@/mixins/title'
 
 export default {
     name: 'Profile',
@@ -35,15 +37,19 @@ export default {
                 PermissionsEnum.delete_own_products,
                 PermissionsEnum.manipulate_all_products
             )
-        }
+        },
+        ...mapState('auth', ['user'])
     },
-    mixins: [auth],
+    mixins: [auth, title],
     components: {
         ProfileTitle,
         UserContactInformationChange,
         SellerProducts,
         UserAvatarChange,
         MainUserInformationChange
+    },
+    mounted() {
+        this.updateDocumentTitle('titles.profile', { user: this.user.name })
     }
 }
 </script>

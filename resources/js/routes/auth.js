@@ -4,6 +4,7 @@ export default [
         name: 'Login',
         component: () => import('@/views/authorization/Login.vue'),
         meta: {
+            title: 'titles.login',
             layout: 'AuthorizationLayout',
             transition: 'none',
             authRoute: true
@@ -14,6 +15,7 @@ export default [
         name: 'Register',
         component: () => import('@/views/authorization/Register.vue'),
         meta: {
+            title: 'titles.register',
             layout: 'AuthorizationLayout',
             transition: 'none',
             authRoute: true

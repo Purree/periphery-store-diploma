@@ -15,7 +15,7 @@
                      @create-user-review="review => product.userReview = review"
                      @load-reviews="usePending(loadReviews, 'productReviewsPending')"
                      @delete-review="onReviewDelete"
-                     @delete-latest-review="delete product.latestReview" />
+                     @delete-latest-review="delete product.latestReview"/>
 </template>
 
 <script>
@@ -28,10 +28,11 @@ import ProductCategories from '@/components/product/ProductCategories.vue'
 import ProductReviews from '@/components/product/reviews/ProductReviews.vue'
 import usePending from '@/mixins/usePending'
 import useErrorsCatch from '@/mixins/useErrorsCatch'
+import title from '@/mixins/title'
 
 export default {
     name: 'Product',
-    mixins: [usePending, useErrorsCatch],
+    mixins: [usePending, useErrorsCatch, title],
     components: {
         ProductReviews,
         ProductCategories,
@@ -50,7 +51,10 @@ export default {
         async getProduct(slug) {
             return await this.useErrorsCatch(async() => {
                 const productResponse = await apiRequest(API_GET_PRODUCT_URL, { slug })
-                return productResponse.data
+                const productData = productResponse.data
+                this.updateDocumentTitle('titles.product', { product: productData.metaTitle })
+
+                return productData
             }, (errors) => {
                 if ([403, 404].includes(errors?.response?.status)) {
                     this.$router.push({ name: 'Home' })
