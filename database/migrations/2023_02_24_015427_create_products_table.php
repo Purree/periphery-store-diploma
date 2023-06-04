@@ -13,10 +13,17 @@ return new class () extends Migration {
         Schema::create('products', static function (Blueprint $table) {
             $table->id();
             $table->foreignId('seller_id')->constrained('users');
-            $table->string('title', 75)->fulltext();
+
+            if (env('APP_ENV') === 'testing') {
+                $table->string('title', 75);
+                $table->text('description');
+            } else {
+                $table->string('title', 75)->fulltext();
+                $table->text('description')->fulltext();
+            }
+
             $table->string('meta_title', 100)->nullable();
             $table->string('slug', 100)->unique();
-            $table->text('description')->fulltext();
             $table->string('preview_image', 2048)->nullable();
             $table->string('SKU', 100)->unique();
             $table->decimal('price', 9);
