@@ -15,9 +15,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
+    use Searchable;
     use SoftDeletes;
     use HasFactory;
     use PriceWithDiscountTrait;
@@ -29,6 +32,15 @@ class Product extends Model
 
     protected $hidden = ['id'];
     protected $guarded = ['id'];
+
+    #[SearchUsingFullText(['title', 'description'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->description
+        ];
+    }
 
     public function getRouteKeyName(): string
     {

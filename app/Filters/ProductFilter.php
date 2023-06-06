@@ -10,9 +10,9 @@ class ProductFilter extends QueryFilter
 {
     public function searchBy($searchedString): Builder
     {
-        return $this->builder
-            ->where('title', 'LIKE', '%'.$searchedString.'%')
-            ->orWhere('description', 'LIKE', '%'.$searchedString.'%');
+        $foundProducts = Product::search($searchedString)->get()->pluck('id');
+
+        return $this->builder->whereIn('id', $foundProducts);
     }
 
     public function categories(string $slug): Builder
