@@ -39,154 +39,154 @@
     "file": "assets/ViewTitle-c8476648.css",
     "src": "ViewTitle.css"
   },
-  "_CategoryOpenLinkCard-06ca59ac.js": {
+  "_CategoryOpenLinkCard-1d02c43f.js": {
     "css": [
       "assets/CategoryOpenLinkCard-3940e65d.css"
     ],
-    "file": "assets/CategoryOpenLinkCard-06ca59ac.js",
+    "file": "assets/CategoryOpenLinkCard-1d02c43f.js",
     "imports": [
       "resources/js/app.js",
-      "_StyledRouterLink-43c7e266.js"
+      "_StyledRouterLink-5a3a7315.js"
     ]
   },
-  "_InputRow-9b5028a1.js": {
+  "_InputRow-cafecaf2.js": {
     "css": [
       "assets/InputRow-b523a89e.css"
     ],
-    "file": "assets/InputRow-9b5028a1.js",
+    "file": "assets/InputRow-cafecaf2.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_ItemImage-14603b6e.js": {
+  "_ItemImage-a88dd7c6.js": {
     "css": [
       "assets/ItemImage-261f8846.css"
     ],
-    "file": "assets/ItemImage-14603b6e.js",
+    "file": "assets/ItemImage-a88dd7c6.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_MainHeader-40106494.js": {
+  "_MainHeader-c3567a99.js": {
     "css": [
       "assets/MainHeader-adc75e18.css"
     ],
-    "file": "assets/MainHeader-40106494.js",
+    "file": "assets/MainHeader-c3567a99.js",
     "imports": [
-      "_StoreIcon-39db4da2.js",
+      "_StoreIcon-0f8d5151.js",
       "resources/js/app.js"
     ]
   },
-  "_OrderStatusTag-0e4c7e4e.js": {
-    "file": "assets/OrderStatusTag-0e4c7e4e.js",
+  "_OrderStatusTag-d5484b14.js": {
+    "file": "assets/OrderStatusTag-d5484b14.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_ProductCard-2821ab9b.js": {
+  "_ProductCard-fa56d5c9.js": {
     "css": [
       "assets/ProductCard-ab725871.css"
     ],
-    "file": "assets/ProductCard-2821ab9b.js",
+    "file": "assets/ProductCard-fa56d5c9.js",
     "imports": [
-      "_ProductPrice-2706239b.js",
-      "_ProductOpenLink-ba57e14e.js",
-      "_ItemImage-14603b6e.js",
+      "_ProductPrice-43b98446.js",
+      "_ProductOpenLink-c49b0aa1.js",
+      "_ItemImage-a88dd7c6.js",
       "resources/js/app.js"
     ]
   },
-  "_ProductCategoriesSelect-6a198086.js": {
-    "file": "assets/ProductCategoriesSelect-6a198086.js",
+  "_ProductCategoriesSelect-5b7bb92e.js": {
+    "file": "assets/ProductCategoriesSelect-5b7bb92e.js",
     "imports": [
       "resources/js/app.js",
-      "_categories-df12348f.js"
+      "_categories-2e15c2b3.js"
     ]
   },
-  "_ProductDeleteButton-76990202.js": {
-    "file": "assets/ProductDeleteButton-76990202.js",
+  "_ProductDeleteButton-1a892d8f.js": {
+    "file": "assets/ProductDeleteButton-1a892d8f.js",
     "imports": [
       "resources/js/app.js",
-      "_products-7ae8b1be.js"
+      "_products-0a2918a3.js"
     ]
   },
-  "_ProductOpenLink-ba57e14e.js": {
-    "file": "assets/ProductOpenLink-ba57e14e.js",
+  "_ProductOpenLink-c49b0aa1.js": {
+    "file": "assets/ProductOpenLink-c49b0aa1.js",
     "imports": [
-      "_StyledRouterLink-43c7e266.js",
+      "_StyledRouterLink-5a3a7315.js",
       "resources/js/app.js"
     ]
   },
-  "_ProductPrice-2706239b.js": {
+  "_ProductPrice-43b98446.js": {
     "css": [
       "assets/ProductPrice-394e290e.css"
     ],
-    "file": "assets/ProductPrice-2706239b.js",
+    "file": "assets/ProductPrice-43b98446.js",
     "imports": [
       "resources/js/app.js",
       "_price-38bf80ae.js"
     ]
   },
-  "_ProductUpdateForm-af663aa7.js": {
+  "_ProductUpdateForm-c0eb4f19.js": {
     "css": [
       "assets/ProductUpdateForm-b420220e.css"
     ],
-    "file": "assets/ProductUpdateForm-af663aa7.js",
+    "file": "assets/ProductUpdateForm-c0eb4f19.js",
     "imports": [
       "resources/js/app.js",
-      "_ProductDeleteButton-76990202.js",
-      "_products-7ae8b1be.js",
-      "_ItemImage-14603b6e.js"
+      "_ProductDeleteButton-1a892d8f.js",
+      "_products-0a2918a3.js",
+      "_ItemImage-a88dd7c6.js"
     ]
   },
-  "_ProfileTitle-f62bd153.js": {
+  "_ProfileTitle-e1727ce6.js": {
     "css": [
       "assets/ProfileTitle-68b1e185.css"
     ],
-    "file": "assets/ProfileTitle-f62bd153.js",
+    "file": "assets/ProfileTitle-e1727ce6.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_StoreIcon-39db4da2.js": {
-    "file": "assets/StoreIcon-39db4da2.js",
+  "_StoreIcon-0f8d5151.js": {
+    "file": "assets/StoreIcon-0f8d5151.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_StyledRouterLink-43c7e266.js": {
-    "file": "assets/StyledRouterLink-43c7e266.js",
+  "_StyledRouterLink-5a3a7315.js": {
+    "file": "assets/StyledRouterLink-5a3a7315.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_UnderHeaderTitle-e8e1bf90.js": {
+  "_UnderHeaderTitle-9ed0fad6.js": {
     "css": [
       "assets/UnderHeaderTitle-d4b27bae.css"
     ],
-    "file": "assets/UnderHeaderTitle-e8e1bf90.js",
+    "file": "assets/UnderHeaderTitle-9ed0fad6.js",
     "imports": [
-      "_ViewTitle-4a1f20fc.js",
+      "_ViewTitle-e3c51f57.js",
       "resources/js/app.js"
     ]
   },
-  "_ViewTitle-4a1f20fc.js": {
+  "_ViewTitle-e3c51f57.js": {
     "css": [
       "assets/ViewTitle-c8476648.css"
     ],
-    "file": "assets/ViewTitle-4a1f20fc.js",
+    "file": "assets/ViewTitle-e3c51f57.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_allProducts-8e3b88d8.js": {
-    "file": "assets/allProducts-8e3b88d8.js",
+  "_allProducts-9034ca6f.js": {
+    "file": "assets/allProducts-9034ca6f.js",
     "imports": [
       "resources/js/app.js",
-      "_products-7ae8b1be.js"
+      "_products-0a2918a3.js"
     ]
   },
-  "_categories-df12348f.js": {
-    "file": "assets/categories-df12348f.js",
+  "_categories-2e15c2b3.js": {
+    "file": "assets/categories-2e15c2b3.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -194,8 +194,8 @@
   "_name-4e882a16.js": {
     "file": "assets/name-4e882a16.js"
   },
-  "_orders-18c6fee6.js": {
-    "file": "assets/orders-18c6fee6.js",
+  "_orders-c1a27c0d.js": {
+    "file": "assets/orders-c1a27c0d.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -203,8 +203,8 @@
   "_price-38bf80ae.js": {
     "file": "assets/price-38bf80ae.js"
   },
-  "_products-7ae8b1be.js": {
-    "file": "assets/products-7ae8b1be.js",
+  "_products-0a2918a3.js": {
+    "file": "assets/products-0a2918a3.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -215,7 +215,7 @@
     "src": "resources/css/app.css"
   },
   "resources/css/filament.css": {
-    "file": "assets/filament-5d768441.css",
+    "file": "assets/filament-204531f0.css",
     "isEntry": true,
     "src": "resources/css/filament.css"
   },
@@ -251,7 +251,7 @@
       "resources/js/views/search/Search.vue",
       "resources/js/views/cart/Cart.vue"
     ],
-    "file": "assets/app-a341633d.js",
+    "file": "assets/app-17bd0390.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -263,11 +263,11 @@
     "css": [
       "assets/AppLayoutDefault-3b890ddb.css"
     ],
-    "file": "assets/AppLayoutDefault-200fe814.js",
+    "file": "assets/AppLayoutDefault-8ee52ae3.js",
     "imports": [
-      "_MainHeader-40106494.js",
+      "_MainHeader-c3567a99.js",
       "resources/js/app.js",
-      "_StoreIcon-39db4da2.js"
+      "_StoreIcon-0f8d5151.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/AppLayoutDefault.vue"
@@ -280,30 +280,30 @@
     "css": [
       "assets/AuthorizationLayout-50b53342.css"
     ],
-    "file": "assets/AuthorizationLayout-6758609d.js",
+    "file": "assets/AuthorizationLayout-85ec0b06.js",
     "imports": [
-      "_StoreIcon-39db4da2.js",
+      "_StoreIcon-0f8d5151.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/AuthorizationLayout.vue"
   },
   "resources/js/layouts/CartLayout.vue": {
-    "file": "assets/CartLayout-13474958.js",
+    "file": "assets/CartLayout-cd29ba0b.js",
     "imports": [
       "resources/js/layouts/ProductLayout.vue",
       "resources/js/app.js",
-      "_MainHeader-40106494.js",
-      "_StoreIcon-39db4da2.js"
+      "_MainHeader-c3567a99.js",
+      "_StoreIcon-0f8d5151.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/CartLayout.vue"
   },
   "resources/js/layouts/ErrorLayout.vue": {
-    "file": "assets/ErrorLayout-40cde77d.js",
+    "file": "assets/ErrorLayout-37c186cc.js",
     "imports": [
       "resources/js/app.js",
-      "_StyledRouterLink-43c7e266.js"
+      "_StyledRouterLink-5a3a7315.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/ErrorLayout.vue"
@@ -316,34 +316,34 @@
     "css": [
       "assets/HomeLayout-7176473e.css"
     ],
-    "file": "assets/HomeLayout-466f0cd3.js",
+    "file": "assets/HomeLayout-fd6bd0a3.js",
     "imports": [
-      "_MainHeader-40106494.js",
+      "_MainHeader-c3567a99.js",
       "resources/js/app.js",
-      "_StoreIcon-39db4da2.js"
+      "_StoreIcon-0f8d5151.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/HomeLayout.vue"
   },
   "resources/js/layouts/OrderLayout.vue": {
-    "file": "assets/OrderLayout-faacd59b.js",
+    "file": "assets/OrderLayout-67ef8f29.js",
     "imports": [
       "resources/js/layouts/ProductLayout.vue",
       "resources/js/app.js",
-      "_MainHeader-40106494.js",
-      "_StoreIcon-39db4da2.js"
+      "_MainHeader-c3567a99.js",
+      "_StoreIcon-0f8d5151.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/OrderLayout.vue"
   },
   "resources/js/layouts/OrdersLayout.vue": {
-    "file": "assets/OrdersLayout-6931baa1.js",
+    "file": "assets/OrdersLayout-b34cf989.js",
     "imports": [
       "resources/js/layouts/CartLayout.vue",
       "resources/js/app.js",
       "resources/js/layouts/ProductLayout.vue",
-      "_MainHeader-40106494.js",
-      "_StoreIcon-39db4da2.js"
+      "_MainHeader-c3567a99.js",
+      "_StoreIcon-0f8d5151.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/OrdersLayout.vue"
@@ -356,45 +356,45 @@
     "css": [
       "assets/ProductLayout-0d806316.css"
     ],
-    "file": "assets/ProductLayout-0e07a7bf.js",
+    "file": "assets/ProductLayout-dbbc30e9.js",
     "imports": [
-      "_MainHeader-40106494.js",
+      "_MainHeader-c3567a99.js",
       "resources/js/app.js",
-      "_StoreIcon-39db4da2.js"
+      "_StoreIcon-0f8d5151.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/ProductLayout.vue"
   },
   "resources/js/layouts/SearchLayout.vue": {
-    "file": "assets/SearchLayout-8e18056a.js",
+    "file": "assets/SearchLayout-c257fca0.js",
     "imports": [
       "resources/js/layouts/ProductLayout.vue",
       "resources/js/app.js",
-      "_MainHeader-40106494.js",
-      "_StoreIcon-39db4da2.js"
+      "_MainHeader-c3567a99.js",
+      "_StoreIcon-0f8d5151.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/layouts/SearchLayout.vue"
   },
   "resources/js/views/Home.css": {
-    "file": "assets/Home-47b900ed.css",
+    "file": "assets/Home-baaaa628.css",
     "src": "resources/js/views/Home.css"
   },
   "resources/js/views/Home.vue": {
     "css": [
-      "assets/Home-47b900ed.css"
+      "assets/Home-baaaa628.css"
     ],
-    "file": "assets/Home-30d6232c.js",
+    "file": "assets/Home-0e8e5644.js",
     "imports": [
-      "_CategoryOpenLinkCard-06ca59ac.js",
+      "_CategoryOpenLinkCard-1d02c43f.js",
       "resources/js/app.js",
-      "_ProductPrice-2706239b.js",
-      "_ItemImage-14603b6e.js",
-      "_ProductOpenLink-ba57e14e.js",
-      "_products-7ae8b1be.js",
-      "_allProducts-8e3b88d8.js",
-      "_categories-df12348f.js",
-      "_StyledRouterLink-43c7e266.js",
+      "_ProductPrice-43b98446.js",
+      "_ItemImage-a88dd7c6.js",
+      "_ProductOpenLink-c49b0aa1.js",
+      "_products-0a2918a3.js",
+      "_allProducts-9034ca6f.js",
+      "_categories-2e15c2b3.js",
+      "_StyledRouterLink-5a3a7315.js",
       "_price-38bf80ae.js"
     ],
     "isDynamicEntry": true,
@@ -408,10 +408,10 @@
     "css": [
       "assets/Login-1dc6c629.css"
     ],
-    "file": "assets/Login-59301cbb.js",
+    "file": "assets/Login-9a82fb8b.js",
     "imports": [
       "resources/js/app.js",
-      "_InputRow-9b5028a1.js"
+      "_InputRow-cafecaf2.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/authorization/Login.vue"
@@ -424,9 +424,9 @@
     "css": [
       "assets/Register-7b83e401.css"
     ],
-    "file": "assets/Register-989dd936.js",
+    "file": "assets/Register-9a53f94f.js",
     "imports": [
-      "_InputRow-9b5028a1.js",
+      "_InputRow-cafecaf2.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
@@ -440,18 +440,18 @@
     "css": [
       "assets/Cart-34cd2269.css"
     ],
-    "file": "assets/Cart-d33ef4e1.js",
+    "file": "assets/Cart-18d7f5f8.js",
     "imports": [
       "resources/js/app.js",
-      "_ProductCard-2821ab9b.js",
+      "_ProductCard-fa56d5c9.js",
       "_price-38bf80ae.js",
-      "_ViewTitle-4a1f20fc.js",
-      "_orders-18c6fee6.js",
-      "_StyledRouterLink-43c7e266.js",
+      "_ViewTitle-e3c51f57.js",
+      "_orders-c1a27c0d.js",
+      "_StyledRouterLink-5a3a7315.js",
       "_name-4e882a16.js",
-      "_ProductPrice-2706239b.js",
-      "_ProductOpenLink-ba57e14e.js",
-      "_ItemImage-14603b6e.js"
+      "_ProductPrice-43b98446.js",
+      "_ProductOpenLink-c49b0aa1.js",
+      "_ItemImage-a88dd7c6.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/cart/Cart.vue"
@@ -464,7 +464,7 @@
     "css": [
       "assets/Forbidden-9026911f.css"
     ],
-    "file": "assets/Forbidden-3ce5aba0.js",
+    "file": "assets/Forbidden-baeb28c1.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -479,7 +479,7 @@
     "css": [
       "assets/PageNotFound-3b05652e.css"
     ],
-    "file": "assets/PageNotFound-f6bdbbb2.js",
+    "file": "assets/PageNotFound-d5182757.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -494,20 +494,20 @@
     "css": [
       "assets/Order-99a3924b.css"
     ],
-    "file": "assets/Order-fd545a91.js",
+    "file": "assets/Order-fa4cd92b.js",
     "imports": [
       "resources/js/app.js",
-      "_orders-18c6fee6.js",
-      "_UnderHeaderTitle-e8e1bf90.js",
+      "_orders-c1a27c0d.js",
+      "_UnderHeaderTitle-9ed0fad6.js",
       "_price-38bf80ae.js",
-      "_OrderStatusTag-0e4c7e4e.js",
+      "_OrderStatusTag-d5484b14.js",
       "_name-4e882a16.js",
-      "_ProductCard-2821ab9b.js",
-      "_ViewTitle-4a1f20fc.js",
-      "_ProductPrice-2706239b.js",
-      "_ProductOpenLink-ba57e14e.js",
-      "_StyledRouterLink-43c7e266.js",
-      "_ItemImage-14603b6e.js"
+      "_ProductCard-fa56d5c9.js",
+      "_ViewTitle-e3c51f57.js",
+      "_ProductPrice-43b98446.js",
+      "_ProductOpenLink-c49b0aa1.js",
+      "_StyledRouterLink-5a3a7315.js",
+      "_ItemImage-a88dd7c6.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/orders/Order.vue"
@@ -520,16 +520,16 @@
     "css": [
       "assets/Orders-8ea4eb98.css"
     ],
-    "file": "assets/Orders-99fc8406.js",
+    "file": "assets/Orders-c42a0a70.js",
     "imports": [
-      "_ViewTitle-4a1f20fc.js",
+      "_ViewTitle-e3c51f57.js",
       "resources/js/app.js",
-      "_orders-18c6fee6.js",
+      "_orders-c1a27c0d.js",
       "_price-38bf80ae.js",
-      "_ItemImage-14603b6e.js",
-      "_ProductOpenLink-ba57e14e.js",
-      "_StyledRouterLink-43c7e266.js",
-      "_OrderStatusTag-0e4c7e4e.js"
+      "_ItemImage-a88dd7c6.js",
+      "_ProductOpenLink-c49b0aa1.js",
+      "_StyledRouterLink-5a3a7315.js",
+      "_OrderStatusTag-d5484b14.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/orders/Orders.vue"
@@ -542,30 +542,30 @@
     "css": [
       "assets/Product-7a907de8.css"
     ],
-    "file": "assets/Product-4583a05f.js",
+    "file": "assets/Product-b5d9bc54.js",
     "imports": [
       "resources/js/app.js",
-      "_products-7ae8b1be.js",
-      "_ProductPrice-2706239b.js",
-      "_CategoryOpenLinkCard-06ca59ac.js",
-      "_StyledRouterLink-43c7e266.js",
-      "_UnderHeaderTitle-e8e1bf90.js",
-      "_categories-df12348f.js",
-      "_ProfileTitle-f62bd153.js",
+      "_products-0a2918a3.js",
+      "_ProductPrice-43b98446.js",
+      "_CategoryOpenLinkCard-1d02c43f.js",
+      "_StyledRouterLink-5a3a7315.js",
+      "_UnderHeaderTitle-9ed0fad6.js",
+      "_categories-2e15c2b3.js",
+      "_ProfileTitle-e1727ce6.js",
       "_price-38bf80ae.js",
-      "_ViewTitle-4a1f20fc.js"
+      "_ViewTitle-e3c51f57.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/products/Product.vue"
   },
   "resources/js/views/products/ProductCreate.vue": {
-    "file": "assets/ProductCreate-ca020833.js",
+    "file": "assets/ProductCreate-d2c9f73b.js",
     "imports": [
-      "_ProductUpdateForm-af663aa7.js",
-      "_products-7ae8b1be.js",
+      "_ProductUpdateForm-c0eb4f19.js",
+      "_products-0a2918a3.js",
       "resources/js/app.js",
-      "_ProductDeleteButton-76990202.js",
-      "_ItemImage-14603b6e.js"
+      "_ProductDeleteButton-1a892d8f.js",
+      "_ItemImage-a88dd7c6.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/products/ProductCreate.vue"
@@ -578,15 +578,15 @@
     "css": [
       "assets/ProductUpdate-fa19087d.css"
     ],
-    "file": "assets/ProductUpdate-c4029ba9.js",
+    "file": "assets/ProductUpdate-9fe877c7.js",
     "imports": [
-      "_ProductUpdateForm-af663aa7.js",
+      "_ProductUpdateForm-c0eb4f19.js",
       "resources/js/app.js",
-      "_products-7ae8b1be.js",
-      "_ProductCategoriesSelect-6a198086.js",
-      "_ItemImage-14603b6e.js",
-      "_ProductDeleteButton-76990202.js",
-      "_categories-df12348f.js"
+      "_products-0a2918a3.js",
+      "_ProductCategoriesSelect-5b7bb92e.js",
+      "_ItemImage-a88dd7c6.js",
+      "_ProductDeleteButton-1a892d8f.js",
+      "_categories-2e15c2b3.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/products/ProductUpdate.vue"
@@ -599,19 +599,19 @@
     "css": [
       "assets/Search-09f11c70.css"
     ],
-    "file": "assets/Search-44a079f5.js",
+    "file": "assets/Search-a717e6ec.js",
     "imports": [
-      "_allProducts-8e3b88d8.js",
+      "_allProducts-9034ca6f.js",
       "resources/js/app.js",
-      "_products-7ae8b1be.js",
-      "_ProductCategoriesSelect-6a198086.js",
-      "_ProductCard-2821ab9b.js",
-      "_categories-df12348f.js",
-      "_ProductPrice-2706239b.js",
+      "_products-0a2918a3.js",
+      "_ProductCategoriesSelect-5b7bb92e.js",
+      "_ProductCard-fa56d5c9.js",
+      "_categories-2e15c2b3.js",
+      "_ProductPrice-43b98446.js",
       "_price-38bf80ae.js",
-      "_ProductOpenLink-ba57e14e.js",
-      "_StyledRouterLink-43c7e266.js",
-      "_ItemImage-14603b6e.js"
+      "_ProductOpenLink-c49b0aa1.js",
+      "_StyledRouterLink-5a3a7315.js",
+      "_ItemImage-a88dd7c6.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/search/Search.vue"
@@ -624,19 +624,19 @@
     "css": [
       "assets/Profile-da7520a6.css"
     ],
-    "file": "assets/Profile-efe45ec6.js",
+    "file": "assets/Profile-f24fa069.js",
     "imports": [
       "resources/js/app.js",
-      "_products-7ae8b1be.js",
-      "_ProductCard-2821ab9b.js",
-      "_ProductDeleteButton-76990202.js",
-      "_ProfileTitle-f62bd153.js",
+      "_products-0a2918a3.js",
+      "_ProductCard-fa56d5c9.js",
+      "_ProductDeleteButton-1a892d8f.js",
+      "_ProfileTitle-e1727ce6.js",
       "_name-4e882a16.js",
-      "_ProductPrice-2706239b.js",
+      "_ProductPrice-43b98446.js",
       "_price-38bf80ae.js",
-      "_ProductOpenLink-ba57e14e.js",
-      "_StyledRouterLink-43c7e266.js",
-      "_ItemImage-14603b6e.js"
+      "_ProductOpenLink-c49b0aa1.js",
+      "_StyledRouterLink-5a3a7315.js",
+      "_ItemImage-a88dd7c6.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/views/user/Profile.vue"

@@ -50,6 +50,7 @@ export default {
 }
 
 .products-carousel {
+    width: 99%;
     height: 100%;
     &:deep(.el-carousel__container) {
         display: flex;
