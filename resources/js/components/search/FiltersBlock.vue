@@ -130,8 +130,7 @@ export default {
             return [minPrice, maxPrice]
         },
         getFiltersFromQuery(selectedItemsIds) {
-            return (selectedItemsIds || '')
-                .split(',')
+            return (selectedItemsIds && typeof selectedItemsIds === 'string') ? selectedItemsIds.split(',') : selectedItemsIds
         }
     },
     mounted() {
