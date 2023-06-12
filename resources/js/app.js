@@ -1,11 +1,31 @@
 import './bootstrap'
 
 /* Font awesome */
+// import { fas } from '@fortawesome/free-solid-svg-icons'
+import {
+    faHome,
+    faTrash,
+    faPen,
+    faXmark,
+    faCheck,
+    faPlus,
+    faUser,
+    faSpinner,
+    faChevronDown,
+    faCircleInfo,
+    faStar,
+    faCartShopping,
+    faSearch,
+    faArrowLeft,
+    faArrowRight,
+    faSun,
+    faMoon,
+    faBox
+} from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// library.add(fas)
 /* Font awesome */
-
 import ElementPlus from 'element-plus'
 import '@@/app.scss'
 
@@ -23,7 +43,24 @@ import ReviewRepliesBlock from '@/components/product/reviews/replies/ReviewRepli
 
 import App from '@/App.vue'
 
-library.add(fas)
+library.add(faHome,
+    faTrash,
+    faPen,
+    faXmark,
+    faCheck,
+    faPlus,
+    faUser,
+    faSpinner,
+    faChevronDown,
+    faCircleInfo,
+    faStar,
+    faCartShopping,
+    faSearch,
+    faArrowLeft,
+    faArrowRight,
+    faSun,
+    faMoon,
+    faBox)
 
 const app = createApp(App)
     .use(store)
