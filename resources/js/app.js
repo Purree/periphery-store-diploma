@@ -26,7 +26,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // library.add(fas)
 /* Font awesome */
-import ElementPlus from 'element-plus'
+// import ElementPlus from 'element-plus'
 import '@@/app.scss'
 
 import { createApp } from 'vue'
@@ -65,7 +65,7 @@ library.add(faHome,
 const app = createApp(App)
     .use(store)
     .use(router)
-    .use(ElementPlus)
+    // .use(ElementPlus)
     .use(i18n)
 
 app.component('ReviewRepliesBlock', ReviewRepliesBlock)
