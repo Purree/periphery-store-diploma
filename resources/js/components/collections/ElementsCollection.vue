@@ -71,6 +71,7 @@ export default {
     },
     methods: {
         scrollCollectionToDirection(direction) {
+            this.updateCollectionScrollWidth()
             const collectionElements = this.$refs.collectionElements
             const scrollLength = collectionElements.clientWidth * (direction === 'left' ? -1 : 1)
 
@@ -104,6 +105,9 @@ export default {
 
         this.updateCollectionScrollWidth()
         window.addEventListener('resize', () => {
+            this.updateCollectionScrollWidth()
+        })
+        collectionElements.addEventListener('resize', () => {
             this.updateCollectionScrollWidth()
         })
         collectionElements.addEventListener('scroll', () => {
