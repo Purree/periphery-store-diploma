@@ -1,5 +1,6 @@
 <template>
     <el-dialog
+        destroy-on-close
         v-model="isDialogVisible"
         :title="$t('cart.cart')"
         width="90%"
