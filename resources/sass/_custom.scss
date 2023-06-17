@@ -29,48 +29,48 @@ html {
 }
 
 .container {
-    padding: 0 15px;
+    padding: 0 15px !important;
 }
 
 @include screen-size('mobile') {
     .home-container {
-        padding: 0 10px;
+        padding: 0 10px !important;
     }
     .container {
-        padding: 0;
+        padding: 0 !important;
     }
 }
 
 @include screen-size('tablet') {
     .home-container {
-        padding: 0 10px;
+        padding: 0 10px !important;
     }
     .container {
-        padding: 0 calc(50% - 270px);
+        padding: 0 calc(50% - 270px) !important;
     }
 }
 
 @include screen-size('big-tablet') {
     .home-container {
-        padding: 0 max((100% - 1500px) / 2,30px)
+        padding: 0 max((100% - 1500px) / 2,30px) !important;
     }
     .container {
-        padding: 0 calc(50% - 360px);
+        padding: 0 calc(50% - 360px) !important;
     }
 }
 
 @include screen-size('small-desktop') {
     .container {
-        padding: 0 calc(50% - 480px);
+        padding: 0 calc(50% - 480px) !important;
     }
 }
 
 @include screen-size('desktop') {
     .home-container {
-        padding: 0 max((100% - 1500px) / 2,50px)
+        padding: 0 max((100% - 1500px) / 2,50px) !important;
     }
     .container {
-        padding: 0 calc(50% - 590px);
+        padding: 0 calc(50% - 590px) !important;
     }
 }
 
