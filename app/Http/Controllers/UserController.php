@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     public function __construct()
     {
@@ -26,9 +26,12 @@ class UserController extends Controller
     public function showAuthenticated(Request $request): JsonResponse
     {
         /** @psalm-suppress UndefinedInterfaceMethod, ArgumentTypeCoercion */
-        return $this->show($request, User::query()
-            ->with(['roles', 'addresses', 'mobiles', 'names'])
-            ->firstWhere('id', $request->user()?->id));
+        return $this->show(
+            $request,
+            User::query()
+                ->with($this->getAllUserRelations())
+                ->firstWhere('id', $request->user()?->id)
+        );
     }
 
     public function update(UpdateUserRequest $request, User $user): JsonResponse
@@ -36,6 +39,16 @@ class UserController extends Controller
         $user->update($request->validated());
 
         /** @psalm-suppress ArgumentTypeCoercion */
-        return $this->show($request, User::query()->with('roles')->firstWhere('id', $user->id));
+        return $this->show(
+            $request,
+            User::query()
+                ->with($this->getAllUserRelations())
+                ->firstWhere('id', $user->id)
+        );
+    }
+
+    private function getAllUserRelations(): array
+    {
+        return ['roles', 'addresses', 'mobiles', 'names'];
     }
 }
