@@ -26,10 +26,15 @@ final class UserController extends Controller
     public function showAuthenticated(Request $request): JsonResponse
     {
         /** @psalm-suppress UndefinedInterfaceMethod, ArgumentTypeCoercion */
+        return $this->showWithAllRelations($request, $request->user()?->id);
+    }
+
+    public function showWithAllRelations(Request $request, int $userId): JsonResponse
+    {
         return $this->show(
             $request,
             User::query()
-                ->with($this->getAllUserRelations())
+                ->with(['roles', 'addresses', 'mobiles', 'names'])
                 ->firstWhere('id', $request->user()?->id)
         );
     }
@@ -39,16 +44,6 @@ final class UserController extends Controller
         $user->update($request->validated());
 
         /** @psalm-suppress ArgumentTypeCoercion */
-        return $this->show(
-            $request,
-            User::query()
-                ->with($this->getAllUserRelations())
-                ->firstWhere('id', $user->id)
-        );
-    }
-
-    private function getAllUserRelations(): array
-    {
-        return ['roles', 'addresses', 'mobiles', 'names'];
+        return $this->showWithAllRelations($request, $user->id);
     }
 }
