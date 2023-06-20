@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
+    protected $fillable = ['user_id', 'order_id', 'status_id'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

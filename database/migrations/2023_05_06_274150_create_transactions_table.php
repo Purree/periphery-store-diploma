@@ -15,6 +15,7 @@ return new class () extends Migration {
             $table->foreignId('user_id')
                 ->constrained('users');
             $table->foreignId('order_id')
+                ->unique()
                 ->constrained('orders');
             $table->foreignId('status_id')
                 ->constrained('transaction_statuses');

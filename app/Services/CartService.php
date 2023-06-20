@@ -24,7 +24,7 @@ class CartService
         }
 
         /** @psalm-suppress UndefinedMagicPropertyFetch */
-        $newCartStatusId = CartStatusModel::getIdByName(CartStatusEnum::new);
+        $newCartStatusId = CartStatusModel::getIdFromEnum(CartStatusEnum::new);
 
         return Cart::query()->create(['user_id' => $user->id, 'status_id' => $newCartStatusId]);
     }
@@ -38,7 +38,7 @@ class CartService
     {
         $cart->update([
             'status_id' =>
-                CartStatusModel::getIdByName($status),
+                CartStatusModel::getIdFromEnum($status),
         ]);
     }
 }

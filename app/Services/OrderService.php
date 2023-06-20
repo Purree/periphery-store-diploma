@@ -51,7 +51,7 @@ class OrderService
             ->create([
                 'user_id' => $dto->user->id,
                 'status_id' =>
-                    OrderStatusModel::getIdByName(OrderStatusEnum::new),
+                    OrderStatusModel::getIdFromEnum(OrderStatusEnum::new),
                 'token' => Str::random(10),
                 'user_name_id' => $dto->userNameId,
                 'user_mobile_id' => $dto->userMobileId,

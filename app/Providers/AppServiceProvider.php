@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Banner;
+use App\Models\Order;
 use App\Observers\BannerObserver;
+use App\Observers\OrderObserver;
 use Filament\Facades\Filament;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
@@ -34,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Banner::observe(BannerObserver::class);
+        Order::observe(OrderObserver::class);
     }
 }
