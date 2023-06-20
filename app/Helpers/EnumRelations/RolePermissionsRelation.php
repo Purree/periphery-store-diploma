@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Helpers\EnumRelations;
 
 use App\Enums\Structural\Permission;
 use App\Enums\Structural\Role;
 
-class RolePermissionsRelation
+class RolePermissionsRelation extends AbstractEnumRelation
 {
-    protected array $relations = [];
-
     public function __construct()
     {
         /**
@@ -29,17 +27,5 @@ class RolePermissionsRelation
             Permission::delete_own_products,
             Permission::update_own_products
         );
-    }
-
-    public function getRelations(): array
-    {
-        return $this->relations;
-    }
-
-    protected function createRelation(Role $role, Permission ...$permissions): void
-    {
-        foreach ($permissions as $permission) {
-            $this->relations[$role->name][] = $permission->name;
-        }
     }
 }

@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use App\Exceptions\InvalidArgumentException;
-use App\Helpers\RolePermissionsRelation;
+use App\Helpers\EnumRelations\RolePermissionsRelation;
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RolePermissionSeeder extends Seeder
 {

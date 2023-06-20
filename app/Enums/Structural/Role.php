@@ -4,6 +4,7 @@ namespace App\Enums\Structural;
 
 use App\Enums\ArrayableEnumInterface;
 use App\Enums\ArrayableEnumTrait;
+use App\Helpers\EnumRelations\RolePermissionsRelation;
 
 enum Role implements ArrayableEnumInterface
 {
