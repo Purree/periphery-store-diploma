@@ -47,7 +47,6 @@
 <script>
 import { mapState } from 'vuex'
 import StyledRouterLink from '@/components/StyledRouterLink.vue'
-import { generateFullName } from '@/helpers/name'
 
 export default {
     name: 'SubmitCartMessage',
@@ -86,7 +85,7 @@ export default {
         userNameOptions() {
             return this.userNames.map(userName => ({
                 value: userName.id,
-                label: generateFullName(userName.firstName, userName.middleName, userName.lastName)
+                label: userName.fullName
             }))
         },
         userMobiles() {

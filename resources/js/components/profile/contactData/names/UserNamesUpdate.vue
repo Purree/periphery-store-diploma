@@ -9,7 +9,7 @@
                     :title-text="$t('profile.titles.names')"
                     :no-data-text="$t('profile.contactInformation.names.noNames')"
                     :add-data-text="$t('profile.contactInformation.names.addName')"
-                    :get-edit-button-text-callback="name => generateFullName(name.firstName, name.middleName, name.lastName)"
+                    :get-edit-button-text-callback="name => name.fullName"
                     :check-is-data-under-delete-callback="dataId => checkIsDataUnderDelete(dataId)"
                     @data-edit-button-click="name => onDataEditButtonClick(name)"
                     @add-data-button-click="isAddDataButtonVisible = false"
@@ -33,13 +33,11 @@ import UserNameUpdateForm from '@/components/profile/contactData/names/UserNameU
 import usePending from '@/mixins/usePending'
 import userDataManipulation from '@/mixins/userDataManipulation'
 import { API_CREATE_USER_NAME_URL, API_DELETE_USER_NAME_URL, API_UPDATE_USER_NAME_URL } from '@/api/users'
-import { generateFullName } from '@/helpers/name'
 import UserDataCard from '@/components/profile/contactData/UserDataCard.vue'
 
 export default {
     name: 'UserNamesUpdate',
     methods: {
-        generateFullName,
         API_DELETE_USER_NAME_URL() {
             return API_DELETE_USER_NAME_URL
         },

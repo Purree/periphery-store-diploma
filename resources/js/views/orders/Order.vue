@@ -9,7 +9,7 @@
                         v-if="!pending"
                         :address="order.address"
                         :email="this.user.email"
-                        :full-name="generateFullName(order.name.firstName, order.name.middleName, order.name.lastName)"
+                        :full-name="order.name.fullName"
                         :mobile="order.mobile"
                         :total-cost="order.totalCost"
                         :order-status="order.status"/>
@@ -34,7 +34,6 @@ import { API_GET_ORDER_URL } from '@/api/orders'
 import UnderHeaderTitle from '@/components/product/UnderHeaderTitle.vue'
 import RecipientData from '@/components/orders/RecipientData.vue'
 import { mapState } from 'vuex'
-import { generateFullName } from '@/helpers/name'
 import OrderItemsData from '@/components/orders/OrderItemsData.vue'
 import useErrorsCatch from '@/mixins/useErrorsCatch'
 import title from '@/mixins/title'
@@ -43,7 +42,6 @@ export default {
     name: 'Order',
     mixins: [usePending, useErrorsCatch, title],
     methods: {
-        generateFullName,
         beautifyDate,
         async loadOrder() {
             await this.useErrorsCatch(async() => {
