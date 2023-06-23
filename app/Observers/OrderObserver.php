@@ -35,9 +35,7 @@ final class OrderObserver
         $order->transaction()->update(
             [
                 'status_id' => TransactionStatus::getIdFromEnum(
-                    constant(
-                        "App\Enums\Structural\Statuses\TransactionStatus::{$statusesRelation[$order->status->name][0]}"
-                    )
+                    TransactionStatusEnum::searchByName($statusesRelation[$order->status->name][0])
                 ),
             ]
         );
