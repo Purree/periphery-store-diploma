@@ -6,6 +6,6 @@ trait SearchableEnumTrait
 {
     public static function searchByName(string $name): self
     {
-        return constant("self::$name");
+        return constant("self::{$name}");
     }
 }
