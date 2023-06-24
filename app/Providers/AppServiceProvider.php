@@ -6,7 +6,6 @@ use App\Helpers\Transactions\TransactionInterface;
 use App\Helpers\Transactions\YooKassaTransaction;
 use App\Models\Banner;
 use App\Models\Order;
-use App\Models\Transaction;
 use App\Observers\BannerObserver;
 use App\Observers\OrderObserver;
 use Filament\Facades\Filament;
