@@ -16,6 +16,7 @@ use App\Http\Controllers\PromotedProductsWithDiscountController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewReplyController;
 use App\Http\Controllers\SalesHitsController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UpdateProductCategoriesController;
 use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
@@ -101,6 +102,12 @@ Route::middleware('auth:sanctum')->group(static function () {
     });
 
     Route::apiResource('orders', OrderController::class)->except(['destroy', 'update']);
+    Route::name('orders.')->prefix('/orders/{order}')->middleware('can:view,order')
+        ->group(static function () {
+            Route::get('transactions', [TransactionController::class, 'show']);
+            Route::put('transactions', [TransactionController::class, 'update']);
+            Route::delete('transactions', [TransactionController::class, 'destroy']);
+        });
 
     Route::name('carts.')->prefix('carts')->group(static function () {
         Route::name('items.')->prefix('items')->group(static function () {

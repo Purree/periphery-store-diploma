@@ -12,11 +12,7 @@ final class OrderObserver
 {
     public function created(Order $order): void
     {
-        Transaction::query()->create([
-            'user_id' => $order->user_id,
-            'order_id' => $order->id,
-            'status_id' => TransactionStatus::getIdFromEnum(TransactionStatusEnum::new),
-        ]);
+        Transaction::createTransactionFromOrder($order);
     }
 
     public function updated(Order $order): void

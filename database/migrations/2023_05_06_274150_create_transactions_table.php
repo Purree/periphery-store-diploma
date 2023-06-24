@@ -20,6 +20,8 @@ return new class () extends Migration {
             $table->foreignId('status_id')
                 ->constrained('transaction_statuses');
             $table->timestamps();
+            $table->string('link')
+                ->nullable();
         });
     }
 

@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+Route::name('transaction.confirm')->get('orders/{order}/transactions/confirm', static function () {
+    throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+});
 
 Route::get('/{any}', static function () {
     return view('app');

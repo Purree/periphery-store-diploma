@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\Structural\Statuses\TransactionStatus as TransactionStatusEnum;
+use App\Helpers\EnumRelations\OrderTransactionStatusesRelation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
-    protected $fillable = ['user_id', 'order_id', 'status_id'];
+    protected $fillable = ['user_id', 'order_id', 'status_id', 'link'];
 
     public function user(): BelongsTo
     {
@@ -22,5 +24,22 @@ class Transaction extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(TransactionStatus::class, 'status_id');
+    }
+
+    public static function createTransactionFromOrder(Order $order): self
+    {
+        $statusesRelation = (new OrderTransactionStatusesRelation())->getRelations();
+        $relatedWithOrderStatus = $statusesRelation[$order->status->name][0];
+
+        $transactionStatus = $relatedWithOrderStatus ?
+            TransactionStatusEnum::searchByName(
+                $relatedWithOrderStatus
+            ) : TransactionStatusEnum::new;
+
+        return self::query()->create([
+            'user_id' => $order->user_id,
+            'order_id' => $order->id,
+            'status_id' => TransactionStatus::getIdFromEnum($transactionStatus),
+        ]);
     }
 }
