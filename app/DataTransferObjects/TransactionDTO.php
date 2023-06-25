@@ -3,7 +3,6 @@
 namespace App\DataTransferObjects;
 
 use App\Enums\Structural\Statuses\TransactionStatus;
-use JsonSerializable;
 
 readonly class TransactionDTO implements DTOInterface
 {
