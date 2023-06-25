@@ -21,6 +21,7 @@ enum TransactionStatus
     case canceled;
     case failed;
     case pending;
+    case waitingForCapture;
     case declined;
     case rejected;
     case success;

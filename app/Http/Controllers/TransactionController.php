@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\TransactionCreateException;
 use App\Helpers\Results\ResponseResult;
+use App\Http\Resources\TransactionDTOResource;
 use App\Http\Resources\TransactionResource;
 use App\Models\Order;
 use App\Services\TransactionService;
@@ -12,15 +13,15 @@ use Illuminate\Http\Response;
 
 class TransactionController extends Controller
 {
-    public function __construct(private TransactionService $transactionService)
+    public function __construct(private readonly TransactionService $transactionService)
     {
     }
 
     public function show(Order $order): JsonResponse
     {
-        $this->transactionService->show($order);
+        $transactionData = $this->transactionService->show($order);
 
-        return ResponseResult::error();
+        return ResponseResult::success(TransactionDTOResource::make($transactionData));
     }
 
     /**

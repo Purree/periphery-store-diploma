@@ -2,7 +2,11 @@
 
 namespace App\Helpers\Transactions;
 
+use App\DataTransferObjects\TransactionDTO;
 use App\Enums\AvailableLanguage;
+use App\Enums\Structural\Statuses\TransactionStatus;
+use App\Exceptions\InvalidArgumentException;
+use App\Exceptions\TransactionCheckException;
 use App\Exceptions\TransactionCreateException;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\App;
@@ -19,10 +23,11 @@ use YooKassa\Common\Exceptions\ResponseProcessingException;
 use YooKassa\Common\Exceptions\TooManyRequestsException;
 use YooKassa\Common\Exceptions\UnauthorizedException;
 use YooKassa\Helpers\ProductCode;
+use YooKassa\Model\Payment\PaymentStatus;
 use YooKassa\Model\Receipt\PaymentMode;
 use YooKassa\Model\Receipt\PaymentSubject;
 
-class YooKassaTransaction implements TransactionInterface
+final class YooKassaTransaction implements TransactionInterface
 {
     private readonly Client $client;
 
@@ -102,6 +107,7 @@ class YooKassaTransaction implements TransactionInterface
             throw new TransactionCreateException(previous: $e);
         }
 
+        /** @psalm-suppress UndefinedMethod */
         $confirmationUrl = $response?->getConfirmation()?->getConfirmationUrl();
 
         return $confirmationUrl ?: throw new TransactionCreateException();
@@ -112,13 +118,66 @@ class YooKassaTransaction implements TransactionInterface
     // @TODO: Отменять заказ при отмене оплаты
     // @TODO: Обновлять статус транзакции на pending, а, после подтверждения, на success
     // @TODO: Добавить автоматическое обновление статуса заказа после получения эвента
-    public function check()
+    /**
+     * @throws TransactionCheckException
+     */
+    public function check(): TransactionDTO
     {
-        // TODO: Implement check() method.
+        try {
+            $transactionUuid = $this->getOrderIdFromTransaction();
+
+            $transactionData = $this->client->getPaymentInfo($transactionUuid);
+
+            if ($transactionData === null) {
+                throw new NotFoundException();
+            }
+
+            return new TransactionDTO(
+                amount: (float)$transactionData->getAmount()?->getValue() ?: 0,
+                status: $this->getTransactionStatusFromPaymentStatus($transactionData->getStatus()),
+                createdAt: $transactionData->getCreatedAt(),
+                isRefundable: $transactionData->getRefundable(),
+                cancellationReason: $transactionData->getCancellationDetails()?->getReason(),
+                refundedAmount: (float)$transactionData->getRefundedAmount()?->getValue(),
+                expiresAt: $transactionData->getExpiresAt(),
+                capturedAt: $transactionData->getCapturedAt(),
+            );
+        } catch (\Exception $e) {
+            throw new TransactionCheckException(previous: $e);
+        }
     }
 
     public function destroy()
     {
         // TODO: Implement destroy() method.
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function getOrderIdFromTransaction(): string
+    {
+        if (!$this->transaction->link) {
+            throw new InvalidArgumentException();
+        }
+
+        parse_str(parse_url($this->transaction->link)['query'], $transactionUrlQuery);
+
+        return $transactionUrlQuery['orderId'];
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function getTransactionStatusFromPaymentStatus(?string $paymentStatus): TransactionStatus
+    {
+        return match ($paymentStatus) {
+            PaymentStatus::CANCELED => TransactionStatus::canceled,
+            PaymentStatus::PENDING => TransactionStatus::pending,
+            PaymentStatus::SUCCEEDED => TransactionStatus::success,
+            PaymentStatus::WAITING_FOR_CAPTURE => TransactionStatus::waitingForCapture,
+            null => TransactionStatus::new,
+            default => throw new InvalidArgumentException()
+        };
     }
 }

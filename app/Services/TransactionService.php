@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DataTransferObjects\TransactionDTO;
 use App\Enums\CacheKeyEnum;
 use App\Enums\Structural\Statuses\TransactionStatus;
 use App\Exceptions\TransactionCreateException;
@@ -13,10 +14,10 @@ use Illuminate\Support\Facades\Cache;
 
 class TransactionService
 {
-    public function show(Order $order)
+    public function show(Order $order): TransactionDTO
     {
         $transaction = $this->getTransaction($order);
-        $transactionProvider = $this->getTransactionProvider($transaction);
+        return $this->getTransactionProvider($transaction)->check();
     }
 
     /**
