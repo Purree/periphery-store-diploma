@@ -49,7 +49,7 @@ class Order extends Model
 
     public function transaction(): HasOne
     {
-        return $this->hasOne(Transaction::class);
+        return $this->hasOne(Transaction::class)->withTrashed();
     }
 
     public function totalCost(): Attribute

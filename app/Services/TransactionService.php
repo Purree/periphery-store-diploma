@@ -5,18 +5,21 @@ namespace App\Services;
 use App\DataTransferObjects\TransactionDTO;
 use App\Enums\CacheKeyEnum;
 use App\Enums\Structural\Statuses\TransactionStatus;
+use App\Exceptions\TransactionCheckException;
 use App\Exceptions\TransactionCreateException;
-use App\Helpers\Transactions\TransactionInterface;
+use App\Exceptions\TransactionRefundException;
 use App\Models\Order;
 use App\Models\Transaction;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 
 class TransactionService
 {
+    /**
+     * @throws TransactionCheckException
+     */
     public function getTransactionProviderData(Transaction $transaction): TransactionDTO
     {
-        return $this->getTransactionProvider($transaction)->check();
+        return $transaction->getProvider()->check();
     }
 
     /**
@@ -32,25 +35,24 @@ class TransactionService
         return Cache::remember(
             CacheKeyEnum::transactionLink->value.$transaction->id,
             600,
-            fn (): string => $this->getTransactionProvider($transaction)->create()
+            fn (): string => $transaction->getProvider()->create()
         );
     }
 
-    public function destroy(Transaction $transaction)
+    /**
+     * @throws TransactionRefundException
+     */
+    public function destroy(Transaction $transaction): void
     {
-        $transactionProvider = $this->getTransactionProvider($transaction);
+        if ($transaction->status->name !== TransactionStatus::success->name) {
+            throw new TransactionRefundException();
+        }
+
+        $transaction->delete();
     }
 
     public function getTransactionFromOrder(Order $order): Transaction
     {
         return $order->transaction ?: Transaction::createTransactionFromOrder($order);
-    }
-
-    private function getTransactionProvider(Transaction $transaction): TransactionInterface
-    {
-        return App::make(
-            \App\Helpers\Transactions\TransactionInterface::class,
-            ['transaction' => $transaction]
-        );
     }
 }

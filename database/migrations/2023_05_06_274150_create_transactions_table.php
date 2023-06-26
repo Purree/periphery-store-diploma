@@ -19,9 +19,10 @@ return new class () extends Migration {
                 ->constrained('orders');
             $table->foreignId('status_id')
                 ->constrained('transaction_statuses');
-            $table->timestamps();
             $table->string('link')
                 ->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

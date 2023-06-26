@@ -22,7 +22,7 @@ enum TransactionStatus
     case failed;
     case pending;
     case waitingForCapture;
-    case declined;
-    case rejected;
+    case declined; // Canceled because transaction was deleted or user manually refund money
+    case rejected; // Canceled because order was deleted
     case success;
 }

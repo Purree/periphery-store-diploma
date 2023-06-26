@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\TransactionCheckException;
 use App\Exceptions\TransactionCreateException;
+use App\Exceptions\TransactionRefundException;
 use App\Helpers\Results\ResponseResult;
 use App\Http\Resources\TransactionDTOResource;
 use App\Http\Resources\TransactionResource;
@@ -60,8 +61,13 @@ class TransactionController extends Controller
 
     public function destroy(Order $order): JsonResponse
     {
-        $this->transactionService->destroy($order);
+        $transaction = $this->transactionService->getTransactionFromOrder($order);
+        try {
+            $this->transactionService->destroy($transaction);
+        } catch (TransactionRefundException $e) {
+            return ResponseResult::error($e->getMessage(), Response::HTTP_BAD_GATEWAY);
+        }
 
-        return ResponseResult::error();
+        return ResponseResult::success();
     }
 }

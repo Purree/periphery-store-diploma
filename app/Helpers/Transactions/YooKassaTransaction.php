@@ -8,6 +8,8 @@ use App\Enums\Structural\Statuses\TransactionStatus;
 use App\Exceptions\InvalidArgumentException;
 use App\Exceptions\TransactionCheckException;
 use App\Exceptions\TransactionCreateException;
+use App\Exceptions\TransactionRefundException;
+use App\Models\Order;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\App;
 use YooKassa\Client;
@@ -23,6 +25,7 @@ use YooKassa\Common\Exceptions\ResponseProcessingException;
 use YooKassa\Common\Exceptions\TooManyRequestsException;
 use YooKassa\Common\Exceptions\UnauthorizedException;
 use YooKassa\Helpers\ProductCode;
+use YooKassa\Model\CurrencyCode;
 use YooKassa\Model\Payment\PaymentStatus;
 use YooKassa\Model\Receipt\PaymentMode;
 use YooKassa\Model\Receipt\PaymentSubject;
@@ -41,41 +44,17 @@ final class YooKassaTransaction implements TransactionInterface
 
     public function create(): string
     {
-        $order = $this->transaction->order()->with(
-            ['items', 'items.product', 'items.product.seller', 'address', 'mobile', 'name']
-        )->first();
-        $orderItems = $order->items;
-        $receiptItems = [];
         $locale = (AvailableLanguage::getFullLocaleFromAbbreviated(App::getLocale()))->value;
 
-        foreach ($orderItems as $orderItem) {
-            $product = $orderItem->product;
-            $supplier = $product->seller;
-            $receiptItems[] = [
-                'description' => $product->title,
-                'quantity' => $orderItem->quantity,
-                'amount' => [
-                    'value' => $orderItem->price_with_discount,
-                    'currency' => 'RUB',
-                ],
-                'vat_code' => '4',
-                'payment_mode' => PaymentMode::FULL_PAYMENT,
-                'payment_subject' => PaymentSubject::COMMODITY,
-
-                'product_code' => (string)(new ProductCode($orderItem->sku)),
-                'supplier' => [
-                    'name' => $supplier->name,
-                    'email' => $supplier->email,
-                ],
-            ];
-        }
-
         try {
+            $order = $this->getTransactionOrderWithAllRelations();
+            $receiptItems = $this->generateReceiptItems($order);
+
             $response = $this->client->createPayment(
                 [
                     'amount' => [
                         'value' => $order->totalCost,
-                        'currency' => 'RUB',
+                        'currency' => CurrencyCode::RUB,
                     ],
                     'confirmation' => [
                         'type' => 'redirect',
@@ -102,7 +81,7 @@ final class YooKassaTransaction implements TransactionInterface
         } catch (
             ApiConnectionException|AuthorizeException|BadApiRequestException|ForbiddenException
             |InternalServerError|NotFoundException|ResponseProcessingException|TooManyRequestsException
-            |UnauthorizedException|ApiException|ExtensionNotFoundException $e
+            |UnauthorizedException|ApiException|ExtensionNotFoundException|InvalidArgumentException $e
         ) {
             throw new TransactionCreateException(previous: $e);
         }
@@ -115,7 +94,6 @@ final class YooKassaTransaction implements TransactionInterface
 
     // @TODO: Поднять магазин на сервере
     // @TODO: Реализовать yookassa webhook's https://yookassa.ru/developers/using-api/webhooks?lang=php
-    // @TODO: Отменять заказ при отмене оплаты
     // @TODO: Обновлять статус транзакции на pending, а, после подтверждения, на success
     // @TODO: Добавить автоматическое обновление статуса заказа после получения эвента
     /**
@@ -149,9 +127,72 @@ final class YooKassaTransaction implements TransactionInterface
         }
     }
 
-    public function destroy()
+    /**
+     * @throws TransactionRefundException
+     */
+    public function refund(string $reason = null): void
     {
-        // TODO: Implement destroy() method.
+        try {
+            $order = $this->getTransactionOrderWithAllRelations();
+            $receiptItems = $this->generateReceiptItems($order);
+
+            $transactionUuid = $this->getOrderIdFromTransaction();
+            $this->client->createRefund(
+                [
+                    'payment_id' => $transactionUuid,
+                    'description' => $reason,
+                    'amount' => [
+                        'value' => $order->totalCost,
+                        'currency' => CurrencyCode::RUB,
+                    ],
+                    'receipt' => $receiptItems
+                ],
+                uniqid('', true)
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new TransactionRefundException((string)__('errors.transactionDoesntExists'), previous: $e);
+        } catch (\Exception $e) {
+            throw new TransactionRefundException(previous: $e);
+        }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function getTransactionOrderWithAllRelations(): Order
+    {
+        return $this->transaction->order()->with(
+            ['items', 'items.product', 'items.product.seller', 'address', 'mobile', 'name']
+        )->first() ?: throw new InvalidArgumentException();
+    }
+
+    private function generateReceiptItems(Order $order): array
+    {
+        $orderItems = $order->items;
+        $receiptItems = [];
+
+        foreach ($orderItems as $orderItem) {
+            $product = $orderItem->product;
+            $supplier = $product->seller;
+            $receiptItems[] = [
+                'description' => $product->title,
+                'quantity' => $orderItem->quantity,
+                'amount' => [
+                    'value' => $orderItem->price_with_discount,
+                    'currency' => 'RUB',
+                ],
+                'vat_code' => '4',
+                'payment_mode' => PaymentMode::FULL_PAYMENT,
+                'payment_subject' => PaymentSubject::COMMODITY,
+
+                'product_code' => (string)(new ProductCode($orderItem->sku)),
+                'supplier' => [
+                    'name' => $supplier->name,
+                    'email' => $supplier->email,
+                ],
+            ];
+        }
+        return $receiptItems;
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Helpers\Transactions;
 use App\DataTransferObjects\TransactionDTO;
 use App\Exceptions\TransactionCheckException;
 use App\Exceptions\TransactionCreateException;
+use App\Exceptions\TransactionRefundException;
 use App\Models\Transaction;
 
 interface TransactionInterface
@@ -29,5 +30,12 @@ interface TransactionInterface
      */
     public function check(): TransactionDTO;
 
-    public function destroy();
+    /**
+     * Run the refund process to customer
+     *
+     * @param  string|null  $reason
+     * @return void
+     * @throws TransactionRefundException
+     */
+    public function refund(string $reason = null): void;
 }

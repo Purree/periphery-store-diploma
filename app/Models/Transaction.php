@@ -4,11 +4,16 @@ namespace App\Models;
 
 use App\Enums\Structural\Statuses\TransactionStatus as TransactionStatusEnum;
 use App\Helpers\EnumRelations\OrderTransactionStatusesRelation;
+use App\Helpers\Transactions\TransactionInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 
 class Transaction extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['user_id', 'order_id', 'status_id', 'link'];
 
     public function user(): BelongsTo
@@ -41,5 +46,13 @@ class Transaction extends Model
             'order_id' => $order->id,
             'status_id' => TransactionStatus::getIdFromEnum($transactionStatus),
         ]);
+    }
+
+    public function getProvider(): TransactionInterface
+    {
+        return App::make(
+            \App\Helpers\Transactions\TransactionInterface::class,
+            ['transaction' => $this]
+        );
     }
 }
