@@ -6,8 +6,10 @@ use App\Helpers\Transactions\TransactionInterface;
 use App\Helpers\Transactions\YooKassaTransaction;
 use App\Models\Banner;
 use App\Models\Order;
+use App\Models\Transaction;
 use App\Observers\BannerObserver;
 use App\Observers\OrderObserver;
+use App\Observers\TransactionObserver;
 use Filament\Facades\Filament;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
             Filament::registerViteTheme('resources/css/filament.css');
         });
 
+        Transaction::observe(TransactionObserver::class);
         Banner::observe(BannerObserver::class);
         Order::observe(OrderObserver::class);
 

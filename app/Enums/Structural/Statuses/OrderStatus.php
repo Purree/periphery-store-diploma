@@ -3,10 +3,12 @@
 namespace App\Enums\Structural\Statuses;
 
 use App\Enums\ArrayableEnumTrait;
+use App\Enums\SearchableEnumTrait;
 
 enum OrderStatus
 {
     use ArrayableEnumTrait;
+    use SearchableEnumTrait;
 
     /**
      * @after adding a new status here or

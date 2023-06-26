@@ -142,6 +142,8 @@ final class YooKassaTransaction implements TransactionInterface
                 expiresAt: $transactionData->getExpiresAt(),
                 capturedAt: $transactionData->getCapturedAt(),
             );
+        } catch (InvalidArgumentException $e) {
+            throw new TransactionCheckException((string)__('errors.transactionDoesntExists'), previous: $e);
         } catch (\Exception $e) {
             throw new TransactionCheckException(previous: $e);
         }

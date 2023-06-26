@@ -17,7 +17,7 @@ final class OrderObserver
 
     public function updated(Order $order): void
     {
-        // checkout and returned order statuses aren't related to any transaction status
+        // returned order status isn't related to any transaction status
         $statusesRelation = (new OrderTransactionStatusesRelation())->getRelations();
 
         if (
@@ -28,13 +28,15 @@ final class OrderObserver
             return;
         }
 
-        $order->transaction()->update(
-            [
-                'status_id' => TransactionStatus::getIdFromEnum(
-                    TransactionStatusEnum::searchByName($statusesRelation[$order->status->name][0])
-                ),
-            ]
-        );
+        Transaction::withoutEvents(static function () use ($order, $statusesRelation) {
+            $order->transaction()->update(
+                [
+                    'status_id' => TransactionStatus::getIdFromEnum(
+                        TransactionStatusEnum::searchByName($statusesRelation[$order->status->name][0])
+                    ),
+                ]
+            );
+        });
     }
 
     public function deleted(Order $order): void

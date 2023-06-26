@@ -2,6 +2,8 @@
 
 namespace App\Helpers\Transactions;
 
+use App\DataTransferObjects\TransactionDTO;
+use App\Exceptions\TransactionCheckException;
 use App\Exceptions\TransactionCreateException;
 use App\Models\Transaction;
 
@@ -18,7 +20,14 @@ interface TransactionInterface
      */
     public function create(): string;
 
-    public function check();
+    /**
+     * Get data of transaction by provider
+     *
+     * @throws TransactionCheckException
+     *
+     * @return TransactionDTO
+     */
+    public function check(): TransactionDTO;
 
     public function destroy();
 }

@@ -18,12 +18,23 @@ class OrderTransactionStatusesRelation extends AbstractEnumRelation
             TransactionStatus::new,
         );
         $this->createRelation(
+            OrderStatus::checkout,
+            TransactionStatus::pending,
+            TransactionStatus::waitingForCapture,
+        );
+        $this->createRelation(
+            OrderStatus::returned,
+            TransactionStatus::declined,
+        );
+        $this->createRelation(
             OrderStatus::paid,
             TransactionStatus::success,
         );
         $this->createRelation(
             OrderStatus::failed,
             TransactionStatus::failed,
+            TransactionStatus::canceled,
+            TransactionStatus::rejected
         );
         $this->createRelation(
             OrderStatus::shipped,

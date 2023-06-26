@@ -14,41 +14,34 @@ use Illuminate\Support\Facades\Cache;
 
 class TransactionService
 {
-    public function show(Order $order): TransactionDTO
+    public function getTransactionProviderData(Transaction $transaction): TransactionDTO
     {
-        $transaction = $this->getTransaction($order);
         return $this->getTransactionProvider($transaction)->check();
     }
 
     /**
      * @throws TransactionCreateException
      */
-    public function updateTransactionLink(Order $order): Transaction
+    public function getTransactionLink(Transaction $transaction): string
     {
-        $transaction = $this->getTransaction($order);
-
         if ($transaction->status->name !== TransactionStatus::new->name) {
             throw new TransactionCreateException(__('errors.incorrectTransactionStatus'));
         }
 
-        $transactionLink = Cache::remember(
+
+        return Cache::remember(
             CacheKeyEnum::transactionLink->value.$transaction->id,
             600,
             fn (): string => $this->getTransactionProvider($transaction)->create()
         );
-
-        $transaction->update(['link' => $transactionLink]);
-
-        return $transaction;
     }
 
-    public function destroy(Order $order)
+    public function destroy(Transaction $transaction)
     {
-        $transaction = $this->getTransaction($order);
         $transactionProvider = $this->getTransactionProvider($transaction);
     }
 
-    private function getTransaction(Order $order): Transaction
+    public function getTransactionFromOrder(Order $order): Transaction
     {
         return $order->transaction ?: Transaction::createTransactionFromOrder($order);
     }
